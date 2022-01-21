@@ -7,3 +7,9 @@ module.exports = {
 		styledComponents: true,
 	},
 }
+
+module.exports = {
+  images: {
+    domains: ['placekitten.com'],
+  },
+}

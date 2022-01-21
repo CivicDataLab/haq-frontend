@@ -5,6 +5,7 @@ const TabbedComp = styled.div`
 		color: inherit;
 		margin: 0;
 	}
+
 	[role='tablist'] {
 		padding: 0;
 
