@@ -1,3 +1,9 @@
 module.exports = {
-  reactStrictMode: true,
+	reactStrictMode: true,
+}
+
+module.exports = {
+	experimental: {
+		styledComponents: true,
+	},
 }
