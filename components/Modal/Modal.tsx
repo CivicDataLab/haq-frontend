@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modals from 'react-modal';
 import ModalComp from './ModalComp';
+import Button from 'components/Button/Button';
 
 Modals.setAppElement('#__next');
 
@@ -13,9 +14,9 @@ const Modal = () => {
 
   return (
     <ModalComp>
-      <button className="btn-secondary" onClick={() => modalHandler()}>
+      <Button onClick={() => modalHandler()}>
         Open Modal
-      </button>
+      </Button>
       <Modals
         isOpen={isModalOpen}
         onRequestClose={modalHandler}

@@ -24,6 +24,10 @@ a {
 	padding-bottom: 2rem;
 }
 
+.component.buttons button {
+	margin-right: 1rem;
+}
+
 .container {
 	padding-right: 15px;
 	padding-left: 15px;

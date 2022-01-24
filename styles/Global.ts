@@ -16,6 +16,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button {
+  border:  none;
+  background: none;
+  cursor: pointer;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
 main {
   width: 90%;
   margin: 0 auto;
@@ -256,6 +267,16 @@ main {
         font-size: 14px;
         padding: 6px;
       }
+    }
+  }
+}
+
+.banner {
+  figure {
+    mix-blend-mode: multiply;
+   
+    img {
+      border-radius: 8px;
     }
   }
 }

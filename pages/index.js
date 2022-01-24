@@ -6,6 +6,7 @@ import Sidebar from 'components/Sidebar/Sidebar';
 import Modal from 'components/Modal/Modal';
 import Carousel from 'components/Carousel/Carousel';
 import Banner from 'components/Banner/Banner';
+import Button from 'components/Button/Button';
 
 import { GlobalStyle } from 'styles/Global';
 import * as temp from 'data/tempData';
@@ -50,6 +51,11 @@ export default function Home() {
         <div className="component">
           <h2>Banner</h2>
           <Banner details={temp.bannerDetails} />
+        </div>
+        <div className="component buttons">
+          <h2>Buttons</h2>
+          <Button onClick={() => console.log('e')} type='primary'>Primary Button</Button>
+          <Button type='secondary'>Secondary Button</Button>
         </div>
       </div>
     </>
