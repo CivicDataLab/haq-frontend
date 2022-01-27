@@ -8,7 +8,6 @@ const Toggle = ({ data }) => {
 
 	function handleToggleClick(e: any) {
 		const toggletip = e.target
-		console.log(toggletip)
 
 		toggletip.setAttribute('aria-pressed', 'true')
 		const message = toggletip.getAttribute('data-toggletip-content')

@@ -8,12 +8,14 @@ const CarouselComp = styled.div`
     display: flex;
     align-items: center;
     position: relative;
+    min-height: 15rem;
   }
 
   .carousel__content {
     display: flex;
-    width: 100%;
+    width: 80%;
     text-align: center;
+    margin-inline: auto;
 
     figure {
       @media (max-width: 720px) {
@@ -52,12 +54,14 @@ const CarouselComp = styled.div`
  .carousel__next {
     min-width: 44px;
     height: 44px;
-    margin-bottom: -6rem;
+    position: absolute;
+    top: 8rem;
     filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
   }
 
  .carousel__prev {
-    margin-right: 3rem;
+    /* margin-right: 3rem; */
+    left: 1rem;
 
     svg {
       transform: rotate(180deg);
@@ -65,7 +69,7 @@ const CarouselComp = styled.div`
   }
 
  .carousel__next {
-    margin-left: 3rem;
+    right: 1rem;
   }
 
  .carousel__item {
