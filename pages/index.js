@@ -54,7 +54,7 @@ export default function Home() {
         </div>
         <div className="component buttons">
           <h2>Buttons</h2>
-          <Button onClick={() => console.log('e')} type='primary'>Primary Button</Button>
+          <Button type='primary'>Primary Button</Button>
           <Button type='secondary'>Secondary Button</Button>
         </div>
       </div>
