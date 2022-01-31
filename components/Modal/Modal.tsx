@@ -14,9 +14,8 @@ const Modal = () => {
 
   return (
     <ModalComp>
-      <Button onClick={() => modalHandler()}>
-        Open Modal
-      </Button>
+      <Button label="Open Modal" onClick={() => modalHandler()} />
+
       <Modals
         isOpen={isModalOpen}
         onRequestClose={modalHandler}

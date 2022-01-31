@@ -54,8 +54,12 @@ export default function Home() {
         </div>
         <div className="component buttons">
           <h2>Buttons</h2>
-          <Button type='primary'>Primary Button</Button>
-          <Button type='secondary'>Secondary Button</Button>
+          <Button label="Primary Button" onClick={() => {}} />
+          <Button
+            label="Secondary Button"
+            onClick={() => {}}
+            kind="secondary"
+          />
         </div>
       </div>
     </>
