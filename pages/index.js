@@ -7,8 +7,6 @@ import Modal from 'components/Modal/Modal';
 import Carousel from 'components/Carousel/Carousel';
 import Banner from 'components/Banner/Banner';
 import Button from 'components/Button/Button';
-
-import { GlobalStyle } from 'styles/Global';
 import * as temp from 'data/tempData';
 
 export default function Home() {
@@ -17,7 +15,6 @@ export default function Home() {
       <Head>
         <title>OPub</title>
       </Head>
-      <GlobalStyle />
       <div className="container">
         <h1>Component Library - alpha</h1>
         <div className="component">

@@ -15,6 +15,10 @@ interface ButtonProps {
    */
   label: string;
   /**
+   * Id
+   */
+  id?: string;
+  /**
    * Optional click handler
    */
   onClick?: () => void;
@@ -24,12 +28,18 @@ const Button = ({
   kind = 'primary',
   size = 'md',
   label,
+  id,
   ...props
 }: ButtonProps) => {
   const buttonType = kind ? kind : 'primary';
 
   return (
-    <ButtonComp buttonType={buttonType} size={size} {...props}>
+    <ButtonComp
+      id={id ? id : null}
+      buttonType={buttonType}
+      size={size}
+      {...props}
+    >
       {label}
     </ButtonComp>
   );

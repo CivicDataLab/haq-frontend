@@ -120,7 +120,7 @@ const CarouselComp = styled.div`
       cursor: pointer;
       color: transparent;
       border: 0;
-      outline: none;
+      /* outline: none; */
       background: transparent;
 
       &::before {
