@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonComp from './ButtonComp';
 
-export type ButtonComponentProps = {
-  children?: HTMLCollection | string;
-  onClick: (e?: React.MouseEvent) => void;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+interface ButtonProps {
+  /**
+   * Is this primary button or secondary?
+   */
+  kind?: 'primary' | 'secondary';
+  /**
+   * How large should the button be?
+   */
+  size?: 'sm' | 'md';
+  /**
+   * Button contents
+   */
+  label: string;
+  /**
+   * Optional click handler
+   */
+  onClick?: () => void;
+}
 
-const Button = ({ onClick, children, ...data }: ButtonComponentProps) => {
-  const buttonType = data.type ? data.type.toLowerCase() : 'primary';
+const Button = ({
+  kind = 'primary',
+  size = 'md',
+  label,
+  ...props
+}: ButtonProps) => {
+  const buttonType = kind ? kind : 'primary';
 
   return (
-    <ButtonComp onClick={onClick} buttonType={buttonType}>
-      {children}
+    <ButtonComp buttonType={buttonType} size={size} {...props}>
+      {label}
     </ButtonComp>
   );
 };
