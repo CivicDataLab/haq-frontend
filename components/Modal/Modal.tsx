@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modals from 'react-modal';
-import ModalComp from './ModalComp';
 import Button from 'components/Button/Button';
 
 Modals.setAppElement('#__next');
@@ -13,7 +12,7 @@ const Modal = () => {
   }
 
   return (
-    <ModalComp>
+    <div>
       <Button label="Open Modal" onClick={() => modalHandler()} />
 
       <Modals
@@ -115,15 +114,9 @@ const Modal = () => {
             </div>
           </div>
         </section>
-        <button
-          className="btn-primary modal__submit"
-          id="modalSubmit"
-          onClick={modalHandler}
-        >
-          Download
-        </button>
+        <Button label="Download" id="modalSubmit" onClick={() => modalHandler()} />
       </Modals>
-    </ModalComp>
+    </div>
   );
 };
 
