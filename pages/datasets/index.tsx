@@ -5,15 +5,16 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Search from 'components/Search/Search';
 import Total from 'components/Total/Total';
-// import List from 'components/datasets/List';
+import DatasetList from 'components/List/DatasetList';
 // import DataAlter from 'components/datasets/DataAlter';
 // import Pagination from 'components/datasets/Pagination';
-// import Filter from 'components/datasets/Filter';
+import Filter from 'components/Filter/Filter';
 // import MegaHeader from 'components/_shared/MegaHeader';
 // import Sort from 'components/_shared/Sort';
 import Modal from 'components/Modal/Modal';
 import DatasetsPage from 'styles/pages/Datasets';
 import Dropdown from 'components/Dropdown/Dropdown';
+import Pagination from 'components/Pagination/Pagination';
 
 type Props = {
   data: any;
@@ -46,7 +47,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         from: pages,
       },
     });
-  }, [datsetsFilters, search, sorts, pages, items, router]);
+  }, [datsetsFilters, search, sorts, pages, items]);
 
   function handleDatasetsChange(val: any) {
     switch (val.query) {
@@ -111,21 +112,21 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                 <Total text="contracts" total={count} />
               </div>
 
-              <div className="">
-                <div className="">
-                  {/* <Sort newSort={handleDatasetsChange} /> */}
-                  {/* <Modal /> */}
-                </div>
+              <div className="containBox">
+                <Filter
+                  data={facets}
+                  newFilters={handleDatasetsChange}
+                  fq={datsetsFilters}
+                />
               </div>
 
-              {/* <DataAlter
-                data={facets}
-                newData={handleDatasetsChange}
-                fq={datsetsFilters}
-                sortShow={true}
-              />
-              <List data={results} />
-              <Pagination total={count} newPage={handleDatasetsChange} /> */}
+              <div className="containBox">
+                <Pagination total={count} newPage={handleDatasetsChange} />
+              </div>
+
+              <div className="containBox">
+                <DatasetList data={results} />
+              </div>
             </div>
           )}
         </div>

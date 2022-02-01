@@ -1,6 +1,6 @@
 export const fetchDatasets = async () => {
   const response = await fetch(
-    `http://15.206.122.72/api/3/action/package_search`
+    `http://15.206.122.72/api/3/action/package_search?fq=type:"tender_dataset"`
   );
   const data = await response.json();
   return data;
