@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface ButtonProps {
   readonly buttonType: string;
   readonly size: string;
+  readonly className: string;
 }
 
 function bgColor(type: string) {

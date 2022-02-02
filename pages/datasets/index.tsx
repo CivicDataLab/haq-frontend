@@ -90,11 +90,6 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         {/* <MegaHeader data={headerData} /> */}
 
         <div className="container">
-          {/* <Filter
-            data={facets}
-            newFilters={handleDatasetsChange}
-            fq={datsetsFilters}
-          /> */}
           {data && (
             <div className="">
               <h2 className="heading">Browse Contracts</h2>

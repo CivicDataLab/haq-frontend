@@ -19,6 +19,10 @@ interface ButtonProps {
    */
   id?: string;
   /**
+   * class
+   */
+   className?: string;
+  /**
    * Optional click handler
    */
   onClick?: () => void;
@@ -28,6 +32,7 @@ const Button = ({
   kind = 'primary',
   size = 'md',
   label,
+  className,
   id,
   ...props
 }: ButtonProps) => {
@@ -36,6 +41,7 @@ const Button = ({
   return (
     <ButtonComp
       id={id ? id : null}
+      className={className ? className : ''}
       buttonType={buttonType}
       size={size}
       {...props}
