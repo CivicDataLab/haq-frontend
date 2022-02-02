@@ -20,7 +20,6 @@ html {
 
 :focus-visible {
   outline: 3px solid #78aeda !important;
-  outline-offset: 1px;
 }
 
 body {

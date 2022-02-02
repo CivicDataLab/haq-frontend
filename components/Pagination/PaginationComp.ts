@@ -102,6 +102,7 @@ const PaginationComp = styled.div`
       svg {
         transform: rotate(180deg);
         fill: #545454;
+        margin-bottom: -2px;
       }
     }
 

@@ -10,14 +10,21 @@ const SearchComp = styled.form`
 
   .search__clear {
     position: absolute;
-    right: 0;
+    right: 12rem;
     top: 0;
     display: none;
+    padding: 13px;
+    margin-top: -3px;
+    color: grey;
 
     button {
       cursor: pointer;
     }
   }
+
+  .search__buttons {
+    position: relative;
+  } 
 
   .search__submit {
     padding: 9px 60px;
@@ -27,11 +34,6 @@ const SearchComp = styled.form`
     @media (max-width: 720px) {
       padding: 9px 24px;
     }
-  }
-
-  .search__clear {
-    padding: 13.1px;
-    color: #f1eef1;
   }
 
   .search__input {
@@ -49,9 +51,7 @@ const SearchComp = styled.form`
     background-repeat: no-repeat, repeat;
 
     &:not([value='']) {
-      background-color: #fff;
-
-      + .form__buttons {
+      + .search__buttons .search__clear {
         display: block;
       }
     }
