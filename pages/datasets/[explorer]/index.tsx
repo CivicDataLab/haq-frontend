@@ -429,7 +429,9 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
             </div>
           </section>
 
-          <Banner details={bannerDetails} />
+          <div className="container">
+            <Banner details={bannerDetails} />
+          </div>
 
           <section className="explorer__schemes">
             <div className="container">

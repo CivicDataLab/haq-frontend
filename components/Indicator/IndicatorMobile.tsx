@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Toggle from 'components/Toggle/Toggle';
+import { IndicatorMobileComp } from './IndicatorComp';
 
 Modal.setAppElement('#__next');
 
@@ -53,11 +54,11 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
   }
   return (
     <>
-      <div className="data-alter">
-        <span className="data-alter__text">Alter Indicators</span>
-        <div className="data-alter__buttons">
+      <IndicatorMobileComp className="indicator-mobile">
+        <span className="indicator-mobile__text">Alter Indicators</span>
+        <div className="indicator-mobile__buttons">
           <button type="button" onClick={handleSortClick}>
-            <div className="data-alter__svg">
+            <div className="indicator-mobile__svg">
               <svg
                 width="19"
                 height="12"
@@ -74,7 +75,7 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
             Indicators
           </button>
         </div>
-      </div>
+      </IndicatorMobileComp>
 
       {/* Sort Modal */}
       <Modal
@@ -110,7 +111,7 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
             );
           })}
         </fieldset>
-        <div className="data-alter__footer">
+        <div className="indicator-mobile__footer">
           <button
             type="button"
             onClick={cancelSortChange}

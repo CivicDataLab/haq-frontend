@@ -130,7 +130,7 @@ const ExplorerPage = styled.main`
       }
 
       strong {
-        color: #02838B;
+        color: #02838b;
         font-weight: bold;
       }
     }
@@ -152,7 +152,7 @@ const ExplorerPage = styled.main`
         border-radius: 12px;
         border: 1px solid #cdd1d1;
         flex-grow: 1;
-        border-left-color: #FED349;
+        border-left-color: #fed349;
         border-left-width: 4px;
         filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
       }
@@ -182,7 +182,7 @@ const ExplorerPage = styled.main`
         font-weight: 800;
         font-size: 18px;
         line-height: 156%;
-        border-bottom: 1px solid #EFF2F2;
+        border-bottom: 1px solid #eff2f2;
         padding-bottom: 1rem;
       }
 
@@ -193,8 +193,18 @@ const ExplorerPage = styled.main`
       }
     }
 
-    .data-alter {
+    .indicator-mobile {
       margin-top: 2rem;
+
+      @media (min-width: 980px) {
+        display: none;
+      }
+    }
+
+    .heading {
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+      font-size: 2.5rem;
     }
 
     .viz {
@@ -264,14 +274,14 @@ const ExplorerPage = styled.main`
           }
 
           &[aria-selected='true'] {
-            color: #DE4B33;
-            border-bottom: 2px solid #DE4B33;
+            color: #de4b33;
+            border-bottom: 2px solid #de4b33;
 
             svg {
-              fill: #DE4B33;
+              fill: #de4b33;
 
               &.svg-stroke {
-                stroke: #DE4B33;
+                stroke: #de4b33;
               }
             }
           }
@@ -406,7 +416,7 @@ const ExplorerPage = styled.main`
           &:hover,
           &:focus-within {
             box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.16);
-            border-color: #EFF2F2;
+            border-color: #eff2f2;
           }
 
           img {
@@ -477,7 +487,7 @@ const ExplorerPage = styled.main`
 
           svg {
             margin-right: 2rem;
-            fill: #02838B;
+            fill: #02838b;
           }
         }
 
@@ -488,7 +498,7 @@ const ExplorerPage = styled.main`
 
           svg {
             margin-left: 2rem;
-            fill: #02838B;
+            fill: #02838b;
           }
         }
       }

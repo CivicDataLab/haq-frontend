@@ -4,7 +4,7 @@ import BannerComp from './BannerComp';
 const Banner = ({ details }) => {
   return (
     <BannerComp
-      className="banner container"
+      className="banner"
       style={{ backgroundColor: details.color }}
     >
       <div className="banner__content">

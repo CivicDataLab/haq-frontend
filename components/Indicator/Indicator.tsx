@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Toggle from 'components/Toggle/Toggle';
+import { IndicatorComp } from './IndicatorComp';
 
 const Indicator = ({ data, newIndicator, meta }) => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Indicator = ({ data, newIndicator, meta }) => {
   }
 
   return (
-    <div className="indicator">
+    <IndicatorComp className="indicator">
       <h3>Indicators</h3>
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
@@ -35,7 +36,7 @@ const Indicator = ({ data, newIndicator, meta }) => {
               )
           )}
       </fieldset>
-    </div>
+    </IndicatorComp>
   );
 };
 

@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 const ToggleComp = styled.span`
 	position: relative;
-	margin-top: 4rem;
-	display: block;
 
 	.toggle__button {
 		&[aria-pressed='true'] {
