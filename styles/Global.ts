@@ -42,10 +42,10 @@ ul, ol {
   padding: 0;
 }
 
-main {
+/* main {
   width: 90%;
   margin: 0 auto;
-}
+} */
 
 .sr-only {
   &:not(:where(:focus, :active, :focus-within)) {
@@ -66,6 +66,29 @@ main {
     img {
       border-radius: 8px;
     }
+  }
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 720px) {
+    width: 700px;
+  }
+
+  @media (min-width: 980px) {
+    width: 960px;
+  }
+
+  @media (min-width: 1200px){
+    width: 1180px;
+  }
+
+  @media (min-width: 1350px) {
+    width: 1216px;
   }
 }
 `;
