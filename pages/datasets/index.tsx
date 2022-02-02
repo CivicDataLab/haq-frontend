@@ -15,6 +15,7 @@ import Modal from 'components/Modal/Modal';
 import DatasetsPage from 'styles/pages/Datasets';
 import Dropdown from 'components/Dropdown/Dropdown';
 import Pagination from 'components/Pagination/Pagination';
+import CotractsComp from './ContractsComp';
 
 type Props = {
   data: any;
@@ -93,35 +94,34 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
           {data && (
             <div className="">
               <h2 className="heading">Browse Contracts</h2>
-              <div className="containBox">
-                <Search newSearch={handleDatasetsChange} />
-              </div>
-              <div className="containBox">
-                <Dropdown
-                  // default={'A'}
-                  options={['A', 'B', 'C']}
-                  heading="Sort by"
-                />
-              </div>
-              <div className="containBox">
-                <Total text="contracts" total={count} />
-              </div>
+              <CotractsComp>
+                <div className="contractsComp__filter">
+                  <Filter
+                    data={facets}
+                    newFilters={handleDatasetsChange}
+                    fq={datsetsFilters}
+                  />
 
-              <div className="containBox">
-                <Filter
-                  data={facets}
-                  newFilters={handleDatasetsChange}
-                  fq={datsetsFilters}
-                />
-              </div>
+                </div>
+                <div className="contractsColumn">
+                  <Search newSearch={handleDatasetsChange} />
 
-              <div className="containBox">
-                <Pagination total={count} newPage={handleDatasetsChange} />
-              </div>
-
-              <div className="containBox">
-                <DatasetList data={results} />
-              </div>
+                  <div className="contractsComp__sortRow">
+                    <div className="contractsComp__total">
+                      <Total text="contracts" total={count} />
+                    </div>
+                    <div className="contractsComp__dropdown">
+                      <Dropdown
+                        // default={'A'}
+                        options={['A', 'B', 'C']}
+                        heading="Sort by"
+                      />
+                    </div>
+                  </div>
+                  <DatasetList data={results} />
+                  <Pagination total={count} newPage={handleDatasetsChange} />
+                </div>
+              </CotractsComp>
             </div>
           )}
         </div>
