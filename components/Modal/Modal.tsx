@@ -13,7 +13,7 @@ const Modal = () => {
 
   return (
     <div>
-      <Button label="Open Modal" onClick={() => modalHandler()} />
+      <Button onClick={() => modalHandler()}>Open Modal</Button>
 
       <Modals
         isOpen={isModalOpen}
@@ -114,7 +114,9 @@ const Modal = () => {
             </div>
           </div>
         </section>
-        <Button label="Download" id="modalSubmit" onClick={() => modalHandler()} />
+        <Button id="modalSubmit" onClick={() => modalHandler()}>
+          Download
+        </Button>
       </Modals>
     </div>
   );

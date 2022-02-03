@@ -22,7 +22,7 @@ a {
   padding-bottom: 2rem;
 }
 
-.component h2 {
+.component > h2 {
   padding: 2rem 0;
   font-weight: bold;
   font-size: 1.3rem;
@@ -30,6 +30,12 @@ a {
 
 .component.buttons button {
   margin-right: 1rem;
+}
+
+.component.buttons > div {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .container {

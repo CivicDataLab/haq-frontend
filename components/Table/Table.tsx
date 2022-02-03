@@ -1,4 +1,5 @@
 import React, { Fragment, useRef, useState, useEffect, useMemo } from 'react';
+import TableComp from './TableComp';
 
 const Arrow = ({ sortDir, isCurrent, sort }) => {
   const ascending = sortDir === 'ascending';
@@ -77,7 +78,7 @@ const Table = ({ headers, rows, caption, sortable }) => {
 
   return (
     <Fragment>
-      <div
+      <TableComp
         className="table-container"
         ref={container}
         tabIndex={tabIndex}
@@ -132,26 +133,7 @@ const Table = ({ headers, rows, caption, sortable }) => {
             ))}
           </tbody>
         </table>
-      </div>
-      {/* <div className="lists-container">
-        <h2>{caption}</h2>
-        {sortedRows.map((row, i) => (
-          <div key={i}>
-            <h3>{row[0]}</h3>
-            <dl>
-              {headers.map(
-                (header, i) =>
-                  i > 0 && (
-                    <Fragment key={i}>
-                      <dt>{header}</dt>
-                      <dd>{row[i]}</dd>
-                    </Fragment>
-                  )
-              )}
-            </dl>
-          </div>
-        ))}
-      </div> */}
+      </TableComp>
     </Fragment>
   );
 };

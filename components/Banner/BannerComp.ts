@@ -14,10 +14,13 @@ const BannerComp = styled.section`
 
     h2 {
       line-height: 130%;
+      font-weight: 900;
+      font-size: 2.5rem;
     }
 
     > a {
       margin-top: 14px;
+      display: block;
     }
   }
 
