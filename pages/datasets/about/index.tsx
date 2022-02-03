@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PartnerCard from '../../../components/PartnerCard/PartnerCard';
+import TeamCard from 'components/TeamCard/TeamCard';
 import AboutComp from './AboutComp';
 
 const About = () => {
@@ -35,20 +36,101 @@ const About = () => {
         },
     ];
 
+
+    const team = [
+        {
+            name: 'Gaurav Godhwani',
+            title: 'Lead',
+            image: '/images/contributors/gaurav.jpg',
+            github: 'https://github.com/gggodhwani',
+            linkedin: 'https://www.linkedin.com/in/gggodhwani',
+            twitter: 'https://twitter.com/gggodhwani',
+        },
+        {
+            name: 'Bernadine Fernz',
+            title: 'Head of Infrastructure',
+        },
+        {
+            name: 'Rutwik Phatak',
+            title: 'Partner',
+        },
+        {
+            name: 'Kabeer',
+            title: 'Project Lead',
+            image: '/images/contributors/kabeer.jpg',
+            github: 'https://github.com/Kabeer3',
+            linkedin: 'https://www.linkedin.com/in/kabeer-arora-69827661/',
+            twitter: 'https://twitter.com/kabeer3391',
+        },
+        {
+            name: 'Shreya Agrawal',
+            title: 'Data Engineer',
+            image: '/images/contributors/shreya.jpg',
+            github: 'https://github.com/shreyaagrawal0809',
+            linkedin: 'https://github.com/shreyaagrawal0809',
+            twitter: 'https://twitter.com/shreya_0809',
+        },
+        {
+            name: 'Abhinav',
+            title: 'Backend Engineer',
+            image: '/images/contributors/abhinav.jpg',
+            github: 'https://github.com/Abhi2102',
+        },
+        {
+            name: 'Shoaib Ahmed',
+            title: 'Frontend Engineer',
+            image: '/images/contributors/shoaib.jpg',
+            github: 'https://github.com/pixeledcode',
+            linkedin: 'https://www.linkedin.com/in/pixeledcode',
+            twitter: 'https://twitter.com/PixeledCode',
+        },
+        {
+            name: 'Preethi G',
+            title: 'Partner',
+        },
+        {
+            name: 'Upasana',
+            title: 'Partner',
+        },
+        {
+            name: 'Nanda',
+            title: 'Partner',
+        },
+        {
+            name: 'Gavin',
+            title: 'Partner',
+        },
+    ];
+
     return (
-            <AboutComp>
-                <h3 className = "partners__heading">Partners</h3>
-                <ul className="partners">
-                    {partners.map((item, key) => {
+        <AboutComp>
+            <h3 className="partners__heading">Partners</h3>
+            <ul className="partners">
+                {partners.map((item, key) => {
+                    return (
+                        <li key={`partners-${key}`}>
+                            <PartnerCard card={item} />
+                        </li>
+                    );
+                })}
+            </ul>
+            <section className="about__team">
+                <h3>
+                    <span /> members
+                </h3>
+                <p>Meet the doers &amp; builders</p>
+
+                <ul>
+                    {team.map((item, key) => {
                         return (
-                            <li key={`partners-${key}`}>
-                                <PartnerCard card={item} />
+                            <li key={`team-${key}`}>
+                                <TeamCard card={item} num={key} />
                             </li>
                         );
                     })}
                 </ul>
-
-            </AboutComp>
+            </section>
+        </AboutComp>
     )
 
 }
