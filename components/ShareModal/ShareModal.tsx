@@ -1,12 +1,8 @@
 import { Share } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
-import {
-  Facebook,
-  Reddit,
-  Linkedin,
-  Twitter,
-} from 'icons/ExplorerIcons';
+import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
+import Button from 'components/Button/Button';
 
 const ShareModal = ({ title }) => {
   const router = useRouter();
@@ -52,7 +48,18 @@ const ShareModal = ({ title }) => {
 
   return (
     <ShareComp className="shareModal">
-      <button
+      <Button
+        onClick={(e) => shareButtonHandler(e)}
+        kind="primary-outline"
+        aria-controls="submenu__resources"
+        aria-expanded="false"
+        aria-label={`Show share menu`}
+        data-text-for-show={`Show share menu`}
+        data-text-for-hide={`Hide share menu`}
+      >
+        Share <Share />
+      </Button>
+      {/* <button
         className="btn-secondary-invert"
         type="button"
         aria-controls="submenu__resources"
@@ -63,7 +70,7 @@ const ShareModal = ({ title }) => {
         onClick={shareButtonHandler}
       >
         Share <Share />
-      </button>
+      </button> */}
       <ul className="shareModal__dropdown" hidden>
         <li>
           <a

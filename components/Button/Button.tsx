@@ -1,52 +1,56 @@
 import React from 'react';
 import ButtonComp from './ButtonComp';
 
-interface ButtonProps {
+interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Is this primary button or secondary?
    */
-  kind?: 'primary' | 'secondary';
+  kind?: 'primary' | 'secondary' | 'primary-outline' | 'secondary-outline';
   /**
    * How large should the button be?
    */
   size?: 'sm' | 'md';
   /**
-   * Button contents
+   * overwrite background color
    */
-  label: string;
+  bg?: string;
   /**
-   * Id
+   * change component type
    */
-  id?: string;
+  as?: string;
   /**
-   * class
+   * url in case, `a` tag is used
    */
-   className?: string;
+  href?: string;
   /**
-   * Optional click handler
+   * url in case, `a` tag is used
    */
-  onClick?: () => void;
+   rel?: string;
+   /**
+   * url in case, `a` tag is used
+   */
+  target?: string;
 }
 
 const Button = ({
   kind = 'primary',
   size = 'md',
-  label,
-  className,
-  id,
+  children,
+  bg,
+  as,
   ...props
 }: ButtonProps) => {
   const buttonType = kind ? kind : 'primary';
 
   return (
     <ButtonComp
-      id={id ? id : null}
-      className={className ? className : ''}
+      as={as ? as : null}
+      bg={bg}
       buttonType={buttonType}
       size={size}
       {...props}
     >
-      {label}
+      {children}
     </ButtonComp>
   );
 };

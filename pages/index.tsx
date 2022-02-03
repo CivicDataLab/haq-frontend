@@ -51,12 +51,33 @@ export default function Home() {
         </div>
         <div className="component buttons">
           <h2>Buttons</h2>
-          <Button label="Primary Button" onClick={() => {}} />
-          <Button
-            label="Secondary Button"
-            onClick={() => {}}
-            kind="secondary"
-          />
+          <div>
+            <Button onClick={() => {}}>Primary Button</Button>
+            <Button onClick={() => {}} kind="secondary">
+              Secondary Button
+            </Button>
+            <Button onClick={() => {}} kind="primary-outline">
+              Primary Outline
+            </Button>
+            <Button onClick={() => {}} kind="secondary-outline">
+              Secondary Outline
+            </Button>
+          </div>
+          <br />
+          <div>
+            <Button size="sm" onClick={() => {}}>
+              Primary Button
+            </Button>
+            <Button size="sm" onClick={() => {}} kind="secondary">
+              Secondary Button
+            </Button>
+            <Button size="sm" onClick={() => {}} kind="primary-outline">
+              Primary Outline
+            </Button>
+            <Button size="sm" onClick={() => {}} kind="secondary-outline">
+              Secondary Outline
+            </Button>
+          </div>
         </div>
       </div>
     </>

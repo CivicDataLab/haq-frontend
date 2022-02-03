@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -30,8 +31,8 @@ import { Download, ExternalLink } from 'icons/ExplorerIcons';
 
 import ExplorerPage from 'styles/pages/Explorer';
 
-// import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
-// import { barLineTransformer } from 'visualizations/BarLineTransformer';
+import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
+import { barLineTransformer } from 'visualizations/BarLineTransformer';
 
 // import Seo from 'components/_shared/seo';
 
@@ -47,6 +48,7 @@ Modal.setAppElement('#__next');
 type Props = {
   data: any;
   meta: any;
+  2;
   fileData: any;
   allData: any;
 };
@@ -125,59 +127,89 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
     'Actual Expenditure',
   ];
 
-  // const vizItems = [
-  //   {
-  //     id: 'barGraph',
-  //     graph: (
-  //       <SimpleBarLineChartViz
-  //         color={'#00ABB7'}
-  //         dataset={barLineTransformer(finalFiltered, selectedIndicator)}
-  //         type="bar"
-  //         smooth={true}
-  //         showSymbol={true}
-  //         Title={
-  //           selectedIndicator +
-  //           (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-  //         }
-  //         subTitle={data.title}
-  //         unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     id: 'lineChart',
-  //     graph: (
-  //       <SimpleBarLineChartViz
-  //         color={'#00ABB7'}
-  //         dataset={barLineTransformer(finalFiltered, selectedIndicator)}
-  //         type="line"
-  //         smooth={true}
-  //         showSymbol={true}
-  //         Title={
-  //           selectedIndicator +
-  //           (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-  //         }
-  //         subTitle={data.title}
-  //         unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     id: 'tableView',
-  //     graph: (
-  //       <Table
-  //         headers={
-  //           indicatorFiltered[0]
-  //             ? Object.keys(indicatorFiltered[0])
-  //             : ['header1']
-  //         }
-  //         rows={indicatorFiltered.map(Object.values)}
-  //         caption="Table"
-  //         sortable
-  //       />
-  //     ),
-  //   },
-  // ];
+  const vizItems = [
+    // {
+    //   id: 'barGraph',
+    //   graph: (
+    //     <SimpleBarLineChartViz
+    //       color={'#00ABB7'}
+    //       dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+    //       type="bar"
+    //       smooth={true}
+    //       showSymbol={true}
+    //       Title={
+    //         selectedIndicator +
+    //         (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
+    //       }
+    //       subTitle={data.title}
+    //       unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
+    //     />
+    //   ),
+    // },
+    // {
+    //   id: 'lineChart',
+    //   graph: (
+    //     <SimpleBarLineChartViz
+    //       color={'#00ABB7'}
+    //       dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+    //       type="line"
+    //       smooth={true}
+    //       showSymbol={true}
+    //       Title={
+    //         selectedIndicator +
+    //         (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
+    //       }
+    //       subTitle={data.title}
+    //       unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
+    //     />
+    //   ),
+    // },
+    {
+      id: 'barGraph',
+      graph: (
+        <Table
+          headers={
+            indicatorFiltered[0]
+              ? Object.keys(indicatorFiltered[0])
+              : ['header1']
+          }
+          rows={indicatorFiltered.map(Object.values)}
+          caption="Table"
+          sortable
+        />
+      ),
+    },
+    {
+      id: 'lineChart',
+      graph: (
+        <Table
+          headers={
+            indicatorFiltered[0]
+              ? Object.keys(indicatorFiltered[0])
+              : ['header1']
+          }
+          rows={indicatorFiltered.map(Object.values)}
+          caption="Table"
+          sortable
+        />
+      ),
+    },
+    {
+      id: 'tableView',
+      graph: (
+        <Table
+          headers={
+            indicatorFiltered[0]
+              ? Object.keys(indicatorFiltered[0])
+              : ['header1']
+          }
+          rows={indicatorFiltered.map(Object.values)}
+          caption="Table"
+          sortable
+        />
+      ),
+    },
+  ];
 
   const bannerDetails = {
     heading: 'Data Resources',
@@ -185,29 +217,21 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
       <>
         <p>All the raw data for your own explortation &amp; analysis</p>
         <div>
-          <Button label={`View Raw Data`} onClick={() => {}} />
           <Button
-            label={`Download Data Package`}
-            kind="secondary"
-            onClick={() => {}}
-          />
-
-          {/* <a
-            className="btn-primary-invert"
+            as="a"
+            bg="white"
             href={`https://justicehub.in/dataset/${data.id}`}
             rel="noreferrer"
             target="_blank"
+            size="sm"
+            kind="secondary-outline"
           >
-            View Raw Data <ExternalLink />
+             View Raw Data <ExternalLink />
             <span className="sr-only"> :opens in new window</span>
-          </a> */}
-          {/* <button
-            className="btn-primary"
-            type="button"
-            onClick={() => downloadPackage(data.resUrls, data.title)}
-          >
+          </Button>
+          <Button kind="secondary" onClick={() => downloadPackage(data.resUrls, data.title)}>
             Download Data Package <Download />
-          </button> */}
+          </Button>
         </div>
         <p className="banner__notice">
           <svg
@@ -234,9 +258,9 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
 
   useEffect(() => {
     // ceating tabbed interface for viz selector
-    // const tablist = document.querySelector('.viz__tabs');
-    // const panels = document.querySelectorAll('.viz figure');
-    // tabbedInterface(tablist, panels);
+    const tablist = document.querySelector('.viz__tabs');
+    const panels = document.querySelectorAll('.viz figure');
+    tabbedInterface(tablist, panels);
 
     handleNewVizData('Budget Estimates');
   }, [fileData]);
@@ -291,6 +315,10 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
 
   return (
     <>
+      <Head>
+        <title>OPub | Explorer</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {/* <Seo seo={seo} /> */}
       <ExplorerPage>
         <div className="explorer">
@@ -300,12 +328,10 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                 <Link href="/datasets">
                   <a className="btn-secondary">Select Another Scheme</a>
                 </Link>
-                <button
-                  className="btn-secondary"
-                  onClick={() => schemeModalHandler()}
-                >
+
+                <Button onClick={() => schemeModalHandler()}>
                   Select Another Scheme
-                </button>
+                </Button>
                 <SchemeModal
                   isOpen={schemeModalOpen}
                   handleModal={schemeModalHandler}
@@ -369,24 +395,24 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                     <Dropdown
                       default={selectedBudgetType}
                       options={budgetTypes}
-                      heading="Select Budget Type:&nbsp;"
+                      heading="Select Budget Type"
                       handleDropdownChange={handleDropdownChange}
                     />
                   )}
                 </div>
               </div>
 
-              {/* <div>
-              {vizItems.map((item, index) => (
-                <figure
-                  key={`vizItem-${index}`}
-                  className="viz__bar"
-                  id={item.id}
-                >
-                  {item.graph}
-                </figure>
-              ))}
-            </div> */}
+              <div>
+                {vizItems.map((item, index) => (
+                  <figure
+                    key={`vizItem-${index}`}
+                    className="viz__bar"
+                    id={item.id}
+                  >
+                    {item.graph}
+                  </figure>
+                ))}
+              </div>
 
               <div className="explorer__source">
                 <div className="explorer__source--text">
@@ -405,7 +431,19 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                 </div>
 
                 <div className="explorer__source--buttons">
-                  <a
+                  <Button
+                    as="a"
+                    href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
+                    rel="noreferrer"
+                    target="_blank"
+                    size="sm"
+                    kind="primary-outline"
+                    onClick={() => {}}
+                  >
+                    Data Guidebook <ExternalLink fill="#00abb7" />
+                    <span className="sr-only"> :opens in new window</span>
+                  </Button>
+                  {/* <a
                     href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
                     rel="noreferrer"
                     target="_blank"
@@ -413,8 +451,8 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                   >
                     Data Guidebook <ExternalLink fill="#00abb7" />
                     <span className="sr-only"> :opens in new window</span>
-                  </a>
-                  <DownloadViz
+                  </a> */}
+                  {/* <DownloadViz
                     viz={currentViz}
                     type={selectedBudgetType}
                     indicator={
@@ -423,7 +461,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                         : 'Budget Estimates'
                     }
                     name={data.title}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

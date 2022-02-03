@@ -33,7 +33,6 @@ const ExplorerPage = styled.main`
       }
 
       svg {
-        margin-bottom: -5px;
         margin-left: 8px;
         margin-right: 0;
         pointer-events: none;
@@ -335,7 +334,6 @@ const ExplorerPage = styled.main`
         svg {
           width: 10px;
           margin-left: 8px;
-          margin-bottom: -4px;
         }
       }
     }
@@ -358,10 +356,8 @@ const ExplorerPage = styled.main`
         }
 
         a {
-          background-color: #fff;
-
           svg {
-            margin: 0 0 -2px 8px;
+            margin: -4px 0 0 8px;
           }
         }
 
