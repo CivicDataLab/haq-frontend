@@ -5,7 +5,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Is this primary button or secondary?
    */
-  kind?: 'primary' | 'secondary' | 'primary-outline' | 'secondary-outline';
+  kind?: 'primary' | 'secondary' | 'primary-outline' | 'secondary-outline' | 'custom';
   /**
    * How large should the button be?
    */
@@ -17,19 +17,19 @@ interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * change component type
    */
-  as?: string;
+  as?: any;
   /**
-   * url in case, `a` tag is used
+   * href for `a` tag
    */
   href?: string;
   /**
-   * url in case, `a` tag is used
+   * no referrer for `a` tag
    */
-   rel?: string;
+   rel?: 'noreferrer';
    /**
-   * url in case, `a` tag is used
+   * target = blank in case, `a` tag is used
    */
-  target?: string;
+  target?: '_blank';
 }
 
 const Button = ({
