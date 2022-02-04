@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PartnerCard from '../../../components/PartnerCard/PartnerCard';
+import PartnerCard from 'components/PartnerCard/PartnerCard';
 import TeamCard from 'components/TeamCard/TeamCard';
 import AboutComp from './AboutComp';
 
