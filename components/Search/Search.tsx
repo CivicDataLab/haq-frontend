@@ -49,7 +49,7 @@ const Search: React.FC<{ text?: string; newSearch: any }> = ({
           <span className="sr-only">Clear search field</span>
           &#x2715;
         </button>
-        <Button className="search__submit" label="Submit" />
+        <Button className="search__submit">Submit</Button>
       </div>
     </SearchComp>
   );

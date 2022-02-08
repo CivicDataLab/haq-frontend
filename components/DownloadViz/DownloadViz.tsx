@@ -4,6 +4,7 @@ import { stripTitle } from 'utils/explorer';
 import { Download } from 'icons/ExplorerIcons';
 import * as echarts from 'echarts/core';
 import watermark from 'watermarkjs';
+import Button from 'components/Button/Button';
 
 function fileName(type, name, indicator, format) {
   // splitting the string to find the required part of title
@@ -76,12 +77,13 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
   }
 
   return (
-    <button
+    <Button
       onClick={() => downloadSelector(viz)}
-      className="btn-secondary-mini"
+      kind="primary"
+      size="sm"
     >
       {`Download ${viz == '#tableView' ? 'CSV' : 'Chart'}`} <Download />
-    </button>
+    </Button>
   );
 };
 
