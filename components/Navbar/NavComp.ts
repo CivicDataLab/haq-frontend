@@ -6,7 +6,6 @@ export const NavComp = css`
   color: #fdfcfc;
   padding-top: 1.25rem;
   padding-bottom : 1rem;
-  margin-bottom :1rem;
 
   .container {
     display: flex;

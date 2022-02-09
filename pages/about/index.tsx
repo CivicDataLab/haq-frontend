@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PartnerCard from 'components/PartnerCard/PartnerCard';
 import TeamCard from 'components/TeamCard/TeamCard';
 import AboutComp from './AboutComp';
+import MegaHeader from '../../components/MegaHeader/MegaHeader';
 
 const About = () => {
+
+    const headerData = {
+        title: 'The Team',
+        content:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+      };
+
     const partners = [
         {
             name: 'CivicDataLab',
@@ -103,7 +111,9 @@ const About = () => {
     ];
 
     return (
-        <AboutComp>
+     <div>
+        <MegaHeader data={headerData} />
+        <AboutComp>    
             <h3 className="partners__heading">Partners</h3>
             <ul className="partners">
                 {partners.map((item, key) => {
@@ -131,6 +141,7 @@ const About = () => {
                 </ul>
             </section>
         </AboutComp>
+      </div>
     )
 
 }
