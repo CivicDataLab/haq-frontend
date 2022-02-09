@@ -9,7 +9,7 @@ import DatasetList from 'components/List/DatasetList';
 // import DataAlter from 'components/datasets/DataAlter';
 // import Pagination from 'components/datasets/Pagination';
 import Filter from 'components/Filter/Filter';
-import MegaHeader from '../../components/MegaHeader/MegaHeader';
+import MegaHeader from 'components/MegaHeader/MegaHeader';
 // import Sort from 'components/_shared/Sort';
 import Modal from 'components/Modal/Modal';
 import DatasetsPage from 'styles/pages/Datasets';
