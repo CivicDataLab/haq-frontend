@@ -1,12 +1,11 @@
 import { css } from 'styled-components';
 
 export const NavComp = css`
-  .navbar__web {
-    background-color: #076775;
-    color: #fdfcfc;
-    padding-top: 1.25rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+.navbar__web{
+  background-color: #076775;
+  color: #fdfcfc;
+  padding-top: 1.25rem;
+  padding-bottom : 1rem;
 
     .container {
       display: flex;
