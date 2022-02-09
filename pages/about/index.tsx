@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PartnerCard from 'components/PartnerCard/PartnerCard';
 import TeamCard from 'components/TeamCard/TeamCard';
 import AboutComp from './AboutComp';
-import MegaHeader from '../../components/MegaHeader/MegaHeader';
+import MegaHeader from 'components/MegaHeader/MegaHeader';
 
 const About = () => {
 
