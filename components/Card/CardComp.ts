@@ -37,15 +37,9 @@ export const DatasetCardComp = styled.a`
     display: flex;
     flex-wrap: wrap;
 
-    h4 {
-      line-height: 140%;
-      font-weight: 500;
-    }
-
-    small {
-      font-size: 12px;
-      color: $grey-1;
-    }
+   p {
+     line-height: 150%;
+   }
   }
 
   .card__id {

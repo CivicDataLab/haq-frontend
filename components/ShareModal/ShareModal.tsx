@@ -12,12 +12,14 @@ const ShareModal = ({ title }) => {
   useEffect(() => {
     if (navigator.share) {
       document.getElementById('share-native').removeAttribute('hidden');
-      document.getElementById('shareComp-custom').setAttribute('hidden', 'true');
+      document
+        .getElementById('shareComp-custom')
+        .setAttribute('hidden', 'true');
     }
   }, []);
 
   // open / close sub-menu
-  function shareButtonHandler(e: any) {
+  function shareButtonHandler() {
     // check if web share api is supported
     if (navigator.share) {
       navigator.share({
@@ -30,7 +32,7 @@ const ShareModal = ({ title }) => {
   return (
     <>
       <Button
-        onClick={(e) => shareButtonHandler(e)}
+        onClick={() => shareButtonHandler()}
         kind="primary-outline"
         aria-label={`Show share menu`}
         id="share-native"
@@ -41,7 +43,11 @@ const ShareModal = ({ title }) => {
       <Dialog
         title="share menu"
         buttonStyle="primary-outline"
-        buttonContent={'share' + <Facebook />}
+        buttonContent={
+          <>
+            Share <Share />
+          </>
+        }
         id="shareComp-custom"
       >
         <ShareComp className="shareModal__dropdown">

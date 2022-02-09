@@ -21,7 +21,6 @@ import { resourceGetter } from 'utils/resourceParser';
 
 import Indicator from 'components/Indicator/Indicator';
 import IndicatorMobile from 'components/Indicator/IndicatorMobile';
-import SchemeModal from 'components/SchemeModal/SchemeModal';
 import ShareModal from 'components/ShareModal/ShareModal';
 import Banner from 'components/Banner/Banner';
 import Button from 'components/Button/Button';
@@ -30,9 +29,10 @@ import Table from 'components/Table/Table';
 import { Download, ExternalLink } from 'icons/ExplorerIcons';
 
 import ExplorerPage from 'styles/pages/Explorer';
+import Tags from 'components/Tags/Tags';
 
-import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
-import { barLineTransformer } from 'visualizations/BarLineTransformer';
+// import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
+// import { barLineTransformer } from 'visualizations/BarLineTransformer';
 
 // import Seo from 'components/_shared/seo';
 
@@ -48,7 +48,6 @@ Modal.setAppElement('#__next');
 type Props = {
   data: any;
   meta: any;
-  2;
   fileData: any;
   allData: any;
 };
@@ -226,10 +225,13 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
             size="sm"
             kind="secondary-outline"
           >
-             View Raw Data <ExternalLink />
+            View Raw Data <ExternalLink />
             <span className="sr-only"> :opens in new window</span>
           </Button>
-          <Button kind="secondary" onClick={() => downloadPackage(data.resUrls, data.title)}>
+          <Button
+            kind="secondary"
+            onClick={() => downloadPackage(data.resUrls, data.title)}
+          >
             Download Data Package <Download />
           </Button>
         </div>
@@ -324,20 +326,6 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
         <div className="explorer">
           <div className="explorer__header">
             <div className="explorer__buttons container">
-              <div className="explorer__scheme-change">
-                <Link href="/datasets">
-                  <a className="btn-secondary">Select Another Scheme</a>
-                </Link>
-
-                <Button onClick={() => schemeModalHandler()}>
-                  Select Another Scheme
-                </Button>
-                <SchemeModal
-                  isOpen={schemeModalOpen}
-                  handleModal={schemeModalHandler}
-                  data={allData}
-                />
-              </div>
               {<ShareModal title={data.title} />}
             </div>
 
@@ -346,11 +334,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                 <figure>{categoryIcon(data.tags)}</figure>
                 <div>
                   <h2>{data.title}</h2>
-                  <ul>
-                    {data.tags.map((item, index) => (
-                      <li key={`explorer-${index}`}>{item}</li>
-                    ))}
-                  </ul>
+                  <Tags data={data.tags} />
                 </div>
               </div>
               <p>{data.notes}</p>
@@ -427,7 +411,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                       Open Budgets India
                       <span className="sr-only"> :opens in new window</span>
                     </a>
-                  </p>
+                </p>
                 </div>
 
                 <div className="explorer__source--buttons">
@@ -438,21 +422,11 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                     target="_blank"
                     size="sm"
                     kind="primary-outline"
-                    onClick={() => {}}
                   >
                     Data Guidebook <ExternalLink fill="#00abb7" />
                     <span className="sr-only"> :opens in new window</span>
                   </Button>
-                  {/* <a
-                    href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="btn-secondary-invert-mini"
-                  >
-                    Data Guidebook <ExternalLink fill="#00abb7" />
-                    <span className="sr-only"> :opens in new window</span>
-                  </a> */}
-                  {/* <DownloadViz
+                  <DownloadViz
                     viz={currentViz}
                     type={selectedBudgetType}
                     indicator={
@@ -461,7 +435,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                         : 'Budget Estimates'
                     }
                     name={data.title}
-                  /> */}
+                  />
                 </div>
               </div>
             </div>

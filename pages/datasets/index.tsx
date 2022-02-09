@@ -16,6 +16,7 @@ import DatasetsPage from 'styles/pages/Datasets';
 import Dropdown from 'components/Dropdown/Dropdown';
 import Pagination from 'components/Pagination/Pagination';
 import CotractsComp from './ContractsComp';
+import { explorerPopulation } from 'utils/explorer';
 
 type Props = {
   data: any;
@@ -100,7 +101,6 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                     newFilters={handleDatasetsChange}
                     fq={datsetsFilters}
                   />
-
                 </div>
                 <div className="contractsColumn">
                   <Search newSearch={handleDatasetsChange} />
