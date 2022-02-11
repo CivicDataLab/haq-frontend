@@ -9,7 +9,7 @@ import DatasetList from 'components/List/DatasetList';
 // import DataAlter from 'components/datasets/DataAlter';
 // import Pagination from 'components/datasets/Pagination';
 import Filter from 'components/Filter/Filter';
-// import MegaHeader from 'components/_shared/MegaHeader';
+import MegaHeader from 'components/MegaHeader/MegaHeader';
 // import Sort from 'components/_shared/Sort';
 import Modal from 'components/Modal/Modal';
 import DatasetsPage from 'styles/pages/Datasets';
@@ -89,12 +89,13 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DatasetsPage className="datasets">
-        {/* <MegaHeader data={headerData} /> */}
-
+        <MegaHeader data={headerData} />
         <div className="container">
           {data && (
             <div className="">
-              <h2 className="heading">Browse Contracts</h2>
+              <h2 style={{ marginTop: '2rem' }} className="heading">
+                Browse Contracts
+              </h2>
               <DatasetsComp>
                 <div className="contractsComp__filter">
                   <Filter
