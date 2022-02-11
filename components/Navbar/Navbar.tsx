@@ -2,21 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
-const navList = [
-  {
-    link: '/datasets',
-    name: 'Contracts Data',
-  },
-  {
-    link: '/about',
-    name: 'About Us',
-  },
-];
+import MobNav from '../MobileNav/MobileNav'
+import * as nav from 'data/navdata/navlist';
 
 const Nav: React.FC = () => {
   const router = useRouter();
   return (
+   <div>
     <div className="navbar__web">
       <div className="container ">
         <div className="header__brand">
@@ -36,7 +28,7 @@ const Nav: React.FC = () => {
         <nav className="navbar">
           <h2 className="sr-only">Navigation menu</h2>
           <ul className="navbar__container">
-            {navList.map((navItem: any, index: number) => (
+            {nav.navList.map((navItem: any, index: number) => (
               <Link key={`navItemDesktop-${index}`} href={navItem.link}>
                 <a
                   className={`navbar__item ${
@@ -53,6 +45,8 @@ const Nav: React.FC = () => {
         </nav>
       </div>
     </div>
+   <MobNav />
+   </div>
   );
 };
 

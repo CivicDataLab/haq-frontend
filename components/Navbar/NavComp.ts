@@ -7,6 +7,9 @@ export const NavComp = css`
   padding-top: 1.25rem;
   padding-bottom : 1rem;
 
+  @media only screen and (max-width: 980px) {
+    display: none;
+  }
     .container {
       display: flex;
       justify-content: space-between;

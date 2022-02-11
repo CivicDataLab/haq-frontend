@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import NavComp from 'components/Navbar/NavComp';
+import MobileNavComp from 'components/MobileNav/MobileNavComp';
 import { normalize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
@@ -10,6 +11,7 @@ ${cssReset}
 ${cssNormalise}
 ${ModalComp}
 ${NavComp}
+${MobileNavComp}
 ${normalize()}
 
 html {
