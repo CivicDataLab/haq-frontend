@@ -3,18 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import Image from 'next/image';
-Modal.setAppElement('#__next');
+import * as nav from 'data/navdata/navlist';
 
-const navList = [
-    {
-      link: '/datasets',
-      name: 'Contracts Data',
-    },
-    {
-      link: '/about',
-      name: 'About Us',
-    },
-  ];
+Modal.setAppElement('#__next');
   
 const MobNav: React.FC = () => {
   const router = useRouter();
@@ -124,7 +115,7 @@ const MobNav: React.FC = () => {
           </div>
 
           <ul className="m-navbar__container">
-            {navList.map((navItem: any, index: number) => (
+            {nav.navList.map((navItem: any, index: number) => (
               <li key={`navItemMobile-${index}`} className="navbar__links">
                 {navItem.hasSubMenu ? (
                   <>
