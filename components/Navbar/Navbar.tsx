@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import MobNav from '../MobileNav/MobileNav'
 
 const navList = [
   {
@@ -17,6 +18,7 @@ const navList = [
 const Nav: React.FC = () => {
   const router = useRouter();
   return (
+   <div>
     <div className="navbar__web">
       <div className="container ">
         <div className="header__brand">
@@ -53,6 +55,8 @@ const Nav: React.FC = () => {
         </nav>
       </div>
     </div>
+   <MobNav />
+   </div>
   );
 };
 
