@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CotractsComp = styled.div`
+const DatasetsComp = styled.div`
    margin-top :1rem;
    display: grid;
    grid-template-columns: repeat(4, 1fr);
@@ -36,4 +36,4 @@ const CotractsComp = styled.div`
  `
  ;
 
-export default CotractsComp;
+export default DatasetsComp;

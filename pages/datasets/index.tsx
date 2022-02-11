@@ -15,7 +15,7 @@ import Modal from 'components/Modal/Modal';
 import DatasetsPage from 'styles/pages/Datasets';
 import Dropdown from 'components/Dropdown/Dropdown';
 import Pagination from 'components/Pagination/Pagination';
-import CotractsComp from './ContractsComp';
+import DatasetsComp from './DatasetsComp';
 import { explorerPopulation } from 'utils/explorer';
 
 type Props = {
@@ -95,7 +95,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
           {data && (
             <div className="">
               <h2 className="heading">Browse Contracts</h2>
-              <CotractsComp>
+              <DatasetsComp>
                 <div className="contractsComp__filter">
                   <Filter
                     data={facets}
@@ -121,7 +121,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                   <DatasetList data={results} />
                   <Pagination total={count} newPage={handleDatasetsChange} />
                 </div>
-              </CotractsComp>
+              </DatasetsComp>
             </div>
           )}
         </div>
