@@ -1,8 +1,20 @@
-import React, { useEffect } from 'react';
-import FilterComp from './FilterComp';
-const obj = {};
+import React, { useEffect, useState } from 'react';
+import {
+  FilterComp,
+  FilterButton,
+  FilterHeading,
+  FilterContent,
+  FilterSearch,
+  FilterSelected,
+} from './FilterComp';
+import { Cross } from 'icons/Shared';
+import { truncate } from 'lodash';
+
+const dataObj = {};
+const filterSearch = {};
 
 const Filter = ({ data, newFilters, fq }) => {
+  const [filterResult, setFilterResult] = useState({});
   function headingCollapsable() {
     const headings = document.querySelectorAll('.filters__heading');
 
@@ -33,7 +45,8 @@ const Filter = ({ data, newFilters, fq }) => {
     headingCollapsable();
 
     Object.keys(data).forEach((val) => {
-      obj[val] = [];
+      dataObj[val] = [];
+      filterSearch[val] = data[val].items;
     });
 
     // if filter query available on page load, add class to relevant buttons
@@ -48,17 +61,35 @@ const Filter = ({ data, newFilters, fq }) => {
         value = value.slice(1, value.length - 1);
         const valueArr = value.split(' OR ');
 
-        valueArr.forEach((element) => {
-          obj[id].push(element);
+        setTimeout(() => {
+          valueArr.forEach((element) => {
+            dataObj[id].push(element);
 
-          if (document.getElementById(element))
-            document
-              .getElementById(element)
-              .setAttribute('aria-pressed', 'true');
-        });
+            if (document.getElementById(element))
+              document
+                .getElementById(element)
+                .setAttribute('aria-pressed', 'true');
+          });
+        }, 200);
       });
     }
-  }, [data, fq]);
+    setFilterResult({ ...filterSearch });
+  }, []);
+
+  function handleFilterSearch(val: string, id: string) {
+    const searchFilter = data[id].items.filter((item: any) =>
+      JSON.stringify(item).toLowerCase().includes(val.toLowerCase())
+    );
+    filterSearch[id] = searchFilter;
+
+    setFilterResult({ ...filterSearch });
+    setTimeout(() => {
+      dataObj[id].forEach((item) => {
+        const activeBtn = document.getElementById(item);
+        activeBtn && activeBtn.setAttribute('aria-pressed', 'true');
+      });
+    }, 100);
+  }
 
   function formatFilterName(name: string) {
     if (name == 'fiscal_year') {
@@ -75,29 +106,33 @@ const Filter = ({ data, newFilters, fq }) => {
   function handleFilterChange(e: any) {
     const selectedFilter = e.target as HTMLInputElement;
     const type = selectedFilter.dataset.type;
-    const value = selectedFilter.id;
+    const value = selectedFilter.id || selectedFilter.dataset.id;
 
-    const pressed = selectedFilter.getAttribute('aria-pressed');
-    selectedFilter.setAttribute(
-      'aria-pressed',
-      pressed == 'false' ? 'true' : 'false'
-    );
-    const index = obj[type].indexOf(value);
+    const filterButton = document.getElementById(value);
+
+    if (filterButton) {
+      const pressed = filterButton.getAttribute('aria-pressed');
+      filterButton.setAttribute(
+        'aria-pressed',
+        pressed == 'false' ? 'true' : 'false'
+      );
+    }
+    const index = dataObj[type].indexOf(value);
     if (index > -1) {
-      obj[type].splice(index, 1);
+      dataObj[type].splice(index, 1);
     } else {
-      obj[type].push(value);
+      dataObj[type].push(value);
     }
 
     const final = [];
-    Object.keys(obj).forEach((val) => {
-      if (obj[val].length > 0) {
+    Object.keys(dataObj).forEach((val) => {
+      if (dataObj[val].length > 0) {
         let filter = '';
 
         filter = filter.concat(`${val}:(`);
         const valArray = [];
 
-        obj[val].forEach((item: string) => {
+        dataObj[val].forEach((item: string) => {
           valArray.push(`"${item}"`);
         });
 
@@ -115,38 +150,55 @@ const Filter = ({ data, newFilters, fq }) => {
   }
 
   return (
-    <FilterComp>
-      <div className="filters">
-        <h3 className="heading">Filters</h3>
-        {Object.keys(data).map((filter: any, index: number) => (
-          <React.Fragment key={`filters-${index}`}>
-            <h4 className="filters__heading" key={`filter-${index}`}>
-              <button aria-expanded="false">
-                {formatFilterName(data[filter].title)}
-                <svg aria-hidden="true" focusable="false" viewBox="0 0 144 72">
-                  <path d="M72 72C72 71.98 0 0 0 0h144L72 72" />
-                </svg>
-              </button>
-            </h4>
-            <div className="filters__content" hidden>
-              {data[filter].items &&
-                data[filter].items.map((item: any) => (
+    <FilterComp className="filters">
+      <h3 className="heading">Filters</h3>
+      {Object.keys(data).map((filter: any, index: number) => (
+        <React.Fragment key={`filters-${index}`}>
+          <FilterHeading className="filters__heading" key={`filter-${index}`}>
+            <button aria-expanded="false">
+              {formatFilterName(data[filter].title)}
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 144 72">
+                <path d="M72 72C72 71.98 0 0 0 0h144L72 72" />
+              </svg>
+            </button>
+          </FilterHeading>
+          <FilterContent hidden>
+            <FilterSearch
+              type="text"
+              placeholder={`search ${formatFilterName(data[filter].title)}`}
+              onChange={(e) => handleFilterSearch(e.target.value, filter)}
+            />
+            {filterResult[filter] &&
+              filterResult[filter].map((item: any) => (
+                <FilterButton
+                  key={item.name}
+                  data-type={data[filter].title}
+                  id={item.name}
+                  onClick={handleFilterChange}
+                  type="button"
+                  aria-pressed="false"
+                >
+                  {`${item.display_name} (${item.count})`}
+                </FilterButton>
+              ))}
+          </FilterContent>
+          <FilterSelected>
+            {dataObj[filter] &&
+              dataObj[filter].map((item: string) => (
+                <li key={item}>
                   <button
-                    className="filters__button"
-                    key={item.name}
-                    data-type={data[filter].title}
-                    id={item.name}
+                    data-type={filter}
+                    data-id={item}
                     onClick={handleFilterChange}
-                    type="button"
-                    aria-pressed="false"
                   >
-                    {`${item.display_name} (${item.count})`}
+                    {truncate(item.replace(/_/g, ' '), { length: 30 })}{' '}
+                    <Cross />
                   </button>
-                ))}
-            </div>
-          </React.Fragment>
-        ))}
-      </div>
+                </li>
+              ))}
+          </FilterSelected>
+        </React.Fragment>
+      ))}
     </FilterComp>
   );
 };

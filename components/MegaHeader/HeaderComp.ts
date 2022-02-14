@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const HeaderComp = styled.div`
-  background-color:#076775;
+  background-color: #076775;
   color: #fdfcfc;
 
   .container {
@@ -32,7 +32,6 @@ const HeaderComp = styled.div`
     &:last-child {
       padding-bottom: 2rem;
     }
-  }`
-;
-
+  }
+`;
 export default HeaderComp;

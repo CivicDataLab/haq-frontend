@@ -28,7 +28,7 @@ import Dropdown from 'components/Dropdown/Dropdown';
 import Table from 'components/Table/Table';
 import { Download, ExternalLink } from 'icons/ExplorerIcons';
 
-import ExplorerPage from 'styles/pages/Explorer';
+import ExplorerPage from './ExplorerPage';
 import Tags from 'components/Tags/Tags';
 
 // import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';

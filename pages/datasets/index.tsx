@@ -6,16 +6,12 @@ import { useRouter } from 'next/router';
 import Search from 'components/Search/Search';
 import Total from 'components/Total/Total';
 import DatasetList from 'components/List/DatasetList';
-// import DataAlter from 'components/datasets/DataAlter';
-// import Pagination from 'components/datasets/Pagination';
 import Filter from 'components/Filter/Filter';
 import MegaHeader from 'components/MegaHeader/MegaHeader';
-// import Sort from 'components/_shared/Sort';
 import Modal from 'components/Modal/Modal';
-import DatasetsPage from 'styles/pages/Datasets';
 import Dropdown from 'components/Dropdown/Dropdown';
 import Pagination from 'components/Pagination/Pagination';
-import DatasetsComp from './DatasetsComp';
+import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 import { explorerPopulation } from 'utils/explorer';
 
 type Props = {
