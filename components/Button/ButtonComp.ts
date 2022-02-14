@@ -8,7 +8,7 @@ interface ButtonProps {
   readonly href?: string;
 }
 
-const PrimaryColor = '#00ABB7';
+const PrimaryColor = '#076775';
 const SecondaryColor = '#F65940';
 
 function bgColor(type: string, bg: string) {
