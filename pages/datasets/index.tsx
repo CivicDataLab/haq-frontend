@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import { fetchFilters, fetchDatasets } from 'utils/fetch';
+import {
+  fetchFilters,
+  fetchDatasets,
+  convertToCkanSearchQuery,
+} from 'utils/fetch';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Search from 'components/Search/Search';
@@ -12,7 +16,6 @@ import Modal from 'components/Modal/Modal';
 import Sort from 'components/Sort/Sort';
 import Pagination from 'components/Pagination/Pagination';
 import { DatasetsPage, DatasetsComp } from './DatasetsPage';
-import { explorerPopulation } from 'utils/explorer';
 
 type Props = {
   data: any;
@@ -20,8 +23,7 @@ type Props = {
   variables: any;
 };
 
-const list =
-  '"fiscal_year", "organization", "tender_mainprocurementcategory", "tender_status"';
+const list = '"tags", "groups"';
 
 const Datasets: React.FC<Props> = ({ data, facets }) => {
   const router = useRouter();
@@ -88,7 +90,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <MegaHeader data={headerData} />
         <div className="container">
           {data && (
-            <div className="">
+            <div>
               <h2 style={{ marginTop: '2rem' }} className="heading">
                 Browse Contracts
               </h2>
@@ -119,10 +121,10 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query || {};
-  // const variables = convertToCkanSearchQuery(query);
-  const facets = await fetchFilters(list);
+  const variables = convertToCkanSearchQuery(query);
+  const facets = await fetchFilters(list, variables, 'tender_dataset');
 
-  const data = await fetchDatasets();
+  const data = await fetchDatasets(variables);
   return {
     props: {
       data,
