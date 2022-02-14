@@ -3,9 +3,6 @@ import styled from 'styled-components';
 export const DropdownComp = styled.div`
   display: flex;
   align-items: center;
-
-  select {
-  }
 `;
 
 export const DropdownLabel = styled.label`

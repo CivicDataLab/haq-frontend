@@ -1,7 +1,26 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import Dropdown from 'components/Dropdown/Dropdown';
-import PaginationComp from './PaginationComp';
+import {
+  PaginationComp,
+  PaginationJump,
+  PaginationButtons,
+} from './PaginationComp';
+
+const paginationItems = [
+  {
+    title: '10',
+    value: '10',
+  },
+  {
+    title: '20',
+    value: '20',
+  },
+  {
+    title: '50',
+    value: '50',
+  },
+];
 
 const Pagination: React.FC<{ total: number; newPage: any }> = ({
   total,
@@ -10,7 +29,7 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
   const router = useRouter();
   const [current, setCurrent] = React.useState(1);
   const [page, setPage] = React.useState(1);
-  const [resultSize, setResultSize] = React.useState(10);
+  const [resultSize, setResultSize] = React.useState('10');
   const [maxPage, SetMaxPage] = React.useState(1);
 
   React.useEffect(() => {
@@ -18,7 +37,7 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
     const size = router.query.size ? router.query.size : '10';
     SetMaxPage(Math.floor(total / parseInt(size as string)) + 1);
 
-    setResultSize(parseInt(size as string));
+    setResultSize(size as string);
 
     const pageNo = Math.floor(
       parseInt(from as string) / parseInt(size as string) + 1
@@ -69,64 +88,58 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
   }
 
   return (
-    <PaginationComp>
-      <div className="pagination">
-        <div className="pagination__rows">
-          <Dropdown
-            default={resultSize}
-            options={[10, 20, 50]}
-            heading="Rows"
-            handleDropdownChange={handleRowsChange}
+    <PaginationComp className="pagination">
+      <Dropdown
+        value={resultSize}
+        options={paginationItems}
+        heading="Rows"
+        handleChange={handleRowsChange}
+      />
+
+      <PaginationJump>
+        <label className="label-green" htmlFor="jumpNumber">
+          Jump to: &nbsp;
+          <input
+            type="text"
+            id="jumpNumber"
+            onBlur={(e) => handleJump(e.target.value)}
           />
-        </div>
+        </label>
+      </PaginationJump>
 
-        <div className="pagination__jump">
-          <label className="label-green" htmlFor="jumpNumber">
-            Jump to: &nbsp;
-            <input
-              type="text"
-              id="jumpNumber"
-              onBlur={(e) => handleJump(e.target.value)}
-            />
-          </label>
+      <PaginationButtons>
+        <div className="pagination__page-no">
+          Page No. {<span>{page}</span>} of {<span>{maxPage}</span>}
         </div>
-
-        <div className="pagination__control">
-          <div className="pagination__page-no">
-            Page No. {<span>{page}</span>} of {<span>{maxPage}</span>}
-          </div>
-          <div className="pagination__buttons">
-            <button
-              type="button"
-              className="pagination__back"
-              onClick={() => handleButton(-1)}
-            >
-              <svg
-                width="8"
-                height="14"
-                viewBox="0 0 8 12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              className="pagination__next"
-              onClick={() => handleButton(1)}
-            >
-              <svg
-                width="8"
-                height="14"
-                viewBox="0 0 8 12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+        <button
+          type="button"
+          className="pagination__back"
+          onClick={() => handleButton(-1)}
+        >
+          <svg
+            width="8"
+            height="14"
+            viewBox="0 0 8 12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="pagination__next"
+          onClick={() => handleButton(1)}
+        >
+          <svg
+            width="8"
+            height="14"
+            viewBox="0 0 8 12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
+          </svg>
+        </button>
+      </PaginationButtons>
     </PaginationComp>
   );
 };
