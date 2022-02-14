@@ -9,7 +9,7 @@ import DatasetList from 'components/List/DatasetList';
 import Filter from 'components/Filter/Filter';
 import MegaHeader from 'components/MegaHeader/MegaHeader';
 import Modal from 'components/Modal/Modal';
-import Dropdown from 'components/Dropdown/Dropdown';
+import Sort from 'components/Sort/Sort';
 import Pagination from 'components/Pagination/Pagination';
 import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 import { explorerPopulation } from 'utils/explorer';
@@ -93,27 +93,17 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                 Browse Contracts
               </h2>
               <DatasetsComp>
-                <div className="contractsComp__filter">
-                  <Filter
-                    data={facets}
-                    newFilters={handleDatasetsChange}
-                    fq={datsetsFilters}
-                  />
-                </div>
+                <Filter
+                  data={facets}
+                  newFilters={handleDatasetsChange}
+                  fq={datsetsFilters}
+                />
                 <div className="contractsColumn">
                   <Search newSearch={handleDatasetsChange} />
 
                   <div className="contractsComp__sortRow">
-                    <div className="contractsComp__total">
-                      <Total text="contracts" total={count} />
-                    </div>
-                    <div className="contractsComp__dropdown">
-                      <Dropdown
-                        // default={'A'}
-                        options={['A', 'B', 'C']}
-                        heading="Sort by"
-                      />
-                    </div>
+                    <Total text="contracts" total={count} />
+                    <Sort newSort={handleDatasetsChange} />
                   </div>
                   <DatasetList data={results} />
                   <Pagination total={count} newPage={handleDatasetsChange} />

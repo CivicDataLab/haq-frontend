@@ -1,21 +1,55 @@
-import React from 'react'
-import DropdownComp from './DropdownComp'
+import React from 'react';
+import {
+  DropdownComp,
+  DropdownLabel,
+  DropdownOption,
+  DropdownSelect,
+} from './DropdownComp';
 
-const Dropdown = (props) => (
-	<DropdownComp className="dropdown">
-		{props.heading && <label htmlFor="dropdown-select">{`${props.heading}:`}&nbsp;&nbsp;</label>}
+interface Props {
+  /**
+   * Options to display in the dropdown
+   */
+  options: {
+    value: string;
+    title: string;
+  }[];
 
-		<select
-			id="dropdown-select"
-			// onChange={(e) => props.handleDropdownChange(e.target.value)}
-			// value={props.default ? props.default : props.options[0]}
-			className="dropdown__selector"
-		>
-			{props.options.map((option: any, index: any) => (
-				<option key={`dropdown-${index}`}>{option}</option>
-			))}
-		</select>
-	</DropdownComp>
-)
+  /**
+   * current value of dropdown
+   */
+  value?: string;
 
-export default Dropdown
+  /**
+   * Heading for the dropdown
+   */
+  heading?: string;
+
+  /**
+   * return prop
+   */
+  handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const Dropdown = ({ heading, options, handleChange, value }: Props) => (
+  <DropdownComp className="dropdown">
+    {heading && (
+      <DropdownLabel htmlFor="dropdown-select">{`${heading}:`}&nbsp;&nbsp;</DropdownLabel>
+    )}
+
+    <DropdownSelect
+      id="dropdown-select"
+      className="dropdown__selector"
+      onChange={handleChange}
+      value={value}
+    >
+      {options.map((option: any, index: any) => (
+        <DropdownOption value={option.value} key={`dropdown-${index}`}>
+          {option.title}
+        </DropdownOption>
+      ))}
+    </DropdownSelect>
+  </DropdownComp>
+);
+
+export default Dropdown;
