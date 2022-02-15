@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import ButtonComp from './ButtonComp';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
@@ -30,6 +30,12 @@ interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
    * target = blank in case, `a` tag is used
    */
   target?: '_blank';
+
+  /**
+   * use it to pass ref from useRef hook
+   */
+  passRef?: MutableRefObject<any>;
+
 }
 
 const Button = ({
@@ -38,6 +44,7 @@ const Button = ({
   children,
   bg,
   as,
+  passRef,
   ...props
 }: ButtonProps) => {
   const buttonType = kind ? kind : 'primary';
@@ -48,6 +55,7 @@ const Button = ({
       bg={bg}
       buttonType={buttonType}
       size={size}
+      ref={passRef ? passRef : null}
       {...props}
     >
       {children}

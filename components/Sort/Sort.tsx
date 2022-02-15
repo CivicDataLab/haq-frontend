@@ -42,11 +42,11 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
   }, [router.query.sort]);
 
   const handleChange = (event: any) => {
-    setSort(event.target.value);
+    setSort(event);
 
     newSort({
       query: 'sort',
-      value: event.target.value,
+      value: event,
     });
   };
   return (

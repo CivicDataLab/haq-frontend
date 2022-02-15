@@ -269,9 +269,13 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
         ...Array.from(new Set(filtered.map((item) => item.budgetType))),
       ];
 
+      const budgetTypeArray = budgetType.map((item) => {
+        return { title: item, value: item };
+      });
+
       setSelectedIndicator(val);
       setIndicatorFiltered(filtered);
-      setBudgetTypes(budgetType);
+      setBudgetTypes(budgetTypeArray);
     }
   }
 
@@ -382,7 +386,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                       Open Budgets India
                       <span className="sr-only"> :opens in new window</span>
                     </a>
-                </p>
+                  </p>
                 </div>
 
                 <div className="explorer__source--buttons">

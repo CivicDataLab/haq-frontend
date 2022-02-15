@@ -28,7 +28,7 @@ interface Props {
   /**
    * return prop
    */
-  handleChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange?: (event: string) => void;
 }
 
 const Dropdown = ({ heading, options, handleChange, value }: Props) => (
@@ -40,7 +40,7 @@ const Dropdown = ({ heading, options, handleChange, value }: Props) => (
     <DropdownSelect
       id="dropdown-select"
       className="dropdown__selector"
-      onChange={handleChange}
+      onChange={e => handleChange(e.target.value)}
       value={value}
     >
       {options.map((option: any, index: any) => (

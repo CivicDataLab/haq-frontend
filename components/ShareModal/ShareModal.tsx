@@ -5,6 +5,7 @@ import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
 import Button from 'components/Button/Button';
 import Dialog from 'components/Dialog/Dialog';
+import Widget from 'components/Widget/Widget';
 
 const ShareModal = ({ title }) => {
   const router = useRouter();
@@ -40,15 +41,14 @@ const ShareModal = ({ title }) => {
       >
         Share <Share />
       </Button>
-      <Dialog
-        title="share menu"
-        buttonStyle="primary-outline"
+      <Widget
         buttonContent={
           <>
             Share <Share />
           </>
         }
-        id="shareComp-custom"
+        title="share menu"
+        buttonStyle="primary-outline"
       >
         <ShareComp className="shareModal__dropdown">
           <li>
@@ -96,7 +96,7 @@ const ShareModal = ({ title }) => {
             </a>
           </li>
         </ShareComp>
-      </Dialog>
+      </Widget>
     </>
   );
 };
