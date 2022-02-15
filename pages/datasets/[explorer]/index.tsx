@@ -26,22 +26,23 @@ import Banner from 'components/Banner/Banner';
 import Button from 'components/Button/Button';
 import Dropdown from 'components/Dropdown/Dropdown';
 import Table from 'components/Table/Table';
+import DownloadViz from 'components/DownloadViz/DownloadViz';
 import { Download, ExternalLink } from 'icons/ExplorerIcons';
 
 import ExplorerPage from './ExplorerPage';
 import Tags from 'components/Tags/Tags';
 
-// import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
-// import { barLineTransformer } from 'visualizations/BarLineTransformer';
+import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
+import { barLineTransformer } from 'visualizations/BarLineTransformer';
 
 // import Seo from 'components/_shared/seo';
 
-const DownloadViz = dynamic(
-  () => import('components/DownloadViz/DownloadViz'),
-  {
-    ssr: false,
-  }
-);
+// const DownloadViz = dynamic(
+//   () => import('components/DownloadViz/DownloadViz'),
+//   {
+//     ssr: false,
+//   }
+// );
 
 Modal.setAppElement('#__next');
 
@@ -127,69 +128,39 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
   ];
 
   const vizItems = [
-    // {
-    //   id: 'barGraph',
-    //   graph: (
-    //     <SimpleBarLineChartViz
-    //       color={'#00ABB7'}
-    //       dataset={barLineTransformer(finalFiltered, selectedIndicator)}
-    //       type="bar"
-    //       smooth={true}
-    //       showSymbol={true}
-    //       Title={
-    //         selectedIndicator +
-    //         (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-    //       }
-    //       subTitle={data.title}
-    //       unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
-    //     />
-    //   ),
-    // },
-    // {
-    //   id: 'lineChart',
-    //   graph: (
-    //     <SimpleBarLineChartViz
-    //       color={'#00ABB7'}
-    //       dataset={barLineTransformer(finalFiltered, selectedIndicator)}
-    //       type="line"
-    //       smooth={true}
-    //       showSymbol={true}
-    //       Title={
-    //         selectedIndicator +
-    //         (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-    //       }
-    //       subTitle={data.title}
-    //       unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
-    //     />
-    //   ),
-    // },
     {
       id: 'barGraph',
       graph: (
-        <Table
-          headers={
-            indicatorFiltered[0]
-              ? Object.keys(indicatorFiltered[0])
-              : ['header1']
+        <SimpleBarLineChartViz
+          color={'#00ABB7'}
+          dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+          type="bar"
+          smooth={true}
+          showSymbol={true}
+          Title={
+            selectedIndicator +
+            (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
           }
-          rows={indicatorFiltered.map(Object.values)}
-          caption="Table"
-          sortable
+          subTitle={data.title}
+          unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
         />
       ),
     },
     {
       id: 'lineChart',
       graph: (
-        <Table
-          headers={
-            indicatorFiltered[0]
-              ? Object.keys(indicatorFiltered[0])
-              : ['header1']
+        <SimpleBarLineChartViz
+          color={'#00ABB7'}
+          dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+          type="line"
+          smooth={true}
+          showSymbol={true}
+          Title={
+            selectedIndicator +
+            (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
           }
-          rows={indicatorFiltered.map(Object.values)}
-          caption="Table"
-          sortable
+          subTitle={data.title}
+          unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
         />
       ),
     },
@@ -377,10 +348,10 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                 <div className="dropdown">
                   {budgetTypes.length > 1 && !isTable && (
                     <Dropdown
-                      default={selectedBudgetType}
+                      value={selectedBudgetType}
                       options={budgetTypes}
                       heading="Select Budget Type"
-                      handleDropdownChange={handleDropdownChange}
+                      handleChange={handleDropdownChange}
                     />
                   )}
                 </div>

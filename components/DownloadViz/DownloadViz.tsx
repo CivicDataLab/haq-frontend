@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import { stripTitle } from 'utils/explorer';
 import { Download } from 'icons/ExplorerIcons';
 import * as echarts from 'echarts/core';
-import watermark from 'watermarkjs';
+// import watermark from 'watermarkjs';
 import Button from 'components/Button/Button';
 
 function fileName(type, name, indicator, format) {
@@ -64,10 +64,11 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
       excludeComponents: ['toolbox'],
       type: 'png', //Image types support png and jpeg
     });
+    saveAs(url, fileName(type, name, indicator, 'png'))
 
-    watermark([url, '/assets/images/jh_logo.png'])
-      .image(watermark.image.lowerRight(0.5))
-      .then((img) => saveAs(img.src, fileName(type, name, indicator, 'png')));
+    // watermark([url, '/assets/images/jh_logo.png'])
+    //   .image(watermark.image.lowerRight(0.5))
+    //   .then((img) => saveAs(img.src, fileName(type, name, indicator, 'png')));
   }
 
   function downloadSelector(viz) {

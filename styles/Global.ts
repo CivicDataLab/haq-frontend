@@ -5,6 +5,9 @@ import { normalize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import ModalComp from 'components/Modal/ModalComp';
+import { DEFAULT_THEME } from 'config/theme';
+
+const theme = DEFAULT_THEME;
 
 export const GlobalStyle = createGlobalStyle`
 ${cssReset}
@@ -15,6 +18,7 @@ ${MobileNavComp}
 ${normalize()}
 
 html {
+  --color-primary: ${theme.primaryColor};
   box-sizing: border-box;
   font-size: 16px;
 }

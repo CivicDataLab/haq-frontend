@@ -1,11 +1,10 @@
 import React, { Fragment, useRef, useState, useEffect, useMemo } from 'react';
 import TableComp from './TableComp';
 
-const Arrow = ({ sortDir, isCurrent, sort }) => {
+const Arrow = ({ sortDir, isCurrent }) => {
   const ascending = sortDir === 'ascending';
   return (
     <svg viewBox="0 0 100 200" width="100" height="200">
-      {sort}
       {!(!ascending && isCurrent) && <polyline points="20 50, 50 20, 80 50" />}
       <line x1="50" y1="20" x2="50" y2="180" />
       {!(ascending && isCurrent) && (
@@ -106,18 +105,16 @@ const Table = ({ headers, rows, caption, sortable }) => {
                   {header}
                   {sortable && (
                     <button onClick={() => sortBy(i)}>
-                      <Arrow
-                        sortDir={sortDir}
-                        isCurrent={sortedBy === i}
-                        sort={
-                          <span className="sr-only">
+                       <span className="sr-only">
                             sort by {header} in{' '}
                             {sortDir !== 'ascending'
                               ? 'ascending'
                               : 'descending'}{' '}
                             order
                           </span>
-                        }
+                      <Arrow
+                        sortDir={sortDir}
+                        isCurrent={sortedBy === i}
                       />
                     </button>
                   )}
