@@ -14,8 +14,7 @@ export const WidgetComp = styled.div`
 
 export const WidgetContent = styled.div`
   position: absolute;
-  top: 4rem;
-  right: 0;
+  top: 3.5rem;
   display: none;
 
   &.widget__active {

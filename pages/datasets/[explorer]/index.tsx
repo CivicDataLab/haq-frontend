@@ -300,7 +300,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
       <ExplorerPage>
         <div className="explorer">
           <div className="explorer__header">
-            <div className="explorer__buttons container">
+            <div className="container">
               {<ShareModal title={data.title} />}
             </div>
 

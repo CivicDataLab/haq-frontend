@@ -5,7 +5,8 @@ const ShareComp = styled.ul`
   border: 1px solid #cdd1d1;
   box-shadow: 1px solid #eff2f2;
 
-  a {
+  a,
+  button {
     font-weight: 500 !important;
     color: hsla(0, 0%, 0%, 0.87);
     line-height: 175%;
@@ -16,14 +17,15 @@ const ShareComp = styled.ul`
     text-decoration-color: transparent;
 
     svg {
-      margin-top: -6px;
       margin-right: 12px;
       flex-basis: 1.5rem;
       width: 1.5rem;
+      pointer-events: none;
     }
 
     &:hover {
       text-decoration-color: currentColor;
+      background-color: #eee;
     }
   }
 `;

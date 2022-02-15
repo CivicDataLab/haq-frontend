@@ -3,8 +3,6 @@ import { Share } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
 import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
-import Button from 'components/Button/Button';
-import Dialog from 'components/Dialog/Dialog';
 import Widget from 'components/Widget/Widget';
 
 const ShareModal = ({ title }) => {
@@ -13,9 +11,6 @@ const ShareModal = ({ title }) => {
   useEffect(() => {
     if (navigator.share) {
       document.getElementById('share-native').removeAttribute('hidden');
-      document
-        .getElementById('shareComp-custom')
-        .setAttribute('hidden', 'true');
     }
   }, []);
 
@@ -32,15 +27,6 @@ const ShareModal = ({ title }) => {
 
   return (
     <>
-      <Button
-        onClick={() => shareButtonHandler()}
-        kind="primary-outline"
-        aria-label={`Show share menu`}
-        id="share-native"
-        hidden
-      >
-        Share <Share />
-      </Button>
       <Widget
         buttonContent={
           <>
@@ -94,6 +80,12 @@ const ShareModal = ({ title }) => {
               <span>Reddit</span>
               <span className="sr-only"> :opens in new window</span>
             </a>
+          </li>
+          <li id='share-native' hidden>
+            <button onClick={() => shareButtonHandler()}>
+              <Reddit />
+              <span>Share via...</span>
+            </button>
           </li>
         </ShareComp>
       </Widget>

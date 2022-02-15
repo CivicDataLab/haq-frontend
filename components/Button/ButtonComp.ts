@@ -65,6 +65,10 @@ const ButtonComp = styled.button<ButtonProps>`
   background-color: ${(props: any) => bgColor(props.buttonType, props.bg)};
   border: ${(props: any) => border(props.buttonType)};
   color: ${(props: any) => color(props.buttonType)};
+
+  svg {
+    margin-left: 1em;
+  }
 `;
 
 export default ButtonComp;
