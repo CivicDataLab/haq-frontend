@@ -1,3 +1,5 @@
+import placeholder from 'public/assets/images/placeholder.jpg';
+
 export const tabbedData = {
   tabs: [
     {
@@ -101,7 +103,6 @@ export const carousel = [
   },
 ];
 
-
 export const bannerDetails = {
   heading: 'Looking for someting else?',
   content: (
@@ -112,6 +113,21 @@ export const bannerDetails = {
       </a>
     </>
   ),
-  image: 'http://placekitten.com/184/184',
+  image: placeholder,
   color: '#00ABB7',
 };
+
+export const dropdown = [
+  {
+    title: '10',
+    value: '10',
+  },
+  {
+    title: '20',
+    value: '20',
+  },
+  {
+    title: '50',
+    value: '50',
+  },
+];

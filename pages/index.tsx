@@ -25,7 +25,7 @@ export default function Home() {
           <h2>Dropdown</h2>
           <Dropdown
             // default={'A'}
-            options={['A', 'B', 'C']}
+            options={temp.dropdown}
             heading="Header"
           />
         </div>

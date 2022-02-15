@@ -28,7 +28,7 @@ interface Props {
   /**
    * return prop
    */
-  handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const Dropdown = ({ heading, options, handleChange, value }: Props) => (

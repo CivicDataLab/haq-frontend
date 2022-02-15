@@ -12,7 +12,7 @@ const Banner = ({ details }) => {
         {details.content}
       </div>
       <figure>
-        <Image src={details.image} width={184} height={184} alt="" />
+        <Image src={details.image} width={200} height={135} alt="" />
       </figure>
     </BannerComp>
   );

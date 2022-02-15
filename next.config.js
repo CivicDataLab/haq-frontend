@@ -1,10 +1,6 @@
 const withTM = require('next-transpile-modules')(['echarts', 'zrender']);
 
-module.exports = withTM({
-  images: {
-    domains: ['placekitten.com'],
-  },
-});
+module.exports = withTM();
 
 module.exports = {
   reactStrictMode: true,
