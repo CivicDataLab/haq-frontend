@@ -91,9 +91,6 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <div className="container">
           {data && (
             <div>
-              <h2 style={{ marginTop: '2rem' }} className="heading">
-                Browse Contracts
-              </h2>
               <DatasetsComp>
                 <Filter
                   data={facets}

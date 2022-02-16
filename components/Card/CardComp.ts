@@ -4,7 +4,7 @@ export const DatasetCardComp = styled.a`
   text-decoration: none;
   padding: 1.5rem;
   display: block;
-  background-color: $bg-lightest;
+  background-color: var(--color-grey);
   border-radius: 6px;
   transition: transform 200ms ease;
   display: flex;
@@ -17,10 +17,18 @@ export const DatasetCardComp = styled.a`
     width: 60px;
     width: 60px;
   }
+  
+  .card__group {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding-bottom : 4px;
+  }
 
   .card__heading {
-    font-size: 1rem;
-    color: $grey-1;
+    font-size: 20px;
+    font-weight:500;
+    color: var(--color-text);
   }
 
   .card__date {
@@ -32,13 +40,14 @@ export const DatasetCardComp = styled.a`
   }
 
   .card__content {
-    border-top: 2px solid $grey-6;
-    padding-top: 1.25rem;
+    padding-top: .5rem;
     display: flex;
     flex-wrap: wrap;
+    color: rgba(0, 0, 0, 0.87);
 
    p {
-     line-height: 150%;
+    font-size: 16px;
+    line-height: 140%;
    }
   }
 
