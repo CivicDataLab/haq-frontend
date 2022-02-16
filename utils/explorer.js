@@ -30,7 +30,6 @@ export function stripTitle(name) {
 
 export function explorerPopulation(obj) {
   let newObj = {};
-
   const resources = {};
   const resUrls = [];
   obj.resources &&
@@ -41,6 +40,7 @@ export function explorerPopulation(obj) {
     });
 
   newObj = {
+    groups: obj.groups.map((group) => group.display_name),
     id: obj.name,
     title: obj.title,
     notes: obj.notes || '',

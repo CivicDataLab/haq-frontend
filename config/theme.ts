@@ -1,3 +1,17 @@
 export const DEFAULT_THEME = {
-  primaryColor: '#FA5D82',
+  primary: '#FA5D82', 
+  secondary : '#4965B2',
+  tertiary : '#ED8686',
+  text: '#000000',
+  background_dark : '#6E3D7A',
+  background_darkest : '#3E1C47',
+  violet : '#B881C7',
+  grey_00 :'#FFFFFF',
+  grey_01 :'#4B444D',
+  grey_03 : '#8E888F',
+  grey_04 : '#AFABB0',
+  grey_05 : '#D1CDD1',
+  grey_06 : '#F2EFF2',
+  honey : '#FBB670',
+  amazon : '#69BC99',
 }

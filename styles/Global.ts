@@ -18,7 +18,15 @@ ${MobileNavComp}
 ${normalize()}
 
 html {
-  --color-primary: ${theme.primaryColor};
+  --color-primary: ${theme.primary};
+  --color-secondary : ${theme.secondary};
+  --color-text : ${theme.text};
+  --color-tertiary : ${theme.tertiary};
+  --color-background_dark : ${theme.background_dark};
+  --color-violet : ${theme.violet};
+  --color-grey : ${theme.grey_00};
+  --color-honey : ${theme.honey};
+  --color-amazon : ${theme.amazon};
   box-sizing: border-box;
   font-size: 16px;
 }
@@ -34,7 +42,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Rubik',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #f2f2f2;
   }
