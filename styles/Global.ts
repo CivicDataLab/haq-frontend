@@ -23,10 +23,10 @@ html {
   --color-text : ${theme.text};
   --color-tertiary : ${theme.tertiary};
   --color-background_dark : ${theme.background_dark};
-  --color-violet : ${theme.violet};
-  --color-grey : ${theme.grey_00};
-  --color-honey : ${theme.honey};
-  --color-amazon : ${theme.amazon};
+  --color-violet : ${theme.color_violet};
+  --color-grey : ${theme.grey_100};
+  --color-honey : ${theme.color_honey};
+  --color-amazon : ${theme.color_amazon};
   box-sizing: border-box;
   font-size: 16px;
 }
