@@ -7,11 +7,12 @@ export const DatasetListComp = styled.ul`
 
   .list__item {
     margin-top: 1rem;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
-    border: 1px solid #f2f2f2;
-    border-radius: 8px;
-    background-color: #fff;
+    box-sizing: border-box;
     position: relative;
     z-index: 10;
+    background: var(--color-grey);
+    border: 1px solid #D1CDD1;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
   }
 `;

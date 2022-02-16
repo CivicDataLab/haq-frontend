@@ -20,10 +20,10 @@ export const FilterComp = styled.div`
   }
 
   [aria-pressed='true'] {
-    background-color: #c6d3fc;
+    background-color: #EBF0FF;
 
     &:hover {
-      background-color: #ebf0ff;
+      background-color: #F2EFF2;
     }
   }
 `;
