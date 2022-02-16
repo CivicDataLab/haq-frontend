@@ -4,7 +4,6 @@ export const DatasetCardComp = styled.a`
   text-decoration: none;
   padding: 1.5rem;
   display: block;
-  background-color: var(--color-grey);
   border-radius: 6px;
   transition: transform 200ms ease;
   display: flex;

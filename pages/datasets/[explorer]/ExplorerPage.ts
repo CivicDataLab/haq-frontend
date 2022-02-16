@@ -270,7 +270,7 @@ const ExplorerPage = styled.main`
         }
       }
 
-      figure {
+      &__graph {
         margin: 0 2rem 2rem;
         height: 500px;
         overflow-y: auto;

@@ -53,10 +53,10 @@ export function export_table_to_csv(filename: any) {
 }
 
 const DownloadViz = ({ viz, type, name, indicator }) => {
+  console.log(viz);
+
   function svg2img() {
-    const myChart = echarts.getInstanceByDom(
-      document.querySelector('.echarts-for-react')
-    );
+    const myChart = echarts.getInstanceByDom(document.querySelector(viz));
 
     const url = myChart.getConnectedDataURL({
       pixelRatio: 5, //derived ratio picture resolution, default 1
@@ -64,7 +64,7 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
       excludeComponents: ['toolbox'],
       type: 'png', //Image types support png and jpeg
     });
-    saveAs(url, fileName(type, name, indicator, 'png'))
+    saveAs(url, fileName(type, name, indicator, 'png'));
 
     // watermark([url, '/assets/images/jh_logo.png'])
     //   .image(watermark.image.lowerRight(0.5))
@@ -78,11 +78,7 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
   }
 
   return (
-    <Button
-      onClick={() => downloadSelector(viz)}
-      kind="primary"
-      size="sm"
-    >
+    <Button onClick={() => downloadSelector(viz)} kind="primary" size="sm">
       {`Download ${viz == '#tableView' ? 'CSV' : 'Chart'}`} <Download />
     </Button>
   );

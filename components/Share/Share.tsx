@@ -1,24 +1,19 @@
 import React, { useEffect } from 'react';
-import { Share } from 'icons/ExplorerIcons';
+import { ShareIcon } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
 import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
-import Button from 'components/Button/Button';
-import Dialog from 'components/Dialog/Dialog';
+import Widget from 'components/Widget/Widget';
 
-const ShareModal = ({ title }) => {
+const Share = ({ title }) => {
   const router = useRouter();
 
   useEffect(() => {
     if (navigator.share) {
       document.getElementById('share-native').removeAttribute('hidden');
-      document
-        .getElementById('shareComp-custom')
-        .setAttribute('hidden', 'true');
     }
   }, []);
 
-  // open / close sub-menu
   function shareButtonHandler() {
     // check if web share api is supported
     if (navigator.share) {
@@ -31,24 +26,14 @@ const ShareModal = ({ title }) => {
 
   return (
     <>
-      <Button
-        onClick={() => shareButtonHandler()}
-        kind="primary-outline"
-        aria-label={`Show share menu`}
-        id="share-native"
-        hidden
-      >
-        Share <Share />
-      </Button>
-      <Dialog
-        title="share menu"
-        buttonStyle="primary-outline"
+      <Widget
         buttonContent={
           <>
-            Share <Share />
+            Share <ShareIcon />
           </>
         }
-        id="shareComp-custom"
+        title="share menu"
+        buttonStyle="primary-outline"
       >
         <ShareComp className="shareModal__dropdown">
           <li>
@@ -95,10 +80,16 @@ const ShareModal = ({ title }) => {
               <span className="sr-only"> :opens in new window</span>
             </a>
           </li>
+          <li id='share-native' hidden>
+            <button onClick={() => shareButtonHandler()}>
+              <Reddit />
+              <span>Share via...</span>
+            </button>
+          </li>
         </ShareComp>
-      </Dialog>
+      </Widget>
     </>
   );
 };
 
-export default ShareModal;
+export default Share;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Dropdown from 'components/Dropdown/Dropdown';
+import Menu from 'components/Menu/Menu';
 
 const options = [
   {
@@ -42,15 +43,15 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
   }, [router.query.sort]);
 
   const handleChange = (event: any) => {
-    setSort(event.target.value);
+    setSort(event);
 
     newSort({
       query: 'sort',
-      value: event.target.value,
+      value: event,
     });
   };
   return (
-    <Dropdown
+    <Menu
       options={options}
       heading="Sort by"
       handleChange={handleChange}
