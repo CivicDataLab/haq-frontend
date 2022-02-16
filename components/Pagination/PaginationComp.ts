@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import DropdownComp from 'components/Dropdown/DropdownComp';
+import { NativeSelect } from 'components/Dropdown/DropdownComp';
 
 export const PaginationComp = styled.div`
   margin-top: 1rem;
@@ -22,7 +22,7 @@ export const PaginationComp = styled.div`
     }
   }
 
-  ${DropdownComp} {
+  ${NativeSelect} {
     max-width: 120px;
   }
 `;

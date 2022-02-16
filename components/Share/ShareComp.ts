@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ShareComp = styled.ul`
+export const ShareComp = styled.ul`
   background-color: #fff;
   border: 1px solid #cdd1d1;
   box-shadow: 1px solid #eff2f2;

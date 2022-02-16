@@ -22,11 +22,28 @@ html {
   --color-secondary : ${theme.secondary};
   --color-text : ${theme.text};
   --color-tertiary : ${theme.tertiary};
-  --color-background_dark : ${theme.background_dark};
+  --color-background-dark : ${theme.background_dark};
+  --color-background-darker : ${theme.background_darker};
+  --color-background-light : ${theme.background_light};
+  --color-background-lighter : ${theme.background_lighter};
+  --color-white : ${theme.color_white};
   --color-violet : ${theme.color_violet};
-  --color-grey : ${theme.grey_100};
   --color-honey : ${theme.color_honey};
   --color-amazon : ${theme.color_amazon};
+  --color-grey-100 : ${theme.grey_100};
+  --color-grey-200 : ${theme.grey_200};
+  --color-grey-300 : ${theme.grey_300};
+  --color-grey-400 : ${theme.grey_400};
+  --color-grey-500 : ${theme.grey_500};
+  --color-grey-600 : ${theme.grey_600};
+
+  --border-1 : 1px solid var(--color-grey-500);
+  --box-shadow-1 : 0px 4px 12px rgba(0, 0, 0, 0.08);
+  --box-shadow-inset: inset 0px 0px 4px rgba(0, 0, 0, 0.08);
+
+  --font-weight-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-light: 400;
   box-sizing: border-box;
   font-size: 16px;
 }

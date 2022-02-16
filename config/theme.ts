@@ -10,7 +10,7 @@ export const DEFAULT_THEME = {
   color_violet : '#B881C7',
   color_honey : '#FBB670',
   color_amazon : '#69BC99',
-  grey_000 :'#FFFFFF',
+  color_white :'#FFFFFF',
   grey_100 :'#4B444D',
   grey_200 :'#6C666E',
   grey_300 : '#8E888F',

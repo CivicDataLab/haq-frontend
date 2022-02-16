@@ -8,10 +8,17 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
    * Button Content
    */
   buttonContent: React.ReactNode;
+
   /**
    * Button title
    */
   title?: string;
+
+  /**
+   * custom class for button
+   */
+  buttonClass?: string;
+
   /**
    * Button style
    */
@@ -22,12 +29,13 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
     | 'secondary-outline'
     | 'custom';
 }
-const uniqueId = uuidv4();
+const widgetID = uuidv4();
 
 const Widget = ({
   buttonContent,
   title = 'widget',
-  buttonStyle = 'primary-outline',
+  buttonStyle = 'custom',
+  buttonClass,
   children,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,9 +49,11 @@ const Widget = ({
       activatorRef.current.focus();
     }
   };
+
   const clickHandler = () => {
     setIsOpen(!isOpen);
   };
+
   const clickOutsideHandler = (event) => {
     if (
       dropdownListRef.current.contains(event.target) ||
@@ -53,11 +63,11 @@ const Widget = ({
     }
     setIsOpen(false);
   };
+
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('mouseup', clickOutsideHandler);
-
-      // dropdownListRef.current.querySelector('a').focus();
+      dropdownListRef.current.querySelector(':not([disabled])').focus();
     } else {
       document.removeEventListener('mouseup', clickOutsideHandler);
     }
@@ -66,17 +76,18 @@ const Widget = ({
       document.removeEventListener('mouseup', clickOutsideHandler);
     };
   }, [isOpen]);
+
   return (
     <WidgetComp onKeyUp={wrapKeyHandler}>
       <Button
         kind={buttonStyle}
         aria-expanded="false"
-        aria-controls={uniqueId}
+        aria-controls={widgetID}
         aria-label={`Show ${title}`}
         data-text-for-show={`Show ${title}`}
         data-text-for-hide={`Hide ${title}`}
         onClick={clickHandler}
-        className="widget__button"
+        className={buttonClass ? buttonClass : null}
         passRef={activatorRef}
       >
         {buttonContent}
@@ -84,7 +95,7 @@ const Widget = ({
       {
         <WidgetContent
           className={`${isOpen ? 'widget__active' : ''}`}
-          id={uniqueId}
+          id={widgetID}
           ref={dropdownListRef}
           tabIndex={-1}
         >

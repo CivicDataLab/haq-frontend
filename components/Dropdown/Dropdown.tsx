@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
-  DropdownComp,
-  DropdownLabel,
-  DropdownOption,
-  DropdownSelect,
+  SelectComp,
+  SelectLabel,
+  NativeSelect,
+  CustomSelect,
+  CustomSelectContent,
 } from './DropdownComp';
+import Widget from 'components/Widget/Widget';
 
 interface Props {
   /**
@@ -31,25 +34,49 @@ interface Props {
   handleChange?: (event: string) => void;
 }
 
+const selectID = uuidv4();
+
 const Dropdown = ({ heading, options, handleChange, value }: Props) => (
-  <DropdownComp className="dropdown">
+  <SelectComp className="dropdown">
     {heading && (
-      <DropdownLabel htmlFor="dropdown-select">{`${heading}:`}&nbsp;&nbsp;</DropdownLabel>
+      <SelectLabel id={selectID}>{`${heading}:`}&nbsp;&nbsp;</SelectLabel>
     )}
 
-    <DropdownSelect
-      id="dropdown-select"
+    <CustomSelect aria-hidden="true">
+      <Widget
+        buttonContent={value}
+        title="share menu"
+        buttonStyle="custom"
+        buttonClass="select__button"
+      >
+        <CustomSelectContent role="list">
+          {options.map((option: any, index: any) => (
+            <li role="listitem" key={`select-${index}`}>
+              <button
+                value={option.value}
+                onClick={(e: any) => handleChange(e.target.value)}
+              >
+                {option.title}
+              </button>
+            </li>
+          ))}
+        </CustomSelectContent>
+      </Widget>
+    </CustomSelect>
+
+    <NativeSelect
+      aria-labelledby={selectID}
       className="dropdown__selector"
-      onChange={e => handleChange(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
       value={value}
     >
       {options.map((option: any, index: any) => (
-        <DropdownOption value={option.value} key={`dropdown-${index}`}>
+        <option value={option.value} key={`selectNative-${index}`}>
           {option.title}
-        </DropdownOption>
+        </option>
       ))}
-    </DropdownSelect>
-  </DropdownComp>
+    </NativeSelect>
+  </SelectComp>
 );
 
 export default Dropdown;

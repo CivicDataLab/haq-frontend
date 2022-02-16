@@ -12,7 +12,10 @@ const PrimaryColor = '#076775';
 const SecondaryColor = '#F65940';
 
 function bgColor(type: string, bg: string) {
-  if (bg) {
+  if (type == 'custom') {
+    return 'inherit';
+  }
+  else if (bg) {
     return bg;
   } else {
     switch (type) {
@@ -27,18 +30,27 @@ function bgColor(type: string, bg: string) {
 }
 
 function color(type: string) {
+  if (type == 'custom') {
+    return 'inherit';
+  }
   if (type == 'primary' || type == 'secondary') return 'white';
   else if (type == 'primary-outline') return PrimaryColor;
   else return SecondaryColor;
 }
 
 function border(type: string) {
+  if (type == 'custom') {
+    return 'inherit';
+  }
   if (type == 'primary' || type == 'secondary') return 'none';
   else if (type == 'primary-outline') return `2px solid ${PrimaryColor}`;
   else return `2px solid ${SecondaryColor}`;
 }
 
 function buttonSize(size: string, type: string) {
+  if (type == 'custom') {
+    return 'inherit';
+  }
   if (type == 'primary-outline' || type == 'secondary-outline') {
     if (size == 'sm') return '6px 10px';
     else return '10px 22px';
@@ -56,7 +68,7 @@ function buttonFont(size: string) {
 const ButtonComp = styled.button<ButtonProps>`
   padding: ${(props: any) => buttonSize(props.size, props.buttonType)};
   font-size: ${(props: any) => buttonFont(props.size)};
-  font-weight: bold !important;
+  font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
   display: flex;

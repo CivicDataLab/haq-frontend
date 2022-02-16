@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -21,7 +21,7 @@ import { resourceGetter } from 'utils/resourceParser';
 
 import Indicator from 'components/Indicator/Indicator';
 import IndicatorMobile from 'components/Indicator/IndicatorMobile';
-import ShareModal from 'components/ShareModal/ShareModal';
+import Share from 'components/Share/Share';
 import Banner from 'components/Banner/Banner';
 import Button from 'components/Button/Button';
 import Dropdown from 'components/Dropdown/Dropdown';
@@ -63,6 +63,9 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#barGraph');
+
+  const barRef = useRef(null);
+  const lineRef = useRef(null);
 
   // todo: make it dynamic lie scheme dashboard
   const IndicatorDesc = [
@@ -145,6 +148,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
           unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
         />
       ),
+      ref: barRef,
     },
     {
       id: 'lineChart',
@@ -163,6 +167,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
           unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
         />
       ),
+      ref: lineRef,
     },
     {
       id: 'tableView',
@@ -232,7 +237,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
-    const panels = document.querySelectorAll('.viz figure');
+    const panels = document.querySelectorAll('.viz__graph');
     tabbedInterface(tablist, panels);
 
     handleNewVizData('Budget Estimates');
@@ -301,7 +306,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
         <div className="explorer">
           <div className="explorer__header">
             <div className="container">
-              {<ShareModal title={data.title} />}
+              <Share title={data.title} />
             </div>
 
             <section className="explorer__heading container">
@@ -363,13 +368,13 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
 
               <div>
                 {vizItems.map((item, index) => (
-                  <figure
+                  <div
                     key={`vizItem-${index}`}
-                    className="viz__bar"
+                    className="viz__graph"
                     id={item.id}
                   >
                     {item.graph}
-                  </figure>
+                  </div>
                 ))}
               </div>
 
@@ -398,7 +403,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                     size="sm"
                     kind="primary-outline"
                   >
-                    Data Guidebook <ExternalLink fill="#00abb7" />
+                    Data Guidebook <ExternalLink fill="#076775" />
                     <span className="sr-only"> :opens in new window</span>
                   </Button>
                   <DownloadViz

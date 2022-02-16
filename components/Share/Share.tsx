@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { Share } from 'icons/ExplorerIcons';
+import { ShareIcon } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
 import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
 import Widget from 'components/Widget/Widget';
 
-const ShareModal = ({ title }) => {
+const Share = ({ title }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -14,7 +14,6 @@ const ShareModal = ({ title }) => {
     }
   }, []);
 
-  // open / close sub-menu
   function shareButtonHandler() {
     // check if web share api is supported
     if (navigator.share) {
@@ -30,7 +29,7 @@ const ShareModal = ({ title }) => {
       <Widget
         buttonContent={
           <>
-            Share <Share />
+            Share <ShareIcon />
           </>
         }
         title="share menu"
@@ -93,4 +92,4 @@ const ShareModal = ({ title }) => {
   );
 };
 
-export default ShareModal;
+export default Share;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Dropdown from 'components/Dropdown/Dropdown';
+import Menu from 'components/Menu/Menu';
 
 const options = [
   {
@@ -50,7 +51,7 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
     });
   };
   return (
-    <Dropdown
+    <Menu
       options={options}
       heading="Sort by"
       handleChange={handleChange}
