@@ -13,13 +13,18 @@ interface MenuProps {
 }
 
 export const MenuComp = styled.div`
-  position: relative;
-  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const MenuLabel = styled.span`
   font-weight: var(--font-weight-medium);
   color: var(--text-light-medium);
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  height: 100%;
 `;
 
 export const MenuButton = styled.button`
@@ -49,8 +54,9 @@ export const MenuContent = styled.ul<MenuProps>`
   border-radius: 0px 0px 4px 4px;
   padding: 8px;
 
-  max-height: 400px;
-  min-width: 180px;
+  max-height: 300px;
+  width: max-content;
+  overflow-y: auto;
 `;
 
 export const MenuItem = styled.li`

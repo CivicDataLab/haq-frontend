@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import Dropdown from 'components/Dropdown/Dropdown';
 import {
   PaginationComp,
   PaginationJump,
   PaginationButtons,
 } from './PaginationComp';
+import Menu from 'components/Menu';
 
 const paginationItems = [
   {
@@ -55,10 +55,8 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
     });
   }
 
-  function handleRowsChange(e: any) {
-    const size = e.target.value;
-
-    fetchNewResults(size, 'size');
+  function handleRowsChange(e: string) {
+    fetchNewResults(e, 'size');
   }
 
   function handleJump(val: string) {
@@ -89,11 +87,13 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
 
   return (
     <PaginationComp className="pagination">
-      <Dropdown
-        value={resultSize}
+      <Menu
         options={paginationItems}
-        heading="Rows"
+        heading="Rows:"
         handleChange={handleRowsChange}
+        value={resultSize}
+        top={true}
+        position="left"
       />
 
       <PaginationJump>

@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { MenuButton, MenuContent, MenuComp, MenuItem, MenuLabel } from './MenuComp';
+import {
+  MenuButton,
+  MenuContent,
+  MenuComp,
+  MenuItem,
+  MenuLabel,
+  Wrapper,
+} from './MenuComp';
 
 interface Props {
   /**
@@ -112,25 +119,29 @@ const Menu = ({
 
     return () => {
       document.removeEventListener('mouseup', clickOutsideHandler);
-      MenuContainerRef.current.removeEventListener(
-        'keydown',
-        menuItemArrowHandle,
-        false
-      );
-      MenuButtonRef.current.removeEventListener(
-        'keydown',
-        function (e) {
-          if (e.key == 'Escape') {
-            menuClose();
-          }
-        },
-        false
-      );
-      MenuButtonRef.current.removeEventListener(
-        'keydown',
-        menuButtonArrowHandle,
-        false
-      );
+      MenuContainerRef.current &&
+        MenuContainerRef.current.removeEventListener(
+          'keydown',
+          menuItemArrowHandle,
+          false
+        );
+      if (MenuButtonRef.current) {
+        MenuButtonRef.current.removeEventListener(
+          'keydown',
+          function (e) {
+            if (e.key == 'Escape') {
+              menuClose();
+            }
+          },
+          false
+        );
+
+        MenuButtonRef.current.removeEventListener(
+          'keydown',
+          menuButtonArrowHandle,
+          false
+        );
+      }
     };
   }, [isOpen]);
 
@@ -229,42 +240,46 @@ const Menu = ({
 
   return (
     <MenuComp>
-      {heading && value && <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>}
-      <MenuButton
-        aria-haspopup="true"
-        aria-expanded="false"
-        aria-controls={MenuContentID}
-        aria-labelledby={menuLabelID}
-        ref={MenuButtonRef}
-        onClick={menuButtonHandle}
-      >
-        {value ? value : heading}
-      </MenuButton>
-      <MenuContent
-        id={MenuContentID}
-        role="menu"
-        ref={MenuContainerRef}
-        position={position}
-        top={top}
-        hidden
-      >
-        {options.length > 0 ? (
-          options.map((item, index) => (
-            <MenuItem key={item.value} role="none">
-              <button
-                onClick={(e) => menuItemHandle(e)}
-                data-value={item.value}
-                role="menuitem"
-                tabIndex={index == 0 ? 0 : -1}
-              >
-                {item.title}
-              </button>
-            </MenuItem>
-          ))
-        ) : (
-          <span>No Items</span>
-        )}
-      </MenuContent>
+      {heading && value && (
+        <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>
+      )}
+      <Wrapper>
+        <MenuButton
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls={MenuContentID}
+          aria-labelledby={menuLabelID}
+          ref={MenuButtonRef}
+          onClick={menuButtonHandle}
+        >
+          {value ? value : heading}
+        </MenuButton>
+        <MenuContent
+          id={MenuContentID}
+          role="menu"
+          ref={MenuContainerRef}
+          position={position}
+          top={top}
+          hidden
+        >
+          {options.length > 0 ? (
+            options.map((item, index) => (
+              <MenuItem key={item.value} role="none">
+                <button
+                  onClick={(e) => menuItemHandle(e)}
+                  data-value={item.value}
+                  role="menuitem"
+                  tabIndex={index == 0 ? 0 : -1}
+                >
+                  {item.title}
+                </button>
+              </MenuItem>
+            ))
+          ) : (
+            <span>No Items</span>
+          )}
+        </MenuContent>
+      </Wrapper>
     </MenuComp>
   );
 };
