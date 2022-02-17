@@ -17,7 +17,6 @@ export const DatasetsPage = styled.main`
 export const DatasetsComp = styled.div`
   display: grid;
   grid-template-columns: 312px 1fr;
-  grid-template-rows: max-content 1fr;
   gap: 2rem;
   margin-top: 2.5rem;
 
@@ -30,6 +29,10 @@ export const DatasetsComp = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
+  }
+
+  @media (max-width: 980px) {
+    display: block;
   }
 `;
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
-import { MenuButton, MenuContent, MenuComp, MenuItem } from './MenuComp';
+import { v4 as uuidv4 } from 'uuid';
+import { MenuButton, MenuContent, MenuComp, MenuItem, MenuLabel } from './MenuComp';
 
 interface Props {
   /**
-   * Options to display in the dropdown
+   * Options to display in the menu
    */
   options: {
     value: string;
@@ -12,14 +12,24 @@ interface Props {
   }[];
 
   /**
-   * current value of dropdown
+   * current value of menu, it will change on selection
    */
   value?: string;
 
   /**
-   * Heading for the dropdown
+   * Heading for the menu
    */
   heading?: string;
+
+  /**
+   * should the menu open to top
+   */
+  top?: true | false;
+
+  /**
+   * should the menu stick to left or right
+   */
+  position?: 'left' | 'right';
 
   /**
    * return prop
@@ -27,7 +37,17 @@ interface Props {
   handleChange?: (event: string) => void;
 }
 
-const Menu = ({ options }: Props) => {
+const MenuContentID = uuidv4();
+const menuLabelID = uuidv4();
+
+const Menu = ({
+  options,
+  heading = 'Open Menu',
+  handleChange,
+  value,
+  top = false,
+  position = 'right',
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const MenuButtonRef = useRef(null);
   const MenuContainerRef = useRef(null);
@@ -117,7 +137,14 @@ const Menu = ({ options }: Props) => {
   function menuOpen() {
     MenuButtonRef.current.setAttribute('aria-expanded', true);
     MenuContainerRef.current.hidden = false;
-    MenuContainerRef.current.querySelectorAll('[role="menuitem"]')[0].focus();
+
+    const firstMenuItem =
+      MenuContainerRef.current.querySelectorAll('[role="menuitem"]')[0];
+
+    firstMenuItem &&
+      MenuContainerRef.current
+        .querySelectorAll('[role="menuitem"]')[0]
+        .focus();
 
     setIsOpen(true);
   }
@@ -149,7 +176,7 @@ const Menu = ({ options }: Props) => {
       else {
         const firstMenuItem =
           MenuContainerRef.current.querySelectorAll('[role="menuitem"]')[0];
-        firstMenuItem.focus();
+        firstMenuItem && firstMenuItem.focus();
       }
     }
 
@@ -178,14 +205,15 @@ const Menu = ({ options }: Props) => {
       // focus first element
       const firstMenuItem =
         MenuContainerRef.current.querySelectorAll('[role="menuitem"]')[0];
-      firstMenuItem.focus();
+      firstMenuItem && firstMenuItem.focus();
     } else if (e.key == 'ArrowUp') {
       e.preventDefault();
       menuOpen();
       // focus last element
       const allMenuItems =
         MenuContainerRef.current.querySelectorAll('[role="menuitem"]');
-      allMenuItems[allMenuItems.length - 1].focus();
+      allMenuItems[allMenuItems.length - 1] &&
+        allMenuItems[allMenuItems.length - 1].focus();
     }
   }
 
@@ -195,20 +223,31 @@ const Menu = ({ options }: Props) => {
   }
 
   function menuItemHandle(e) {
-    const button = e.target;
+    handleChange(e.target.dataset.value);
+    menuClose();
   }
 
   return (
     <MenuComp>
+      {heading && value && <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>}
       <MenuButton
         aria-haspopup="true"
         aria-expanded="false"
+        aria-controls={MenuContentID}
+        aria-labelledby={menuLabelID}
         ref={MenuButtonRef}
         onClick={menuButtonHandle}
       >
-        Open Menu
+        {value ? value : heading}
       </MenuButton>
-      <MenuContent role="menu" ref={MenuContainerRef} hidden>
+      <MenuContent
+        id={MenuContentID}
+        role="menu"
+        ref={MenuContainerRef}
+        position={position}
+        top={top}
+        hidden
+      >
         {options.length > 0 ? (
           options.map((item, index) => (
             <MenuItem key={item.value} role="none">
@@ -223,7 +262,7 @@ const Menu = ({ options }: Props) => {
             </MenuItem>
           ))
         ) : (
-          <li>No Items</li>
+          <span>No Items</span>
         )}
       </MenuContent>
     </MenuComp>
