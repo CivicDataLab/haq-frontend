@@ -78,7 +78,7 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
   }
 
   return (
-    <Button onClick={() => downloadSelector(viz)} kind="primary" size="sm">
+    <Button onClick={() => downloadSelector(viz)} kind="secondary" size="sm">
       {`Download ${viz == '#tableView' ? 'CSV' : 'Chart'}`} <Download />
     </Button>
   );

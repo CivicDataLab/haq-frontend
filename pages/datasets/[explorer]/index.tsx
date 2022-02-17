@@ -21,9 +21,8 @@ import { resourceGetter } from 'utils/resourceParser';
 import Indicator from 'components/Indicator';
 import IndicatorMobile from 'components/Indicator/IndicatorMobile';
 import Share from 'components/Share';
-import Banner from 'components/Banner';
 import Button from 'components/Button';
-import Dropdown from 'components/Dropdown';
+import Menu from 'components/Menu';
 import Table from 'components/Table';
 import DownloadViz from 'components/DownloadViz';
 import Tags from 'components/Tags';
@@ -353,7 +352,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                 </ul>
                 <div className="dropdown">
                   {budgetTypes.length > 1 && !isTable && (
-                    <Dropdown
+                    <Menu
                       value={selectedBudgetType}
                       options={budgetTypes}
                       heading="Select Budget Type"
@@ -398,7 +397,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
                     rel="noreferrer"
                     target="_blank"
                     size="sm"
-                    kind="primary-outline"
+                    kind="secondary-outline"
                   >
                     Data Guidebook <ExternalLink fill="#076775" />
                     <span className="sr-only"> :opens in new window</span>
@@ -417,10 +416,6 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
               </div>
             </div>
           </section>
-
-          <div className="container">
-            <Banner details={bannerDetails} />
-          </div>
 
           <section className="explorer__schemes">
             <div className="container">

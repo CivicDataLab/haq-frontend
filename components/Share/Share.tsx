@@ -33,7 +33,7 @@ const Share = ({ title }) => {
           </>
         }
         title="share menu"
-        buttonStyle="primary-outline"
+        buttonStyle="secondary-outline"
       >
         <ShareComp className="shareModal__dropdown">
           <li>

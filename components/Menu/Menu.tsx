@@ -8,6 +8,7 @@ import {
   MenuLabel,
   Wrapper,
 } from './MenuComp';
+import { ArrowDown } from 'icons/ExplorerIcons';
 
 interface Props {
   /**
@@ -253,6 +254,7 @@ const Menu = ({
           onClick={menuButtonHandle}
         >
           {value ? value : heading}
+          <ArrowDown />
         </MenuButton>
         <MenuContent
           id={MenuContentID}

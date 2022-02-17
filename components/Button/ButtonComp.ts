@@ -8,9 +8,6 @@ interface ButtonProps {
   readonly href?: string;
 }
 
-const PrimaryColor = '#076775';
-const SecondaryColor = '#F65940';
-
 function bgColor(type: string, bg: string) {
   if (type == 'custom') {
     return 'inherit';
@@ -20,9 +17,9 @@ function bgColor(type: string, bg: string) {
   } else {
     switch (type) {
       case 'primary':
-        return PrimaryColor;
+        return 'var(--color-primary)';
       case 'secondary':
-        return SecondaryColor;
+        return 'var(--color-secondary)';
       default:
         return 'transparent';
     }
@@ -34,8 +31,8 @@ function color(type: string) {
     return 'inherit';
   }
   if (type == 'primary' || type == 'secondary') return 'white';
-  else if (type == 'primary-outline') return PrimaryColor;
-  else return SecondaryColor;
+  else if (type == 'primary-outline') return 'var(--color-primary)';
+  else return 'var(--color-secondary)';
 }
 
 function border(type: string) {
@@ -43,8 +40,8 @@ function border(type: string) {
     return 'inherit';
   }
   if (type == 'primary' || type == 'secondary') return 'none';
-  else if (type == 'primary-outline') return `2px solid ${PrimaryColor}`;
-  else return `2px solid ${SecondaryColor}`;
+  else if (type == 'primary-outline') return `2px solid ${'var(--color-primary)'}`;
+  else return `2px solid ${'var(--color-secondary)'}`;
 }
 
 function buttonSize(size: string, type: string) {

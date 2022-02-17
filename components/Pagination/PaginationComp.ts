@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NativeSelect } from 'components/Dropdown/DropdownComp';
+import { NativeSelect } from 'components/Select/SelectComp';
 
 export const PaginationComp = styled.div`
   margin-top: 1rem;

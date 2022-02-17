@@ -367,9 +367,9 @@ const ExplorerPage = styled.main`
     }
 
     &__schemes {
-      padding-top: 15rem;
+      padding-top: 4rem;
+      margin-top: 2.5rem;
       padding-bottom: 9rem;
-      margin-bottom: -5rem;
       background-color: #fff;
 
       &--split {
