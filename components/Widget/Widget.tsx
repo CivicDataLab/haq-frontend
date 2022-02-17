@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { WidgetComp, WidgetContent } from './WidgetComp';
-import Button from 'components/Button/Button';
+import Button from 'components/Button';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   /**

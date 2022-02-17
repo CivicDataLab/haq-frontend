@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import {
   fetchFilters,
   fetchDatasets,
   convertToCkanSearchQuery,
 } from 'utils/fetch';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import Search from 'components/Search/Search';
-import Total from 'components/Total/Total';
+
+import Search from 'components/Search';
+import Total from 'components/Total';
 import DatasetList from 'components/List/DatasetList';
-import Filter from 'components/Filter/Filter';
-import MegaHeader from 'components/MegaHeader/MegaHeader';
-import Modal from 'components/Modal/Modal';
-import Sort from 'components/Sort/Sort';
-import Pagination from 'components/Pagination/Pagination';
+import Filter from 'components/Filter';
+import MegaHeader from 'components/MegaHeader';
+import Sort from 'components/Sort';
+import Pagination from 'components/Pagination';
+
 import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 
 type Props = {

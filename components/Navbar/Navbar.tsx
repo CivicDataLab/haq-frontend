@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import MobNav from '../MobileNav/MobileNav'
+import MobNav from 'components/MobileNav'
 import * as nav from 'data/navdata/navlist';
 
 const Nav: React.FC = () => {

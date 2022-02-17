@@ -4,10 +4,10 @@ import {
   SelectComp,
   SelectLabel,
   NativeSelect,
-} from './DropdownComp';
+} from './SelectComp';
 interface Props {
   /**
-   * Options to display in the dropdown
+   * Options to display in the select
    */
   options: {
     value: string;
@@ -15,33 +15,26 @@ interface Props {
   }[];
 
   /**
-   * current value of dropdown
+   * Heading for the select
    */
-  value?: string;
-
-  /**
-   * Heading for the dropdown
-   */
-  heading?: string;
+  heading: string;
 
   /**
    * return prop
    */
-  handleChange?: (event: string) => void;
+  handleChange: (event: string) => void;
 }
 
 const selectID = uuidv4();
 
-const Select = ({ heading, options, handleChange, value }: Props) => (
-  <SelectComp className="Select">
+const Select = ({ heading, options, handleChange }: Props) => (
+  <SelectComp className="select">
     {heading && (
-      <SelectLabel id={selectID}>{`${heading}:`}&nbsp;&nbsp;</SelectLabel>
+      <SelectLabel id={selectID}>{heading}&nbsp;&nbsp;</SelectLabel>
     )}
     <NativeSelect
       aria-labelledby={selectID}
-      className="Select__selector"
       onChange={(e) => handleChange(e.target.value)}
-      value={value}
     >
       {options.map((option: any, index: any) => (
         <option value={option.value} key={`selectNative-${index}`}>

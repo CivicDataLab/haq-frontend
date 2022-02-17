@@ -13,13 +13,19 @@ interface MenuProps {
 }
 
 export const MenuComp = styled.div`
-  position: relative;
-  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const MenuLabel = styled.span`
   font-weight: var(--font-weight-medium);
   color: var(--text-light-medium);
+  font-size: 14px;
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  height: 100%;
 `;
 
 export const MenuButton = styled.button`
@@ -27,11 +33,15 @@ export const MenuButton = styled.button`
   border: var(--border-1);
   border-radius: 4px;
   box-shadow: var(--box-shadow-inset);
-  padding: 9px 42px 9px 12px;
+  padding: 9px 24px 9px 12px;
+  display: flex;
+  align-items: center;
+  line-height: 137%;
 
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.55152 0.591299L5.00041 4.04019L8.4493 0.591299C8.79596 0.244632 9.35596 0.244632 9.70263 0.591299C10.0493 0.937965 10.0493 1.49797 9.70263 1.84463L5.62263 5.92463C5.27596 6.2713 4.71596 6.2713 4.3693 5.92463L0.289297 1.84463C-0.0573698 1.49797 -0.0573698 0.937965 0.289297 0.591299C0.635964 0.253521 1.20485 0.244632 1.55152 0.591299Z' fill='%236C666E'/%3E%3C/svg%3E%0A");
-  background-repeat: no-repeat, repeat;
-  background-position: right 20px top 55%, 0 0;
+  svg {
+    margin-left: 17px;
+    margin-bottom: -2px;
+  }
 `;
 
 export const MenuContent = styled.ul<MenuProps>`
@@ -49,8 +59,10 @@ export const MenuContent = styled.ul<MenuProps>`
   border-radius: 0px 0px 4px 4px;
   padding: 8px;
 
-  max-height: 400px;
-  min-width: 180px;
+  max-height: 300px;
+  overflow-y: auto;
+  min-width: 100%;
+  width: max-content;
 `;
 
 export const MenuItem = styled.li`

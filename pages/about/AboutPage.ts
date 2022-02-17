@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const AboutComp = styled.div`
+const AboutPage = styled.main`
   width :1100px;
   padding-right: 15px;
   padding-left: 15px;
@@ -76,4 +76,4 @@ const AboutComp = styled.div`
   }
 `;
 
-export default AboutComp;
+export default AboutPage;

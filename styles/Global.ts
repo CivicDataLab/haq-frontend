@@ -85,7 +85,11 @@ body {
   background-color: #f2f2f2;
   font-size: 16px;
   line-height: 137%;
-  }
+}
+
+#__next {
+  min-height: 100vh;
+}
 
 button {
   border:  none;
@@ -93,15 +97,15 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: inherit;
+  text-decoration-color: transparent;
+}
+
 ul, ol {
   margin: 0;
   padding: 0;
 }
-
-/* main {
-  width: 90%;
-  margin: 0 auto;
-} */
 
 .sr-only {
   &:not(:where(:focus, :active, :focus-within)) {
@@ -112,16 +116,6 @@ ul, ol {
     position: absolute;
     white-space: nowrap;
     width: 1px;
-  }
-}
-
-.banner {
-  figure {
-    mix-blend-mode: multiply;
-   
-    img {
-      border-radius: 8px;
-    }
   }
 }
 

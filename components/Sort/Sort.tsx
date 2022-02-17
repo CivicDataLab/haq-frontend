@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Menu from 'components/Menu/Menu';
+import Menu from 'components/Menu';
 
 const options = [
   {
