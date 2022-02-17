@@ -31,7 +31,25 @@ import { Download, ExternalLink } from 'icons/ExplorerIcons';
 import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
 import { barLineTransformer } from 'visualizations/BarLineTransformer';
 
-import ExplorerPage from './ExplorerPage';
+import {
+  ExplorerPage,
+  ExplorerHeader,
+  HeaderContent,
+  HeaderMeta,
+  HeaderText,
+  ExplorerViz,
+  VizGraph,
+  VizHeader,
+  VizTabs,
+  VizWrapper,
+  ExplorerSource,
+  SourceButtons,
+  SourceText,
+  ExplorerRelated,
+  RelatedWrapper,
+} from './ExplorerPage';
+
+import RelatedCard from 'components/Card/RelatedCard';
 
 // const DownloadViz = dynamic(
 //   () => import('components/DownloadViz/DownloadViz'),
@@ -50,7 +68,6 @@ type Props = {
 };
 
 const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
-  const [schemeModalOpen, setSchemeModalOpen] = useState(false);
   const [selectedIndicator, setSelectedIndicator] =
     useState('Budget Estimates');
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -182,54 +199,6 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
     },
   ];
 
-  const bannerDetails = {
-    heading: 'Data Resources',
-    content: (
-      <>
-        <p>All the raw data for your own explortation &amp; analysis</p>
-        <div>
-          <Button
-            as="a"
-            bg="white"
-            href={`https://justicehub.in/dataset/${data.id}`}
-            rel="noreferrer"
-            target="_blank"
-            size="sm"
-            kind="secondary-outline"
-          >
-            View Raw Data <ExternalLink />
-            <span className="sr-only"> :opens in new window</span>
-          </Button>
-          <Button
-            kind="secondary"
-            onClick={() => downloadPackage(data.resUrls, data.title)}
-          >
-            Download Data Package <Download />
-          </Button>
-        </div>
-        <p className="banner__notice">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              fill="#fff"
-              d="M7 .333A6.665 6.665 0 0 0 .333 7 6.665 6.665 0 0 0 7 13.667 6.665 6.665 0 0 0 13.666 7 6.665 6.665 0 0 0 7 .333Zm.666 10H6.333v-4h1.333v4Zm0-5.333H6.333V3.667h1.333V5Z"
-            />
-          </svg>
-          The data package contains the datasheet, metadata sheet (scheme
-          details), data guidebook (which contains the data curation
-          methodology) and data codebook (or data dictionary)
-        </p>
-      </>
-    ),
-    image: '/assets/icons/zip-file-download.svg',
-    color: '#00ABB7',
-  };
-
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
@@ -253,14 +222,10 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
     else handleDropdownChange(budgetType[0]);
   }, [indicatorFiltered]);
 
-  function showDropdown(e) {
+  function hideMenu(e) {
     setCurrentViz(e.target.getAttribute('href'));
     if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
     else setIsTable(false);
-  }
-
-  function schemeModalHandler() {
-    setSchemeModalOpen(!schemeModalOpen);
   }
 
   function handleNewVizData(val: any) {
@@ -286,179 +251,146 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, allData }) => {
     setFinalFiltered(finalFiltered);
   }
 
-  const seo = {
-    title: `${stripTitle(data.title)} - Budgets for Justice`,
-    description: data.notes,
-  };
-
   return (
     <>
       <Head>
         <title>OPub | Explorer</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <Seo seo={seo} /> */}
       <ExplorerPage>
-        <div className="explorer">
-          <div className="explorer__header">
-            <div className="container">
-              <Share title={data.title} />
-            </div>
-
-            <section className="explorer__heading container">
-              <div className="explorer__content">
-                <figure>{categoryIcon(data.tags)}</figure>
-                <div>
-                  <h2>{data.title}</h2>
-                  <Tags data={data.tags} />
-                </div>
-              </div>
-              <p>{data.notes}</p>
-              <div className="explorer__meta ">
-                {meta['Type of Scheme'] && (
-                  <span>{meta['Type of Scheme']}</span>
-                )}
-                {<span>{categoryTag(data.tags)}</span>}
-              </div>
-            </section>
-          </div>
-
+        <ExplorerHeader>
           <div className="container">
-            <IndicatorMobile
-              indicators={data.indicators}
-              newIndicator={handleNewVizData}
-              meta={IndicatorDesc}
-            />
+            <Share title={data.title} />
           </div>
 
-          <section className="explorer__viz container">
-            <Indicator
-              data={data.indicators}
-              meta={IndicatorDesc}
-              newIndicator={handleNewVizData}
-            />
-            <div className="viz">
-              <div className="viz__header">
-                {/* viz selector toggle */}
-                <ul className="viz__tabs">
-                  {vizToggle.map((item, index) => (
-                    <li key={`toggleItem-${index}`}>
-                      <a href={item.id} onClick={(e) => showDropdown(e)}>
-                        {item.icon}
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <div className="dropdown">
-                  {budgetTypes.length > 1 && !isTable && (
-                    <Menu
-                      value={selectedBudgetType}
-                      options={budgetTypes}
-                      heading="Select Budget Type"
-                      handleChange={handleDropdownChange}
-                    />
-                  )}
-                </div>
-              </div>
-
+          <section className="container">
+            <HeaderContent>
+              <figure>{categoryIcon(data.tags)}</figure>
               <div>
-                {vizItems.map((item, index) => (
-                  <div
-                    key={`vizItem-${index}`}
-                    className="viz__graph"
-                    id={item.id}
-                  >
-                    {item.graph}
-                  </div>
-                ))}
+                <h2>{data.title}</h2>
+                <Tags data={data.tags} />
               </div>
+            </HeaderContent>
+            <HeaderText>{data.notes}</HeaderText>
+            <HeaderMeta>
+              {meta['Type of Scheme'] && <span>{meta['Type of Scheme']}</span>}
+              {<span>{categoryTag(data.tags)}</span>}
+            </HeaderMeta>
+          </section>
+        </ExplorerHeader>
 
-              <div className="explorer__source">
-                <div className="explorer__source--text">
-                  <strong>Data Source: </strong>
-                  <p>
-                    Union Budget documents (2016-17 to 2021-22) sourced from{' '}
-                    <a
-                      href="https://openbudgetsindia.org/"
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      Open Budgets India
-                      <span className="sr-only"> :opens in new window</span>
+        <div className="container">
+          <IndicatorMobile
+            indicators={data.indicators}
+            newIndicator={handleNewVizData}
+            meta={IndicatorDesc}
+          />
+        </div>
+
+        <ExplorerViz className="container">
+          <Indicator
+            data={data.indicators}
+            meta={IndicatorDesc}
+            newIndicator={handleNewVizData}
+          />
+          <VizWrapper>
+            <VizHeader>
+              <VizTabs className="viz__tabs">
+                {vizToggle.map((item, index) => (
+                  <li key={`toggleItem-${index}`}>
+                    <a href={item.id} onClick={(e) => hideMenu(e)}>
+                      {item.icon}
+                      {item.name}
                     </a>
-                  </p>
-                </div>
+                  </li>
+                ))}
+              </VizTabs>
+              {budgetTypes.length > 1 && !isTable && (
+                <Menu
+                  value={selectedBudgetType}
+                  options={budgetTypes}
+                  heading="Select Budget Type"
+                  handleChange={handleDropdownChange}
+                />
+              )}
+            </VizHeader>
 
-                <div className="explorer__source--buttons">
-                  <Button
-                    as="a"
-                    href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
+            {vizItems.map((item, index) => (
+              <VizGraph
+                className="viz__graph"
+                key={`vizItem-${index}`}
+                id={item.id}
+              >
+                {item.graph}
+              </VizGraph>
+            ))}
+
+            <ExplorerSource>
+              <SourceText>
+                <strong>Data Source: </strong>
+                <p>
+                  Union Budget documents (2016-17 to 2021-22) sourced from{' '}
+                  <a
+                    href="https://openbudgetsindia.org/"
                     rel="noreferrer"
                     target="_blank"
-                    size="sm"
-                    kind="secondary-outline"
                   >
-                    Data Guidebook <ExternalLink fill="#076775" />
+                    Open Budgets India
                     <span className="sr-only"> :opens in new window</span>
-                  </Button>
-                  <DownloadViz
-                    viz={currentViz}
-                    type={selectedBudgetType}
-                    indicator={
-                      indicatorFiltered[0]
-                        ? indicatorFiltered[0]['indicators']
-                        : 'Budget Estimates'
-                    }
-                    name={data.title}
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
+                  </a>
+                </p>
+              </SourceText>
 
-          <section className="explorer__schemes">
-            <div className="container">
-              <h3 className="heading">Explore other Budget Datasets</h3>
-              <p className="home__sub-head">
-                Search for other relevant dataset using the Select Another
-                Scheme button from above or view all datasets on the{' '}
-                <Link href={'/datasets'}>
-                  <a className="text-link">datasets listing</a>
-                </Link>{' '}
-                page.
-              </p>
+              <SourceButtons>
+                <Button
+                  as="a"
+                  href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
+                  rel="noreferrer"
+                  target="_blank"
+                  size="sm"
+                  kind="secondary-outline"
+                >
+                  Data Guidebook <ExternalLink fill="#076775" />
+                  <span className="sr-only"> :opens in new window</span>
+                </Button>
+                <DownloadViz
+                  viz={currentViz}
+                  type={selectedBudgetType}
+                  indicator={
+                    indicatorFiltered[0]
+                      ? indicatorFiltered[0]['indicators']
+                      : 'Budget Estimates'
+                  }
+                  name={data.title}
+                />
+              </SourceButtons>
+            </ExplorerSource>
+          </VizWrapper>
+        </ExplorerViz>
 
-              <div className="explorer__schemes--split">
-                {data.relatedSchemes &&
-                  data.relatedSchemes.map((item, index) => {
-                    return (
-                      <Link
-                        key={`relavant-${index}`}
-                        href={`/datasets/${item.id}`}
-                      >
-                        <a>
-                          <article>
-                            <header>
-                              <h3>{item.title}</h3>
-                              <ul>
-                                {item.tags.slice(0, 3).map((tag, list) => (
-                                  <li key={`relevantTags-${index}-${list}`}>
-                                    {tag}
-                                  </li>
-                                ))}
-                              </ul>
-                            </header>
-                            <p>{item.notes}</p>
-                          </article>
-                        </a>
-                      </Link>
-                    );
-                  })}
-              </div>
-            </div>
-          </section>
-        </div>
+        <ExplorerRelated>
+          <div className="container">
+            <h3 className="heading">Explore other Budget Datasets</h3>
+            <p className="home__sub-head">
+              Search for other relevant dataset using the Select Another Scheme
+              button from above or view all datasets on the{' '}
+              <Link href={'/datasets'}>
+                <a className="text-link">datasets listing</a>
+              </Link>{' '}
+              page.
+            </p>
+
+            <RelatedWrapper>
+              {data.relatedSchemes &&
+                data.relatedSchemes.map((item, index) => {
+                  return (
+                    <React.Fragment key={`relavant-${index}`}>
+                      <RelatedCard data={item} index={index} />
+                    </React.Fragment>
+                  );
+                })}
+            </RelatedWrapper>
+          </div>
+        </ExplorerRelated>
       </ExplorerPage>
     </>
   );
