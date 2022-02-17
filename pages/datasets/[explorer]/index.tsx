@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Link from 'next/link';
 import Modal from 'react-modal';
 import {
@@ -19,23 +18,21 @@ import {
 import { downloadPackage } from 'utils/downloadPackage';
 import { resourceGetter } from 'utils/resourceParser';
 
-import Indicator from 'components/Indicator/Indicator';
+import Indicator from 'components/Indicator';
 import IndicatorMobile from 'components/Indicator/IndicatorMobile';
-import Share from 'components/Share/Share';
-import Banner from 'components/Banner/Banner';
-import Button from 'components/Button/Button';
-import Dropdown from 'components/Dropdown/Dropdown';
-import Table from 'components/Table/Table';
-import DownloadViz from 'components/DownloadViz/DownloadViz';
+import Share from 'components/Share';
+import Banner from 'components/Banner';
+import Button from 'components/Button';
+import Dropdown from 'components/Dropdown';
+import Table from 'components/Table';
+import DownloadViz from 'components/DownloadViz';
+import Tags from 'components/Tags';
 import { Download, ExternalLink } from 'icons/ExplorerIcons';
-
-import ExplorerPage from './ExplorerPage';
-import Tags from 'components/Tags/Tags';
 
 import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
 import { barLineTransformer } from 'visualizations/BarLineTransformer';
 
-// import Seo from 'components/_shared/seo';
+import ExplorerPage from './ExplorerPage';
 
 // const DownloadViz = dynamic(
 //   () => import('components/DownloadViz/DownloadViz'),

@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
 const BannerComp = styled.section`
-  /* margin-top: 7rem; */
   isolation: isolate;
   padding: 4rem 3rem;
   color: hsl(0, 33%, 99%);
   border-radius: 40px;
   position: relative;
+
+  figure {
+    mix-blend-mode: multiply;
+   
+    img {
+      border-radius: 8px;
+    }
+  }
 
   .banner__content {
     width: clamp(250px, 100%, 700px);

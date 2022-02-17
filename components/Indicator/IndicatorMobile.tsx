@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import Toggle from 'components/Toggle/Toggle';
+import Toggle from 'components/Toggle';
 import { IndicatorMobileComp } from './IndicatorComp';
 
 Modal.setAppElement('#__next');

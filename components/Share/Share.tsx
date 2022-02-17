@@ -3,7 +3,7 @@ import { ShareIcon } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
 import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
 import ShareComp from './ShareComp';
-import Widget from 'components/Widget/Widget';
+import Widget from 'components/Widget';
 
 const Share = ({ title }) => {
   const router = useRouter();

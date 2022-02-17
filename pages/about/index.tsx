@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PartnerCard from 'components/PartnerCard/PartnerCard';
-import TeamCard from 'components/TeamCard/TeamCard';
-import AboutComp from './AboutComp';
-import MegaHeader from 'components/MegaHeader/MegaHeader';
+import React from 'react';
 import Head from 'next/head';
+import PartnerCard from 'components/PartnerCard';
+import TeamCard from 'components/TeamCard';
+import MegaHeader from 'components/MegaHeader';
+import AboutPage from './AboutPage';
 
 const About = () => {
   const headerData = {
@@ -91,7 +91,7 @@ const About = () => {
         <title>About Us | OPub</title>
       </Head>
       <MegaHeader data={headerData} />
-      <AboutComp>
+      <AboutPage>
         <h3 className="partners__heading">Partners</h3>
         <ul className="partners">
           {partners.map((item, key) => {
@@ -118,7 +118,7 @@ const About = () => {
             })}
           </ul>
         </section>
-      </AboutComp>
+      </AboutPage>
     </div>
   );
 };

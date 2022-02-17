@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { truncate } from 'lodash';
 // import { getDate } from 'utils/index';
-import { DatasetCardComp } from 'components/Card/CardComp';
-import Tags from 'components/Tags/Tags';
+import { DatasetCardComp } from './CardComp';
+import Tags from 'components/Tags';
 
 const DatasetCard: React.FC<{ datapackage: any }> = ({ datapackage }) => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Toggle from 'components/Toggle/Toggle';
+import Toggle from 'components/Toggle';
 import { IndicatorComp } from './IndicatorComp';
 
 const Indicator = ({ data, newIndicator, meta }) => {

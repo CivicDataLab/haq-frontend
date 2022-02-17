@@ -1,13 +1,15 @@
 import Head from 'next/head';
-import Toggle from 'components/Toggle/Toggle';
-import Dropdown from 'components/Dropdown/Dropdown';
-import Tabbed from 'components/Tabbed/Tabbed';
-import Sidebar from 'components/Sidebar/Sidebar';
-import Modal from 'components/Modal/Modal';
-import Carousel from 'components/Carousel/Carousel';
-import Banner from 'components/Banner/Banner';
-import Button from 'components/Button/Button';
+import Toggle from 'components/Toggle';
+import Dropdown from 'components/Dropdown';
+import Tabbed from 'components/Tabbed';
+import Sidebar from 'components/Sidebar';
+import Modal from 'components/Modal';
+import Carousel from 'components/Carousel';
+import Banner from 'components/Banner';
+import Button from 'components/Button';
 import * as temp from 'data/tempData';
+
+import { HomePage } from 'styles/HomePage';
 
 export default function Home() {
   return (
@@ -15,7 +17,7 @@ export default function Home() {
       <Head>
         <title>OPub</title>
       </Head>
-      <div className="container">
+      <HomePage className="container">
         <h1>Component Library - alpha</h1>
         <div className="component">
           <h2>Toggletip</h2>
@@ -79,7 +81,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-      </div>
+      </HomePage>
     </>
   );
 }
