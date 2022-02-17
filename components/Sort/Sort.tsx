@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Dropdown from 'components/Dropdown/Dropdown';
 import Menu from 'components/Menu/Menu';
 
 const options = [
@@ -32,7 +31,8 @@ const options = [
 
 const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
   const router = useRouter();
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState('tender_bid_opening_date:asc');
+  const [value, setValue] = useState('Date Asc');
 
   useEffect(() => {
     const currentSort = router.query.sort
@@ -41,6 +41,11 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
 
     setSort(currentSort as string);
   }, [router.query.sort]);
+
+  useEffect(() => {
+    let currentSort = options.find(o => o.value === sort);
+    setValue(currentSort.title)
+  }, [sort]);
 
   const handleChange = (event: any) => {
     setSort(event);
@@ -55,7 +60,7 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
       options={options}
       heading="Sort by"
       handleChange={handleChange}
-      value={sort}
+      value={value}
     />
   );
 };
