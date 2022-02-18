@@ -1,8 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import PartnerCard from 'components/PartnerCard';
-import TeamCard from 'components/TeamCard';
-import MegaHeader from 'components/MegaHeader';
+import { PartnerCard, TeamCard } from 'components/about';
+import { MegaHeader } from 'components/common';
 import AboutPage from './AboutPage';
 
 const About = () => {

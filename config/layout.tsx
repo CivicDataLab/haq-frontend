@@ -1,12 +1,11 @@
-
-import Nav from 'components/Navbar/Navbar';
+import { Navbar } from "components/common";
 
 const Layout: React.FC = ({
   children
 }) => {
   return (
     <>
-      <Nav />
+      <Navbar />
       {children}
     </>
   );

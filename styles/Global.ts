@@ -1,10 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
-import NavComp from 'components/Navbar/NavComp';
-import MobileNavComp from 'components/MobileNav/MobileNavComp';
 import { normalize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
-import ModalComp from 'components/Modal/ModalComp';
+import NavComp from 'components/common/Navbar/NavComp';
+import MobileNavComp from 'components/common/MobileNav/MobileNavComp';
+import ModalComp from 'components/ui/Modal/ModalComp';
 import { DEFAULT_THEME } from 'config/theme';
 
 const theme = DEFAULT_THEME;

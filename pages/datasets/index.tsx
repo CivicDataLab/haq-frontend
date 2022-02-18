@@ -8,13 +8,16 @@ import {
   convertToCkanSearchQuery,
 } from 'utils/fetch';
 
-import Search from 'components/Search';
-import Total from 'components/Total';
-import DatasetList from 'components/List/DatasetList';
-import Filter from 'components/Filter';
-import MegaHeader from 'components/MegaHeader';
-import Sort from 'components/Sort';
-import Pagination from 'components/Pagination';
+import {
+  Search,
+  DatasetList,
+  Total,
+  Filter,
+  Sort,
+  Pagination,
+} from 'components/datasets';
+
+import { MegaHeader } from 'components/common';
 
 import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 
