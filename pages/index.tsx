@@ -1,16 +1,15 @@
 import Head from 'next/head';
-import Toggle from 'components/Toggle';
-import Tabbed from 'components/Tabbed';
-import Sidebar from 'components/Sidebar';
-import Modal from 'components/Modal';
-import Carousel from 'components/Carousel';
-import Banner from 'components/Banner';
-import Button from 'components/Button';
-import Select from 'components/Select';
 import * as temp from 'data/tempData';
 
 import { HomePage } from 'styles/HomePage';
-import Menu from 'components/Menu';
+import { Button, Menu, Modal, Select } from 'components/actions';
+import {
+  Banner,
+  Carousel,
+  FlexLayout,
+  Tabbed,
+  Toggletip,
+} from 'components/layouts';
 
 export default function Home() {
   return (
@@ -22,7 +21,7 @@ export default function Home() {
         <h1>Component Library - alpha</h1>
         <div className="component">
           <h2>Toggletip</h2>
-          <Toggle data={'Lorem Ipsum'} />
+          <Toggletip data={'Lorem Ipsum'} />
         </div>
         <div className="component">
           <h2>Select</h2>
@@ -47,7 +46,7 @@ export default function Home() {
         </div>
         <div className="component">
           <h2>Sidebar</h2>
-          <Sidebar />
+          <FlexLayout />
         </div>
         <div className="component">
           <h2>Modal</h2>

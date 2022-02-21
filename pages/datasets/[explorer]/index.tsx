@@ -18,14 +18,6 @@ import {
 import { downloadPackage } from 'utils/downloadPackage';
 import { resourceGetter } from 'utils/resourceParser';
 
-import Indicator from 'components/Indicator';
-import IndicatorMobile from 'components/Indicator/IndicatorMobile';
-import Share from 'components/Share';
-import Button from 'components/Button';
-import Menu from 'components/Menu';
-import Table from 'components/Table';
-import DownloadViz from 'components/DownloadViz';
-import Tags from 'components/Tags';
 import { Download, ExternalLink } from 'icons/ExplorerIcons';
 
 import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
@@ -48,8 +40,15 @@ import {
   ExplorerRelated,
   RelatedWrapper,
 } from './ExplorerPage';
-
-import RelatedCard from 'components/Card/RelatedCard';
+import {
+  DownloadViz,
+  Indicator,
+  IndicatorMobile,
+  RelatedCard,
+  Table,
+  Tags,
+} from 'components/data';
+import { Button, Menu, Share } from 'components/actions';
 
 // const DownloadViz = dynamic(
 //   () => import('components/DownloadViz/DownloadViz'),

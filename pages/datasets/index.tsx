@@ -8,13 +8,9 @@ import {
   convertToCkanSearchQuery,
 } from 'utils/fetch';
 
-import Search from 'components/Search';
-import Total from 'components/Total';
-import DatasetList from 'components/List/DatasetList';
-import Filter from 'components/Filter';
-import MegaHeader from 'components/MegaHeader';
-import Sort from 'components/Sort';
-import Pagination from 'components/Pagination';
+import { Header } from 'components/layouts';
+import { Search, Total, Filter, Sort, Pagination } from 'components/data';
+import { DatasetList } from 'components/pages/datasets';
 
 import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 
@@ -88,7 +84,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DatasetsPage className="datasets">
-        <MegaHeader data={headerData} />
+        <Header data={headerData} />
         <div className="container">
           {data && (
             <div>
