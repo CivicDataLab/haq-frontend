@@ -2,17 +2,14 @@ import Head from 'next/head';
 import * as temp from 'data/tempData';
 
 import { HomePage } from 'styles/HomePage';
+import { Button, Menu, Modal, Select } from 'components/actions';
 import {
   Banner,
-  Button,
   Carousel,
-  CollapseSidebar,
-  Menu,
-  Modal,
-  Select,
+  FlexLayout,
   Tabbed,
   Toggletip,
-} from 'components/ui';
+} from 'components/layouts';
 
 export default function Home() {
   return (
@@ -49,7 +46,7 @@ export default function Home() {
         </div>
         <div className="component">
           <h2>Sidebar</h2>
-          <CollapseSidebar />
+          <FlexLayout />
         </div>
         <div className="component">
           <h2>Modal</h2>

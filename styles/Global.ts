@@ -4,7 +4,7 @@ import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import NavComp from 'components/common/Navbar/NavComp';
 import MobileNavComp from 'components/common/MobileNav/MobileNavComp';
-import ModalComp from 'components/ui/Modal/ModalComp';
+import ModalComp from 'components/actions/Modal/ModalComp';
 import { DEFAULT_THEME } from 'config/theme';
 
 const theme = DEFAULT_THEME;

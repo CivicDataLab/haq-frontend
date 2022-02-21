@@ -40,8 +40,15 @@ import {
   ExplorerRelated,
   RelatedWrapper,
 } from './ExplorerPage';
-import { DownloadViz, Indicator, IndicatorMobile, RelatedCard, Share, Table } from 'components/explorer';
-import { Button, Menu, Tags } from 'components/ui';
+import {
+  DownloadViz,
+  Indicator,
+  IndicatorMobile,
+  RelatedCard,
+  Table,
+  Tags,
+} from 'components/data';
+import { Button, Menu, Share } from 'components/actions';
 
 // const DownloadViz = dynamic(
 //   () => import('components/DownloadViz/DownloadViz'),

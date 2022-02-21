@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import { PartnerCard, TeamCard } from 'components/about';
-import { MegaHeader } from 'components/common';
+import { PartnerCard, TeamCard } from 'components/pages/about';
+import { Header } from 'components/layouts';
 import AboutPage from './AboutPage';
 
 const About = () => {
@@ -89,7 +89,7 @@ const About = () => {
       <Head>
         <title>About Us | OPub</title>
       </Head>
-      <MegaHeader data={headerData} />
+      <Header data={headerData} />
       <AboutPage>
         <h3 className="partners__heading">Partners</h3>
         <ul className="partners">
