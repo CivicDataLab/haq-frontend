@@ -11,6 +11,7 @@ export const PaginationComp = styled.div`
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  font-weight : var(--font-weight-medium);
 
   @supports (display: grid) {
     display: grid;
@@ -30,6 +31,8 @@ export const PaginationComp = styled.div`
 export const PaginationJump = styled.div`
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   padding-right: 20px;
+  color: var(--color-primary);
+  font-weight : var(--font-weight-medium);
 
   @media (max-width: 720px) {
     border-right: none;
@@ -103,7 +106,7 @@ export const PaginationButtons = styled.div`
 
   .pagination__next {
     margin-left: 0.5rem;
-    background-color: #076775;
+    background-color: var(--color-primary);
 
     &:active {
       transform: scale(0.9);

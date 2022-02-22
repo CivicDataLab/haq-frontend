@@ -160,7 +160,7 @@ const Filter = ({ data, newFilters, fq }) => {
               <svg aria-hidden="true" focusable="false" viewBox="0 0 144 72">
                 <path d="M72 72C72 71.98 0 0 0 0h144L72 72" />
               </svg>
-            </button>
+            </button>    
           </FilterHeading>
           <FilterContent hidden>
             <FilterSearch

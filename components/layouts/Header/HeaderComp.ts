@@ -1,22 +1,37 @@
 import styled from 'styled-components';
 
 const HeaderComp = styled.div`
-  background-color: #076775;
-  color: #fdfcfc;
+  background-color: #E5E5E5;
+  color: var(--text-light-high);
 
   .container {
-    padding-top: 1rem;
-    display: block;
+    padding-top: 3.5rem;
+    display: flex;
+    align-items: flex-start;
+  }
+ 
+  .logo {
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    min-width: 208px;
+    min-height: 208px;
+    background-color : #fff;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
+    border-radius: 12px;
   }
 
   h2 {
-    margin-top: 2rem;
     font-size: 2rem;
     font-weight: 500;
     line-height: 2.6rem;
     grid-column: 2/3;
     grid-row: 1/2;
     word-break: break-all;
+  }
+
+  .header__content {
+    padding-left : 2rem;
   }
 
   p {

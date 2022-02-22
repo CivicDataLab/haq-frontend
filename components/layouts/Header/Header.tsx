@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import HeaderComp from './HeaderComp';
+import Image from 'next/image';
 
 const Header = ({ data }) => {
   return (
@@ -10,8 +11,18 @@ const Header = ({ data }) => {
             <a>{`< Go Back to ${data.previousPage}`}</a>
           </Link>
         )}
-        <h2>{data.title}</h2>
-        <p>{data.content}</p>
+        <div className = "logo">
+          <Image
+            src={data.logo}
+            alt=""
+            width={147.91}
+            height={147.91}     
+          />
+        </div>
+        < div className = "header__content">
+          <h2>{data.title}</h2>
+          <p>{data.content}</p>
+        </div>
         {data.date && <p>{data.date}</p>}
       </div>
     </HeaderComp>

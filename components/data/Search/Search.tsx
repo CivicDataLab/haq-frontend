@@ -53,9 +53,13 @@ const Search: React.FC<{ text?: string; newSearch: any }> = ({
           <Cross fill="#076775" />
         </SearchClear>
       </Wrapper>
-      <Button onClick={handleSubmit} className="search__submit">
-        Submit <span className="sr-only">search</span>
-      </Button>
+      {q.length > 0 ? 
+         <Button onClick={handleSubmit} className="search__submit">
+            Submit <span className="sr-only">search</span>
+         </Button>
+       :null
+      }
+     
     </SearchComp>
   );
 };

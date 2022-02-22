@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const DatasetsPage = styled.main`
+background-color: #E5E5E5;
   .heading {
     margin-bottom: 0.5rem;
     font-weight: 600;
@@ -24,10 +25,18 @@ export const DatasetsComp = styled.div`
     grid-column: 2/3;
   }
 
-  .contractsComp__sortRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .contractsComp__search {
+    display:flex;
+    justify-content:space-between;
+    background-color : var(--color-white);
+    padding : 12px;
+    border: 1px solid var(--color-grey-600);
+    box-sizing: border-box;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;  
+  }
+  
+  .contractsComp__totalCount {
     margin-top: 2rem;
   }
 

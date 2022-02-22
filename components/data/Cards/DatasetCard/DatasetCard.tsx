@@ -12,9 +12,13 @@ const DatasetCard: React.FC<{ datapackage: any }> = ({ datapackage }) => {
 
   return (
     <Link href={`${router.pathname}/${datapackage.id}`} passHref>
-      <DatasetCardComp>
+      <DatasetCardComp index ={datapackage.idx}>
         <section>
-          {/* <h6 className="card__group"> {datapackage.groups} </h6> */}
+          {datapackage.groups.map( (group) => {
+            return (
+              <h6 className='card__group'> {group.toUpperCase()} </h6>
+             )} 
+           )}
           <h3 className="card__heading">{datapackage.title}</h3>
           <Tags data={datapackage.tags} />
           <div className="card__content">

@@ -8,6 +8,9 @@ interface ButtonProps {
   readonly href?: string;
 }
 
+const PrimaryColor = 'var(--color-background-dark)';
+const SecondaryColor = '#F65940';
+
 function bgColor(type: string, bg: string) {
   if (type == 'custom') {
     return 'inherit';

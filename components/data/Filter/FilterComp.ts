@@ -5,11 +5,17 @@ export const FilterComp = styled.div`
   background-color: #ffffff;
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
   border: 1px solid hsl(300, 10%, 94%);
-  border-radius: 4px;
+  border-radius: 12px;
   height: max-content;
   max-height: 776px;
   padding: 1.5rem;
   overflow-y: auto;
+  
+  .heading {
+    font-weight: var( --font-weight-medium);
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.87);
+  }
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -33,6 +39,7 @@ export const FilterHeading = styled.h4`
   border-radius: 4px;
 
   button {
+    background-color: var(--color-grey-500);
     text-transform: capitalize;
     padding: 13px 12px;
     font-weight: 500;
@@ -41,8 +48,8 @@ export const FilterHeading = styled.h4`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    border: 1px solid #076775;
-    color: #076775;
+    border: 1px solid var(--color-grey-500);
+    color: var(--text-light-high) ;
     border-radius: 4px;
   }
 
