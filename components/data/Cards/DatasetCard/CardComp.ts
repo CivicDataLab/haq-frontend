@@ -1,12 +1,24 @@
 import styled from 'styled-components';
 
-export const DatasetCardComp = styled.a`
+type ColorProps = {
+  index : number;
+}
+
+const colors = ['var(--color-honey)' , 'var(--color-amazon)', 'var(--color-violet)']
+
+function pickColor (index:number){
+  return colors[index % colors.length]
+}
+
+export const DatasetCardComp = styled.a<ColorProps>`
   text-decoration: none;
   padding: 1.5rem;
   display: block;
   border-radius: 6px;
   transition: transform 200ms ease;
   display: flex;
+  border-left: solid;
+  border-left-color: ${(props:any) => pickColor(props.index)} ;
 
   > figure {
     margin-right: 1rem;
@@ -18,16 +30,19 @@ export const DatasetCardComp = styled.a`
   }
 
   .card__group {
+    display : inline;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 16px;
-    padding-bottom: 4px;
+    padding-right: 6px;
+    color : ${(props:any) => pickColor(props.index)} ;
   }
 
   .card__heading {
     font-size: 20px;
     font-weight: 500;
     color: var(--color-text);
+    padding-top : 4px;
   }
 
   .card__date {
@@ -39,7 +54,6 @@ export const DatasetCardComp = styled.a`
   }
 
   .card__content {
-    padding-top: 0.5rem;
     display: flex;
     flex-wrap: wrap;
     color: rgba(0, 0, 0, 0.87);
