@@ -5,10 +5,10 @@ export const SearchComp = styled.form`
   justify-content: space-between;
   border-radius: 12px;
   position: relative;
-  flex-grow: 1;
+  flex-grow: .95;
 
   .search__submit {
-    padding: 9px 60px;
+    padding: 7px 35px;
     transform: translateX(-5px);
     line-height: 134%;
 
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  border: 2px solid #076775;
+  border: 1px solid #FA5D82;
   border-radius: 4px;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
   padding-left: 2.5rem;
@@ -43,6 +43,11 @@ export const SearchInput = styled.input`
       display: block;
     }
   }
+  
+  &:focus-visible {
+    outline: 2px solid #FA5D82 !important;
+  }
+
 `;
 
 export const SearchClear = styled.button`

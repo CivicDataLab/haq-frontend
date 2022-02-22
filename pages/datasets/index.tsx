@@ -75,6 +75,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     title: 'Contracts Data',
     content:
       'This page shows the public procurement data of the last 5 financial years for the state of Assam for the contracts over INR 50 lakh value. You can download the total compiled data or explore specific tender groups using the filters like financial year, tendering organization, tender status, tender types, etc.',
+    logo:'/assets/statistics.svg',
   };
 
   return (
@@ -95,11 +96,12 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                   fq={datsetsFilters}
                 />
                 <div className="contractsColumn">
-                  <Search newSearch={handleDatasetsChange} />
-
-                  <div className="contractsComp__sortRow">
-                    <Total text="contracts" total={count} />
+                  <div className = "contractsComp__search">
+                    <Search newSearch={handleDatasetsChange} />
                     <Sort newSort={handleDatasetsChange} />
+                  </div>
+                  <div className="contractsComp__totalCount">
+                    <Total text="contracts" total={count} />
                   </div>
                   <DatasetList data={results} />
                   <Pagination total={count} newPage={handleDatasetsChange} />
