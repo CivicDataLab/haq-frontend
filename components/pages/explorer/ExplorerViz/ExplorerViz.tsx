@@ -267,14 +267,14 @@ const ExplorerViz = ({ data, meta, fileData }) => {
 
             <SourceButtons>
               <Button
-                as="a"
                 href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
                 rel="noreferrer"
                 target="_blank"
                 size="sm"
                 kind="secondary-outline"
+                icon={<ExternalLink fill="#076775" />}
               >
-                Data Guidebook <ExternalLink fill="#076775" />
+                Data Guidebook
                 <span className="sr-only"> :opens in new window</span>
               </Button>
               <DownloadViz

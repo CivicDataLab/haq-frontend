@@ -32,11 +32,8 @@ const Share = ({ title }) => {
   return (
     <>
       <Widget
-        buttonContent={
-          <>
-            Share <ShareIcon />
-          </>
-        }
+        icon={<ShareIcon />}
+        buttonContent="Share"
         title="share menu"
         buttonStyle="secondary-outline"
       >

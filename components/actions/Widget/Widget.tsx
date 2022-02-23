@@ -7,7 +7,12 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
   /**
    * Button Content
    */
-  buttonContent: React.ReactNode;
+  buttonContent: string;
+
+  /**
+   * Button Content
+   */
+  icon: React.ReactElement;
 
   /**
    * Button title
@@ -36,6 +41,7 @@ const Widget = ({
   title = 'widget',
   buttonStyle = 'custom',
   buttonClass,
+  icon,
   children,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,6 +88,7 @@ const Widget = ({
       <Button
         kind={buttonStyle}
         aria-expanded="false"
+        icon={icon}
         aria-controls={widgetID}
         aria-label={`Show ${title}`}
         data-text-for-show={`Show ${title}`}

@@ -11,6 +11,9 @@ import {
   Toggletip,
 } from 'components/layouts';
 
+import { ArrowTail } from 'components/icons';
+import Arrow from 'components/icons/Arrow';
+
 export default function Home() {
   return (
     <>
@@ -73,6 +76,20 @@ export default function Home() {
             <Button onClick={() => {}} kind="secondary-outline">
               Secondary Outline
             </Button>
+            <Button onClick={() => {}} kind="secondary" icon={<ArrowTail />}>
+              Button with Icon
+            </Button>
+            <Button onClick={() => {}} kind="primary-outline" icon={<ArrowTail />}>
+              Button with Icon
+            </Button>
+            <Button
+              onClick={() => {}}
+              kind="secondary"
+              icon={<ArrowTail />}
+              iconSide="left"
+            >
+              Button Icon Left
+            </Button>
           </div>
           <br />
           <div>
@@ -87,6 +104,9 @@ export default function Home() {
             </Button>
             <Button size="sm" onClick={() => {}} kind="secondary-outline">
               Secondary Outline
+            </Button>
+            <Button size="sm" icon={<Arrow />} iconOnly={true}>
+              Secondary
             </Button>
           </div>
         </div>
