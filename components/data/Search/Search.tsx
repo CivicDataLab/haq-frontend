@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { SearchComp, SearchInput, SearchClear, Wrapper } from './SearchComp';
 import { Button } from 'components/actions';
-import { Cross } from 'icons/Shared';
+import { Cross } from 'components/icons';
 
 const Search: React.FC<{ text?: string; newSearch: any }> = ({
   text,

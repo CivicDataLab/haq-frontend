@@ -7,8 +7,7 @@ import {
   filter_data_budgettype,
 } from 'utils/explorer';
 
-import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
-import { barLineTransformer } from 'visualizations/BarLineTransformer';
+import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 
 import {
   DownloadViz,
@@ -16,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink } from 'icons/ExplorerIcons';
+import { ExternalLink } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 
 const ExplorerViz = ({ data, meta, fileData }) => {
@@ -268,14 +267,14 @@ const ExplorerViz = ({ data, meta, fileData }) => {
 
             <SourceButtons>
               <Button
-                as="a"
                 href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
                 rel="noreferrer"
                 target="_blank"
                 size="sm"
                 kind="secondary-outline"
+                icon={<ExternalLink fill="#076775" />}
               >
-                Data Guidebook <ExternalLink fill="#076775" />
+                Data Guidebook
                 <span className="sr-only"> :opens in new window</span>
               </Button>
               <DownloadViz

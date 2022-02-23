@@ -1,0 +1,14 @@
+export { default as ArrowDown } from './ArrowDown';
+export { default as ArrowTail } from './ArrowTail';
+export { default as Cross } from './Cross';
+export { default as Download } from './Download';
+export { default as ExternalLink } from './ExternalLink';
+export { default as Facebook } from './Facebook';
+export { default as HomeAffairs } from './HomeAffairs';
+export { default as LawJustice } from './LawJustice';
+export { default as Linkedin } from './Linkedin';
+export { default as Police } from './Police';
+export { default as Reddit } from './Reddit';
+export { default as ShareIcon } from './ShareIcon';
+export { default as Twitter } from './Twitter';
+export { default as WomenChild } from './WomenChild';
