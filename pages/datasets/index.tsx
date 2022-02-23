@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+
 import {
   fetchFilters,
   fetchDatasets,
@@ -11,8 +13,6 @@ import {
 import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
-
-import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 
 type Props = {
   data: any;
@@ -83,7 +83,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <title>OPub | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <DatasetsPage className="datasets">
+      <Wrapper>
         <Header data={headerData} />
         <div className="container">
           {data && (
@@ -108,7 +108,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
             </div>
           )}
         </div>
-      </DatasetsPage>
+      </Wrapper>
     </>
   );
 };
@@ -128,3 +128,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Datasets;
+
+
+const Wrapper = styled.main`
+  .heading {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+`;
+
+const DatasetsComp = styled.div`
+  display: grid;
+  grid-template-columns: 312px 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+
+  .contractsColumn {
+    grid-column: 2/3;
+  }
+
+  .contractsComp__sortRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 980px) {
+    display: block;
+  }
+`;

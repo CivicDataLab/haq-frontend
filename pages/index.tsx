@@ -1,7 +1,7 @@
 import Head from 'next/head';
+import styled from 'styled-components';
 import * as temp from 'data/tempData';
 
-import { HomePage } from 'styles/HomePage';
 import { Button, Menu, Modal, Select } from 'components/actions';
 import {
   Banner,
@@ -94,3 +94,32 @@ export default function Home() {
     </>
   );
 }
+
+const HomePage = styled.main`
+  .component {
+    border-bottom: 1px solid grey;
+    padding-bottom: 2rem;
+
+    h1 {
+      text-align: center;
+    }
+
+    > h2 {
+      padding: 2rem 0;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    &.buttons {
+      button {
+        margin-right: 1rem;
+      }
+
+      > div {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+    }
+  }
+`;

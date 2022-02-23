@@ -7,8 +7,7 @@ import {
   filter_data_budgettype,
 } from 'utils/explorer';
 
-import SimpleBarLineChartViz from 'visualizations/SimpleBarLineChart';
-import { barLineTransformer } from 'visualizations/BarLineTransformer';
+import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 
 import {
   DownloadViz,
@@ -16,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink } from 'icons/ExplorerIcons';
+import { ExternalLink } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 
 const ExplorerViz = ({ data, meta, fileData }) => {

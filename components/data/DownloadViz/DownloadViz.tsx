@@ -1,7 +1,7 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 import { stripTitle } from 'utils/explorer';
-import { Download } from 'icons/ExplorerIcons';
+import { Download } from 'components/icons';
 import * as echarts from 'echarts/core';
 // import watermark from 'watermarkjs';
 import { Button } from 'components/actions';

@@ -1,37 +1,37 @@
 import styled from 'styled-components';
 
 const AboutPage = styled.main`
-  width :1100px;
+  width: 1100px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 
-.partners__heading {
-    margin-top : 1.5rem;
+  .partners__heading {
+    margin-top: 1.5rem;
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 130%;
     color: #000;
-}
+  }
 
-.partners {
+  .partners {
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
     justify-content: space-between;
     align-items: stretch;
 
-  li {
-    width: 48%;
-    
-    > div {
-     display: grid;
-     height: 100%;
-     grid-template-rows: max-content 1fr max-content;
-   }
+    li {
+      width: 48%;
+
+      > div {
+        display: grid;
+        height: 100%;
+        grid-template-rows: max-content 1fr max-content;
+      }
+    }
   }
-}
   .about__team {
     margin-top: 4rem;
 
@@ -39,7 +39,7 @@ const AboutPage = styled.main`
       font-size: 1.25rem;
       font-weight: 500;
       line-height: 130%;
-      color:rgba(0,0,0,.32);
+      color: rgba(0, 0, 0, 0.32);
 
       span {
         background: #4965b2;
