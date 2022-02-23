@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import DataCatalogue from 'components/icons/DataCatalogue';
 
 import {
   fetchFilters,
@@ -72,10 +73,10 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   }
 
   const headerData = {
-    title: 'Contracts Data',
+    title: 'All Datasets',
     content:
-      'This page shows the public procurement data of the last 5 financial years for the state of Assam for the contracts over INR 50 lakh value. You can download the total compiled data or explore specific tender groups using the filters like financial year, tendering organization, tender status, tender types, etc.',
-    logo:'/assets/statistics.svg',
+      'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
+    logo: <DataCatalogue />,
   };
 
   return (
@@ -96,7 +97,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
                   fq={datsetsFilters}
                 />
                 <div className="contractsColumn">
-                  <div className = "contractsComp__search">
+                  <div className="contractsComp__search">
                     <Search newSearch={handleDatasetsChange} />
                     <Sort newSort={handleDatasetsChange} />
                   </div>
@@ -130,7 +131,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Datasets;
-
 
 const Wrapper = styled.main`
   .heading {

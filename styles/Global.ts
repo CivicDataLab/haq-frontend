@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { normalize } from 'polished';
+import { normalize, transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import NavComp from 'components/common/Navbar/NavComp';
@@ -61,6 +61,7 @@ html {
   --border-1 : 1px solid var(--color-grey-500);
   --box-shadow-1 : 0px 4px 12px rgba(0, 0, 0, 0.08);
   --box-shadow-inset: inset 0px 0px 4px rgba(0, 0, 0, 0.08);
+  --separator: 2px solid ${transparentize('0.5', `${theme.grey_500}`)};
 
   --font-weight-bold: 600;
   --font-weight-medium: 500;
@@ -82,7 +83,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Rubik',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #f2f2f2;
+  background-color: var(--color-background-light);
   font-size: 16px;
   line-height: 137%;
 }
