@@ -8,7 +8,7 @@ import {
   MenuLabel,
   Wrapper,
 } from './MenuComp';
-import { ArrowDown } from 'icons/ExplorerIcons';
+import { ArrowDown } from 'components/icons';
 
 interface Props {
   /**

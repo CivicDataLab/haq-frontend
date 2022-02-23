@@ -7,7 +7,7 @@ import {
   FilterSearch,
   FilterSelected,
 } from './FilterComp';
-import { Cross } from 'icons/Shared';
+import { Cross } from 'components/icons';
 import { truncate } from 'lodash';
 
 const dataObj = {};

@@ -1,9 +1,4 @@
-import {
-  LawJustice,
-  WomenChild,
-  Police,
-  HomeAffairs,
-} from 'icons/ExplorerIcons';
+import { LawJustice, WomenChild, Police, HomeAffairs } from 'components/icons';
 
 export function categoryIcon(tags) {
   if (tags.includes('law')) return <LawJustice />;

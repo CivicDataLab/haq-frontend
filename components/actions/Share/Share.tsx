@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
-import { ShareIcon } from 'icons/ExplorerIcons';
 import { useRouter } from 'next/router';
-import { Facebook, Reddit, Linkedin, Twitter } from 'icons/ExplorerIcons';
+import {
+  Facebook,
+  Reddit,
+  Linkedin,
+  Twitter,
+  ShareIcon,
+} from 'components/icons';
 import ShareComp from './ShareComp';
 import { Widget } from 'components/actions';
 
@@ -27,11 +32,8 @@ const Share = ({ title }) => {
   return (
     <>
       <Widget
-        buttonContent={
-          <>
-            Share <ShareIcon />
-          </>
-        }
+        icon={<ShareIcon />}
+        buttonContent="Share"
         title="share menu"
         buttonStyle="secondary-outline"
       >

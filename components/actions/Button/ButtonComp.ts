@@ -4,8 +4,8 @@ interface ButtonProps {
   readonly buttonType?: string;
   readonly size?: string;
   readonly bg?: string;
-  readonly as?: string;
-  readonly href?: string;
+  readonly iconSide?: string;
+  readonly iconOnly?: boolean;
 }
 
 const PrimaryColor = 'var(--color-background-dark)';
@@ -14,8 +14,7 @@ const SecondaryColor = '#F65940';
 function bgColor(type: string, bg: string) {
   if (type == 'custom') {
     return 'inherit';
-  }
-  else if (bg) {
+  } else if (bg) {
     return bg;
   } else {
     switch (type) {
@@ -43,7 +42,8 @@ function border(type: string) {
     return 'inherit';
   }
   if (type == 'primary' || type == 'secondary') return 'none';
-  else if (type == 'primary-outline') return `2px solid ${'var(--color-primary)'}`;
+  else if (type == 'primary-outline')
+    return `2px solid ${'var(--color-primary)'}`;
   else return `2px solid ${'var(--color-secondary)'}`;
 }
 
@@ -65,21 +65,49 @@ function buttonFont(size: string) {
   else return '1rem';
 }
 
+// change inline padding incase of icon
+function iconPadding(iconSide, size, iconOnly) {
+  if (iconOnly) {
+    return 'padding: 8px;';
+  }
+
+  if (iconSide) {
+    if (size == 'sm') {
+      if (iconSide == 'left') return 'padding-left: 8px;';
+      else return 'padding-right: 8px;';
+    }
+    if (iconSide == 'left') return 'padding-left: 20px;';
+    else return 'padding-right: 20px;';
+  }
+}
+
 const ButtonComp = styled.button<ButtonProps>`
-  padding: ${(props: any) => buttonSize(props.size, props.buttonType)};
   font-size: ${(props: any) => buttonFont(props.size)};
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
+  line-height: 137%;
+  font-weight: 500;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   background-color: ${(props: any) => bgColor(props.buttonType, props.bg)};
-  border: ${(props: any) => border(props.buttonType)};
   color: ${(props: any) => color(props.buttonType)};
+  padding: ${(props: any) => buttonSize(props.size, props.buttonType)};
+  border: ${(props: any) => border(props.buttonType)};
+  border-radius: 4px;
+
+  ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 
   svg {
-    margin-left: 1em;
+    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
+    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
+    fill: currentColor;
+
+    ${(props: any) =>
+      !props.iconOnly
+        ? props.iconSide == 'left'
+          ? 'margin-inline-end: 0.5em'
+          : 'margin-inline-start: 0.5em'
+        : null}
   }
 `;
 
