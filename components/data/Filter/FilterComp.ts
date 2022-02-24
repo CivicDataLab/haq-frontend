@@ -23,10 +23,6 @@ export const FilterComp = styled.div`
     width: 5px;
   }
 
-  @media (max-width: 980px) {
-    display: none;
-  }
-
   [aria-pressed='true'] {
     background-color: #ebf0ff;
 

@@ -4,8 +4,10 @@ import {
   PaginationComp,
   PaginationJump,
   PaginationButtons,
+  ButtonsLabel,
 } from './PaginationComp';
-import { Menu } from 'components/actions';
+import { Button, Menu } from 'components/actions';
+import { ArrowDown } from 'components/icons';
 
 const paginationItems = [
   {
@@ -108,37 +110,28 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
       </PaginationJump>
 
       <PaginationButtons>
-        <div className="pagination__page-no">
+        <ButtonsLabel>
           Page No. {<span>{page}</span>} of {<span>{maxPage}</span>}
+        </ButtonsLabel>
+        <div>
+          <Button
+            onClick={() => handleButton(-1)}
+            kind="custom"
+            className="pagination__back"
+            icon={<ArrowDown />}
+            iconOnly={true}
+          >
+            Previous Page
+          </Button>
+           <Button
+            onClick={() => handleButton(1)}
+            className="pagination__next"
+            icon={<ArrowDown />}
+            iconOnly={true}
+          >
+            Next Page
+          </Button>
         </div>
-        <button
-          type="button"
-          className="pagination__back"
-          onClick={() => handleButton(-1)}
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          className="pagination__next"
-          onClick={() => handleButton(1)}
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0.989063 1.12218C0.555729 1.55551 0.555729 2.25551 0.989063 2.68885L5.30017 6.99996L0.989063 11.3111C0.555729 11.7444 0.555729 12.4444 0.989063 12.8777C1.4224 13.3111 2.1224 13.3111 2.55573 12.8777L7.65573 7.77773C8.08906 7.3444 8.08906 6.6444 7.65573 6.21107L2.55573 1.11107C2.13351 0.688845 1.4224 0.688846 0.989063 1.12218Z" />
-          </svg>
-        </button>
       </PaginationButtons>
     </PaginationComp>
   );

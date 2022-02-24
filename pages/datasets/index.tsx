@@ -143,8 +143,12 @@ const DatasetsComp = styled.div`
     min-width: 312px;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1000px) {
     display: block;
+
+    .filters {
+      display: none;
+    }
   }
 `;
 
@@ -158,6 +162,8 @@ const DatasetSearch = styled.div`
 
 const DatasetSort = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 12px;
