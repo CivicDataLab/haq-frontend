@@ -98,8 +98,8 @@ const ButtonComp = styled.button<ButtonProps>`
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 
   svg {
-    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
-    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
+    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
+    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
     fill: currentColor;
 
     ${(props: any) =>

@@ -254,7 +254,7 @@ const Menu = ({
           onClick={menuButtonHandle}
         >
           {value ? value : heading}
-          <ArrowDown />
+          <ArrowDown fill="#6C666E" />
         </MenuButton>
         <MenuContent
           id={MenuContentID}
