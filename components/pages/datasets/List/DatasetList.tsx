@@ -8,7 +8,7 @@ const DatasetList: React.FC<{ data: any }> = ({ data }) => {
       {data.map((pkg: any, index: number) => {
         const parsedData = explorerPopulation(pkg, index);
         return (
-          <li key={`list-${index}`} className="list__item">
+          <li key={`list-${index}`}>
             <DatasetCard datapackage={parsedData} />
           </li>
         );
