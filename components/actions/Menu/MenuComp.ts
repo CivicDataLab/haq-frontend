@@ -33,14 +33,18 @@ export const MenuButton = styled.button`
   border: var(--border-1);
   border-radius: 4px;
   box-shadow: var(--box-shadow-inset);
-  padding: 9px 24px 9px 12px;
+  padding: 4px 12px;
   display: flex;
   align-items: center;
   line-height: 137%;
 
   svg {
     margin-left: 17px;
-    margin-bottom: -2px;
+    transition: transform 150ms ease;
+  }
+
+  &[aria-expanded='true'] svg {
+    transform: rotate(-180deg);
   }
 `;
 
