@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export const NavComp = css`
 .navbar__web{
-  background-color: var(--color-background-dark);
+  background-color: #076775;
   color: #fdfcfc;
   padding-top: 1.25rem;
   padding-bottom : 1rem;

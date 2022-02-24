@@ -1,5 +1,7 @@
 const withTM = require('next-transpile-modules')(['echarts', 'zrender']);
 
-module.exports = withTM({
+const config = {
   styledComponents: true,
-});
+};
+
+module.exports = withTM({ config });

@@ -1,53 +1,29 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  margin-top: 2.5rem;
-  display: grid;
-  align-items: flex-start;
-  grid-template-rows: max-content 1fr;
-  grid-template-columns: max-content 1fr;
-
-  @media (max-width: 480px) {
-   margin-top: 1.5rem;
-  }
-`;
-
 const HeaderComp = styled.div`
-  background-color: var(--color-background-light);
-  color: var(--text-light-high);
+  background-color: #076775;
+  color: #fdfcfc;
 
-  figure {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 30px;
-    background-color: var(--color-background-lighter);
-    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
-    border-radius: 12px;
-
-    svg {
-      width: 148px;
-    }
-
-    grid-column: 1/2;
-    grid-row: 1/3;
-    margin-right: 2rem;
+  .container {
+    padding-top: 1rem;
+    display: block;
   }
 
   h2 {
+    margin-top: 2rem;
     font-size: 2rem;
     font-weight: 500;
     line-height: 2.6rem;
-
     grid-column: 2/3;
+    grid-row: 1/2;
+    word-break: break-all;
   }
 
   p {
     font-size: 1rem;
     line-height: 1.5;
     grid-column: 2/3;
-    border-bottom: var(--separator-5-2);
-    height: 100%;
+    grid-row: 2/3;
 
     &:first-of-type {
       padding-top: 1rem;
@@ -57,30 +33,5 @@ const HeaderComp = styled.div`
       padding-bottom: 2rem;
     }
   }
-
-  @media (max-width: 980px) {
-    figure {
-      padding: 24px;
-
-      svg {
-        width: 120px;
-      }
-    }
-  }
-
-  @media (max-width: 480px) {
-    figure {
-      padding: 11px;
-
-      svg {
-        width: 66px;
-      }
-    }
-
-    p {
-      grid-column: 1/3;
-    }
-  }
 `;
-
 export default HeaderComp;
