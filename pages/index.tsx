@@ -49,7 +49,7 @@ export default function Home() {
         </div>
         <div className="component">
           <h2>Sidebar</h2>
-          <FlexLayout />
+          {/* <FlexLayout /> */}
         </div>
         <div className="component">
           <h2>Modal</h2>

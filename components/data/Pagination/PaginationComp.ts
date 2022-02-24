@@ -1,37 +1,38 @@
 import styled from 'styled-components';
-import { NativeSelect } from 'components/actions/Select/SelectComp';
 
 export const PaginationComp = styled.div`
   margin-top: 1rem;
   padding: 1.5rem;
   background-color: #fff;
   border-radius: 12px;
-  border: 1px solid #f2eff2;
-  display: flex;
-  flex-wrap: wrap;
+  border: var(--border-2);
   align-items: center;
   gap: 1rem;
+  font-weight: var(--font-weight-medium);
 
   @supports (display: grid) {
     display: grid;
-    grid-template-columns: 1fr repeat(3, max-content);
+    grid-template-columns: 1fr repeat(2, max-content);
 
-    @media (max-width: 720px) {
+    @media (max-width: 620px) {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
     }
   }
 
-  ${NativeSelect} {
-    max-width: 120px;
+  @media (max-width: 370px) {
+    display: flex;
+    flex-wrap: wrap;
   }
 `;
 
 export const PaginationJump = styled.div`
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   padding-right: 20px;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
 
-  @media (max-width: 720px) {
+  @media (max-width: 620px) {
     border-right: none;
     justify-self: flex-end;
     padding-right: 0;
@@ -47,13 +48,31 @@ export const PaginationJump = styled.div`
   }
 `;
 
+export const ButtonsLabel = styled.span`
+  color: var(--text-light-light);
+  font-weight: normal;
+  line-height: 140%;
+
+  span {
+    font-weight: 500;
+
+    @media (max-width: 620px) {
+      margin: 0 5px;
+    }
+  }
+`;
+
 export const PaginationButtons = styled.div`
   margin-left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 720px) {
+  > div {
+    display: flex;
+  }
+
+  @media (max-width: 620px) {
     grid-row: 2/3;
     grid-column: 1/3;
     justify-self: center;
@@ -64,29 +83,14 @@ export const PaginationButtons = styled.div`
     margin-left: 0;
   }
 
-  @media (max-width: 480px) {
-    justify-content: space-between;
-  }
-
   button {
     border-radius: 4px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
-
-  span {
-    line-height: 140%;
-    font-weight: 500;
-    color: hsla(0, 0%, 0%, 0.6);
-
-    @media (max-width: 720px) {
-      margin: 0 5px;
-    }
+    padding: 4px;
+    line-height: 0;
   }
 
   .pagination__back {
-    background-color: rgba(0, 0, 0, 0.078);
+    background-color: var(--text-light-disabled);
     margin-left: 1rem;
 
     &:active {
@@ -95,15 +99,14 @@ export const PaginationButtons = styled.div`
     }
 
     svg {
-      transform: rotate(180deg);
+      transform: rotate(90deg);
       fill: #545454;
-      margin-bottom: -2px;
     }
   }
 
   .pagination__next {
-    margin-left: 0.5rem;
-    background-color: #076775;
+    margin-left: 8px;
+    background-color: var(--color-primary);
 
     &:active {
       transform: scale(0.9);
@@ -111,6 +114,7 @@ export const PaginationButtons = styled.div`
     }
 
     svg {
+      transform: rotate(-90deg);
       fill: white;
     }
   }
