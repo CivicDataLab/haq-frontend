@@ -12,3 +12,5 @@ export { default as Reddit } from './Reddit';
 export { default as ShareIcon } from './ShareIcon';
 export { default as Twitter } from './Twitter';
 export { default as WomenChild } from './WomenChild';
+export { default as Chevron } from './Chevron';
+export { default as Arrow } from './Arrow';

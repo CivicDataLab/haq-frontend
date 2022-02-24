@@ -9,6 +9,7 @@ import {
 } from './FilterComp';
 import { Cross } from 'components/icons';
 import { truncate } from 'lodash';
+import Chevron from 'components/icons/Chevron';
 
 const dataObj = {};
 const filterSearch = {};
@@ -157,9 +158,7 @@ const Filter = ({ data, newFilters, fq }) => {
           <FilterHeading className="filters__heading" key={`filter-${index}`}>
             <button aria-expanded="false">
               {formatFilterName(data[filter].title)}
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 144 72">
-                <path d="M72 72C72 71.98 0 0 0 0h144L72 72" />
-              </svg>
+              <Chevron />
             </button>
           </FilterHeading>
           <FilterContent hidden>

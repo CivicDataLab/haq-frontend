@@ -11,8 +11,8 @@ const TagsComp = styled.ul`
     font-weight: 600;
     font-size: 12px;
     line-height: 130%;
-    color: hsla(0, 0%, 0%, 0.6);
-    background-color: rgba(0, 0, 0, 0.08);
+    color: var(--text-light-medium);
+    background-color: var(--text-light-disabled);
     padding: 4px 8px;
   }
 `;
