@@ -162,5 +162,5 @@ const DatasetSort = styled.div`
   align-items: center;
   padding-bottom: 12px;
   margin-top: 12px;
-  border-bottom: var(--separator);
+  border-bottom: var(--separator-5);
 `;

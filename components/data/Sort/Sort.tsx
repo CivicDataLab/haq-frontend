@@ -58,7 +58,7 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
   return (
     <Menu
       options={options}
-      heading="Sort by"
+      heading="Sort by:"
       handleChange={handleChange}
       value={value}
     />

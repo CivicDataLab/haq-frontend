@@ -59,10 +59,12 @@ html {
   --gradient-sapphire : ${theme.gradient_sapphire};
 
   --border-1 : 1px solid var(--color-grey-500);
+  --border-2 : 1px solid var(--color-grey-600);
   --box-shadow-1 : 0px 4px 12px rgba(0, 0, 0, 0.08);
   --box-shadow-inset: inset 0px 0px 4px rgba(0, 0, 0, 0.08);
-  --separator: 1px solid ${transparentize('0.5', `${theme.grey_500}`)};
-  --separator-2: 2px solid ${transparentize('0.5', `${theme.grey_500}`)};
+  --separator-5: 1px solid ${transparentize('0.5', `${theme.grey_500}`)};
+  --separator-5-2: 2px solid ${transparentize('0.5', `${theme.grey_500}`)};
+  --separator-6: 1px solid ${transparentize('0.5', `${theme.grey_500}`)};
 
   --font-weight-bold: 600;
   --font-weight-medium: 500;

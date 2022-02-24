@@ -4,6 +4,7 @@ export const DatasetListComp = styled.ul`
   padding-bottom: 1.5rem;
   border-bottom: 2px solid hsla(300, 4%, 81%, 0.5);
   padding-left: 0;
+  margin-top: 24px;
 
   .list__item {
     margin-top: 1rem;

@@ -19,7 +19,7 @@ export const MenuComp = styled.div`
 
 export const MenuLabel = styled.span`
   font-weight: var(--font-weight-medium);
-  color: var(--text-light-medium);
+  color: var(--text-light-light);
   font-size: 14px;
 `;
 
