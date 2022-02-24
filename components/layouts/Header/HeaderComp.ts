@@ -46,7 +46,7 @@ const HeaderComp = styled.div`
     font-size: 1rem;
     line-height: 1.5;
     grid-column: 2/3;
-    border-bottom: var(--separator);
+    border-bottom: var(--separator-2);
     height: 100%;
 
     &:first-of-type {

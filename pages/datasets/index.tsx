@@ -82,35 +82,31 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   return (
     <>
       <Head>
-        <title>OPub | Datasets</title>
+        <title>HAQ | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Wrapper>
+      <Wrapper className="container">
         <Header data={headerData} />
-        <div className="container">
-          {data && (
-            <div>
-              <DatasetsComp>
-                <Filter
-                  data={facets}
-                  newFilters={handleDatasetsChange}
-                  fq={datsetsFilters}
-                />
-                <div className="contractsColumn">
-                  <div className="contractsComp__search">
-                    <Search newSearch={handleDatasetsChange} />
-                    <Sort newSort={handleDatasetsChange} />
-                  </div>
-                  <div className="contractsComp__totalCount">
-                    <Total text="contracts" total={count} />
-                  </div>
-                  <DatasetList data={results} />
-                  <Pagination total={count} newPage={handleDatasetsChange} />
-                </div>
-              </DatasetsComp>
-            </div>
-          )}
-        </div>
+        {data && (
+          <DatasetsComp>
+            <Filter
+              data={facets}
+              newFilters={handleDatasetsChange}
+              fq={datsetsFilters}
+            />
+            <DatasetRight>
+              <DatasetSearch>
+                <Search newSearch={handleDatasetsChange} />
+              </DatasetSearch>
+              <DatasetSort>
+                <Total text="datasets found" total={count} />
+                <Sort newSort={handleDatasetsChange} />
+              </DatasetSort>
+              <DatasetList data={results} />
+              <Pagination total={count} newPage={handleDatasetsChange} />
+            </DatasetRight>
+          </DatasetsComp>
+        )}
       </Wrapper>
     </>
   );
@@ -132,32 +128,39 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default Datasets;
 
-const Wrapper = styled.main`
-  .heading {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 1.5rem;
-  }
+const Wrapper = styled.main``;
+
+const DatasetRight = styled.div`
+  width: 100%;
 `;
 
 const DatasetsComp = styled.div`
-  display: grid;
-  grid-template-columns: 312px 1fr;
+  display: flex;
   gap: 2rem;
   margin-top: 2.5rem;
 
-  .contractsColumn {
-    grid-column: 2/3;
-  }
-
-  .contractsComp__sortRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
+  .filters {
+    min-width: 312px;
   }
 
   @media (max-width: 980px) {
     display: block;
   }
+`;
+
+const DatasetSearch = styled.div`
+  background-color: var(--color-background-lighter);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-grey-600);
+  box-shadow: var(--box-shadow-1);
+`;
+
+const DatasetSort = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-top: 12px;
+  border-bottom: var(--separator);
 `;

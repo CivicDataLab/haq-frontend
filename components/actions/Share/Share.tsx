@@ -32,7 +32,7 @@ const Share = ({ title }) => {
   return (
     <>
       <Widget
-        icon={<ShareIcon />}
+        icon={<ShareIcon fill="#4965B2" />}
         buttonContent="Share"
         title="share menu"
         buttonStyle="secondary-outline"
