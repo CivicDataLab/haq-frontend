@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { SearchComp, SearchInput, SearchClear, Wrapper, ButtonsWrapper } from './SearchComp';
+import { SearchComp, SearchInput, SearchClear, Wrapper } from './SearchComp';
 import { Button } from 'components/actions';
-import { Cross, SearchIcon } from 'components/icons';
-import Arrow from 'components/icons/Arrow';
+import { Cross } from 'components/icons';
 
 const Search: React.FC<{ text?: string; newSearch: any }> = ({
   text,
@@ -44,33 +43,19 @@ const Search: React.FC<{ text?: string; newSearch: any }> = ({
           placeholder={text ? text : 'Try COVID, Hospital, Construction'}
           aria-label="Search"
         />
-        <ButtonsWrapper>
-          <SearchClear
-            type="button"
-            title="Clear search field"
-            onClick={handleClear}
-            className="search__clear"
-          >
-            <span className="sr-only">Clear search field</span>
-            <Cross fill="#6C666E" />
-          </SearchClear>
-
-          <Button
-            onClick={handleSubmit}
-            className="search__submit"
-            icon={<Arrow />}
-            iconOnly={true}
-          >
-            Submit search
-          </Button>
-        </ButtonsWrapper>
+        <SearchClear
+          type="button"
+          title="Clear search field"
+          onClick={handleClear}
+          className="search__clear"
+        >
+          <span className="sr-only">Clear search field</span>
+          <Cross fill="#076775" />
+        </SearchClear>
       </Wrapper>
-      {/* {q.length > 0 ? 
-         <Button onClick={handleSubmit} className="search__submit" icon={<Arrow />} iconOnly={true}>
-            Submit search
-         </Button>
-       :null
-      } */}
+      <Button onClick={handleSubmit} className="search__submit">
+        Submit <span className="sr-only">search</span>
+      </Button>
     </SearchComp>
   );
 };

@@ -8,9 +8,6 @@ interface ButtonProps {
   readonly iconOnly?: boolean;
 }
 
-const PrimaryColor = 'var(--color-background-dark)';
-const SecondaryColor = '#F65940';
-
 function bgColor(type: string, bg: string) {
   if (type == 'custom') {
     return 'inherit';
@@ -98,8 +95,8 @@ const ButtonComp = styled.button<ButtonProps>`
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 
   svg {
-    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
-    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
+    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
+    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '24px'};
     fill: currentColor;
 
     ${(props: any) =>

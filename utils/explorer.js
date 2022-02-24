@@ -23,7 +23,7 @@ export function stripTitle(name) {
   return shortName;
 }
 
-export function explorerPopulation(obj, idx) {
+export function explorerPopulation(obj) {
   let newObj = {};
   const resources = {};
   const resUrls = [];
@@ -43,7 +43,6 @@ export function explorerPopulation(obj, idx) {
     dataUrl: resources.dataUrl || '',
     metaUrl: resources.metaUrl || '',
     resUrls,
-    idx: idx | '',
   };
 
   return newObj;

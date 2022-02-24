@@ -1,13 +1,19 @@
-import HeaderComp, { Wrapper } from './HeaderComp';
+import Link from 'next/link';
+import HeaderComp from './HeaderComp';
 
 const Header = ({ data }) => {
   return (
     <HeaderComp>
-      <Wrapper>
-        {data.logo && <figure>{data.logo}</figure>}
+      <div className="container">
+        {data.previousPage && (
+          <Link href={data.previousLink}>
+            <a>{`< Go Back to ${data.previousPage}`}</a>
+          </Link>
+        )}
         <h2>{data.title}</h2>
         <p>{data.content}</p>
-      </Wrapper>
+        {data.date && <p>{data.date}</p>}
+      </div>
     </HeaderComp>
   );
 };
