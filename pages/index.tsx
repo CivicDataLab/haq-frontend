@@ -47,14 +47,14 @@ export default function Home() {
           <h2>Tabbed</h2>
           <Tabbed data={temp.tabbedData} />
         </div>
-        <div className="component">
+        {/* <div className="component">
           <h2>Sidebar</h2>
           <FlexLayout />
         </div>
         <div className="component">
           <h2>Modal</h2>
           <Modal />
-        </div>
+        </div> */}
         <div className="component">
           <h2>Carousel</h2>
           <Carousel data={temp.carousel} />
@@ -79,7 +79,11 @@ export default function Home() {
             <Button onClick={() => {}} kind="secondary" icon={<ArrowTail />}>
               Button with Icon
             </Button>
-            <Button onClick={() => {}} kind="primary-outline" icon={<ArrowTail />}>
+            <Button
+              onClick={() => {}}
+              kind="primary-outline"
+              icon={<ArrowTail />}
+            >
               Button with Icon
             </Button>
             <Button
@@ -139,6 +143,7 @@ const HomePage = styled.main`
         display: flex;
         gap: 0.5rem;
         flex-wrap: wrap;
+        align-items: flex-start;
       }
     }
   }

@@ -22,6 +22,7 @@ export const ModalComp = css`
     z-index: 1000;
     background-color: white;
 
+    padding-bottom: 1rem;
     border-radius: 6px;
     max-width: 550px;
     width: 100%;
@@ -181,10 +182,10 @@ export const ModalComp = css`
       }
 
       &--download {
-        .modal__header {
+        .dialog__header {
           padding: 1.5rem 2rem;
         }
-        .modal__body {
+        .dialog__body {
           padding: 0 2rem 2rem;
         }
       }
@@ -196,14 +197,19 @@ export const ModalComp = css`
           padding: 1rem;
         }
       }
+
+      &__body {
+        padding: 0 1rem 2rem;
+        border-bottom: 2px solid #666d6e;
+      }
     }
 
     &--small {
-      .modal__header {
+      .dialog__header {
         padding: 1.5rem;
       }
 
-      .modal__body {
+      .dialog__body {
         h2 {
           font-weight: 500;
           margin-top: 1.75rem;

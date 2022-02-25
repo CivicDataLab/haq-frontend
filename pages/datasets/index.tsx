@@ -13,6 +13,7 @@ import {
 import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
+import MobileAlter from 'components/data/MobileAlter/MobileAlter';
 
 type Props = {
   data: any;
@@ -98,8 +99,14 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
               </DatasetSearch>
               <DatasetSort>
                 <Total text="datasets found" total={count} />
-                <Sort newSort={handleDatasetsChange} />
+                <Sort className="sort" newSort={handleDatasetsChange} />
               </DatasetSort>
+              <MobileAlter
+                data={facets}
+                newData={handleDatasetsChange}
+                fq={datsetsFilters}
+                sortShow={true}
+              />
               <DatasetList data={results} />
               <Pagination total={count} newPage={handleDatasetsChange} />
             </DatasetRight>
@@ -144,7 +151,7 @@ const DatasetsComp = styled.div`
   @media (max-width: 1000px) {
     display: block;
 
-    .filters {
+    .filters, .sort {
       display: none;
     }
   }
@@ -165,6 +172,6 @@ const DatasetSort = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 12px;
-  margin-top: 12px;
+  margin-top: 20px;
   border-bottom: var(--separator-5);
 `;
