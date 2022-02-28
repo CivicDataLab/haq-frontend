@@ -91,7 +91,7 @@ const Nav: React.FC = () => {
                   className="brand_logo"
                   src="/assets/images/oci_assam_light.png"
                   alt="oci logo"
-                  width={166}
+                  width={220}
                   height={46}
                 ></Image>
               </a>

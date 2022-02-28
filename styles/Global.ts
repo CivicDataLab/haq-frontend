@@ -36,6 +36,8 @@ html {
   --color-carrot-2 : ${theme.color_carrot_2};
   --color-carrot-3 : ${theme.color_carrot_3};
   --color-violet-3 : ${theme.color_violet_3};
+  --color-sapphire-3 : ${theme.color_sapphire_3};
+  --color-sapphire-5 : ${theme.color_sapphire_5};
 
   --color-success : ${theme.color_success};
   --color-error : ${theme.color_error};
@@ -74,6 +76,12 @@ html {
   --font-weight-bold: 600;
   --font-weight-medium: 500;
   --font-weight-light: 400;
+
+  --nav-bg: var(--color-sapphire-5);
+  --nav-bg-hover: var(--color-secondary);
+  --nav-submenu: var(--color-carrot-3);
+  --nav-submenu-hover: var(--color-carrot);
+  --nav-mobile: var(--color-sapphire-3);
 
   box-sizing: border-box;
 }
@@ -132,18 +140,8 @@ ul, ol {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-
-  @media (min-width: 720px) {
-    width: 700px;
-  }
-
-  @media (min-width: 980px) {
-    width: 960px;
-  }
-
-  @media (min-width: 1200px){
-    width: 1180px;
-  }
+  
+  width: calc(100vw - 20px);
 
   @media (min-width: 1350px) {
     width: 1216px;

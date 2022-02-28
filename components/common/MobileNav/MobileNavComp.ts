@@ -1,63 +1,69 @@
 import { css } from 'styled-components';
 
 export const MobileNavComp = css`
-.m-header {
-    display : none;
-    min-height: 4rem;
-  
-    @media only screen and (max-width: 980px) {
+  .m-header {
+    display: none;
+    align-items: center;
+    background-color: var(--nav-bg);
+
+    @media (max-width: 800px) {
       display: flex;
-      align-items: center;
-      background-color: #076775
     }
-  
+
     .container {
       display: flex;
-      padding-top: 1rem;
+      padding-block: 16px;
       justify-content: flex-start;
     }
 
     .header__brand {
-       display: inline-flex;
-       align-items: center
+      font-size: 0;
     }
-   
+
+    .brand_logo {
+      object-fit: contain;
+    }
+
     &__button {
       margin-right: 1rem;
     }
-  
+
     &__link {
       justify-self: flex-end;
-  
-      @include narrowerThan('seed') {
+
+      @media (max-width: 480px) {
         display: none;
       }
     }
   }
-  
+
   .m-navbar {
-    background:#076775;
-    color: #fdfcfc;
-  
+    background-color: var(--nav-mobile);
+    color: var(--text-dark-high);
+
     a {
       text-decoration: none;
     }
-  
+
+    button {
+      color: var(--text-dark-high);
+    }
+
     &__header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #06525d;
+      background-color: var(--nav-bg);
       height: 4rem;
       padding-left: 1.5rem;
-  
+
       button {
         height: 100%;
         width: 4rem;
         font-size: 1.5rem;
       }
     }
-  
+
     .navbar__item {
       padding: 1rem 1.5rem;
       display: flex;
@@ -65,7 +71,7 @@ export const MobileNavComp = css`
       justify-content: space-between;
       width: 100%;
       line-height: 2rem;
-  
+
       &[type='button'] {
         &::after {
           border-bottom: 2px solid #0b0c0c;
@@ -79,27 +85,28 @@ export const MobileNavComp = css`
           transform: translateY(-35%) rotate(45deg);
           vertical-align: middle;
           width: 8px;
-          border-color: #fff;
+          border-color: var(--color-white);
           transition: transform 300ms ease;
         }
       }
-  
+
       &[aria-expanded='true'] {
-        background-color: #076775;
-  
+        background-color: var(--nav-bg-hover);
+
         &::after {
           transform: rotate(-135deg);
         }
-  
+
         & + ul {
-          background-color: #076775;
+          background-color: var(--nav-bg-hover);
           padding-bottom: 1rem;
         }
       }
     }
-  
+
     &__nested {
       width: 100%;
+
       a {
         padding: 1rem 1.5rem;
         display: block;
@@ -107,12 +114,16 @@ export const MobileNavComp = css`
         display: flex;
         justify-content: space-between;
       }
+
+      svg {
+        fill: var(--text-dark-high);
+      }
     }
-  
-    @include narrowerThan('seed') {
+
+    @media (max-width: 480px) {
       min-width: 248px;
     }
-  }`
-;
+  }
+`;
 
 export default MobileNavComp;

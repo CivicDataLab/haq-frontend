@@ -19,6 +19,9 @@ export const DEFAULT_THEME = {
   color_violet_3: '#865194',
   color_violet_4: '#6E3D7A',
 
+  color_sapphire_3: '#354981',
+  color_sapphire_5: '#212D50',
+
   color_success: '#328B48',
   color_error: '#C82D2D',
   color_warning: '#DC9020',

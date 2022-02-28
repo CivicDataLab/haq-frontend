@@ -2,10 +2,10 @@ import { css } from 'styled-components';
 
 export const NavComp = css`
   .navbar__web {
-    background-color: var(--color-background-dark);
+    background-color: var(--nav-bg);
     padding: 13px;
 
-    @media only screen and (max-width: 980px) {
+    @media only screen and (max-width: 800px) {
       display: none;
     }
 
@@ -17,8 +17,7 @@ export const NavComp = css`
     }
 
     .header__brand {
-      font-size: 1.4rem;
-      font-weight: 500;
+      font-size: 0;
     }
 
     .brand_logo {
@@ -48,17 +47,41 @@ export const NavComp = css`
       }
     }
 
+    &__item {
+      padding: 8px;
+      align-items: center;
+      display: flex;
+      color: var(--text-dark-high);
+      transition: background-color 200ms ease;
+      width: max-content;
+
+      &:hover {
+        background-color: var(--nav-bg-hover);
+      }
+
+      &--active {
+        box-shadow: inset 0 -2px 0 0 #fff;
+        font-weight: 500;
+
+        @media (max-width: 800px) {
+          box-shadow: inset 3px 0 0 0 #fff;
+        }
+      }
+    }
+
     button {
       color: var(--text-dark-high);
 
       svg {
         fill: var(--text-dark-high);
+        pointer-events: none;
       }
 
       & + ul {
         position: absolute;
         top: 160%;
-        background-color: var(--color-carrot-3);
+        right: 0;
+        background-color: var(--nav-submenu);
         padding: 8px;
         width: max-content;
         border-radius: 4px;
@@ -71,9 +94,9 @@ export const NavComp = css`
           position: absolute;
           border-left: 14px solid transparent;
           border-right: 14px solid transparent;
-          border-bottom: 17px solid var(--color-carrot-3);
+          border-bottom: 17px solid var(--nav-submenu);
           top: -10px;
-          left: 10%;
+          right: 5px;
         }
 
         li {
@@ -86,7 +109,7 @@ export const NavComp = css`
           }
 
           &:hover {
-            background-color: var(--color-carrot);
+            background-color: var(--nav-submenu-hover);
           }
         }
 
@@ -99,27 +122,6 @@ export const NavComp = css`
           display: flex;
           justify-content: space-between;
           align-items: center;
-        }
-      }
-    }
-
-    &__item {
-      padding: 8px;
-      align-items: center;
-      display: flex;
-      color: var(--text-dark-high);
-      transition: background-color 200ms ease;
-
-      &:hover {
-        background-color: var(--background-dark-hover);
-      }
-
-      &--active {
-        box-shadow: inset 0 -2px 0 0 #fff;
-        font-weight: 500;
-
-        @media (max-width: 720px) {
-          box-shadow: inset 3px 0 0 0 #fff;
         }
       }
     }

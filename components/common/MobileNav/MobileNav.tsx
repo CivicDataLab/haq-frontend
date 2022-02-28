@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import Image from 'next/image';
 import * as nav from 'data/navdata/navlist';
+import { ArrowTail } from 'components/icons';
 
 Modal.setAppElement('#__next');
 
@@ -61,6 +62,7 @@ const MobNav: React.FC = () => {
             aria-label="Expand navigation"
             onClick={mobileNavHandler}
           >
+            <span className="sr-only">open menu</span>
             <svg
               className="fill-current"
               width="20"
@@ -69,7 +71,6 @@ const MobNav: React.FC = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="white"
             >
-              <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
@@ -78,11 +79,11 @@ const MobNav: React.FC = () => {
             <Link href="/">
               <a>
                 <Image
-                  className="header__logo"
-                  src="/assets/images/oci_assam_light.png"
+                  className="brand_logo"
+                  src="/assets/images/oci_logo.png"
                   alt="oci logo"
-                  width={400}
-                  height={56}
+                  width={166}
+                  height={40}
                 ></Image>
               </a>
             </Link>
@@ -117,7 +118,7 @@ const MobNav: React.FC = () => {
           <ul className="m-navbar__container">
             {nav.navList.map((navItem: any, index: number) => (
               <li key={`navItemMobile-${index}`} className="navbar__links">
-                {navItem.hasSubMenu ? (
+                {navItem.submenu ? (
                   <>
                     <button
                       className="navbar__item"
@@ -132,17 +133,22 @@ const MobNav: React.FC = () => {
                       {navItem.name}
                     </button>
                     <ul className="m-navbar__nested" hidden>
-                      {navItem.subMenu.map(
-                        (subMenuItem: any, index: number) => (
-                          <li key={`submenuItem-${index}`}>
-                            <a
-                              href={subMenuItem.link}
-                              onClick={mobileNavHandler}
+                      {navItem.submenu.length > 0 && (
+                        <ul>
+                          {navItem.submenu.map((item, num) => (
+                            <li
+                              key={`sub-${index}-${num}`}
+                              className="submenu-item"
                             >
-                              {subMenuItem.name} <span>&#x279D;</span>
-                            </a>
-                          </li>
-                        )
+                              <Link href={item.link}>
+                                <a>
+                                  {item.name}
+                                  <ArrowTail width={24} height={24} />
+                                </a>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       )}
                     </ul>
                   </>
