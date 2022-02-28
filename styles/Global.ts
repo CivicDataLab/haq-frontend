@@ -20,9 +20,10 @@ ${normalize()}
 html {
   --color-primary: ${theme.primary};
   --color-secondary : ${theme.secondary};
-  --color-tertiary : ${theme.tertiary};
+  --color-tertiary : ${theme.color_carrot};
 
   --color-background-dark : ${theme.background_dark};
+  --background-dark-hover : ${theme.color_violet_3};
   --color-background-darker : ${theme.background_darker};
   --color-background-light : ${theme.background_light};
   --color-background-lighter : ${theme.background_lighter};
@@ -31,6 +32,12 @@ html {
   --color-violet : ${theme.color_violet};
   --color-honey : ${theme.color_honey};
   --color-amazon : ${theme.color_amazon};
+  --color-carrot : ${theme.color_carrot};
+  --color-carrot-2 : ${theme.color_carrot_2};
+  --color-carrot-3 : ${theme.color_carrot_3};
+  --color-violet-3 : ${theme.color_violet_3};
+  --color-sapphire-3 : ${theme.color_sapphire_3};
+  --color-sapphire-5 : ${theme.color_sapphire_5};
 
   --color-success : ${theme.color_success};
   --color-error : ${theme.color_error};
@@ -70,6 +77,12 @@ html {
   --font-weight-medium: 500;
   --font-weight-light: 400;
 
+  --nav-bg: var(--color-sapphire-5);
+  --nav-bg-hover: var(--color-secondary);
+  --nav-submenu: var(--color-carrot-3);
+  --nav-submenu-hover: var(--color-carrot);
+  --nav-mobile: var(--color-sapphire-3);
+
   box-sizing: border-box;
 }
 *, *:before, *:after {
@@ -88,7 +101,7 @@ body {
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: var(--color-background-light);
   font-size: 16px;
-  line-height: 137%;
+  line-height: 1.5;
 }
 
 #__next {
@@ -103,7 +116,6 @@ button {
 
 a {
   color: inherit;
-  text-decoration-color: transparent;
 }
 
 ul, ol {
@@ -128,18 +140,8 @@ ul, ol {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-
-  @media (min-width: 720px) {
-    width: 700px;
-  }
-
-  @media (min-width: 980px) {
-    width: 960px;
-  }
-
-  @media (min-width: 1200px){
-    width: 1180px;
-  }
+  
+  width: calc(100vw - 20px);
 
   @media (min-width: 1350px) {
     width: 1216px;
