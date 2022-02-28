@@ -1,7 +1,6 @@
 export const DEFAULT_THEME = {
   primary: '#FA5D82',
   secondary: '#4965B2',
-  tertiary: '#ED8686',
 
   background_dark: '#6E3D7A',
   background_darker: '#3E1C47',
@@ -12,6 +11,13 @@ export const DEFAULT_THEME = {
   color_honey: '#FBB670',
   color_amazon: '#69BC99',
   color_white: '#FFFFFF',
+
+  color_carrot: '#ED8686',
+  color_carrot_2: '#D26F6E',
+  color_carrot_3: '#B85957',
+
+  color_violet_3: '#865194',
+  color_violet_4: '#6E3D7A',
 
   color_success: '#328B48',
   color_error: '#C82D2D',

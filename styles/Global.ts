@@ -20,9 +20,10 @@ ${normalize()}
 html {
   --color-primary: ${theme.primary};
   --color-secondary : ${theme.secondary};
-  --color-tertiary : ${theme.tertiary};
+  --color-tertiary : ${theme.color_carrot};
 
   --color-background-dark : ${theme.background_dark};
+  --background-dark-hover : ${theme.color_violet_3};
   --color-background-darker : ${theme.background_darker};
   --color-background-light : ${theme.background_light};
   --color-background-lighter : ${theme.background_lighter};
@@ -31,6 +32,10 @@ html {
   --color-violet : ${theme.color_violet};
   --color-honey : ${theme.color_honey};
   --color-amazon : ${theme.color_amazon};
+  --color-carrot : ${theme.color_carrot};
+  --color-carrot-2 : ${theme.color_carrot_2};
+  --color-carrot-3 : ${theme.color_carrot_3};
+  --color-violet-3 : ${theme.color_violet_3};
 
   --color-success : ${theme.color_success};
   --color-error : ${theme.color_error};
@@ -88,7 +93,7 @@ body {
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: var(--color-background-light);
   font-size: 16px;
-  line-height: 137%;
+  line-height: 1.5;
 }
 
 #__next {
@@ -103,7 +108,6 @@ button {
 
 a {
   color: inherit;
-  text-decoration-color: transparent;
 }
 
 ul, ol {

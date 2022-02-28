@@ -1,16 +1,15 @@
 import { css } from 'styled-components';
 
 export const NavComp = css`
-.navbar__web{
-  background-color: #076775;
-  color: #fdfcfc;
-  padding-top: 1.25rem;
-  padding-bottom : 1rem;
+  .navbar__web {
+    background-color: var(--color-background-dark);
+    padding: 13px;
 
-  @media only screen and (max-width: 980px) {
-    display: none;
-  }
-    .container {
+    @media only screen and (max-width: 980px) {
+      display: none;
+    }
+
+    > div {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -18,27 +17,17 @@ export const NavComp = css`
     }
 
     .header__brand {
-      display: flex;
-      align-items: center;
-
-      a {
-        display: inline-flex;
-        svg {
-          margin-right: 6px;
-        }
-      }
-
-      h1 {
-        font-size: 1.4rem;
-        font-weight: 500;
-        width: max-content;
-      }
+      font-size: 1.4rem;
+      font-weight: 500;
     }
 
     .brand_logo {
-      width: 200px !important;
-      height: auto;
+      object-fit: contain;
     }
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .navbar {
@@ -46,21 +35,83 @@ export const NavComp = css`
 
     &__container {
       display: flex;
+      gap: 1rem;
     }
 
-    &__links {
-      display: flex;
-      align-content: center;
-      flex-wrap: wrap;
+    .has-submenu {
+      position: relative;
+
+      &.open {
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    button {
+      color: var(--text-dark-high);
+
+      svg {
+        fill: var(--text-dark-high);
+      }
+
+      & + ul {
+        position: absolute;
+        top: 160%;
+        background-color: var(--color-carrot-3);
+        padding: 8px;
+        width: max-content;
+        border-radius: 4px;
+        min-width: 210px;
+        display: none;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          position: absolute;
+          border-left: 14px solid transparent;
+          border-right: 14px solid transparent;
+          border-bottom: 17px solid var(--color-carrot-3);
+          top: -10px;
+          left: 10%;
+        }
+
+        li {
+          margin-top: 4px;
+          transition: background-color 200ms ease;
+          border-radius: 4px;
+
+          &:first-child {
+            margin-top: 0;
+          }
+
+          &:hover {
+            background-color: var(--color-carrot);
+          }
+        }
+
+        a {
+          text-decoration: underline;
+          line-height: 1.5;
+          padding: 4px 8px 4px 12px;
+          color: var(--text-dark-high);
+          fill: var(--text-dark-high);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
     }
 
     &__item {
-      padding: 1rem;
+      padding: 8px;
       align-items: center;
       display: flex;
+      color: var(--text-dark-high);
+      transition: background-color 200ms ease;
 
       &:hover {
-        background-color: #5ea8a9;
+        background-color: var(--background-dark-hover);
       }
 
       &--active {

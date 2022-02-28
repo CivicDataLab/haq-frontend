@@ -6,7 +6,7 @@ import Image from 'next/image';
 import * as nav from 'data/navdata/navlist';
 
 Modal.setAppElement('#__next');
-  
+
 const MobNav: React.FC = () => {
   const router = useRouter();
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -51,7 +51,7 @@ const MobNav: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <header className="header m-header">
         <div className="container">
           <button
@@ -164,9 +164,8 @@ const MobNav: React.FC = () => {
           </ul>
         </nav>
       </Modal>
-    </div>
+    </>
   );
 };
 
 export default MobNav;
-
