@@ -1,13 +1,17 @@
 import Link from 'next/link';
 import { RelatedCardComp } from './CardComp';
 
-const RelatedCard: React.FC<{ data: any; index: string }> = ({
+const RelatedCard: React.FC<{ data: any; index: number }> = ({
   data,
   index,
 }) => {
   return (
     <Link href={`/datasets/${data.id}`} passHref>
       <RelatedCardComp>
+        {data.url ? 
+           <img src={data.url} />
+           : null
+         }
         <article>
           <header>
             <h3>{data.title}</h3>
@@ -18,6 +22,20 @@ const RelatedCard: React.FC<{ data: any; index: string }> = ({
             </ul>
           </header>
           <p>{data.notes}</p>
+          {data.author ?
+            <div>
+              <hr className="hr" />
+              <div className="author__details">
+                <div className="author">
+                  {data.author}
+                </div>
+                <div className="date">
+                  {data.date}
+                </div>
+              </div>
+            </div>
+            : null
+          }
         </article>
       </RelatedCardComp>
     </Link>

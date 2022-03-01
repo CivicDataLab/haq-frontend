@@ -42,6 +42,14 @@ export const RelatedCardComp = styled.a`
     }
   }
 
+  .hr {
+    border: 1px solid #F8EFFF;
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+    margin: 12px 0px;
+  }
+
   h3 {
     font-weight: 800;
     font-size: 1.25rem;
@@ -64,5 +72,13 @@ export const RelatedCardComp = styled.a`
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
+  }
+
+  .author__details {
+    display:flex;
+    justify-content:space-between;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--text-light-light);
   }
 `;
