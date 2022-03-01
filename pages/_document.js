@@ -27,6 +27,7 @@ export default class MyDocument extends Document {
           {this.props.styleTags}
         </Head>
         <body>
+<script>0</script>
           <Main />
           <NextScript />
         </body>
