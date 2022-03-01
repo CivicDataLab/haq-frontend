@@ -1,8 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Search } from 'components/data';
-import { SearchInput } from 'components/data/Search/SearchComp';
 import Link from 'next/link';
 import Image from 'next/image';
 const HomeHeader = () => {
@@ -77,7 +76,6 @@ const Wrapper = styled.div`
 const HeaderContent = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
   min-height: 580px;
 `;
 

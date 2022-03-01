@@ -204,7 +204,7 @@ const MenuHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--nav-bg);
+  background-color: var(--nav-mobile-header);
   height: 4rem;
   padding-left: 1.5rem;
 

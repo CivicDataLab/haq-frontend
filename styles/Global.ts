@@ -70,11 +70,12 @@ html {
   --font-weight-medium: 500;
   --font-weight-light: 400;
 
-  --nav-bg: var(--color-sapphire-5);
-  --nav-bg-hover: var(--color-secondary);
+  --nav-bg: var(--color-background-dark);
+  --nav-bg-hover: var(--color-violet-3);
   --nav-submenu: var(--color-carrot-3);
   --nav-submenu-hover: var(--color-carrot);
-  --nav-mobile: var(--color-sapphire-3);
+  --nav-mobile: var(--color-background-dark);
+  --nav-mobile-header: var(--color-background-darker);
 
   box-sizing: border-box;
 
