@@ -185,6 +185,7 @@ const Header = styled.header`
 const MenuWrapper = styled.nav`
   background-color: var(--nav-mobile);
   color: var(--text-dark-high);
+  height: 100%;
 
   a {
     text-decoration: none;

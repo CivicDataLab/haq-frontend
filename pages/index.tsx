@@ -13,6 +13,7 @@ import {
 
 import { ArrowTail } from 'components/icons';
 import Arrow from 'components/icons/Arrow';
+import DatasetDownload from 'components/actions/DatasetDownload';
 
 export default function Home() {
   return (
@@ -50,11 +51,11 @@ export default function Home() {
         {/* <div className="component">
           <h2>Sidebar</h2>
           <FlexLayout />
-        </div>
+        </div> */}
         <div className="component">
           <h2>Modal</h2>
-          <Modal />
-        </div> */}
+          <DatasetDownload />
+        </div>
         <div className="component">
           <h2>Carousel</h2>
           <Carousel data={temp.carousel} />

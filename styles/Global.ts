@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { normalize, transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
-import ModalComp from 'components/actions/Modal/ModalComp';
 import { DEFAULT_THEME } from 'config/theme';
 
 const theme = DEFAULT_THEME;
@@ -10,7 +9,6 @@ const theme = DEFAULT_THEME;
 export const GlobalStyle = createGlobalStyle`
 ${cssReset}
 ${cssNormalise}
-${ModalComp}
 
 html {
   --color-primary: ${theme.primary};
@@ -79,6 +77,10 @@ html {
   --nav-mobile: var(--color-sapphire-3);
 
   box-sizing: border-box;
+
+  &.ReactModal__Html--open {
+    overflow-y: hidden;
+  }
 }
 *, *:before, *:after {
   box-sizing: inherit;
