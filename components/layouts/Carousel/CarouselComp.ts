@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const CarouselComp = styled.div`
   padding: 75px 0 10rem;
-  background-color: #eff2f2;
 
   .container {
     display: flex;

@@ -139,10 +139,10 @@ ul, ol {
   margin-right: auto;
   margin-left: auto;
   
-  width: calc(100vw - 20px);
+  max-width: calc(100vw - 20px);
 
   @media (min-width: 1350px) {
-    width: 1216px;
+    max-width: 1216px;
   }
 }
 `;

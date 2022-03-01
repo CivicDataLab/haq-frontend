@@ -89,8 +89,8 @@ const About = () => {
       <Head>
         <title>About Us | OPub</title>
       </Head>
-      <Header data={headerData} />
       <AboutPage>
+      <Header data={headerData} />
         <h3 className="partners__heading">Partners</h3>
         <ul className="partners">
           {partners.map((item, key) => {

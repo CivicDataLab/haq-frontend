@@ -14,7 +14,7 @@ import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
 import MobileAlter from 'components/data/MobileAlter/MobileAlter';
-
+import DataCatalogue from 'components/icons/DataCatalogue';
 type Props = {
   data: any;
   facets: any;
@@ -76,6 +76,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     title: 'All Datasets',
     content:
       'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
+    logo: <DataCatalogue />,
   };
 
   return (
@@ -84,8 +85,8 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <title>HAQ | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header data={headerData} />
       <Wrapper className="container">
+        <Header data={headerData} />
         {data && (
           <DatasetsComp>
             <Filter
@@ -151,7 +152,8 @@ const DatasetsComp = styled.div`
   @media (max-width: 1000px) {
     display: block;
 
-    .filters, .sort {
+    .filters,
+    .sort {
       display: none;
     }
   }
