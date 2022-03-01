@@ -50,7 +50,7 @@ const Search: React.FC<{ text?: string; newSearch: any }> = ({
           className="search__clear"
         >
           <span className="sr-only">Clear search field</span>
-          <Cross fill="#076775" />
+          <Cross width={24} height={24} fill="#076775" />
         </SearchClear>
       </Wrapper>
       <Button onClick={handleSubmit} className="search__submit">

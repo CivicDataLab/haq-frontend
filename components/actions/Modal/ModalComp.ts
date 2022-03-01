@@ -157,7 +157,7 @@ export const ModalComp = css`
         transform: translateY(100%);
       }
 
-      &--menu {
+      &--left {
         height: 100%;
         width: 320px;
         padding-bottom: 0;

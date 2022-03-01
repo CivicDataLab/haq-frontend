@@ -1,33 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Modals from 'react-modal';
-import { Button } from 'components/actions';
+import React, { useState } from 'react';
+import ModalWrapper from 'react-modal';
 
-Modals.setAppElement('#__next');
+ModalWrapper.setAppElement('#__next');
 
-const Modal = ({ label, children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  function modalHandler() {
-    setIsModalOpen(!isModalOpen);
-  }
-
+const Modal = ({ label, isOpen, from, modalHandler, children }) => {
   return (
-    <div>
-      <Button onClick={() => modalHandler()}>Open Modal</Button>
-
-      <Modals
-        isOpen={isModalOpen}
-        onRequestClose={modalHandler}
-        className="modal"
-        overlayClassName="modal__backdrop"
-        contentLabel={label}
-        closeTimeoutMS={200}
-        preventScroll={true}
-        htmlOpenClassName="ReactModal__Html--open"
-      >
-        {children}
-      </Modals>
-    </div>
+    <ModalWrapper
+      isOpen={isOpen}
+      onRequestClose={modalHandler}
+      className={`modal ${from && `modal--${from}`}`}
+      overlayClassName="modal__backdrop"
+      contentLabel={label}
+      closeTimeoutMS={200}
+      preventScroll={true}
+      htmlOpenClassName="ReactModal__Html--open"
+    >
+      {children}
+    </ModalWrapper>
   );
 };
 
