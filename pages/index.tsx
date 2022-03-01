@@ -9,6 +9,9 @@ import {
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>OPub</title>
+      </Head>
       <HomeHeader />
       <HomeCard />
       <HomeCarousel />
@@ -16,3 +19,4 @@ export default function Home() {
     </>
   );
 }
+

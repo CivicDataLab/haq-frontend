@@ -31,8 +31,8 @@ export const DEFAULT_THEME = {
   text_dark_disabled: 'rgba(255, 255, 255, 0.16)',
 
   text_light_high: 'rgba(0, 0, 0, 0.87)',
-  text_light_medium: 'rgba(0, 0, 0, 0.6)',
-  text_light_light: 'rgba(0, 0, 0, 0.32)',
+  text_light_medium: 'rgba(0, 0, 0, 0.7)',
+  text_light_light: 'rgba(0, 0, 0, 0.55)',
   text_light_disabled: 'rgba(0, 0, 0, 0.1)',
 
   gradient_basic: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)',

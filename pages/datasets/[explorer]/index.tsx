@@ -1,14 +1,9 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import {
-  fetchAPI,
-  explorerPopulation,
-  fetchFromTags,
-} from 'utils/explorer';
+import styled from 'styled-components';
+import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
-
-import { ExplorerPage } from './ExplorerPage';
 
 import {
   ExplorerHeader,
@@ -28,11 +23,11 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
       <Head>
         <title>OPub | Explorer</title>
       </Head>
-      <ExplorerPage>
+      <Wrapper>
         <ExplorerHeader data={data} meta={meta} />
         <ExplorerViz data={data} meta={meta} fileData={fileData} />
         <ExplorerRelated data={data} />
-      </ExplorerPage>
+      </Wrapper>
     </>
   );
 };
@@ -77,3 +72,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Explorer;
+
+const Wrapper = styled.main`
+  .indicator-mobile {
+    margin-top: 2rem;
+
+    @media (min-width: 980px) {
+      display: none;
+    }
+  }
+
+  .heading {
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    font-size: 2.5rem;
+  }
+`;

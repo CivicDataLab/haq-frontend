@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import DataCatalogue from 'components/icons/DataCatalogue';
+
 import {
   fetchFilters,
   fetchDatasets,
@@ -11,8 +14,6 @@ import {
 import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
-
-import { DatasetsPage, DatasetsComp } from './DatasetsPage';
 
 type Props = {
   data: any;
@@ -72,45 +73,41 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   }
 
   const headerData = {
-    title: 'Contracts Data',
+    title: 'All Datasets',
     content:
-      'This page shows the public procurement data of the last 5 financial years for the state of Assam for the contracts over INR 50 lakh value. You can download the total compiled data or explore specific tender groups using the filters like financial year, tendering organization, tender status, tender types, etc.',
-    logo:'/assets/statistics.svg',
+      'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
+    logo: <DataCatalogue />,
   };
 
   return (
     <>
       <Head>
-        <title>OPub | Datasets</title>
+        <title>HAQ | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <DatasetsPage className="datasets">
+      <Wrapper className="container">
         <Header data={headerData} />
-        <div className="container">
-          {data && (
-            <div>
-              <DatasetsComp>
-                <Filter
-                  data={facets}
-                  newFilters={handleDatasetsChange}
-                  fq={datsetsFilters}
-                />
-                <div className="contractsColumn">
-                  <div className = "contractsComp__search">
-                    <Search newSearch={handleDatasetsChange} />
-                    <Sort newSort={handleDatasetsChange} />
-                  </div>
-                  <div className="contractsComp__totalCount">
-                    <Total text="contracts" total={count} />
-                  </div>
-                  <DatasetList data={results} />
-                  <Pagination total={count} newPage={handleDatasetsChange} />
-                </div>
-              </DatasetsComp>
-            </div>
-          )}
-        </div>
-      </DatasetsPage>
+        {data && (
+          <DatasetsComp>
+            <Filter
+              data={facets}
+              newFilters={handleDatasetsChange}
+              fq={datsetsFilters}
+            />
+            <DatasetRight>
+              <DatasetSearch>
+                <Search newSearch={handleDatasetsChange} />
+              </DatasetSearch>
+              <DatasetSort>
+                <Total text="datasets found" total={count} />
+                <Sort newSort={handleDatasetsChange} />
+              </DatasetSort>
+              <DatasetList data={results} />
+              <Pagination total={count} newPage={handleDatasetsChange} />
+            </DatasetRight>
+          </DatasetsComp>
+        )}
+      </Wrapper>
     </>
   );
 };
@@ -130,3 +127,46 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Datasets;
+
+const Wrapper = styled.main``;
+
+const DatasetRight = styled.div`
+  width: 100%;
+`;
+
+const DatasetsComp = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+
+  .filters {
+    min-width: 312px;
+  }
+
+  @media (max-width: 1000px) {
+    display: block;
+
+    .filters {
+      display: none;
+    }
+  }
+`;
+
+const DatasetSearch = styled.div`
+  background-color: var(--color-background-lighter);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-grey-600);
+  box-shadow: var(--box-shadow-1);
+`;
+
+const DatasetSort = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-top: 12px;
+  border-bottom: var(--separator-5);
+`;

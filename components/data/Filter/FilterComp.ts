@@ -2,69 +2,63 @@ import styled from 'styled-components';
 
 export const FilterComp = styled.div`
   scrollbar-width: thin;
-  background-color: #ffffff;
-  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
-  border: 1px solid hsl(300, 10%, 94%);
+  background-color: var(--color-background-lighter);
+  filter: drop-shadow(var(--box-shadow-1));
+  border: var(--border-2);
   border-radius: 12px;
   height: max-content;
   max-height: 776px;
   padding: 1.5rem;
   overflow-y: auto;
-  
+
   .heading {
-    font-weight: var( --font-weight-medium);
+    font-weight: var(--font-weight-medium);
     font-size: 20px;
     color: rgba(0, 0, 0, 0.87);
+    border-bottom: var(--separator-6);
+    padding-bottom: 18px;
   }
 
   &::-webkit-scrollbar {
     width: 5px;
   }
 
-  @media (max-width: 980px) {
-    display: none;
-  }
-
   [aria-pressed='true'] {
-    background-color: #EBF0FF;
+    background-color: #ebf0ff;
 
     &:hover {
-      background-color: #F2EFF2;
+      background-color: #f2eff2;
     }
   }
 `;
 
 export const FilterHeading = styled.h4`
-  margin-top: 1.75rem;
+  margin-top: 16px;
   border-radius: 4px;
 
   button {
     background-color: var(--color-grey-500);
     text-transform: capitalize;
-    padding: 13px 12px;
+    padding: 12px;
     font-weight: 500;
-    line-height: 140%;
+    line-height: 137%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     border: 1px solid var(--color-grey-500);
-    color: var(--text-light-high) ;
+    color: var(--text-light-high);
     border-radius: 4px;
   }
 
   svg {
-    height: 7px;
     margin-left: 0.5em;
     transition: transform 150ms ease;
+    fill: var(--color-grey-300);
   }
 
   [aria-expanded='true'] svg {
     transform: rotate(-180deg);
-  }
-
-  [aria-expanded] path {
-    fill: currentColor;
   }
 `;
 
@@ -112,12 +106,12 @@ export const FilterSelected = styled.ul`
 `;
 
 export const FilterButton = styled.button`
-  background-color: #ffffff;
+  background-color: var(--color-background-lighter);
   display: block;
   width: 100%;
   text-align: left;
   padding: 12px;
-  border: 1px solid #d1cdd1;
+  border: var(--border-1);
   border-top: none;
   cursor: pointer;
   transition: background-color 150ms ease;

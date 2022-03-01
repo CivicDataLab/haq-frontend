@@ -1,9 +1,4 @@
-import {
-  LawJustice,
-  WomenChild,
-  Police,
-  HomeAffairs,
-} from 'icons/ExplorerIcons';
+import { LawJustice, WomenChild, Police, HomeAffairs } from 'components/icons';
 
 export function categoryIcon(tags) {
   if (tags.includes('law')) return <LawJustice />;
@@ -28,7 +23,7 @@ export function stripTitle(name) {
   return shortName;
 }
 
-export function explorerPopulation(obj,idx) {
+export function explorerPopulation(obj, idx) {
   let newObj = {};
   const resources = {};
   const resUrls = [];
@@ -48,7 +43,7 @@ export function explorerPopulation(obj,idx) {
     dataUrl: resources.dataUrl || '',
     metaUrl: resources.metaUrl || '',
     resUrls,
-    idx: idx,
+    idx: idx | '',
   };
 
   return newObj;
