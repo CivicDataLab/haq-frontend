@@ -48,9 +48,9 @@ export const SearchInput = styled.input`
 export const SearchClear = styled.button`
   position: absolute;
   right: 0;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: none;
-  padding: 12px 13.1px;
 
   button {
     cursor: pointer;

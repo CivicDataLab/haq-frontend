@@ -1,4 +1,4 @@
-import { css, createGlobalStyle } from 'styled-components';
+import { css } from 'styled-components';
 
 export const cssNormalise = css`
   html {
@@ -143,7 +143,5 @@ export const cssNormalise = css`
     display: none !important;
   }
 `;
-
-export const Normalise = createGlobalStyle`${cssNormalise}`;
 
 export default cssNormalise;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Modal from 'react-modal';
 import { tabbedInterface } from 'utils/explorer';
 import {
   Fieldset,
@@ -10,10 +9,8 @@ import {
   MobileAlterComp,
   Wrapper,
 } from './MobileAlterComp';
-import { Button } from 'components/actions';
+import { Button, Modal } from 'components/actions';
 import { FilterIcon, SortIcon } from 'components/icons';
-
-Modal.setAppElement('#__next');
 
 function formatFilterName(name: string) {
   if (name == 'fiscal_year') {
@@ -317,13 +314,8 @@ const MobileAlter: React.FC<{
       {displaySort && (
         <Modal
           isOpen={sortIsOpen}
-          onRequestClose={handleSortClick}
-          className="modal"
-          overlayClassName="modal__backdrop"
-          contentLabel="open sort modal"
-          closeTimeoutMS={200}
-          preventScroll={true}
-          htmlOpenClassName="ReactModal__Html--open"
+          label="open sort modal"
+          modalHandler={handleSortClick}
         >
           <Header>
             <h1 id="modal-head">Sort Datasets</h1>
@@ -356,12 +348,8 @@ const MobileAlter: React.FC<{
       {/* Filter Modal */}
       <Modal
         isOpen={filterIsOpen}
-        onRequestClose={handleFilterClick}
-        className="modal"
-        overlayClassName="modal__backdrop"
-        closeTimeoutMS={200}
-        preventScroll={true}
-        htmlOpenClassName="ReactModal__Html--open"
+        label="open filter modal"
+        modalHandler={handleFilterClick}
       >
         <Header>
           <h1 id="modal-head">Add Filters</h1>

@@ -2,9 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { normalize, transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
-import NavComp from 'components/common/Navbar/NavComp';
-import MobileNavComp from 'components/common/MobileNav/MobileNavComp';
-import ModalComp from 'components/actions/Modal/ModalComp';
 import { DEFAULT_THEME } from 'config/theme';
 
 const theme = DEFAULT_THEME;
@@ -12,10 +9,6 @@ const theme = DEFAULT_THEME;
 export const GlobalStyle = createGlobalStyle`
 ${cssReset}
 ${cssNormalise}
-${ModalComp}
-${NavComp}
-${MobileNavComp}
-${normalize()}
 
 html {
   --color-primary: ${theme.primary};
@@ -84,6 +77,10 @@ html {
   --nav-mobile: var(--color-sapphire-3);
 
   box-sizing: border-box;
+
+  &.ReactModal__Html--open {
+    overflow-y: hidden;
+  }
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -102,6 +99,7 @@ body {
   background-color: var(--color-background-light);
   font-size: 16px;
   line-height: 1.5;
+  color: var(--text-light-high);
 }
 
 #__next {

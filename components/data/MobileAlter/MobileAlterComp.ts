@@ -53,6 +53,44 @@ export const MobileAlterComp = styled.div`
   }
 `;
 
+export const Header = styled.div`
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-grey-600);
+  border-radius: 12px 12px 0px 0px;
+  padding-inline: 24px;
+  padding-block: 24px 20px;
+  border-bottom: var(--separator-5-2);
+
+  @media (max-width: 540px) {
+    padding-inline: 16px;
+  }
+
+  h1 {
+    font-weight: var(--font-weight-medium);
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0;
+  }
+
+  button {
+    color: var(--color-secondary);
+    text-decoration-line: underline;
+    text-transform: capitalize;
+  }
+`;
+
+export const Wrapper = styled.div`
+  padding-inline: 24px;
+  background-color: var(--color-background-lighter);
+
+  @media (max-width: 540px) {
+    padding-inline: 16px;
+  }
+`;
+
 export const FilterAlter = styled.div`
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -92,61 +130,20 @@ export const FilterAlter = styled.div`
   }
 `;
 
-export const Header = styled.div`
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--color-grey-600);
-  border-radius: 12px 12px 0px 0px;
-  padding-inline: 24px;
-  padding-block: 24px 20px;
-  border-bottom: var(--separator-5-2);
-
-  @media (max-width: 540px) {
-    padding-inline: 16px;
-  }
-
-  h1 {
-    font-weight: var(--font-weight-medium);
-    font-size: 20px;
-    line-height: 26px;
-    margin: 0;
-  }
-
-  button {
-    color: var(--color-secondary);
-    text-decoration-line: underline;
-    text-transform: capitalize;
-  }
-`;
-
-export const Wrapper = styled.div`
-  padding-inline: 24px;
-  @media (max-width: 540px) {
-    padding-inline: 16px;
-  }
-`;
-
-export const Footer = styled.div`
-  display: flex;
-  gap: 12px;
-  padding: 16px 0;
-  border-top: var(--separator-5-2);
-
-  button {
-    width: 100%;
-  }
-
-  @media (max-width: 540px) {
-    padding: 8px 0;
-  }
-`;
-
 export const Fieldset = styled.fieldset`
   padding-top: 0;
   height: 40vh;
   padding: 0;
+
+  input {
+    margin-right: 12px;
+    accent-color: var(--color-primary);
+
+    &[type='radio'] {
+      padding: 6px 0;
+      transform: scale(1.5);
+    }
+  }
 
   &#modalSort {
     overflow-y: auto;
@@ -167,5 +164,20 @@ export const Fieldset = styled.fieldset`
     align-items: center;
     font-weight: 500;
     line-height: 140%;
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  border-top: var(--separator-5-2);
+
+  button {
+    width: 100%;
+  }
+
+  @media (max-width: 540px) {
+    padding: 8px 0;
   }
 `;

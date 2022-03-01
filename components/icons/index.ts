@@ -16,3 +16,4 @@ export { default as Chevron } from './Chevron';
 export { default as Arrow } from './Arrow';
 export { default as SortIcon } from './SortIcon';
 export { default as FilterIcon } from './FilterIcon';
+export { default as Hamburger } from './Hamburger';

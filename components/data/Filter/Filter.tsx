@@ -191,7 +191,7 @@ const Filter = ({ data, newFilters, fq }) => {
                     onClick={handleFilterChange}
                   >
                     {truncate(item.replace(/_/g, ' '), { length: 30 })}{' '}
-                    <Cross />
+                    <Cross width={24} height={24} />
                   </button>
                 </li>
               ))}
