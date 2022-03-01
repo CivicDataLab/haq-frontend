@@ -35,7 +35,6 @@ export const ModalComp = css`
       &[type='radio'] {
         padding: 6px 0;
         transform: scale(1.5);
-        margin-right: 1rem;
       }
     }
 
@@ -49,7 +48,7 @@ export const ModalComp = css`
 
       h1 {
         margin: 0;
-        font-size: 1.5rem;
+        /* font-size: 1.5rem; */
         font-weight: 500;
       }
       p {

@@ -1,7 +1,6 @@
 export const DEFAULT_THEME = {
   primary: '#FA5D82',
   secondary: '#4965B2',
-  tertiary: '#ED8686',
 
   background_dark: '#6E3D7A',
   background_darker: '#3E1C47',
@@ -12,6 +11,16 @@ export const DEFAULT_THEME = {
   color_honey: '#FBB670',
   color_amazon: '#69BC99',
   color_white: '#FFFFFF',
+
+  color_carrot: '#ED8686',
+  color_carrot_2: '#D26F6E',
+  color_carrot_3: '#B85957',
+
+  color_violet_3: '#865194',
+  color_violet_4: '#6E3D7A',
+
+  color_sapphire_3: '#354981',
+  color_sapphire_5: '#212D50',
 
   color_success: '#328B48',
   color_error: '#C82D2D',
@@ -31,8 +40,8 @@ export const DEFAULT_THEME = {
   text_dark_disabled: 'rgba(255, 255, 255, 0.16)',
 
   text_light_high: 'rgba(0, 0, 0, 0.87)',
-  text_light_medium: 'rgba(0, 0, 0, 0.7)',
-  text_light_light: 'rgba(0, 0, 0, 0.55)',
+  text_light_medium: 'rgba(0, 0, 0, 0.6)',
+  text_light_light: 'rgba(0, 0, 0, 0.32)',
   text_light_disabled: 'rgba(0, 0, 0, 0.1)',
 
   gradient_basic: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)',

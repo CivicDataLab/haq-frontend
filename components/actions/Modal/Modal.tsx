@@ -1,125 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import Modals from 'react-modal';
-import { Button } from 'components/actions';
+import React, { ReactElement, ReactNode, useState } from 'react';
+import ModalWrapper from 'react-modal';
+import styled from 'styled-components';
 
-Modals.setAppElement('#__next');
+ModalWrapper.setAppElement('#__next');
 
-const Modal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface Props {
+  /**
+   * label for to announce to screen readers
+   */
+  label: string;
 
-  function modalHandler() {
-    setIsModalOpen(!isModalOpen);
-  }
+  /**
+   * is the modal open
+   */
+  isOpen: boolean;
 
+  /**
+   * direction from the modal should show
+   */
+  from?: 'left';
+
+  /**
+   * modal close handler
+   */
+  modalHandler: () => void;
+
+  /**
+   * modal close handler
+   */
+  children: React.ReactChild | React.ReactFragment | React.ReactPortal;
+}
+
+const Modal = ({ label, isOpen, from, modalHandler, children }: Props) => {
   return (
-    <div>
-      <Button onClick={() => modalHandler()}>Open Modal</Button>
-
-      <Modals
-        isOpen={isModalOpen}
-        onRequestClose={modalHandler}
-        className="modal"
-        overlayClassName="modal__backdrop"
-        contentLabel="Download Tenders"
-        aria={{
-          labelledby: 'modal-head',
-          describedby: 'modal-para',
-        }}
-        closeTimeoutMS={200}
-        preventScroll={true}
-        htmlOpenClassName="ReactModal__Html--open"
-      >
-        <section className="modal__header">
-          <div>
-            <h1 id="modal-head">Download Tenders</h1>
-            <p id="modal-para">
-              Select your desired option to download the tenders
-            </p>
-          </div>
-          <button
-            type="button"
-            className="modal__close"
-            id="modalCancel"
-            aria-label="Close navigation"
-            onClick={modalHandler}
-          >
-            &#x78;
-          </button>
-        </section>
-        <section className="modal__body">
-          <div>
-            <label htmlFor="downloadOption1">
-              <input
-                type="radio"
-                id="downloadOption1"
-                name="modal-option"
-                value="tender-only"
-              />
-              Download the details of this tender
-            </label>
-
-            <label htmlFor="downloadOption2">
-              <input
-                type="radio"
-                id="downloadOption2"
-                name="modal-option"
-                value="all-details"
-              />
-              Download the details of this tender along with all the attached
-              documents
-            </label>
-          </div>
-          <div className="modal__format">
-            <p>Choose file format</p>
-            <div>
-              <label htmlFor="downloadFormat1">
-                <input
-                  type="radio"
-                  id="downloadFormat1"
-                  name="modal-download"
-                  value="csv"
-                />
-                CSV File
-              </label>
-
-              <label htmlFor="downloadFormat2">
-                <input
-                  type="radio"
-                  id="downloadFormat2"
-                  name="modal-download"
-                  value="xls"
-                />
-                XLS File
-              </label>
-
-              <label htmlFor="downloadFormat3">
-                <input
-                  type="radio"
-                  id="downloadFormat3"
-                  name="modal-download"
-                  value="pdf"
-                />
-                PDF File
-              </label>
-
-              <label htmlFor="downloadFormat4">
-                <input
-                  type="radio"
-                  id="downloadFormat4"
-                  name="modal-download"
-                  value="zip"
-                />
-                ZIP File
-              </label>
-            </div>
-          </div>
-        </section>
-        <Button id="modalSubmit" onClick={() => modalHandler()}>
-          Download
-        </Button>
-      </Modals>
-    </div>
+    <ModalWrapper
+      isOpen={isOpen}
+      onRequestClose={modalHandler}
+      className={from ? `modal--${from}` : '_'}
+      overlayClassName="_"
+      contentElement={(props, children) => (
+        <ModalStyle {...props}>{children}</ModalStyle>
+      )}
+      overlayElement={(props, contentElement) => (
+        <OverlayStyle {...props}>{contentElement}</OverlayStyle>
+      )}
+      contentLabel={label}
+      closeTimeoutMS={200}
+      preventScroll={true}
+      htmlOpenClassName="ReactModal__Html--open"
+    >
+      {children}
+    </ModalWrapper>
   );
 };
 
 export default Modal;
+
+const ModalStyle = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  padding: 0;
+
+  @media (max-width: 980px) {
+    top: initial;
+    left: initial;
+    bottom: 0;
+    width: 100%;
+    transform: initial;
+
+    &.ReactModal__Content {
+      transform: translateY(100%);
+      transition: transform 200ms ease-in-out;
+    }
+
+    &.ReactModal__Content--after-open {
+      transform: translateY(0);
+    }
+
+    &.ReactModal__Content--before-close {
+      transform: translateY(100%);
+    }
+
+    &.modal--left {
+      height: 100%;
+      max-width: 320px;
+      padding-bottom: 0;
+
+      @media (max-width: 480px) {
+        max-width: 248px;
+      }
+
+      &.ReactModal__Content {
+        transform: translateX(-100%) translateY(0);
+        transition: transform 200ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
+      }
+
+      &.ReactModal__Content--after-open {
+        transform: translateX(0);
+      }
+
+      &.ReactModal__Content--before-close {
+        transform: translateX(-100%) translateY(0);
+      }
+    }
+  }
+`;
+
+const OverlayStyle = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 990;
+`;

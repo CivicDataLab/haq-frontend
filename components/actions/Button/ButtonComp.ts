@@ -6,14 +6,12 @@ interface ButtonProps {
   readonly bg?: string;
   readonly iconSide?: string;
   readonly iconOnly?: boolean;
+  readonly fluid?: boolean;
 }
-
-const PrimaryColor = 'var(--color-background-dark)';
-const SecondaryColor = '#F65940';
 
 function bgColor(type: string, bg: string) {
   if (type == 'custom') {
-    return 'inherit';
+    return 'null';
   } else if (bg) {
     return bg;
   } else {
@@ -30,7 +28,7 @@ function bgColor(type: string, bg: string) {
 
 function color(type: string) {
   if (type == 'custom') {
-    return 'inherit';
+    return 'null';
   }
   if (type == 'primary' || type == 'secondary') return 'white';
   else if (type == 'primary-outline') return 'var(--color-primary)';
@@ -39,7 +37,7 @@ function color(type: string) {
 
 function border(type: string) {
   if (type == 'custom') {
-    return 'inherit';
+    return 'null';
   }
   if (type == 'primary' || type == 'secondary') return 'none';
   else if (type == 'primary-outline')
@@ -49,7 +47,7 @@ function border(type: string) {
 
 function buttonSize(size: string, type: string) {
   if (type == 'custom') {
-    return 'inherit';
+    return 'null';
   }
   if (type == 'primary-outline' || type == 'secondary-outline') {
     if (size == 'sm') return '6px 10px';
@@ -87,6 +85,8 @@ const ButtonComp = styled.button<ButtonProps>`
   font-weight: 500;
   display: flex;
   align-items: center;
+  width: ${(props: any) => (props.fluid == true ? '100%' : null)};
+  justify-content: ${(props: any) => (props.fluid == true ? 'center' : null)};
   cursor: pointer;
 
   background-color: ${(props: any) => bgColor(props.buttonType, props.bg)};
@@ -98,8 +98,10 @@ const ButtonComp = styled.button<ButtonProps>`
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 
   svg {
-    max-width: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
-    max-height: ${(props: any) => props.size == 'sm' ? '18px' : '32px'};
+    max-width: ${(props: any) =>
+      props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'};
+    max-height: ${(props: any) =>
+      props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'};
     fill: currentColor;
 
     ${(props: any) =>

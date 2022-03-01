@@ -29,7 +29,7 @@ const options = [
   },
 ];
 
-const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
+const Sort: React.FC<{ newSort: any; className?:string }> = ({ newSort, className }) => {
   const router = useRouter();
   const [sort, setSort] = useState('tender_bid_opening_date:asc');
   const [value, setValue] = useState('Date Asc');
@@ -44,7 +44,7 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
 
   useEffect(() => {
     let currentSort = options.find((o) => o.value === sort);
-    setValue(currentSort.title);
+    currentSort && setValue(currentSort.title);
   }, [sort]);
 
   const handleChange = (event: any) => {
@@ -58,9 +58,10 @@ const Sort: React.FC<{ newSort: any }> = ({ newSort }) => {
   return (
     <Menu
       options={options}
-      heading="Sort by:"
+      heading="Sort by"
       handleChange={handleChange}
       value={value}
+      className={className}
     />
   );
 };

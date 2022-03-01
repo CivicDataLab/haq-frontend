@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import DataCatalogue from 'components/icons/DataCatalogue';
 
 import {
   fetchFilters,
@@ -14,6 +13,7 @@ import {
 import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
+import MobileAlter from 'components/data/MobileAlter/MobileAlter';
 
 type Props = {
   data: any;
@@ -76,7 +76,6 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     title: 'All Datasets',
     content:
       'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
-    logo: <DataCatalogue />,
   };
 
   return (
@@ -85,8 +84,8 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <title>HAQ | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header data={headerData} />
       <Wrapper className="container">
-        <Header data={headerData} />
         {data && (
           <DatasetsComp>
             <Filter
@@ -100,8 +99,14 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
               </DatasetSearch>
               <DatasetSort>
                 <Total text="datasets found" total={count} />
-                <Sort newSort={handleDatasetsChange} />
+                <Sort className="sort" newSort={handleDatasetsChange} />
               </DatasetSort>
+              <MobileAlter
+                data={facets}
+                newData={handleDatasetsChange}
+                fq={datsetsFilters}
+                sortShow={true}
+              />
               <DatasetList data={results} />
               <Pagination total={count} newPage={handleDatasetsChange} />
             </DatasetRight>
@@ -146,7 +151,7 @@ const DatasetsComp = styled.div`
   @media (max-width: 1000px) {
     display: block;
 
-    .filters {
+    .filters, .sort {
       display: none;
     }
   }
@@ -167,6 +172,6 @@ const DatasetSort = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 12px;
-  margin-top: 12px;
+  margin-top: 20px;
   border-bottom: var(--separator-5);
 `;

@@ -1,4 +1,4 @@
-import { css, createGlobalStyle } from 'styled-components';
+import { css } from 'styled-components';
 
 export const cssNormalise = css`
   html {
@@ -11,10 +11,7 @@ export const cssNormalise = css`
   main {
     display: block;
   }
-  h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-  }
+
   hr {
     box-sizing: content-box; /* 1 */
     height: 0; /* 1 */
@@ -146,7 +143,5 @@ export const cssNormalise = css`
     display: none !important;
   }
 `;
-
-export const Normalise = createGlobalStyle`${cssNormalise}`;
 
 export default cssNormalise;

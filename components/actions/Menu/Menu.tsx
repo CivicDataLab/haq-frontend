@@ -39,6 +39,8 @@ interface Props {
    */
   position?: 'left' | 'right';
 
+  className?: string;
+
   /**
    * return prop
    */
@@ -55,6 +57,7 @@ const Menu = ({
   value,
   top = false,
   position = 'right',
+  className,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const MenuButtonRef = useRef(null);
@@ -240,7 +243,7 @@ const Menu = ({
   }
 
   return (
-    <MenuComp>
+    <MenuComp className={className}>
       {heading && value && (
         <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>
       )}

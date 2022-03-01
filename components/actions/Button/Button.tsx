@@ -1,7 +1,7 @@
 import React, { MutableRefObject, ReactElement } from 'react';
 import ButtonComp from './ButtonComp';
 
-interface ButtonProps extends React.HTMLAttributes<HTMLElement>{
+interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Is this primary button or secondary?
    */
@@ -24,6 +24,11 @@ interface ButtonProps extends React.HTMLAttributes<HTMLElement>{
    * use it to pass ref from useRef hook
    */
   passRef?: MutableRefObject<any>;
+
+  /**
+   * whether to take full width
+   */
+  fluid?: boolean;
 }
 
 type LinkProps =
@@ -58,6 +63,7 @@ const Button = ({
   href,
   passRef,
   iconSide = icon ? 'right' : null,
+  fluid = false,
   ...props
 }: Props) => {
   return (
@@ -70,10 +76,11 @@ const Button = ({
       buttonType={kind}
       size={size}
       ref={passRef ? passRef : null}
+      fluid={fluid}
       {...props}
     >
       {icon && iconSide == 'left' && icon}
-      <span className={iconOnly ? 'sr-only': null}>{children}</span>
+      {iconOnly ? <span className="sr-only">{children}</span> : children}
       {icon && iconSide == 'right' && icon}
     </ButtonComp>
   );

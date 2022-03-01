@@ -32,7 +32,7 @@ const Wrapper = styled.div<FlexProps>`
 
   .sidebar {
     flex-grow: 1;
-    flex-basis: 312px;
+    flex-basis: ${(props) => (props.basis ? props.basis : '312px')};
   }
 
   .not-sidebar {

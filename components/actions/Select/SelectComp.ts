@@ -7,9 +7,9 @@ export const SelectComp = styled.div`
 
 export const SelectLabel = styled.span`
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--color-primary);
+  color: #545454;
   display: block;
 `;
 
