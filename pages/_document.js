@@ -2,13 +2,30 @@ import Document, { Head, Main, NextScript, Html } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
-    const page = renderPage(
-      (App) => (props) => sheet.collectStyles(<App {...props} />)
-    );
-    const styleTags = sheet.getStyleElement();
-    return { ...page, styleTags };
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
   render() {
@@ -21,13 +38,13 @@ export default class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             crossOrigin={'true'}
           />
-          <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" 
+          <link
+            href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
             rel="stylesheet"
           />
-          {this.props.styleTags}
         </Head>
         <body>
-<script>0</script>
+          <script>0</script>
           <Main />
           <NextScript />
         </body>
