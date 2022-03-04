@@ -89,35 +89,36 @@ const About = () => {
       <Head>
         <title>About Us | OPub</title>
       </Head>
-      <AboutPage>
-      <Header data={headerData} />
-        <h3 className="partners__heading">Partners</h3>
-        <ul className="partners">
-          {partners.map((item, key) => {
-            return (
-              <li key={`partners-${key}`}>
-                <PartnerCard card={item} />
-              </li>
-            );
-          })}
-        </ul>
-        <section className="about__team">
-          <h3>
-            <span /> members
-          </h3>
-          <p>Meet the doers &amp; builders</p>
-
-          <ul>
-            {team.map((item, key) => {
+      <div className="container">
+        <AboutPage>
+          <Header data={headerData} />
+          <h3 className="partners__heading">Partners</h3>
+          <ul className="partners">
+            {partners.map((item, key) => {
               return (
-                <li key={`team-${key}`}>
-                  <TeamCard card={item} />
+                <li key={`partners-${key}`}>
+                  <PartnerCard card={item} />
                 </li>
               );
             })}
           </ul>
-        </section>
-      </AboutPage>
+          <section className="about__team">
+            <h3>
+              <span /> members
+            </h3>
+            <p>Meet the doers &amp; builders</p>
+            <ul>
+              {team.map((item, key) => {
+                return (
+                  <li key={`team-${key}`}>
+                    <TeamCard card={item} />
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </AboutPage>
+      </div>
     </div>
   );
 };
