@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 // import CarouselComp from './CarouselComp';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -6,7 +6,17 @@ import styled from 'styled-components';
 
 const Carousel = ({ data }) => {
   const [position, setPosition] = useState(0);
-  const [emblaRef] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    skipSnaps: true,
+    speed: 5,
+  });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   // useEffect(() => {
   //   if (!document.querySelector('.carousel__item--current'))
@@ -59,7 +69,7 @@ const Carousel = ({ data }) => {
   }
 
   return (
-    <Wrapper className="embla" ref={emblaRef}>
+    <Wrapper className="embla">
       {/* <button
           className="carousel__prev"
           onClick={() => updateCarousel(-1)}
@@ -84,24 +94,33 @@ const Carousel = ({ data }) => {
             />
           </svg>
         </button> */}
-      <ul className="embla__container carousel__content" aria-live="polite">
-        {data.map((item, index) => {
-          return (
-            <li
-              key={`carousel-${index}`}
-              id={`carousel-${index}`}
-              className="embla__slide carousel__item"
-            >
-              <div>
-                <p>{item.text}</p>
-                <a className="btn-primary" href={item.link}>
-                  Read More
-                </a>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="embla__viewport" ref={emblaRef}>
+        <ul className="embla__container carousel__content" aria-live="polite">
+          {data.map((item, index) => {
+            return (
+              <li
+                key={`carousel-${index}`}
+                id={`carousel-${index}`}
+                className="embla__slide carousel__item"
+              >
+                <div>
+                  <p>{item.text}</p>
+                  <a className="btn-primary" href={item.link}>
+                    Read More
+                  </a>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <button className="embla__prev" onClick={scrollPrev}>
+        Prev
+      </button>
+      <button className="embla__next" onClick={scrollNext}>
+        Next
+      </button>
       {/* <button
           className="carousel__next"
           onClick={() => updateCarousel(1)}
