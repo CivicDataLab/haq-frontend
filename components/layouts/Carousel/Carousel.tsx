@@ -1,107 +1,52 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import Image from 'next/image';
-// import CarouselComp from './CarouselComp';
-import useEmblaCarousel from 'embla-carousel-react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
 
 const Carousel = ({ data }) => {
-  const [position, setPosition] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    skipSnaps: true,
-    speed: 5,
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const [refCallback, instanceRef] = useKeenSlider({
+    rubberband: false,
+    dragSpeed: 0.1,
+    defaultAnimation: {
+      duration: 1000,
+    },
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+      var slidys = document.querySelectorAll('.keen-slider__slide');
+      slidys.forEach(function (slidy, idx) {
+        if (idx === slider.track.details.rel) {
+          slidy.setAttribute('data-hidden', 'false');
+          slidy.setAttribute('tabindex', '0');
+        } else {
+          slidy.setAttribute('data-hidden', 'true');
+          slidy.removeAttribute('tabindex');
+        }
+      });
+    },
+    created() {
+      setLoaded(true);
+      var slide = document.querySelectorAll('.keen-slider__slide')[0];
+      slide.setAttribute('data-hidden', 'false');
+      slide.setAttribute('tabindex', '0');
+    },
   });
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  // useEffect(() => {
-  //   if (!document.querySelector('.carousel__item--current'))
-  //     document
-  //       .querySelector('#carousel-0')
-  //       .classList.add('carousel__item--current');
-
-  //   if (!document.querySelector('.carousel__nav [aria-pressed="true"]'))
-  //     document
-  //       .querySelector('.carousel__nav button')
-  //       .setAttribute('aria-pressed', 'true');
-  // }, []);
-
-  // useEffect(() => {
-  //   // changing position of carousel nav
-  //   const navButton = document.querySelector(`[data-number="${position}"]`);
-  //   if (navButton.getAttribute('aria-pressed') == 'false') {
-  //     document
-  //       .querySelector('.carousel__nav [aria-pressed="true"]')
-  //       .setAttribute('aria-pressed', 'false');
-  //     navButton.setAttribute('aria-pressed', 'true');
-
-  //     document
-  //       .querySelector(`.carousel__item--current`)
-  //       .classList.remove('carousel__item--current');
-  //     document
-  //       .querySelector(`#carousel-${position}`)
-  //       .classList.add('carousel__item--current');
-  //   }
-
-  //   // changing the slide
-  //   document
-  //     .querySelector(`.carousel__item--current`)
-  //     .classList.remove('carousel__item--current');
-  //   document
-  //     .querySelector(`#carousel-${position}`)
-  //     .classList.add('carousel__item--current');
-  // }, [position]);
-
-  function updateCarousel(n: number) {
-    if (n == -1 && position == 0) setPosition(data.length - 1);
-    else if (n == 1 && position == data.length - 1) setPosition(0);
-    else setPosition(position + n);
-  }
-
-  function handleCarouselNav(e: any) {
-    const navButton = e.target as HTMLInputElement;
-    const newSlide = navButton.getAttribute('data-number');
-    setPosition(parseInt(newSlide));
-  }
 
   return (
     <Wrapper className="embla">
-      {/* <button
-          className="carousel__prev"
-          onClick={() => updateCarousel(-1)}
-          type="button"
-        >
-          <span className="sr-only">Previous Slide</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="56"
-            height="56"
-            fill="none"
-            viewBox="0 0 56 56"
-          >
-            <path
-              fill="#F65940"
-              d="M56 28c0 15.464-12.536 28-28 28S0 43.464 0 28 12.536 0 28 0s28 12.536 28 28Z"
-              opacity=".63"
-            />
-            <path
-              fill="#EFF2F2"
-              d="M21 29h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L32.17 27H21c-.55 0-1 .45-1 1s.45 1 1 1Z"
-            />
-          </svg>
-        </button> */}
-      <div className="embla__viewport" ref={emblaRef}>
-        <ul className="embla__container carousel__content" aria-live="polite">
+      <div>
+        <ul className="keen-slider" ref={refCallback}>
           {data.map((item, index) => {
             return (
               <li
                 key={`carousel-${index}`}
                 id={`carousel-${index}`}
-                className="embla__slide carousel__item"
+                className="keen-slider__slide"
+                data-hidden="true"
+                aria-roledescription="Slide"
+                role="group"
               >
                 <div>
                   <p>{item.text}</p>
@@ -115,36 +60,31 @@ const Carousel = ({ data }) => {
         </ul>
       </div>
 
-      <button className="embla__prev" onClick={scrollPrev}>
-        Prev
-      </button>
-      <button className="embla__next" onClick={scrollNext}>
-        Next
-      </button>
-      {/* <button
-          className="carousel__next"
-          onClick={() => updateCarousel(1)}
-          type="button"
-        >
-          <span className="sr-only">Previous Slide</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="56"
-            height="56"
-            fill="none"
-            viewBox="0 0 56 56"
+      {loaded && instanceRef.current && (
+        <>
+          <button
+            className="embla__prev"
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.prev()
+            }
+            disabled={currentSlide === 0}
           >
-            <path
-              fill="#F65940"
-              d="M56 28c0 15.464-12.536 28-28 28S0 43.464 0 28 12.536 0 28 0s28 12.536 28 28Z"
-              opacity=".63"
-            />
-            <path
-              fill="#EFF2F2"
-              d="M21 29h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L32.17 27H21c-.55 0-1 .45-1 1s.45 1 1 1Z"
-            />
-          </svg>
-        </button> */}
+            Prev
+          </button>
+          <button
+            className="embla__next"
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.next()
+            }
+            disabled={
+              currentSlide ===
+              instanceRef.current.track.details.slides.length - 1
+            }
+          >
+            Next
+          </button>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -152,13 +92,20 @@ const Carousel = ({ data }) => {
 export default Carousel;
 
 const Wrapper = styled.div`
-  overflow: hidden;
+  .keen-slider__slide {
+    transition: opacity 0.5s cubic-bezier(0.39, 0.03, 0.56, 0.57),
+      visibility 0.5s cubic-bezier(0.39, 0.03, 0.56, 0.57);
 
-  .embla__container {
-    display: flex;
-  }
-  .embla__slide {
-    position: relative;
-    flex: 0 0 100%;
+    &[data-hidden='true'] {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    *[data-hidden='false'] {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.5s cubic-bezier(0.39, 0.03, 0.56, 0.57),
+        visibility 0.5s cubic-bezier(0.39, 0.03, 0.56, 0.57);
+    }
   }
 `;
