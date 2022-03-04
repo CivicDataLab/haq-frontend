@@ -21,7 +21,7 @@ const PartnersCard = styled.div`
   small {
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: $text-light-light;
+    color: var(--text-light-light);
     font-weight: 500;
   }
 
