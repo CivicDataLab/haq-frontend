@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
 const AboutPage = styled.main`
-  width: 1100px;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
 
   .partners__heading {
     margin-top: 1.5rem;
@@ -21,9 +16,11 @@ const AboutPage = styled.main`
     margin-top: 2rem;
     justify-content: space-between;
     align-items: stretch;
+    gap:30px;
 
     li {
-      width: 48%;
+      flex-basis: 48%;
+      flex-grow:1;
 
       > div {
         display: grid;
@@ -65,12 +62,20 @@ const AboutPage = styled.main`
       padding: 0 6rem 5rem;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-    }
+      justify-content: center;      
+
+      @media(max-width:1145px){
+        padding: 0;
+        gap:35px;
+       }
+      }
 
     li {
-      width: 33.3%;
       display: flex;
+      flex-basis:33.3%;
+      @media(max-width:720px){
+        flex-basis:38%;  
+       }
       justify-content: center;
     }
   }
