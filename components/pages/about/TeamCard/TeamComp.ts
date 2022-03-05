@@ -15,7 +15,7 @@ const TeamComp = styled.div`
   
       small {
         font-weight: 500;
-        color: $grey-2;
+        color: var(--text-light-medium);
         margin-top: 6px;
         display: block;
       }
