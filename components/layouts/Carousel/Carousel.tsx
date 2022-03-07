@@ -83,7 +83,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
   });
 
   return (
-    <Wrapper
+    <CarouselWrapper
       ref={carouselRef}
       role="group"
       aria-roledescription="slider"
@@ -134,13 +134,13 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
           </button>
         </div>
       )}
-    </Wrapper>
+    </CarouselWrapper>
   );
 };
 
 export default Carousel;
 
-export const Wrapper = styled.div`
+export const CarouselWrapper = styled.div`
   position: relative;
 
   .keen-slider__slide {

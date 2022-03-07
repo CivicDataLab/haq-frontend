@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Carousel } from 'components/layouts';
 import Image from 'next/image';
-import CarouselComp from 'components/layouts/Carousel/CarouselComp';
+import { CarouselWrapper } from 'components/layouts/Carousel/Carousel';
 const HomeCarousel = () => {
   const data = [
     {
@@ -30,7 +30,18 @@ const HomeCarousel = () => {
           </div>
           <div className="heading__content">Did You Know ?</div>
         </CarouselHeading>
-        <Carousel data={data} />
+        <Carousel
+          label="handpicked datasets"
+          nextBtn={'next'}
+          prevBtn={'prev'}
+        >
+          {data.map((item, index) => (
+            <div key={`carousel-${index}`}>
+              <h2>{item.text}</h2>
+              <p>{item.content}</p>
+            </div>
+          ))}
+        </Carousel>
       </div>
     </Wrapper>
   );
@@ -39,7 +50,7 @@ const HomeCarousel = () => {
 export default HomeCarousel;
 
 const Wrapper = styled.div`
-  ${CarouselComp} {
+  ${CarouselWrapper} {
     .container {
       border: 1px solid #d1cdd1;
       box-sizing: border-box;
