@@ -76,6 +76,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     title: 'All Datasets',
     content:
       'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
+    logo: <DataCatalogue />,
   };
 
   return (
@@ -84,8 +85,8 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         <title>HAQ | Datasets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header data={headerData} />
       <Wrapper className="container">
+        <Header data={headerData} />
         {data && (
           <DatasetsComp>
             <Filter

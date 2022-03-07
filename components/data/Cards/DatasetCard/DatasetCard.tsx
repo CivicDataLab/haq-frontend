@@ -1,9 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { truncate } from 'lodash';
-// import { getDate } from 'utils/index';
 import { DatasetCardComp } from './CardComp';
 import { Tags } from 'components/data';
 
@@ -14,7 +11,9 @@ const DatasetCard: React.FC<{ datapackage: any; index: string; }> = ({ datapacka
     <Link href={`${router.pathname}/${datapackage.id}`} passHref>
       <DatasetCardComp index={index}>
         <section>
-          {/* <h6 className="card__group"> {datapackage.groups} </h6> */}
+          <span className="card__group">
+            {datapackage.groups[0]}
+          </span>
           <h3 className="card__heading">{datapackage.title}</h3>
           <Tags data={datapackage.tags} />
           <div className="card__content">
