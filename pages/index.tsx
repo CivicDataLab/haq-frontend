@@ -14,6 +14,7 @@ import {
 import { ArrowTail } from 'components/icons';
 import Arrow from 'components/icons/Arrow';
 import DatasetDownload from 'components/actions/DatasetDownload';
+import React from 'react';
 
 export default function Home() {
   return (
@@ -58,7 +59,14 @@ export default function Home() {
         </div>
         <div className="component">
           <h2>Carousel</h2>
-          <Carousel data={temp.carousel} />
+          <Carousel prevBtn={'prev'} nextBtn={'next'} label="Carousel">
+            {temp.carousel.map((item, index) => (
+              <div key={index + '-carousel'}>
+                <p>{item.text}</p>
+                <a href={item.link}>Read More</a>
+              </div>
+            ))}
+          </Carousel>
         </div>
         <div className="component">
           <h2>Banner</h2>
