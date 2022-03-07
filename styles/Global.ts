@@ -140,7 +140,7 @@ ul, ol {
   margin-right: auto;
   margin-left: auto;
   
-  max-width: calc(100vw - 20px);
+  width: calc(100vw - 20px);
 
   @media (min-width: 1350px) {
     max-width: 1216px;

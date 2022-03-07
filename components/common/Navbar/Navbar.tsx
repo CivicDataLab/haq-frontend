@@ -59,7 +59,7 @@ const Nav = ({ data }) => {
         }, 10);
       });
     });
-}, []);
+  }, []);
 
   // shows and hides the submenu on button click
   function handleSubMenu(e) {
