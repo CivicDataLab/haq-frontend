@@ -6,42 +6,38 @@ const CatalogCard = () => {
   const cards = [
     {
       title: 'Budget Summary',
-      content: 'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/statistics.svg'
+      content:
+        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
+      src: '/assets/statistics.svg',
     },
     {
       title: 'Schemes',
-      content: 'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/pie-chart.svg'
+      content:
+        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
+      src: '/assets/pie-chart.svg',
     },
     {
       title: 'Data Story',
-      content: 'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/accounting.svg'
-    }
-  ]
+      content:
+        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
+      src: '/assets/accounting.svg',
+    },
+  ];
   return (
     <Wrapper>
-        {cards.map((card) => {
-          return (
-            <CardContainer>
-              <div>
-                <CardImage>
-                  <Image
-                    src={card.src}
-                    alt=""
-                    width={114}
-                    height={114}
-                  />
-                </CardImage>
-                <CardContent >
-                  <h4>{card.title}</h4>
-                  <small>{card.content}</small>
-                </CardContent>
-              </div>
-            </CardContainer>
-          )
-        })}
+      {cards.map((card, index) => {
+        return (
+          <CardContainer key={`cardcatalog-${index}`}>
+            <CardImage>
+              <Image src={card.src} alt="" width={114} height={114} />
+            </CardImage>
+            <CardContent>
+              <h4>{card.title}</h4>
+              <small>{card.content}</small>
+            </CardContent>
+          </CardContainer>
+        );
+      })}
     </Wrapper>
   );
 };
@@ -49,10 +45,10 @@ const CatalogCard = () => {
 export default CatalogCard;
 
 const Wrapper = styled.div`
-   margin-top: 30px;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-   gap: 32px;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: 32px;
 `;
 
 const CardContainer = styled.div`
@@ -60,33 +56,33 @@ const CardContainer = styled.div`
   min-height: 408px;
   border-radius: 12px;
   border-radius: 1px solid #f7fdf9;
-  padding:16px;
+  padding: 16px;
   border: var(--border-1);
 
   @media screen and (max-width: 719px) {
-   width: 100%;
- }
+    width: 100%;
+  }
 `;
 
 const CardImage = styled.div`
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: #FFDDDB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffdddb;
   border-radius: 6px;
-  height:200px;
+  height: 200px;
 `;
 
 const CardContent = styled.div`
- padding-top:16px;
- h4 {
+  padding-top: 16px;
+  h4 {
     font-style: normal;
-    font-weight: var( --font-weight-medium);
+    font-weight: var(--font-weight-medium);
     font-size: 18px;
-    padding-bottom:6px;
+    padding-bottom: 6px;
   }
- small {
-  font-weight: 300;
-  font-size: 16px;
- }
+  small {
+    font-weight: 300;
+    font-size: 16px;
+  }
 `;

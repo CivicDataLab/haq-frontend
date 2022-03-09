@@ -8,10 +8,6 @@ const RelatedCard: React.FC<{ data: any; index: number }> = ({
   return (
     <Link href={`/datasets/${data.id}`} passHref>
       <RelatedCardComp>
-        {data.url ? 
-           <img src={data.url} />
-           : null
-         }
         <article>
           <header>
             <h3>{data.title}</h3>
@@ -22,20 +18,15 @@ const RelatedCard: React.FC<{ data: any; index: number }> = ({
             </ul>
           </header>
           <p>{data.notes}</p>
-          {data.author ?
+          {data.author ? (
             <div>
               <hr className="hr" />
               <div className="author__details">
-                <div className="author">
-                  {data.author}
-                </div>
-                <div className="date">
-                  {data.date}
-                </div>
+                <div className="author">{data.author}</div>
+                <div className="date">{data.date}</div>
               </div>
             </div>
-            : null
-          }
+          ) : null}
         </article>
       </RelatedCardComp>
     </Link>
