@@ -10,6 +10,7 @@ import Modal from 'components/actions/Modal';
 const MobNav = ({ data }) => {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const menuBtnRef = useRef(null);
+  const menuRef = useRef(null);
   const router = useRouter();
 
   // opening / closing mobile navbar
@@ -24,8 +25,8 @@ const MobNav = ({ data }) => {
     const target = btn.nextElementSibling;
     const expanded = btn.getAttribute('aria-expanded') === 'true';
 
-    const selectedBtn = document.querySelector(
-      '.navbar__links [aria-expanded = "true"]'
+    const selectedBtn = menuRef.current.querySelector(
+      '[aria-expanded = "true"]'
     );
     if (selectedBtn && !expanded) {
       selectedBtn.setAttribute('aria-expanded', 'false');
@@ -86,7 +87,7 @@ const MobNav = ({ data }) => {
             </Button>
           </MenuHeader>
 
-          <ul>
+          <ul ref={menuRef}>
             {data.links &&
               data.links.map((navItem: any, index: number) => (
                 <li key={`navItemMobile-${index}`}>
