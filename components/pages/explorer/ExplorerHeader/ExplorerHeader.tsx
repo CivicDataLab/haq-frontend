@@ -5,6 +5,25 @@ import { Tags } from 'components/data';
 import { categoryIcon, categoryTag } from 'utils/explorer';
 
 const ExplorerHeader = ({ data, meta }) => {
+  const item = [
+    {
+      text: 'Total Receipts',
+      value: '₹ 4,20,672 Cr.',
+    },
+    {
+      text: 'Total Expenditure',
+      value: '₹ 5,50,271 Cr.',
+    },
+    {
+      text: 'Fiscal Deficit',
+      value: '₹ 21,73,990 Cr.',
+    },
+    {
+      text: 'GSDP',
+      value: '₹ 21,73,990 Cr.',
+    },
+  ]
+
   return (
     <Wrapper>
       <div className="container">
@@ -24,6 +43,14 @@ const ExplorerHeader = ({ data, meta }) => {
           {meta['Type of Scheme'] && <span>{meta['Type of Scheme']}</span>}
           {<span>{categoryTag(data.tags)}</span>}
         </HeaderMeta>
+        <SummaryCard>
+          {item.map((itemCard, index) => (
+            <li key={`summary-${index}`}>
+              <strong>{itemCard.value}</strong>
+              <span>{itemCard.text}</span>
+            </li>
+          ))}
+        </SummaryCard>
       </section>
     </Wrapper>
   );
@@ -32,7 +59,6 @@ const ExplorerHeader = ({ data, meta }) => {
 export default ExplorerHeader;
 
 const Wrapper = styled.div`
-  background-color: #fff;
   padding-bottom: 2.5rem;
   padding-top: 2.5rem;
 
@@ -92,5 +118,41 @@ const HeaderMeta = styled.div`
   strong {
     color: #02838b;
     font-weight: bold;
+  }
+`;
+
+const SummaryCard = styled.ul`
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  li {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background-color: var(--color-background-lighter);
+    padding: 20px 16px;
+    border: var(--border-1);
+    border-radius: 8px;
+    filter: drop-shadow(var(--box-shadow-1));
+    flex-basis: 214px;
+    flex-grow: 1;
+    height:128px;
+    position: relative;
+    border-left : 4px solid #FBB670;
+  }
+  strong {
+    font-weight: 700;
+    font-size: 24px;
+  }
+  span {
+    display: block;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--text-light-medium);
+    line-height: 1.7;
+    margin-top: 4px;
   }
 `;
