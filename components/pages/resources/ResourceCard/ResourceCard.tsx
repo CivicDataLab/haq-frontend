@@ -1,40 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ResourceCard = () => {
-
-  const data = [
-    {
-      title: 'Lorem ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    },
-    {
-      title: 'Et lobortis',
-      content: 'Turpis tellus orci pharetra turpis. Tortor enim duis in sapien venenatis dolor vel tempor cras. Diam ullamcorper nisl, purus fames lacus, eget integer. Consectetur nulla pellentesque nec vulputate viverra sapien sagittis, risus massa. Gravida nibh enim arcu condimentum enim lectus purus convallis sem. Pharetra, interdum sit amet, tellus sed id fames non.'
-    },
-    {
-      title: 'Lorem ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    },
-    {
-      title: 'Lorem ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    }
-  ]
+const ResourceCard: React.FC<{ data: any; key: string; }> = ({ data, key }) => { 
   return (
     <Wrapper>
-      {data.map((item, key) => {
-        return (
-          <Card key={`card__${key}`}>
-            <p>
-              {item.title}
-            </p>
-            <small>
-              {item.content}
-            </small>
-          </Card>
-        )
-      })}
+      <Card>
+        <p>
+          {data.title}
+        </p>
+        <small>
+          {data.content}
+        </small>
+      </Card>
     </Wrapper>
   );
 };
