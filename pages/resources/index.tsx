@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Head from 'next/head';
 import { ResourceCard, ResourceRelatedCard } from 'components/pages/resources';
 import { Search } from 'components/data';
@@ -7,42 +7,80 @@ import { Button } from 'components/actions';
 import styled from 'styled-components';
 
 const Resources = () => {
-    const [search, setSearch] = useState('');
 
-    function SearchChange(val: any) {
-        setSearch(val.value);
+  const data = [
+    {
+      title: 'Lorem ipsum',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+    },
+    {
+      title: 'Et lobortis',
+      content: 'Turpis tellus orci pharetra turpis. Tortor enim duis in sapien venenatis dolor vel tempor cras. Diam ullamcorper nisl, purus fames lacus, eget integer. Consectetur nulla pellentesque nec vulputate viverra sapien sagittis, risus massa. Gravida nibh enim arcu condimentum enim lectus purus convallis sem. Pharetra, interdum sit amet, tellus sed id fames non.'
+    },
+    {
+      title: 'Lorem ipsum',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+    },
+    {
+      title: 'Lorem ipsum',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
     }
+  ]
 
-    return (
-        <Wrapper>
-            <Head>
-                <title> Resources</title>
-            </Head>
-            <div className="container">
-                <Header>
-                    Glossary
-                </Header>
-                <SearchContainer>
-                    <Search text={"Search here"} newSearch={SearchChange} />
-                </SearchContainer>
-                <div className="bucket__name">
-                    BUCKET NAME - PLACEHOLDER
-                    <hr />
-                </div>
-                <ResourceCard />
-                <hr className="hr_card" />
-                <CardList>
-                    <div className="cardlist__count">
-                        Showing 35 of 60 entries
-                    </div>
-                    <div>
-                        <Button> Load More </Button>
-                    </div>
-                </CardList>
-                <ResourceRelatedCard />
-            </div>
-        </Wrapper>
-    );
+  const [search, setSearch] = useState('');
+  const [filteredCards, setFilteredCards] = useState([]);
+  const [cards, setCards] =useState(data);
+
+  useEffect(() => {
+    setFilteredCards(data.filter(data => {
+      return data.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    }))
+  }, [search])
+
+  function SearchChange(val: any) {
+    setSearch(val.value);
+  }
+
+  return (
+    <Wrapper>
+      <Head>
+        <title> Resources</title>
+      </Head>
+      <div className="container">
+        <Header>
+          Glossary
+        </Header>
+        <SearchContainer>
+          <Search text={"Search here"} newSearch={SearchChange} />
+        </SearchContainer>
+        <div className="bucket__name">
+          BUCKET NAME - PLACEHOLDER
+          <hr />
+        </div>
+
+        {search.length < 1 ?
+          cards.map((item:any, key:any) => (
+            <ResourceCard key={`card__${key}`} data={item} />
+          ))
+          :
+          filteredCards.map((item:any, key:any) => (
+            <ResourceCard key={`card__${key}`} data={item} />
+          ))
+        }
+
+        <hr className="hr_card" />
+        <CardList>
+          <div className="cardlist__count">
+            Showing 35 of 60 entries
+          </div>
+          <div>
+            <Button> Load More </Button>
+          </div>
+        </CardList>
+        <ResourceRelatedCard />
+      </div>
+    </Wrapper>
+  );
 };
 
 export default Resources;
