@@ -31,9 +31,11 @@ const Resources = () => {
   const [filteredCards, setFilteredCards] = useState([]);
   const [cards, setCards] =useState(data);
 
+  const keys = ["title", "content"];
+
   useEffect(() => {
-    setFilteredCards(data.filter(data => {
-      return data.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    setFilteredCards(data.filter(item => {
+      return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))
     }))
   }, [search])
 
