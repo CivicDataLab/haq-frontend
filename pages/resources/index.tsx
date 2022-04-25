@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { ResourceCard, ResourceRelatedCard } from 'components/pages/resources';
 import { Search } from 'components/data';
@@ -31,8 +31,21 @@ const Resources = () => {
     }
   ]
 
+  const relatedCardData = [
+    {
+      svg: '/assets/dataset.svg',
+      title: 'Wiki',
+      content: 'Subtitle text - Placeholder'
+    },
+    {
+      svg: '/assets/dataset.svg',
+      title: 'All Datasets',
+      content: 'Subtitle text - Placeholder'
+    },
+  ]
+
   const [search, setSearch] = useState('');
-  const [cardsToShow,setCardsToShow] =useState(1);
+  const [cardsToShow, setCardsToShow] = useState(1);
   const [cards, setCards] = useState(data);
 
   const [visibleCards, setVisibleCards] = useState([]);
@@ -40,15 +53,15 @@ const Resources = () => {
   const keys = ["title", "content"];
 
   useEffect(() => {
-    if(search)
-      setCards(data.filter(item => { return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))}))
-    else if(search.length==0)
+    if (search)
+      setCards(data.filter(item => { return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase())) }))
+    else if (search.length == 0)
       setCards(data)
   }, [search])
 
   useEffect(() => {
-		setVisibleCards(cards.slice(0, cardsToShow));
-	}, [cards, cardsToShow]);
+    setVisibleCards(cards.slice(0, cardsToShow));
+  }, [cards, cardsToShow]);
 
   function SearchChange(val: any) {
     setSearch(val.value);
@@ -57,13 +70,13 @@ const Resources = () => {
   const startIndex = 0;
 
   const lastIndex = () => {
-		if (startIndex + cardsToShow < cards.length)
-			return startIndex + cardsToShow;
-		else return cards.length;
-	};
+    if (startIndex + cardsToShow < cards.length)
+      return startIndex + cardsToShow;
+    else return cards.length;
+  };
 
   const loading = () => {
-    if(cards.length === cardsToShow) return;
+    if (cards.length === cardsToShow) return;
     setCardsToShow(prevValue => prevValue + 1);
   }
 
@@ -84,8 +97,8 @@ const Resources = () => {
           <hr />
         </div>
 
-        { visibleCards.length > 0 ?
-           visibleCards.map((item:any, key:any) => (
+        {visibleCards.length > 0 ?
+          visibleCards.map((item: any, key: any) => (
             <ResourceCard key={`card__${key}`} data={item} />
           ))
           :
@@ -101,8 +114,24 @@ const Resources = () => {
             <Button onClick={loading}> Load More </Button>
           </div>
         </CardList>
-        <ResourceRelatedCard />
+        <RelatedCardHeading>
+          <div className="heading__text">
+            <hr />
+            <h4>Other info.</h4>
+          </div>
+          <div className="heading__content">
+            All other information is available here
+          </div>
+        </RelatedCardHeading>
+        <RelatedCardWrapper>
+          {
+            relatedCardData.map((item: any, key: any) => (
+              <ResourceRelatedCard key={`card__${key}`} data={item} />
+            ))
+          }
+        </RelatedCardWrapper>
       </div>
+
     </Wrapper>
   );
 };
@@ -163,4 +192,37 @@ const CardList = styled.div`
      display:flex;
      align-items:center;
   }
+`;
+
+const RelatedCardHeading = styled.div`
+  padding: 65px 0 40px 0;
+  .heading__text{
+   display:flex;
+   h4 {
+    color: var(--text-light-light);
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    font-size: 20px;
+    }
+
+   hr {
+    width: 56px; 
+    background: var( --color-secondary); 
+    border-radius: 1px; 
+    margin: 15px;
+  }
+ }
+
+.heading__content {
+    font-weight: normal;
+    font-size: 40px;
+    padding:10px 0;
+    line-height:1;
+  }
+`;
+
+const RelatedCardWrapper = styled.div`
+  display:flex;
+  flex-wrap:wrap;
+  gap:32px;
 `;
