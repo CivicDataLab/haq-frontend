@@ -22,25 +22,49 @@ const Resources = () => {
       content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
     },
     {
-      title: 'Lorem ipsum',
+      title: 'Et Lobortis',
+      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+    },
+    {
+      title: 'Lorem1 ipsum',
       content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
     }
   ]
 
   const [search, setSearch] = useState('');
-  const [filteredCards, setFilteredCards] = useState([]);
-  const [cards, setCards] =useState(data);
+  const [cardsToShow,setCardsToShow] =useState(1);
+  const [cards, setCards] = useState(data);
+
+  const [visibleCards, setVisibleCards] = useState([]);
 
   const keys = ["title", "content"];
 
   useEffect(() => {
-    setFilteredCards(data.filter(item => {
-      return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))
-    }))
+    if(search)
+      setCards(data.filter(item => { return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))}))
+    else if(search.length==0)
+      setCards(data)
   }, [search])
+
+  useEffect(() => {
+		setVisibleCards(cards.slice(0, cardsToShow));
+	}, [cards, cardsToShow]);
 
   function SearchChange(val: any) {
     setSearch(val.value);
+  }
+
+  const startIndex = 0;
+
+  const lastIndex = () => {
+		if (startIndex + cardsToShow < cards.length)
+			return startIndex + cardsToShow;
+		else return cards.length;
+	};
+
+  const loading = () => {
+    if(cards.length === cardsToShow) return;
+    setCardsToShow(prevValue => prevValue + 1);
   }
 
   return (
@@ -60,23 +84,21 @@ const Resources = () => {
           <hr />
         </div>
 
-        {search.length < 1 ?
-          cards.map((item:any, key:any) => (
+        { visibleCards.length > 0 ?
+           visibleCards.map((item:any, key:any) => (
             <ResourceCard key={`card__${key}`} data={item} />
           ))
           :
-          filteredCards.map((item:any, key:any) => (
-            <ResourceCard key={`card__${key}`} data={item} />
-          ))
+          <div>No Data Found</div>
         }
 
         <hr className="hr_card" />
         <CardList>
           <div className="cardlist__count">
-            Showing 35 of 60 entries
+            Showing {lastIndex()} of {cards.length} entries
           </div>
           <div>
-            <Button> Load More </Button>
+            <Button onClick={loading}> Load More </Button>
           </div>
         </CardList>
         <ResourceRelatedCard />
