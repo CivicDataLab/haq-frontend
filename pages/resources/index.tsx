@@ -5,48 +5,13 @@ import { Search } from 'components/data';
 import { SearchInput } from 'components/data/Search/SearchComp';
 import { Button } from 'components/actions';
 import styled from 'styled-components';
+import * as resource from 'data/resourcedata/resourcelist';
 
 const Resources = () => {
 
-  const data = [
-    {
-      title: 'Lorem ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    },
-    {
-      title: 'Et lobortis',
-      content: 'Turpis tellus orci pharetra turpis. Tortor enim duis in sapien venenatis dolor vel tempor cras. Diam ullamcorper nisl, purus fames lacus, eget integer. Consectetur nulla pellentesque nec vulputate viverra sapien sagittis, risus massa. Gravida nibh enim arcu condimentum enim lectus purus convallis sem. Pharetra, interdum sit amet, tellus sed id fames non.'
-    },
-    {
-      title: 'Lorem ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    },
-    {
-      title: 'Et Lobortis',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    },
-    {
-      title: 'Lorem1 ipsum',
-      content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-    }
-  ]
-
-  const relatedCardData = [
-    {
-      svg: '/assets/dataset.svg',
-      title: 'Wiki',
-      content: 'Subtitle text - Placeholder'
-    },
-    {
-      svg: '/assets/dataset.svg',
-      title: 'All Datasets',
-      content: 'Subtitle text - Placeholder'
-    },
-  ]
-
   const [search, setSearch] = useState('');
   const [cardsToShow, setCardsToShow] = useState(1);
-  const [cards, setCards] = useState(data);
+  const [cards, setCards] = useState(resource.data);
 
   const [visibleCards, setVisibleCards] = useState([]);
 
@@ -54,9 +19,9 @@ const Resources = () => {
 
   useEffect(() => {
     if (search)
-      setCards(data.filter(item => { return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase())) }))
+      setCards(resource.data.filter(item => { return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase())) }))
     else if (search.length == 0)
-      setCards(data)
+      setCards(resource.data)
   }, [search])
 
   useEffect(() => {
@@ -125,7 +90,7 @@ const Resources = () => {
         </RelatedCardHeading>
         <RelatedCardWrapper>
           {
-            relatedCardData.map((item: any, key: any) => (
+            resource.relatedCardData.map((item: any, key: any) => (
               <ResourceRelatedCard key={`card__${key}`} data={item} />
             ))
           }
