@@ -12,6 +12,7 @@ const DownloadCard = () => {
                 src={"/assets/data_csv.svg"}
                 height={44}
                 width={44}
+                alt=""
             />
             <Content>
                 <p>

@@ -36,7 +36,9 @@ const ResourceRelatedCard = () => {
                 <Image
                   src={item.svg}
                   width={100}
-                  height={80}>
+                  height={80}
+                  alt=""
+                  >
                 </Image>
               </CardImage>
               <CardContent >
