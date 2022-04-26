@@ -14,7 +14,7 @@ const Catalogue = () => {
   return (
     <div>
       <Head>
-        <title> Catalog</title>
+        <title>Catalog | HAQ</title>
       </Head>
       <div className="container">
         <div>

@@ -9,7 +9,7 @@ const PartnersCard = styled.div`
 
   .partners__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 
   h4 {

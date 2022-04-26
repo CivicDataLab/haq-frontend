@@ -96,7 +96,7 @@ const Nav = ({ data }) => {
                     height={52}
                   />
                 ) : (
-                  <h1>{data.site || 'Opub'}</h1>
+                  <h1>{data.site || 'HAQ'}</h1>
                 )}
               </a>
             </Link>

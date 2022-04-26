@@ -21,7 +21,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
   return (
     <>
       <Head>
-        <title>OPub | Explorer</title>
+        <title>{data.title || Explorer} | HAQ</title>
       </Head>
       <Wrapper>
         <ExplorerHeader data={data} meta={meta} />

@@ -21,21 +21,21 @@ const About = () => {
         'We work to harness the potential of open knowledge movements and better enable citizens to engage in matters of public reform.',
         'We aim to grow data and tech literacy of governments, non-profits, think-tanks, media houses, universities, and more to enable data-driven decision making at scale.',
       ],
-      email: 'info@civicdatalab.in',
+      // email: 'info@civicdatalab.in',
       github: '/',
       linkedin: '/',
       twitter: '/',
       class: 'partners--dark-img',
     },
     {
-      name: 'Open Contracting Partnership',
+      name: 'HAQ: Centre for Child Rights',
       title: 'Platform Owner',
-      img: '/assets/images/ocp.png',
+      img: '/assets/images/haq-main.png',
       desc: [
-        'The Open Contracting Partnership is an independent non-profit public charity 501(c)(3) working in over 50 countries.',
-        'We are a silo-busting collaboration across governments, businesses, civil society, and technologists to open up and transform government contracting worldwide. Bringing open data and open government together, we make sure public money is spent openly, fairly and effectively on public contracts, the single biggest item of spending by most governments. They are a government’s number one corruption risk and they are vital to make sure citizens get the services that they deserve.',
+        'HAQ: Centre for Child Rights works towards the recognition, promotion and protection of rights of all children',
+        'It aims to look at the child in an integrated manner within the framework of the Constitution of India, and the UN Convention of the Rights of the Child, which India ratified in 1992, and contribute to the building of an environment where every child’s rights are recognised and promoted without discrimination.',
       ],
-      email: 'info@civicdatalab.in',
+      // email: 'info@civicdatalab.in',
       github: '/',
       linkedin: '/',
       twitter: '/',
@@ -87,7 +87,7 @@ const About = () => {
   return (
     <div>
       <Head>
-        <title>About Us | OPub</title>
+        <title>About Us | HAQ</title>
       </Head>
       <div className="container">
         <AboutPage>

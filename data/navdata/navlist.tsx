@@ -1,6 +1,6 @@
 export const navList = {
-  site: 'OPub',
-  logo: '/assets/images/haq.png',
+  site: 'HAQ',
+  logo: '/assets/images/haqLogo.png',
   links: [
     {
       link: '/datasets',

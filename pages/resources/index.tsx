@@ -10,7 +10,7 @@ import * as resource from 'data/resourcedata/resourcelist';
 const Resources = () => {
 
   const [search, setSearch] = useState('');
-  const [cardsToShow, setCardsToShow] = useState(1);
+  const [cardsToShow, setCardsToShow] = useState(4);
   const [cards, setCards] = useState(resource.data);
 
   const [visibleCards, setVisibleCards] = useState([]);
@@ -48,7 +48,7 @@ const Resources = () => {
   return (
     <Wrapper>
       <Head>
-        <title> Resources</title>
+        <title>Resources | HAQ</title>
       </Head>
       <div className="container">
         <Header>
