@@ -75,6 +75,11 @@ const Nav = ({ data }) => {
     }
   }
 
+  function subMenuItemClick() {
+    if (document.querySelector('.has-submenu.open'))
+      document.querySelector('.has-submenu.open').className = 'has-submenu';
+  }
+
   return (
     <>
       <Header>
@@ -87,9 +92,9 @@ const Nav = ({ data }) => {
                     className="logo"
                     src={data.logo}
                     alt={`${data.site} logo`}
-                    width={220}
-                    height={46}
-                  ></Image>
+                    width={200}
+                    height={52}
+                  />
                 ) : (
                   <h1>{data.site || 'Opub'}</h1>
                 )}
@@ -124,7 +129,7 @@ const Nav = ({ data }) => {
                                 className="submenu-item"
                               >
                                 <Link href={item.link}>
-                                  <a>
+                                  <a onClick={() => subMenuItemClick()}>
                                     {item.name}
                                     <ArrowTail width={24} height={24} />
                                   </a>

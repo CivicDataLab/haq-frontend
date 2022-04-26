@@ -57,11 +57,11 @@ const MobNav = ({ data }) => {
               <a>
                 <Image
                   className="logo"
-                  src="/assets/images/oci_logo.png"
-                  alt="oci logo"
-                  width={166}
-                  height={40}
-                ></Image>
+                  src={data.logo}
+                  alt={`${data.site} logo`}
+                  width={220}
+                  height={46}
+                />
               </a>
             </Link>
           </div>
