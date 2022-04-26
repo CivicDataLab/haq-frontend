@@ -46,14 +46,14 @@ const ExplorerRelated = ({ data }) => {
             <h4>Meta Data</h4>
           </div>
           <div className="heading__content">
-            Everything you need to know 
+            Everything you need to know
           </div>
         </Heading>
-        
+
         <DataWrapper>
           <h4> Data description  </h4>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable.
           </p>
           <hr className="hr" />
           <h4> Keywords </h4>
@@ -70,7 +70,7 @@ const ExplorerRelated = ({ data }) => {
 
           <hr className="hr" />
           <h4> Additional Information </h4>
-            
+
           <dl className="dlist">
             {
               topic.map((item: any, index: number) => {

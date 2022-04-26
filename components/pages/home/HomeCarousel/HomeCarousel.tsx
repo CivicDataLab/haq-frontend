@@ -15,13 +15,13 @@ const HomeCarousel = () => {
       fill="none"
       viewBox="0 0 56 56"
       className="x"
-      
+
     >
       <path
         fill="#FFF"
         d="M56 28c0 15.464-12.536 28-28 28S0 43.464 0 28 12.536 0 28 0s28 12.536 28 28Z"
         opacity=".63"
-        
+
       />
       <path
         fill="#000"
@@ -69,7 +69,7 @@ const HomeCarousel = () => {
                 <Button kind="secondary" size="sm"> Explore More </Button>
               </div>
               <div className="image">
-                <Image className="placeholder" src={item.image} height={350} width={540} />
+                <Image alt="" className="placeholder" src={item.image} height={350} width={540} />
               </div>
             </div>
           ))}
