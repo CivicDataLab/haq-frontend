@@ -1,11 +1,29 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Search } from 'components/data';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
 const HomeHeader = () => {
   const [search, setSearch] = useState('');
+  const router = useRouter();
+
+useEffect(() => {
+  const fetchResponse = async () => {
+    const navigationResult = await router.push(`datasets/${search}`) 
+    if(navigationResult) {
+      console.log("Successful")
+    } else {
+      window.location.href = router.pathname;
+    }
+  }
+
+  if(search){
+    fetchResponse();
+  }
+},[search])
 
   function SearchChange(val: any) {
     setSearch(val.value);
