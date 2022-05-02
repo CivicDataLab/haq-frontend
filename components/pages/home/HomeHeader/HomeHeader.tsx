@@ -13,9 +13,7 @@ const HomeHeader = () => {
 useEffect(() => {
   const fetchResponse = async () => {
     const navigationResult = await router.push(`datasets/${search}`) 
-    if(navigationResult) {
-      console.log("Successful")
-    } else {
+    if(!navigationResult) {
       window.location.href = router.pathname;
     }
   }
