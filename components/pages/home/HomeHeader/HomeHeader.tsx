@@ -10,20 +10,20 @@ const HomeHeader = () => {
   const [search, setSearch] = useState('');
   const router = useRouter();
 
-useEffect(() => {
-  const fetchResponse = async () => {
-    router.push({
-      pathname:'/datasets',
-      query: {
-        q: search,
-      },
-    });
-  }
+  useEffect(() => {
+    const fetchResponse = () => {
+      router.push({
+        pathname: '/datasets',
+        query: {
+          q: search,
+        },
+      });
+    }
 
-  if(search){
-    fetchResponse();
-  }
-},[search])
+    if (search) {
+      fetchResponse();
+    }
+  }, [search])
 
   function SearchChange(val: any) {
     setSearch(val.value);
@@ -56,7 +56,14 @@ useEffect(() => {
                 {links.map((item, index) => {
                   return (
                     <li key={`links-${index}`}>
-                      <Link href="/" passHref>
+                      <Link
+                        href={{
+                          pathname: '/datasets',
+                          query: { 
+                            q: item, 
+                          },
+                        }}
+                        passHref>
                         <QuickLinks>{item}</QuickLinks>
                       </Link>
                     </li>
