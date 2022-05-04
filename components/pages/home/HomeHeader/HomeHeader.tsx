@@ -12,10 +12,12 @@ const HomeHeader = () => {
 
 useEffect(() => {
   const fetchResponse = async () => {
-    const navigationResult = await router.push(`datasets/${search}`) 
-    if(!navigationResult) {
-      window.location.href = router.pathname;
-    }
+    router.push({
+      pathname:'/datasets',
+      query: {
+        q: search,
+      },
+    });
   }
 
   if(search){
