@@ -7,26 +7,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 const HomeHeader = () => {
-  const [search, setSearch] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchResponse = () => {
-      router.push({
-        pathname: '/datasets',
-        query: {
-          q: search,
-        },
-      });
-    }
-
-    if (search) {
-      fetchResponse();
-    }
-  }, [search])
-
-  function SearchChange(val: any) {
-    setSearch(val.value);
+  function searchChange(val: any) {
+    router.push({
+      pathname: '/datasets',
+      query: {
+        q: val.value,
+      },
+    });
   }
 
   const links = [
@@ -50,7 +39,7 @@ const HomeHeader = () => {
               ever since the 1500s.
             </h5>
             <SearchFilter>
-              <Search newSearch={SearchChange} />
+              <Search newSearch={searchChange} />
               <SearchLinks>
                 Quick Links:
                 {links.map((item, index) => {
