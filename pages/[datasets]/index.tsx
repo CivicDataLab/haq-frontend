@@ -14,7 +14,8 @@ import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
 import MobileAlter from 'components/data/MobileAlter/MobileAlter';
-import DataCatalogue from 'components/icons/DataCatalogue';
+import { dataList } from 'data/datasetdata/datasetlist';
+
 type Props = {
   data: any;
   facets: any;
@@ -25,27 +26,33 @@ const list = '"tags", "groups"';
 
 const Datasets: React.FC<Props> = ({ data, facets }) => {
   const router = useRouter();
-  const { q, sort, size, fq, from } = router.query;
+  const { q, sort, size, fq, from, datasets } = router.query;
   const [search, setSearch] = useState(q);
   const [sorts, setSorts] = useState(sort);
   const [items, setItems] = useState(size);
   const [datsetsFilters, setDatasetsFilters] = useState(fq);
   const [pages, setPages] = useState(from);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [headerData, setHeaderData] = useState({});
 
   const { results, count } = data.result;
+
+  const pageTitle = ['dataset', 'scheme', 'budget', 'story'];
+
   useEffect(() => {
+    let result = pageTitle.includes(datasets.toString())? datasets : pageTitle[0];   
     router.push({
-      pathname: router.pathname,
+      pathname: '/[datasets]',
       query: {
         fq: datsetsFilters,
         q: search,
         sort: sorts,
         size: items,
         from: pages,
+        datasets: result,
       },
     });
-  }, [datsetsFilters, search, sorts, pages, items]);
+  }, [datsetsFilters, search, sorts, pages, items, datasets]); 
 
   function handleDatasetsChange(val: any) {
     switch (val.query) {
@@ -67,17 +74,32 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     }
   }
 
+  useEffect(() => {
+    switch (datasets) {
+      case 'dataset':
+        setHeaderData(dataList.dataset);
+        break;
+      case 'scheme':
+        setHeaderData(dataList.scheme);
+        break;
+      case 'budget':
+        setHeaderData(dataList.budget);
+        break;
+      case 'story':
+        setHeaderData(dataList.story);
+        break;
+    }
+    setSearch('');
+    setSorts('');
+    setItems('');
+    setDatasetsFilters('');
+    setPages('');
+  },[datasets])
+
   function handleButtonClick(e: any) {
     e.preventDefault();
     setModalIsOpen(!modalIsOpen);
   }
-
-  const headerData = {
-    title: 'All Datasets',
-    content:
-      'An overview of the budget allocated and the expenditure incurred under Education related accounting heads by the Government of Uttar Pradesh for in the across various fiscal years.',
-    logo: <DataCatalogue />,
-  };
 
   return (
     <>
