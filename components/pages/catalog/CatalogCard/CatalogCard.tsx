@@ -1,40 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { cards } from 'data/cardsdata/cardlist';
 
 const CatalogCard = () => {
-  const cards = [
-    {
-      title: 'Budget Summary',
-      content:
-        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/statistics.svg',
-    },
-    {
-      title: 'Schemes',
-      content:
-        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/pie-chart.svg',
-    },
-    {
-      title: 'Data Story',
-      content:
-        'The long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus.',
-      src: '/assets/accounting.svg',
-    },
-  ];
   return (
     <Wrapper>
       {cards.map((card, index) => {
         return (
           <CardContainer key={`cardcatalog-${index}`}>
-            <CardImage>
-              <Image src={card.src} alt="" width={114} height={114} />
-            </CardImage>
-            <CardContent>
-              <h4>{card.title}</h4>
-              <small>{card.content}</small>
-            </CardContent>
+            <Link href={`/${card.link}`} passHref>
+              <div>
+                <CardImage>
+                  <Image src={card.src} alt="" width={114} height={114} />
+                </CardImage>
+                <CardContent>
+                  <h4>{card.title}</h4>
+                  <small>{card.content}</small>
+                </CardContent>
+              </div>
+            </Link>
           </CardContainer>
         );
       })}
@@ -58,6 +44,7 @@ const CardContainer = styled.div`
   border-radius: 1px solid #f7fdf9;
   padding: 16px;
   border: var(--border-1);
+  cursor: pointer;
 
   @media screen and (max-width: 719px) {
     width: 100%;

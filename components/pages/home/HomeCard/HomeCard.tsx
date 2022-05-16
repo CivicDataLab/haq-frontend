@@ -1,69 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
+import { cards } from 'data/cardsdata/cardlist';
 
 const HomeCard = () => {
-
-  const data = [
-    {
-      title: 'Data Catalogue',
-      content: 'Lorem Ipsum is simply dummy text of the printing & typesetting industry.',
-      src: '/assets/statistics.svg'
-    },
-    {
-      title: 'Data Catalogue',
-      content: 'Lorem Ipsum is simply dummy text of the printing & typesetting industry.',
-      src: '/assets/pie-chart.svg'
-    },
-    {
-      title: 'Data Catalogue',
-      content: 'Lorem Ipsum is simply dummy text of the printing & typesetting industry.',
-      src: '/assets/accounting.svg'
-    }
-  ]
-
   return (
     <Wrapper>
       <div className="container">
         <CardWrapper>
-          <Card>
-            <div>
-              <CardImage>
-                <Image
-                  src="/assets/DataCatalogue.svg"
-                  alt=""
-                  width={580}
-                  height={280}
-                />
-              </CardImage>
-              <CardContent primary={true}>
-                <h4>Data Catalogue</h4>
-                <small>It is a long established fact that a reader will be distracted by the readable
-                  content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                  it has a more-or-less normal distribution of letters.
-                </small>
-              </CardContent>
-            </div>
-          </Card>
+          <Link href="/dataset" passHref>
+            <Card>
+              <div>
+                <CardImage>
+                  <Image
+                    src="/assets/DataCatalogue.svg"
+                    alt=""
+                    width={580}
+                    height={280}
+                  />
+                </CardImage>
+                <CardContent primary={true}>
+                  <h4>All Datasets</h4>
+                  <small>It is a long established fact that a reader will be distracted by the readable
+                    content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                    it has a more-or-less normal distribution of letters.
+                  </small>
+                </CardContent>
+              </div>
+            </Card>
+          </Link>
           <CardContainer>
-            {data.map((item,index) => {
+            {cards.map((item, index) => {
               return (
-               <li key={`dataCard-${index}`}>
-                <DataCard>
-                  <CardImage primary={true}>
-                    <Image
-                      src={item.src}
-                      alt=""
-                      width={79.64}
-                      height={79.64}
-                    />
-                  </CardImage>
-                  <CardContent>
-                    <h4>{item.title}</h4>
-                    <small>{item.content}</small>
-                  </CardContent>
-                </DataCard>
-               </li>
+                <li key={`dataCard-${index}`}>
+                  <Link href={`/${item.link}`} passHref >
+                    <DataCard>
+                      <CardImage primary={true}>
+                        <Image
+                          src={item.src}
+                          alt=""
+                          width={79.64}
+                          height={79.64}
+                        />
+                      </CardImage>
+                      <CardContent>
+                        <h4>{item.title}</h4>
+                        <small>{item.content.substring(0,80)}</small>
+                      </CardContent>
+                    </DataCard>
+                  </Link>
+                </li>
               )
             })}
           </CardContainer>
@@ -76,7 +63,7 @@ const HomeCard = () => {
 export default HomeCard;
 
 type Props = {
-  primary ?: boolean;
+  primary?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -91,6 +78,7 @@ const Card = styled.div`
   border-radius: 12px;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
   border: 1px solid #f1eef1;
+  cursor: pointer;
  `;
 
 const DataCard = styled.div`
@@ -100,6 +88,7 @@ const DataCard = styled.div`
   background : #fff;
   padding:16px;
   display:flex;
+  cursor: pointer;
 `;
 
 const CardImage = styled.div<Props>`
