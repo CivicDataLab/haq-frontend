@@ -11,7 +11,7 @@ const CatalogCard = () => {
         return (
           <CardContainer key={`cardcatalog-${index}`}>
             <Link href={`/${card.link}`} passHref>
-              <div>
+              <a>
                 <CardImage>
                   <Image src={card.src} alt="" width={114} height={114} />
                 </CardImage>
@@ -19,7 +19,7 @@ const CatalogCard = () => {
                   <h4>{card.title}</h4>
                   <small>{card.content}</small>
                 </CardContent>
-              </div>
+              </a>
             </Link>
           </CardContainer>
         );
@@ -44,8 +44,11 @@ const CardContainer = styled.div`
   border-radius: 1px solid #f7fdf9;
   padding: 16px;
   border: var(--border-1);
-  cursor: pointer;
-
+  
+  a {
+    text-decoration: none;
+  }
+  
   @media screen and (max-width: 719px) {
     width: 100%;
   }

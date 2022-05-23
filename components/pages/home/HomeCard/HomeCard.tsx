@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   padding-top:100px;
 `
 
-const Card = styled.div`
+const Card = styled.a`
   display:flex;
   align-items:stretch; 
   background-color: #fff;
@@ -78,17 +78,17 @@ const Card = styled.div`
   border-radius: 12px;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
   border: 1px solid #f1eef1;
-  cursor: pointer;
+  text-decoration:none;
  `;
 
-const DataCard = styled.div`
+const DataCard = styled.a`
   border: 1px solid #F2EFF2;
   box-sizing: border-box;
   border-radius: 12px; 
   background : #fff;
   padding:16px;
   display:flex;
-  cursor: pointer;
+  text-decoration:none;
 `;
 
 const CardImage = styled.div<Props>`
