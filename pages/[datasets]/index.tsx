@@ -40,7 +40,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   const pageTitle = ['dataset', 'scheme', 'budget', 'story'];
 
   useEffect(() => {
-    let result = pageTitle.includes(datasets.toString())? datasets : pageTitle[0];   
+    let result = pageTitle.includes(datasets.toString().toLowerCase())? datasets.toString().toLowerCase() : pageTitle[0];   
     router.push({
       pathname: '/[datasets]',
       query: {
@@ -104,7 +104,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   return (
     <>
       <Head>
-        <title>Datasets | HAQ</title>
+        <title>{datasets[0].toUpperCase() + datasets.slice(1)} | HAQ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper className="container">
