@@ -211,6 +211,7 @@ const Navlinks = styled.nav`
     &.open {
       ul {
         display: block;
+        z-index: 1;
       }
     }
   }
