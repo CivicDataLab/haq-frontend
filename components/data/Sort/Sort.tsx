@@ -59,7 +59,7 @@ const Sort: React.FC<{ newSort: any; className?:string }> = ({ newSort, classNam
     <Menu
       options={options}
       heading="Sort by"
-      handleChange={handleChange}
+      handleChange={(e) => handleChange(e)}
       value={value}
       className={className}
     />

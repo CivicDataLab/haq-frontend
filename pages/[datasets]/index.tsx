@@ -15,6 +15,7 @@ import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
 import MobileAlter from 'components/data/MobileAlter/MobileAlter';
 import { dataList } from 'data/datasetdata/datasetlist';
+import useEffectOnChange from 'utils/hooks';
 
 type Props = {
   data: any;
@@ -32,15 +33,17 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   const [items, setItems] = useState(size);
   const [datsetsFilters, setDatasetsFilters] = useState(fq);
   const [pages, setPages] = useState(from);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [headerData, setHeaderData] = useState({});
 
   const { results, count } = data.result;
 
   const pageTitle = ['dataset', 'scheme', 'budget', 'story'];
 
-  useEffect(() => {
-    let result = pageTitle.includes(datasets.toString().toLowerCase())? datasets.toString().toLowerCase() : pageTitle[0];   
+  useEffectOnChange(() => {
+    let result = pageTitle.includes(datasets.toString().toLowerCase())
+      ? datasets.toString().toLowerCase()
+      : pageTitle[0];
+
     router.push({
       pathname: '/[datasets]',
       query: {
@@ -52,9 +55,12 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         datasets: result,
       },
     });
-  }, [datsetsFilters, search, sorts, pages, items, datasets]); 
+  }, [datsetsFilters, search, sorts, pages, items, datasets]);
+
 
   function handleDatasetsChange(val: any) {
+    console.log(val);
+    
     switch (val.query) {
       case 'q':
         setSearch(val.value);
@@ -89,17 +95,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
         setHeaderData(dataList.story);
         break;
     }
-    setSearch('');
-    setSorts('');
-    setItems('');
-    setDatasetsFilters('');
-    setPages('');
-  },[datasets])
-
-  function handleButtonClick(e: any) {
-    e.preventDefault();
-    setModalIsOpen(!modalIsOpen);
-  }
+  }, [datasets]);
 
   return (
     <>
@@ -122,7 +118,10 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
               </DatasetSearch>
               <DatasetSort>
                 <Total text="datasets found" total={count} />
-                <Sort className="sort" newSort={handleDatasetsChange} />
+                <Sort
+                  className="sort"
+                  newSort={(e) => handleDatasetsChange(e)}
+                />
               </DatasetSort>
               <MobileAlter
                 data={facets}

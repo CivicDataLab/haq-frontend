@@ -11,6 +11,7 @@ import {
 } from './MobileAlterComp';
 import { Button, Modal } from 'components/actions';
 import { FilterIcon, SortIcon } from 'components/icons';
+import useEffectOnChange from 'utils/hooks';
 
 function formatFilterName(name: string) {
   if (name == 'fiscal_year') {
@@ -148,8 +149,8 @@ const MobileAlter: React.FC<{
     };
   }, [sortIsOpen]);
 
-  useEffect(() => {
-    if (sortShow) {
+  useEffectOnChange(() => {
+    if (sortShow) {      
       newData({
         query: 'sort',
         value: currentSort,
