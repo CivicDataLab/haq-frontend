@@ -37,7 +37,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
 
   const { results, count } = data.result;
 
-  const pageTitle = ['dataset', 'scheme', 'budget', 'story'];
+  const pageTitle = ['datasets', 'scheme', 'budget', 'story'];
 
   useEffectOnChange(() => {
     let result = pageTitle.includes(datasets.toString().toLowerCase())
@@ -59,7 +59,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
 
 
   function handleDatasetsChange(val: any) {
-    console.log(val);
+    
     
     switch (val.query) {
       case 'q':
@@ -81,8 +81,10 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   }
 
   useEffect(() => {
+   
+    
     switch (datasets) {
-      case 'dataset':
+      case 'datasets':
         setHeaderData(dataList.dataset);
         break;
       case 'scheme':

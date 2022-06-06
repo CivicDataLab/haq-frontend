@@ -128,22 +128,19 @@ const Nav = ({ data }) => {
                                 key={`sub-${index}-${num}`}
                                 className="submenu-item"
                               >
-                                <Link href={item.link}>
-                                  <a onClick={() => subMenuItemClick()}>
-                                    {item.name}
-                                    <ArrowTail width={24} height={24} />
-                                  </a>
-                                </Link>
+                                <a onClick={() => subMenuItemClick()}>                   
+                                  {item.name}
+                                  <ArrowTail width={24} height={24} />
+                                </a>
                               </li>
                             ))}
                           </ul>
                         )}
                       </>
                     ) : (
-                      <Link
-                        key={`navItemDesktop-${index}`}
+                      <a 
+                        key={`navItemDesktop-${index}`} 
                         href={navItem.link}
-                        passHref
                       >
                         <Navitem
                           className={
@@ -152,7 +149,7 @@ const Nav = ({ data }) => {
                         >
                           {navItem.name}
                         </Navitem>
-                      </Link>
+                      </a>
                     )}
                   </li>
                 ))}
