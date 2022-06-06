@@ -128,12 +128,9 @@ const Nav = ({ data }) => {
                                 key={`sub-${index}-${num}`}
                                 className="submenu-item"
                               >
-                                <a href={item.link}>
-                                  <a onClick={() => subMenuItemClick()}>
-                                    
-                                    {item.name}
-                                    <ArrowTail width={24} height={24} />
-                                  </a>
+                                <a onClick={() => subMenuItemClick()}>                   
+                                  {item.name}
+                                  <ArrowTail width={24} height={24} />
                                 </a>
                               </li>
                             ))}
@@ -141,7 +138,10 @@ const Nav = ({ data }) => {
                         )}
                       </>
                     ) : (
-                      <a href={navItem.link}>
+                      <a 
+                        key={`navItemDesktop-${index}`} 
+                        href={navItem.link}
+                      >
                         <Navitem
                           className={
                             router.pathname.includes(navItem.link) && 'active'
