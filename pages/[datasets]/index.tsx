@@ -44,7 +44,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
       ? datasets.toString().toLowerCase()
       : pageTitle[0];
 
-    router.push({
+    router.replace({
       pathname: '/[datasets]',
       query: {
         fq: datsetsFilters,
@@ -59,8 +59,7 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
 
 
   function handleDatasetsChange(val: any) {
-    
-    
+  
     switch (val.query) {
       case 'q':
         setSearch(val.value);
