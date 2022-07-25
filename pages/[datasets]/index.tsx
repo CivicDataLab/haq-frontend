@@ -59,7 +59,6 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
 
 
   function handleDatasetsChange(val: any) {
-  
     switch (val.query) {
       case 'q':
         setSearch(val.value);
