@@ -109,7 +109,7 @@ const MobNav = ({ data }) => {
                                 key={`sub-${index}-${num}`}
                                 className="submenu-item"
                               >
-                                <a>
+                                <a href={item.link}>
                                   {item.name}
                                   <ArrowTail width={24} height={24} />
                                 </a>
