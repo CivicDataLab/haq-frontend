@@ -27,8 +27,8 @@ export function explorerPopulation(obj) {
   let newObj = {};
   const resources = {};
   const resUrls = [];
-  obj.resources &&
-    obj.resources.forEach((res) => {
+  obj?.resources &&
+    obj?.resources.forEach((res) => {
       resUrls.push(res.url);
       if (res.name == 'Datasheet') resources.dataUrl = res.url;
       if (res.name == 'Metadata') resources.metaUrl = res.url;
