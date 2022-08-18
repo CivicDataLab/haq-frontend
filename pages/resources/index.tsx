@@ -125,7 +125,7 @@ const Wrapper = styled.div`
 const Header = styled.div`
   font-weight: var(--font-weight-medium);
   font-size: 40px;
-  color: var(text_light_high);
+  color: var(--text-light-high);
   line-height: 52px;
   margin-top:50px;
   margin-bottom:32px;
