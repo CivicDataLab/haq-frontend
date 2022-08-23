@@ -149,7 +149,6 @@ const Wrapper = styled.div`
       filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
     }
   }
- }
 `;
 
 const CarouselHeading = styled.div`

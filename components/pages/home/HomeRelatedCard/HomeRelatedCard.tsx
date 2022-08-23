@@ -121,4 +121,5 @@ const RelatedCardContainer = styled.div`
     margin-top: 0.2rem;
     font-style:16px;
   }
+}
 `;
