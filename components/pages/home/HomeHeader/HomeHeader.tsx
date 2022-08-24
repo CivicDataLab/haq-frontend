@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const HomeHeader = () => {
+const HomeHeader = ({heading,links}) => {
   const router = useRouter();
 
   function searchChange(val: any) {
@@ -18,42 +18,30 @@ const HomeHeader = () => {
     });
   }
 
-  const links = [
-    'maharashtra',
-    'police',
-    'union-budget',
-    'maharashtra',
-    'annual finance statement',
-    'police',
-  ];
 
   return (
     <Wrapper>
       <div className="container">
         <HeaderContent>
           <HeaderText>
-            <h4> Hero Section Heading </h4>
-            <h5>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry standard dummy text
-              ever since the 1500s.
-            </h5>
+            <h4>Track School Education Spending in UP</h4>
+            <h5>{heading}</h5>
             <SearchFilter>
               <Search newSearch={searchChange} />
               <SearchLinks>
                 Quick Links:
-                {links.map((item, index) => {
+                {links.map((item) => {
                   return (
-                    <li key={`links-${index}`}>
+                    <li key={`links-${item.id}`}>
                       <Link
                         href={{
                           pathname: '/datasets',
                           query: { 
-                            q: item, 
+                            q: item.link, 
                           },
                         }}
                         passHref>
-                        <QuickLinks>{item}</QuickLinks>
+                        <QuickLinks>{item.link}</QuickLinks>
                       </Link>
                     </li>
                   );
@@ -101,7 +89,7 @@ const HeaderText = styled.div`
   h4 {
     font-weight: 500;
     font-size: 2.5rem;
-    line-height: 1;
+    line-height: 1.15;
   }
 
   h5 {

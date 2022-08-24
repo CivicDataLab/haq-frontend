@@ -4,9 +4,9 @@ import { Carousel } from 'components/layouts';
 import Image from 'next/image';
 import { Button } from 'components/actions';
 import { CarouselWrapper } from 'components/layouts/Carousel/Carousel';
-import { registerPostUpdate } from 'echarts';
+import { getStrapiMedia } from 'lib/media';
 
-const HomeCarousel = () => {
+const HomeCarousel = ({carousel}) => {
   const svgIcon =
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -30,22 +30,6 @@ const HomeCarousel = () => {
 
     </svg>
 
-  const data = [
-    {
-      text: 'Beti Bachao Beti Padhao',
-      content:
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
-      link: 'k',
-      image: '/assets/images/placeholder.jpg',
-    },
-    {
-      text: 'Beti Bachao ',
-      content:
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
-      link: 'k',
-      image: '/assets/images/placeholder.jpg',
-    },
-  ];
   return (
     <Wrapper>
       <div className="container">
@@ -61,15 +45,15 @@ const HomeCarousel = () => {
           nextBtn={svgIcon}
           prevBtn={svgIcon}
         >
-          {data.map((item, index) => (
+          {carousel.map((item, index) => (
             <div key={`carousel-${index}`}>
               <div className="carousel__content" >
-                <h2>{item.text}</h2>
+                <h2>{item.title}</h2>
                 <p>{item.content}</p>
                 <Button kind="secondary" size="sm"> Explore More </Button>
               </div>
               <div className="image">
-                <Image alt="" className="placeholder" src={item.image} height={350} width={540} />
+                <Image alt="" className="placeholder" src={getStrapiMedia(item.src.url)} height={350} width={540} />
               </div>
             </div>
           ))}

@@ -12,12 +12,12 @@ const RelatedCard: React.FC<{ data: any; index: number }> = ({
           <header>
             <h3>{data.title}</h3>
             <ul>
-              {data.tags.slice(0, 3).map((tag, list) => (
-                <li key={`relevantTags-${index}-${list}`}>{tag}</li>
+              {data.taglist.slice(0, 3).map((item, list) => (
+                <li key={`relevantTags-${index}-${list}`}>{item.tag}</li>
               ))}
             </ul>
           </header>
-          <p>{data.notes}</p>
+          <p>{data.content}</p>
           {data.author ? (
             <div>
               <hr className="hr" />
