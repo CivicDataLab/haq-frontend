@@ -20,7 +20,10 @@ const AboutPage = styled.main`
 
     li {
       flex-basis: 48%;
-      flex-grow:1;
+      
+      @media(max-width:800px) {
+        flex-grow:1;
+      }
 
       > div {
         display: grid;

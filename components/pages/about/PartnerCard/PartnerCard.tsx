@@ -1,3 +1,4 @@
+import { getStrapiMedia } from 'lib/media';
 import Image from 'next/image';
 import React from 'react';
 import PartnersCard from './PartnerComp';
@@ -7,17 +8,17 @@ const PartnerCard = ({ card }) => {
     <PartnersCard>
       <div className="partners__header">
         <Image
-          src={card.img}
+          src={getStrapiMedia(card.img.url)}
           alt=""
           width={108}
           height={108}
-          className={`partners__image ${card.class && card.class}`}
+          className={`partners__image partners--dark-img`}
         />
         <section>
           <h4>{card.name}</h4>
           <small>{card.title}</small>
           <div className="partners__social">
-            <a href={card.twitter}>
+            <a href={card.link.twitter}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -43,7 +44,7 @@ const PartnerCard = ({ card }) => {
                 </defs>
               </svg>
             </a>
-            <a href={card.linkedin}>
+            <a href={card.link.linkedin}>
               <svg
                 width="30"
                 height="30"
@@ -70,7 +71,7 @@ const PartnerCard = ({ card }) => {
                 </defs>
               </svg>
             </a>
-            <a href={card.github}>
+            <a href={card.link.github}>
               <svg
                 width="30"
                 height="30"
@@ -89,9 +90,9 @@ const PartnerCard = ({ card }) => {
         </section>
       </div>
       <div className="partners__body">
-        {card.desc.map((item, index) => (
-          <p key={`partner-content-${index}`}>{item}</p>
-        ))}
+       <p>
+         {card.desc}
+       </p>
       </div>
       <a className="partners__footer" href={`mailto:${card.email}`}>
         {card.email}
