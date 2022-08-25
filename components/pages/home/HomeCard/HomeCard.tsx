@@ -2,43 +2,46 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cards } from 'data/cardsdata/cardlist';
+import { getStrapiMedia } from 'lib/media';
 
-const HomeCard = () => {
+const HomeCard = ({dataset}) => {
+
+  function truncateString(str, length) {
+    if (str.length <= length) return str;
+    return `${str.substring(0, length)} ...`;
+  }
+
   return (
     <Wrapper>
       <div className="container">
         <CardWrapper>
-          <Link href="/dataset" passHref>
+          <Link href={`/${dataset[0].link}`} passHref>
             <Card>
               <div>
                 <CardImage>
                   <Image
-                    src="/assets/DataCatalogue.svg"
+                    src={getStrapiMedia(dataset[0].src.url)}
                     alt=""
                     width={580}
                     height={280}
                   />
                 </CardImage>
                 <CardContent primary={true}>
-                  <h4>All Datasets</h4>
-                  <small>It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                    it has a more-or-less normal distribution of letters.
-                  </small>
+                  <h4>{dataset[0].title}</h4>
+                  <small>{truncateString(dataset[0].content,100)}</small>
                 </CardContent>
               </div>
             </Card>
           </Link>
           <CardContainer>
-            {cards.map((item, index) => {
+            {dataset.slice(1).map((item, index) => {
               return (
                 <li key={`dataCard-${index}`}>
                   <Link href={`/${item.link}`} passHref >
                     <DataCard>
                       <CardImage primary={true}>
                         <Image
-                          src={item.src}
+                          src={getStrapiMedia(item.src.url)}
                           alt=""
                           width={79.64}
                           height={79.64}
@@ -46,7 +49,7 @@ const HomeCard = () => {
                       </CardImage>
                       <CardContent>
                         <h4>{item.title}</h4>
-                        <small>{item.content.substring(0,80)}</small>
+                        <small>{truncateString(item.content,100)}</small>
                       </CardContent>
                     </DataCard>
                   </Link>

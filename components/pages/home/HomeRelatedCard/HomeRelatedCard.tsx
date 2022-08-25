@@ -3,29 +3,7 @@ import styled from 'styled-components';
 import { RelatedCard } from 'components/data';
 import { RelatedCardComp } from 'components/data/Cards/RelatedCard/CardComp';
 
-const HomeRelatedCard = () => {
-
-  const data = [
-    {
-      id: 'k',
-      title: 'Name of the featured data story will come here',
-      tags: ['one', 'two', 'three'],
-      notes: 'Lorem Ipsum is simply dummy text of the printing and the type setting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-      url: '/assets/image.png',
-      author: 'ARPIT ARORA',
-      date: '02 JUN 2021'
-    },
-    {
-      id: 'k',
-      title: 'Name of the featured data story will come here',
-      tags: ['one', 'two', 'three'],
-      notes: 'Lorem Ipsum is simply dummy text of the printing and the type setting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-      url: '/assets/image2.png',
-      author: 'ARPIT ARORA',
-      date: '02 JUN 2021'
-    },
-  ]
-
+const HomeRelatedCard = ({datastory}) => {
   return (
     <div>
       <div className="container">
@@ -39,7 +17,7 @@ const HomeRelatedCard = () => {
           </div>
         </RelatedCardHeading>
         <RelatedCardContainer>
-          {data.map((item, index) => {
+          {datastory.map((item, index) => {
             return (
              <li key={`dataCard-${index}`}>
               <RelatedCard data={item} index={index} />
