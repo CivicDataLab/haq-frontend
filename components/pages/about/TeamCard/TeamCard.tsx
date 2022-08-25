@@ -2,12 +2,13 @@ import Image from 'next/image';
 import React from 'react';
 import TeamComp from './TeamComp';
 import placeholder from 'public/assets/images/placeholder.jpg';
+import { getStrapiMedia } from 'lib/media';
 
 const TeamCard = ({ card }) => {
   return (
     <TeamComp>
       {card.image ? (
-        <Image src={card.image} alt="" width="208" height="208" />
+        <Image src={getStrapiMedia(card.image.url)} alt="" width="208" height="208" />
       ) : (
         <Image
           src={placeholder}
@@ -19,8 +20,8 @@ const TeamCard = ({ card }) => {
       <h4>{card.name}</h4>
       <small>{card.title}</small>
       <div className="team__social">
-        {card.twitter && (
-          <a href={card.twitter}>
+        {card.link.twitter && (
+          <a href={card.link.twitter}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -48,8 +49,8 @@ const TeamCard = ({ card }) => {
           </a>
         )}
 
-        {card.linkedin && (
-          <a href={card.linkedin}>
+        {card.link.linkedin && (
+          <a href={card.link.linkedin}>
             <svg
               width="30"
               height="30"
@@ -78,8 +79,8 @@ const TeamCard = ({ card }) => {
           </a>
         )}
 
-        {card.github && (
-          <a href={card.github}>
+        {card.link.github && (
+          <a href={card.link.github}>
             <svg
               width="30"
               height="30"
