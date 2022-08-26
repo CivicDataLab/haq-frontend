@@ -10,19 +10,5 @@ export const navList = {
       link: '/about',
       name: 'About Us',
     },
-    {
-      link: '#resources',
-      name: 'Resources',
-      submenu: [
-        {
-          link: '/resources',
-          name: 'Resources',
-        },
-        {
-          link: '/catalog',
-          name: 'Catalog',
-        },
-      ],
-    },
   ],
 };
