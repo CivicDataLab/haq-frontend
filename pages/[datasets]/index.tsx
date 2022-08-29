@@ -14,18 +14,19 @@ import { Header } from 'components/layouts';
 import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
 import MobileAlter from 'components/data/MobileAlter/MobileAlter';
-import { dataList } from 'data/datasetdata/datasetlist';
 import useEffectOnChange from 'utils/hooks';
+import { fetchAPI } from 'lib/api';
 
 type Props = {
   data: any;
   facets: any;
   variables: any;
+  dataset: Array<{id: number, title: string, content:string, logo:any}>;
 };
 
 const list = '"tags", "groups"';
 
-const Datasets: React.FC<Props> = ({ data, facets }) => {
+const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
   const router = useRouter();
   const { q, sort, size, fq, from, datasets } = router.query;
   const [search, setSearch] = useState(q);
@@ -79,22 +80,20 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   }
 
   useEffect(() => {
-   
-    
-    switch (datasets) {
-      case 'datasets':
-        setHeaderData(dataList.dataset);
-        break;
-      case 'scheme':
-        setHeaderData(dataList.scheme);
-        break;
-      case 'budget':
-        setHeaderData(dataList.budget);
-        break;
-      case 'story':
-        setHeaderData(dataList.story);
-        break;
-    }
+      switch (datasets) {
+        case 'datasets':
+          setHeaderData(dataset[0]);
+          break;
+        case 'scheme':
+          setHeaderData(dataset[1]);
+          break;
+        case 'budget':
+          setHeaderData(dataset[2]);
+          break;
+        case 'story':
+          setHeaderData(dataset[3]);
+          break;
+      }
   }, [datasets]);
 
   return (
@@ -145,10 +144,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const facets = await fetchFilters(list, variables, 'tender_dataset');
 
   const data = await fetchDatasets(variables);
+  const dataset = await fetchAPI('/dataset');
   return {
     props: {
       data,
       facets,
+      dataset:dataset.data.dataset,
     },
   };
 };
