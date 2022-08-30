@@ -10,5 +10,9 @@ export const navList = {
       link: '/about',
       name: 'About Us',
     },
+    {
+      link: '/story',
+      name: 'Data Stories',
+    },
   ],
 };
