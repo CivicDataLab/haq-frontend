@@ -38,12 +38,8 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
 
   const { results, count } = data.result;
 
-  const pageTitle = ['datasets', 'scheme', 'budget', 'story'];
-
   useEffectOnChange(() => {
-    let result = pageTitle.includes(datasets.toString().toLowerCase())
-      ? datasets.toString().toLowerCase()
-      : pageTitle[0];
+    let result =  datasets.toString().toLowerCase()
 
     router.replace({
       pathname: '/[datasets]',
@@ -140,6 +136,14 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query || {};
+
+  const pageUrl: Array<string> = ['datasets', 'scheme', 'budget', 'story'];
+
+  if (!pageUrl.includes(query.datasets.toString().toLowerCase() as string)) {
+    return {
+      notFound: true,
+    }
+  }
   const variables = convertToCkanSearchQuery(query);
   const facets = await fetchFilters(list, variables, 'tender_dataset');
 
