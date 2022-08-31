@@ -11,7 +11,7 @@ const nextConfig = {
   images: {
     domains: [
       'justicehub.in',
-      '65.0.11.237',
+      '15.207.175.86',
       'localhost',
       'strapi.ndp.civicdatalab.in',
       'ndp.ckan.civicdatalab.in',
