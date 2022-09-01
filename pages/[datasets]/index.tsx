@@ -80,10 +80,10 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
         case 'datasets':
           setHeaderData(dataset[0]);
           break;
-        case 'scheme':
+        case 'budget':
           setHeaderData(dataset[1]);
           break;
-        case 'budget':
+        case 'scheme':
           setHeaderData(dataset[2]);
           break;
         case 'story':
