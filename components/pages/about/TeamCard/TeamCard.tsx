@@ -18,7 +18,7 @@ const TeamCard = ({ card }) => {
         />
       )}
       <h4>{card.name}</h4>
-      <small>{card.title}</small>
+      <small>{card.organisation} | {card.title}</small>
       <div className="team__social">
         {card.link.twitter && (
           <a href={card.link.twitter}>
