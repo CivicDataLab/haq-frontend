@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from 'components/actions';
 import { CarouselWrapper } from 'components/layouts/Carousel/Carousel';
 import { getStrapiMedia } from 'lib/media';
+import ButtonComp from 'components/actions/Button/ButtonComp';
 
 const HomeCarousel = ({carousel}) => {
   const svgIcon =
@@ -50,7 +51,7 @@ const HomeCarousel = ({carousel}) => {
               <div className="carousel__content" >
                 <h2>{item.title}</h2>
                 <p>{item.content}</p>
-                <Button kind="secondary" size="sm"> Explore More </Button>
+                <Button href={item.link} kind="secondary" size="sm"> Explore More </Button>
               </div>
               <div className="image">
                 <Image alt="" className="placeholder" src={getStrapiMedia(item.src.url)} height={350} width={540} />
@@ -90,7 +91,9 @@ const Wrapper = styled.div`
     margin-top:16px;
     margin-bottom:24px;
   }
-
+  ${ButtonComp} {
+     display:inline-block;
+  }
   @media (max-width: 980px) {
     width: 90%;
   }
