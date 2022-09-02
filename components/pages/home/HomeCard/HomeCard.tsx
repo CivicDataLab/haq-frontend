@@ -5,12 +5,6 @@ import Link from 'next/link';
 import { getStrapiMedia } from 'lib/media';
 
 const HomeCard = ({dataset}) => {
-
-  function truncateString(str, length) {
-    if (str.length <= length) return str;
-    return `${str.substring(0, length)} ...`;
-  }
-
   return (
     <Wrapper>
       <div className="container">
@@ -28,7 +22,7 @@ const HomeCard = ({dataset}) => {
                 </CardImage>
                 <CardContent primary={true}>
                   <h4>{dataset[0].title}</h4>
-                  <small>{truncateString(dataset[0].content,100)}</small>
+                  <small>{dataset[0].content}</small>
                 </CardContent>
               </div>
             </Card>
@@ -49,7 +43,7 @@ const HomeCard = ({dataset}) => {
                       </CardImage>
                       <CardContent>
                         <h4>{item.title}</h4>
-                        <small>{truncateString(item.content,100)}</small>
+                        <small>{item.content}</small>
                       </CardContent>
                     </DataCard>
                   </Link>
@@ -123,7 +117,7 @@ const CardWrapper = styled.div`
 `;
 
 const CardContent = styled.div<Props>`
- padding:${props => props.primary ? '16px 0 0 0' : '0 0 0 10px'};
+ padding: ${props => props.primary ? '16px 0 0 0' : '0 0 0 10px'};
  h4 {
     font-style: normal;
     font-weight: 500;
@@ -133,5 +127,9 @@ const CardContent = styled.div<Props>`
  small {
   font-weight: 300;
   font-size: 16px;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: ${props => props.primary ? 5 : 3} ;
  }
 `;
