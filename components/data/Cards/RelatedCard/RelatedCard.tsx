@@ -6,7 +6,7 @@ const RelatedCard: React.FC<{ data: any; index: number }> = ({
   index,
 }) => {
   return (
-    <Link href={`/datasets/${data.id}`} passHref>
+    <Link href={`${data.link}`} passHref>
       <RelatedCardComp>
         <article>
           <header>

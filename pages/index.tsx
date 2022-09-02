@@ -8,13 +8,13 @@ import {
 import { fetchAPI } from 'lib/api';
 
 export default function Home({homepage}) {
-  const {heading,searchlink,dataset,carousel,datastory} = homepage
+  const {hero_section_heading,hero_section_subheading,searchlink,dataset,carousel,datastory} = homepage
   return (
     <>
       <Head>
         <title>HAQ</title>
       </Head>
-      <HomeHeader heading={heading} links={searchlink} />
+      <HomeHeader heading={hero_section_heading} subheading={hero_section_subheading} links={searchlink} />
       <HomeCard dataset={dataset} />
       <HomeCarousel carousel={carousel}/>
       <HomeRelatedCard datastory={datastory}/>

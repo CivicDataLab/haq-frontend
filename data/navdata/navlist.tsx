@@ -4,15 +4,30 @@ export const navList = {
   links: [
     {
       link: '/datasets',
-      name: 'Contracts Data',
-    },
-    {
-      link: '/about',
-      name: 'About Us',
+      name: 'Datasets',
+      submenu: [
+        {
+          link: '/budget',
+          name: 'Summary',
+        },
+        {
+          link: '/scheme',
+          name: 'Schemes',
+        },
+        {
+          link: '/datasets',
+          name: 'All Datasets',
+        },
+      ],
     },
     {
       link: '/stories',
       name: 'Data Stories',
     },
+    {
+      link: '/about',
+      name: 'About Us',
+    },
+    
   ],
 };
