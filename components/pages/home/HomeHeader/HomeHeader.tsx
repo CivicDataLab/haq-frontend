@@ -1,12 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Search } from 'components/data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const HomeHeader = ({heading,links}) => {
+const HomeHeader = ({heading, subheading, links}) => {
   const router = useRouter();
 
   function searchChange(val: any) {
@@ -24,8 +23,8 @@ const HomeHeader = ({heading,links}) => {
       <div className="container">
         <HeaderContent>
           <HeaderText>
-            <h4>Track School Education Spending in UP</h4>
-            <h5>{heading}</h5>
+            <h4>{heading}</h4>
+            <h5>{subheading}</h5>
             <SearchFilter>
               <Search newSearch={searchChange} />
               <SearchLinks>
@@ -88,7 +87,7 @@ const HeaderText = styled.div`
 
   h4 {
     font-weight: 500;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     line-height: 1.15;
   }
 
@@ -96,6 +95,7 @@ const HeaderText = styled.div`
     font-weight: normal;
     color: var(--text-light-medium);
     margin-top: 8px;
+    font-size:18px;
   }
 `;
 
