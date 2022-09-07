@@ -24,8 +24,8 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
         <title>{data.title || Explorer} | HAQ</title>
       </Head>
       <Wrapper>
-        <ExplorerHeader data={data} meta={meta} />
-        <ExplorerViz data={data} meta={meta} fileData={fileData} />
+        <ExplorerHeader data={data} />
+        {/* <ExplorerViz data={data} meta={meta} fileData={fileData} /> */}
         <ExplorerRelated data={data} />
       </Wrapper>
     </>
@@ -34,39 +34,36 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // fetch dataset
-  const data = await fetchAPI(context.query.explorer).then((res) =>
-    explorerPopulation(res.result)
-  );
-
+  const data = await fetchAPI(context.query.explorer).then((res) => explorerPopulation(res.result));
   // fetch and parse metadata csv
-  const metaRes = await resourceGetter(data.metaUrl);
-  const meta = {};
-  metaRes.forEach((elm) => {
-    meta[elm[0]] = elm[1] || '';
-  });
+  // const metaRes = await resourceGetter(data.metaUrl);
+  // const meta = {};
+  // metaRes.forEach((elm) => {
+  //   meta[elm[0]] = elm[1] || '';
+  // });
 
-  // fetch and parse data csv
-  const fileData = await resourceGetter(data.dataUrl, true);
+  // // fetch and parse data csv
+  // const fileData = await resourceGetter(data.dataUrl, true);
 
-  // fetch related schemes
-  const relatedSchemes = await fetchFromTags(data.tags, data.id);
+  // // fetch related schemes
+  // const relatedSchemes = await fetchFromTags(data.tags, data.id);
 
-  // generate indicators
-  const indicators = [
-    ...Array.from(
-      new Set(
-        fileData.map((item: { indicators: any }) => item.indicators || null)
-      )
-    ),
-  ];
+  // // generate indicators
+  // const indicators = [
+  //   ...Array.from(
+  //     new Set(
+  //       fileData.map((item: { indicators: any }) => item.indicators || null)
+  //     )
+  //   ),
+  // ];
 
-  data.indicators = indicators;
-  data.relatedSchemes = relatedSchemes;
+  // data.indicators = indicators;
+  // data.relatedSchemes = relatedSchemes;
   return {
     props: {
       data,
-      meta,
-      fileData,
+      // meta,
+      // fileData,
     },
   };
 };

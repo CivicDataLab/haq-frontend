@@ -5,11 +5,12 @@ export const fetchDatasets = async (variables) => {
     else return key;
   }
 
+  const fq = variables.fq ? variables.fq.replace(/&/g,"%26") : null;
   variables.fq
-    ? (variables.fq = variables.fq.concat(
-        ` AND (tags:scheme-category AND groups:budgets-for-justice)`
-      ))
-    : (variables.fq = `(tags:scheme-category AND groups:budgets-for-justice)`);
+  ? (variables.fq = fq.concat(
+      ` AND private:false`
+    ))
+  : (variables.fq = `private:false`);
 
   // creating a string of parameter from object of variables for CKAN API use
   const varArray = Object.keys(variables).map((key) => {
@@ -19,24 +20,25 @@ export const fetchDatasets = async (variables) => {
   const varString =
     varArray.length > 0
       ? varArray.join('&')
-      : `fq=(tags:scheme-category AND groups:budgets-for-justice)`;
+      : `fq=organization:haq-up AND private:false&rows=1000`;
 
   const response = await fetch(
-    `https://justicehub.in/api/3/action/package_search?${varString}`
+    `http://13.232.98.238/api/3/action/package_search?${varString}`
   );
   const data = await response.json();
   return data;
 };
 
-export async function fetchFilters(list, variable, page) {
+export async function fetchFilters(list, variable) {
   try {
     // if filters and searc found in url, also use those
-    // const queryVars = `fq=${variable.fq ? `type:${page}` : `type:${page}`}&q=${
-    //   variable.q ? variable.q : ''
-    // }`;
-
+    const fq = variable.fq ? variable.fq.replace(/&/g,"%26") : variable.fq;
+    const queryVars = `fq=${fq}&q=${
+      variable.q ? variable.q : ''
+    }`;
+  
     const fetchData = await fetch(
-      `http://justicehub.in/api/3/action/package_search?facet.field=[${list}]&fq=(tags:scheme-category AND groups:budgets-for-justice)`
+      `http://13.232.98.238/api/3/action/package_search?facet.field=[${list}]&${queryVars}`
     ).then((res) => res.json());
     return fetchData.result.search_facets;
   } catch (error) {

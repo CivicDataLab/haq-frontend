@@ -11,14 +11,8 @@ const DatasetCard: React.FC<{ datapackage: any; index: string; }> = ({ datapacka
     <Link href={`${router.pathname}/${datapackage.id}`} passHref>
       <DatasetCardComp index={index}>
         <section>
-          <span className="card__group">
-            {datapackage.groups[0]}
-          </span>
           <h3 className="card__heading">{datapackage.title}</h3>
           <Tags data={datapackage.tags} />
-          <div className="card__content">
-            <p>{truncate(datapackage.notes, { length: 300 })}</p>
-          </div>
         </section>
       </DatasetCardComp>
     </Link>
