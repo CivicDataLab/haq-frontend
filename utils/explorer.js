@@ -35,11 +35,9 @@ export function explorerPopulation(obj) {
     });
 
   newObj = {
-    groups: obj.groups.map((group) => group.display_name),
-    id: obj.name,
-    title: obj.title,
-    notes: obj.notes || '',
-    tags: obj.tags.map((item) => item.display_name),
+    id: obj.id,
+    title: `${obj.title} | ${obj.extras[1].value}` ,
+    tags: [obj.extras[3].value,obj.extras[2].value],
     dataUrl: resources.dataUrl || '',
     metaUrl: resources.metaUrl || '',
     resUrls,
@@ -204,7 +202,7 @@ export async function fetchDatasets() {
 // fetch particular dataset
 export async function fetchAPI(path) {
   const response = await fetch(
-    `https://justicehub.in/api/3/action/package_show?id=${path}`
+    `http://13.232.98.238/api/3/action/package_show?id=${path}`
   );
   const data = await response.json();
   return data;

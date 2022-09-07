@@ -24,7 +24,7 @@ type Props = {
   dataset: Array<{id: number, title: string, content:string, logo:any}>;
 };
 
-const list = '"tags", "groups"';
+const list = '"scheme_mode", "scheme_type"';
 
 const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
   const router = useRouter();
@@ -145,8 +145,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
   const variables = convertToCkanSearchQuery(query);
-  const facets = await fetchFilters(list, variables, 'tender_dataset');
-
+  const facets = await fetchFilters(list, variables);
+  
   const data = await fetchDatasets(variables);
   const dataset = await fetchAPI('/dataset');
   return {

@@ -4,25 +4,25 @@ import { Share } from 'components/actions';
 import { Tags } from 'components/data';
 import { categoryIcon, categoryTag } from 'utils/explorer';
 
-const ExplorerHeader = ({ data, meta }) => {
-  const item = [
-    {
-      text: 'Total Receipts',
-      value: '₹ 4,20,672 Cr.',
-    },
-    {
-      text: 'Total Expenditure',
-      value: '₹ 5,50,271 Cr.',
-    },
-    {
-      text: 'Fiscal Deficit',
-      value: '₹ 21,73,990 Cr.',
-    },
-    {
-      text: 'GSDP',
-      value: '₹ 21,73,990 Cr.',
-    },
-  ]
+const ExplorerHeader = ({ data }) => {
+  // const item = [
+  //   {
+  //     text: 'Total Receipts',
+  //     value: '₹ 4,20,672 Cr.',
+  //   },
+  //   {
+  //     text: 'Total Expenditure',
+  //     value: '₹ 5,50,271 Cr.',
+  //   },
+  //   {
+  //     text: 'Fiscal Deficit',
+  //     value: '₹ 21,73,990 Cr.',
+  //   },
+  //   {
+  //     text: 'GSDP',
+  //     value: '₹ 21,73,990 Cr.',
+  //   },
+  // ]
 
   return (
     <Wrapper>
@@ -39,18 +39,18 @@ const ExplorerHeader = ({ data, meta }) => {
           </div>
         </HeaderContent>
         <HeaderText>{data.notes}</HeaderText>
-        <HeaderMeta>
+        {/* <HeaderMeta>
           {meta['Type of Scheme'] && <span>{meta['Type of Scheme']}</span>}
           {<span>{categoryTag(data.tags)}</span>}
-        </HeaderMeta>
-        <SummaryCard>
+        </HeaderMeta> */}
+        {/* <SummaryCard>
           {item.map((itemCard, index) => (
             <li key={`summary-${index}`}>
               <strong>{itemCard.value}</strong>
               <span>{itemCard.text}</span>
             </li>
           ))}
-        </SummaryCard>
+        </SummaryCard> */}
       </section>
     </Wrapper>
   );

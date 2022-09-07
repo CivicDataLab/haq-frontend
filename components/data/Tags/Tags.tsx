@@ -1,10 +1,12 @@
-import TagsComp from './TagsComp';
+import { TagsComp, Tag } from './TagsComp';
 
 const Tags = ({ data }) => {
   return (
     <TagsComp>
       {data.map((item, index) => (
-        <li key={`explorer-${index}`}>{item}</li>
+        <Tag index={index}>
+          {item}
+        </Tag>
       ))}
     </TagsComp>
   );
