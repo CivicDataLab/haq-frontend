@@ -59,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
+  
   return {
     props: {
       data,

@@ -38,7 +38,7 @@ const ExplorerHeader = ({ data }) => {
             <Tags data={data.tags} />
           </div>
         </HeaderContent>
-        <HeaderText>{data.notes}</HeaderText>
+        {/* <HeaderText>{data.notes}</HeaderText> */}
         {/* <HeaderMeta>
           {meta['Type of Scheme'] && <span>{meta['Type of Scheme']}</span>}
           {<span>{categoryTag(data.tags)}</span>}
@@ -89,8 +89,8 @@ const HeaderContent = styled.div`
 
   h2 {
     font-size: 1.75rem;
-    font-weight: 800;
-    line-height: 130%;
+    font-weight: 550;
+    line-height: 155%;
   }
 `;
 
