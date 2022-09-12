@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Download } from 'components/icons';
 import ButtonComp from 'components/actions/Button/ButtonComp';
 
-const DownloadCard = () => {
+const DownloadCard = ({data}) => {
     return (
         <Wrapper>
             <Image
@@ -23,7 +23,7 @@ const DownloadCard = () => {
                 </small>
             </Content>
             <ButtonContainer>
-                <Button icon={<Download />} size="sm" kind="secondary">
+                <Button href={data} icon={<Download />} size="sm" kind="secondary">
                     <small>Download &nbsp; |</small>
                 </Button>
             </ButtonContainer>
@@ -39,8 +39,6 @@ const Wrapper = styled.div`
    border: 1px solid #D1CDD1;
    border-radius: 4px;
    display: flex;
-   flex-basis:484px;
-   flex-grow:1;
 `;
 
 const ButtonContainer = styled.div`
@@ -52,7 +50,7 @@ const ButtonContainer = styled.div`
      small {
        font-size:12px;
      }
-     @media(max-width:600px){
+     @media(max-width:1110px){
        padding:8px;
        small{
          display:none;
