@@ -89,8 +89,8 @@ const HeaderContent = styled.div`
 
   h2 {
     font-size: 1.75rem;
-    font-weight: 550;
-    line-height: 155%;
+    font-weight: 600;
+    line-height: 1.55;
   }
 `;
 
