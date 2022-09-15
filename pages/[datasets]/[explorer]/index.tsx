@@ -4,6 +4,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
+import { dataTransform } from 'utils/data'
 
 import {
   ExplorerHeader,
@@ -15,9 +16,11 @@ type Props = {
   data: any;
   meta: any;
   fileData: any;
+  scheme: any;
 };
 
-const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
+const Explorer: React.FC<Props> = ({ data, scheme, meta, fileData }) => {
+  console.log(scheme)
   return (
     <>
       <Head>
@@ -59,10 +62,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
+  const scheme = await dataTransform(context.query.explorer)
   
   return {
     props: {
       data,
+      scheme
       // meta,
       // fileData,
     },
