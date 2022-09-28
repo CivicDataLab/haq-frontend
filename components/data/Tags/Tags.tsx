@@ -4,7 +4,7 @@ const Tags = ({ data }) => {
   return (
     <TagsComp>
       {data.map((item, index) => (
-        <Tag index={index}>
+        <Tag key ={`tag ${index}`}index={index}>
           {item}
         </Tag>
       ))}

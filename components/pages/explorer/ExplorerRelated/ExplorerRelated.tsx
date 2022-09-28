@@ -7,7 +7,7 @@ import { Tags } from 'components/data';
 import DownloadCard from './DownloadCard';
 
 const ExplorerRelated = ({ data }) => {
-  console.log(data.resUrls);
+  
   // const topic = [
   //   { topic: "Topic1", description: 'Description' },
   //   { topic: "Topic2", description: 'Description' },
@@ -58,8 +58,8 @@ const ExplorerRelated = ({ data }) => {
           <h4> Data and Resources </h4>
 
           <CardWrapper>
-            {data.resUrls.map((item) => {
-              return <DownloadCard data={item} />;
+            {data.resUrls.map((item,index) => {
+              return <DownloadCard key = {`ResourceCard-${index}`} data={item} />;
             })}
           </CardWrapper>
 
