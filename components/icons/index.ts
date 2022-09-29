@@ -18,3 +18,5 @@ export { default as SortIcon } from './SortIcon';
 export { default as FilterIcon } from './FilterIcon';
 export { default as Hamburger } from './Hamburger';
 export { default as DataCatalogue } from './DataCatalogue';
+export { default as Globe } from './Globe';
+export { default as Info } from './Info';
