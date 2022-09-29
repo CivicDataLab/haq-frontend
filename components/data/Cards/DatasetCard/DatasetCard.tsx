@@ -8,7 +8,7 @@ const DatasetCard: React.FC<{ datapackage: any; index: string; }> = ({ datapacka
   const router = useRouter();
 
   return (
-    <Link href={`${router.pathname}/${datapackage.id}`} passHref>
+    <Link href={`${router.asPath}/${datapackage.id}`} passHref>
       <DatasetCardComp index={index}>
         <section>
           <h3 className="card__heading">{datapackage.title}</h3>
