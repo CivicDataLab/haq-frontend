@@ -5,7 +5,7 @@ import { IndicatorMobileComp } from './IndicatorComp';
 
 Modal.setAppElement('#__next');
 
-const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
+const IndicatorMobile = ({ indicators, newIndicator,selectedIndicator  }) => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
   const [currentSort, setCurrentSort] = useState('Budget Estimates mobile');
   const [selectedSort, setSelectedSort] = useState('Budget Estimates mobile');
@@ -105,7 +105,7 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
                     name="sort-group"
                     id={`${elm} mobile`}
                   />
-                  {elm} <Toggletip data={meta[index]} />
+                  {/* {elm} <Toggletip data={meta[index]} /> */}
                 </label>
               )
             );

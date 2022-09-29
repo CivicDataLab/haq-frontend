@@ -7,6 +7,7 @@ import { resourceGetter } from 'utils/resourceParser';
 import { dataTransform } from 'utils/data'
 
 import {
+  // ExplorerDetailsViz,
   ExplorerHeader,
   ExplorerRelated,
   ExplorerViz,
@@ -17,9 +18,32 @@ type Props = {
   meta: any;
   fileData: any;
   scheme: any;
+  
+};
+const reducer = (state, action) => {
+  return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ data, scheme, meta, fileData }) => {
+const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme }) => {
+  const grants = Object.keys(
+    Object.values(scheme.data)[0]['grant_name']
+  ).map((item) => ({
+    value: item,
+    title: item,
+  }));
+  const initalState = {
+    scheme: data.notes || '',
+    schemeData: {},
+    indicator: '',
+    year: '',
+    unit: '',
+    consCode: '',
+    vizType: 'map',
+    grantName : grants[0].value,
+  };
+
+  
+  const [state, dispatch] = React.useReducer(reducer, initalState);
   console.log(scheme)
   return (
     <>
@@ -28,7 +52,30 @@ const Explorer: React.FC<Props> = ({ data, scheme, meta, fileData }) => {
       </Head>
       <Wrapper>
         <ExplorerHeader data={data} />
-        {/* <ExplorerViz data={data} meta={meta} fileData={fileData} /> */}
+        {Object.keys(data).length !== 0 ? (
+            <>
+              <div id="explorerVizWrapper">
+                {state.vizType === 'map' && (
+                  <ExplorerViz
+                    schemeRaw={scheme}
+                    meta={state}
+                    dispatch={dispatch}
+                  />
+                )}
+
+                {/* {state.vizType !== 'map' && (
+                  <ExplorerDetailsViz meta={state} dispatch={dispatch} />
+                )} */}
+              </div>
+            </>
+          ) : (
+            <NoContext>
+              {/* <Info id="infoSvg" fill="#317EB9" height="112" width="112" /> */}
+              <div>
+                <p>Select state and scheme to explore</p>
+              </div>
+            </NoContext>
+          )}
         <ExplorerRelated data={data} />
       </Wrapper>
     </>
@@ -63,11 +110,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
   const scheme = await dataTransform(context.query.explorer)
-  
   return {
     props: {
       data,
-      scheme
+      scheme,
+      
       // meta,
       // fileData,
     },
@@ -89,5 +136,24 @@ const Wrapper = styled.main`
     margin-bottom: 0.5rem;
     font-weight: 900;
     font-size: 2.5rem;
+  }
+`;
+
+const NoContext = styled.div`
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+
+  p {
+    font-weight: 700;
+    color: var(--text-light-medium);
+  }
+
+  path {
+    transform: scale(5);
   }
 `;
