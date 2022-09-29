@@ -15,6 +15,13 @@ export function generateSlug(slug) {
   return null;
 }
 
+const isObject = (val) => {
+  if (val === null) {
+      return false;
+  }
+  return typeof val === 'object';
+};
+
 export async function fetchSheets(link) {
   const result = [];
   await fetch(link)
@@ -38,6 +45,7 @@ export async function fetchSheets(link) {
     });
   return result;
 }
+
 
 export async function dataTransform(id) {
   const obj = {};
@@ -82,14 +90,43 @@ export async function dataTransform(id) {
     // Tabular Data
     for (let i = 12; i < dataParse[0].length; i += 1) {
       const fiscal_year = {};
-      const grant_name = {};
+      let grant_name = {};
+      let total = {};
+
+      // for (let j = 1; j < dataParse.length; j += 1) {
+      //   if (dataParse[j][4]) {
+      //     grant_name[dataParse[j][4]] = {
+      //       ...grant_name[dataParse[j][4]],
+
+      //       [dataParse[j][11]]: (fiscal_year[dataParse[j][11].trim()] = {
+      //         ...fiscal_year[dataParse[j][11].trim()],
+
+      //         [dataParse[j][1]]: !(
+      //           grant_name[dataParse[j][4]] &&
+      //           grant_name[dataParse[j][4]][dataParse[j][11].trim()] &&
+      //           dataParse[j][1] in
+      //             grant_name[dataParse[j][4]][dataParse[j][11].trim()]
+      //         )
+      //           ? dataParse[j][i] || 0
+      //           : dataParse[j][i] +
+      //             parseInt(
+      //               grant_name[dataParse[j][4]][dataParse[j][11].trim()][
+      //                 dataParse[j][1]
+      //               ]
+      //             ),
+      //       }),
+      //     };
+      //   }
+      // }
+      
       for (let j = 1; j < dataParse.length; j += 1) {
         if (dataParse[j][4]) {
           grant_name[dataParse[j][4]] = {
             ...grant_name[dataParse[j][4]],
 
-            [dataParse[j][11]]: (fiscal_year[dataParse[j][11].trim()] = {
-              ...fiscal_year[dataParse[j][11].trim()],
+            [dataParse[j][11]]:grant_name[dataParse[j][4]] && dataParse[j][11].trim() in grant_name[dataParse[j][4]] ? {
+              
+              ...grant_name[dataParse[j][4]][dataParse[j][11].trim()],
 
               [dataParse[j][1]]: !(
                 grant_name[dataParse[j][4]] &&
@@ -97,17 +134,43 @@ export async function dataTransform(id) {
                 dataParse[j][1] in
                   grant_name[dataParse[j][4]][dataParse[j][11].trim()]
               )
-                ? dataParse[j][i] || ''
+                ? dataParse[j][i] || 0
                 : dataParse[j][i] +
                   parseInt(
                     grant_name[dataParse[j][4]][dataParse[j][11].trim()][
                       dataParse[j][1]
                     ]
                   ),
-            }),
+            } :  { [dataParse[j][1]]: dataParse[j][i] } ,
           };
         }
       }
+      for (const key in grant_name) {
+        if (isObject(grant_name[key])) {
+            for (const innerKey in grant_name[key]) {
+              if (isObject(grant_name[key][innerKey])) {
+                   for  ( const innerestKey in grant_name[key][innerKey]){
+                      if(total[innerKey] && innerestKey in total[innerKey]){
+                        total[innerKey] = {
+                          ...total[innerKey],
+                          [innerestKey] :  total[innerKey][innerestKey] + parseInt(grant_name[key][innerKey][innerestKey])
+                        }
+                      }else {
+                        total[innerKey] = {
+                          ...total[innerKey],
+                          [innerestKey] :parseInt(grant_name[key][innerKey][innerestKey])
+                        }
+                      }
+                   }
+              }
+            }
+        } 
+    }
+
+    grant_name = {
+      ...grant_name,
+      total
+    }
 
       const indicatorSlug =
         generateSlug(metaObj[`indicator-${i - 11}-name`]) || '';
