@@ -91,7 +91,6 @@ export async function dataTransform(id) {
       }
     });
 
-
     obj.metadata = {
       description: metaObj['scheme-description'] || '',
       name: name || '',
