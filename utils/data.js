@@ -76,6 +76,22 @@ export async function dataTransform(id) {
       }
     });
 
+    const consList = {};
+    dataParse.forEach((item, index) => {
+      if (consList[item[0]]) {
+          return;
+      } else {
+          if (item[0] == 'district_name') return;
+          consList[item[0]] = [
+            {
+              constName: item[0],
+              constCode: item[1],
+            },
+          ];
+      }
+    });
+
+
     obj.metadata = {
       description: metaObj['scheme-description'] || '',
       name: name || '',
@@ -85,6 +101,7 @@ export async function dataTransform(id) {
       note: metaObj['general-note'] || '',
       slug,
       indicators: [],
+      consList: consList || [],
     };
 
     // Tabular Data
@@ -134,14 +151,14 @@ export async function dataTransform(id) {
                 dataParse[j][1] in
                   grant_name[dataParse[j][4]][dataParse[j][11].trim()]
               )
-                ? dataParse[j][i] || 0
-                : dataParse[j][i] +
+                ? isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] || 0
+                : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] +
                   parseInt(
                     grant_name[dataParse[j][4]][dataParse[j][11].trim()][
                       dataParse[j][1]
                     ]
                   ),
-            } :  { [dataParse[j][1]]: dataParse[j][i] } ,
+            } :  { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] } ,
           };
         }
       }
