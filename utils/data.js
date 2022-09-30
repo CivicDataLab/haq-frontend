@@ -77,7 +77,7 @@ export async function dataTransform(id) {
     });
     
     const consList = {};
-    dataParse.map((item, index) => {
+    dataParse.forEach((item, index) => {
       if (consList[item[0]]) {
           return;
       } else {
