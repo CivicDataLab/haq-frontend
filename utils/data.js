@@ -75,7 +75,22 @@ export async function dataTransform(id) {
         };
       }
     });
-
+    
+    const consList = {};
+    dataParse.forEach((item, index) => {
+      if (consList[item[0]]) {
+          return;
+      } else {
+          if (item[0] == 'district_name') return;
+          consList[item[0]] = [
+            {
+              constName: item[0],
+              constCode: item[1],
+            },
+          ];
+      }
+    });
+    
     obj.metadata = {
       description: metaObj['scheme-description'] || '',
       name: name || '',
@@ -85,6 +100,7 @@ export async function dataTransform(id) {
       note: metaObj['general-note'] || '',
       slug,
       indicators: [],
+      consList: consList || [],
     };
 
     // Tabular Data
