@@ -20,3 +20,4 @@ export { default as Hamburger } from './Hamburger';
 export { default as DataCatalogue } from './DataCatalogue';
 export { default as Globe } from './Globe';
 export { default as Info } from './Info';
+export { default as TableIcon } from './TableIcon';

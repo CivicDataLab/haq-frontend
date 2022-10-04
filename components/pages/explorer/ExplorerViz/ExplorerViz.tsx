@@ -15,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, Info } from 'components/icons';
+import { ExternalLink, Globe, Info,TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
 import { MenuButton } from 'components/actions/Menu/MenuComp'
@@ -27,11 +27,15 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   // const [finalFiltered, setFinalFiltered] = useState([]);
   // const [budgetTypes, setBudgetTypes] = useState([]);
   // const [selectedBudgetType, setSelectedBudgetType] = useState('');
+  const [isTable, setIsTable] = useState(false);
+  const [tableData, setTableData] = useState<any>({});
 
   const [financialYears, setFinancialYears] = useState(undefined);
   const [grant, setGrant] = useState(undefined);
 
   const [filtered, setFiltered] = useState([]);
+
+  const [currentViz, setCurrentViz] = useState('#mapView');
 
   // const barRef = useRef(null);
   // const lineRef = useRef(null);
@@ -48,12 +52,24 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //   meta['Indicator 4 - Description'],
   //   meta['Indicator 5 - Description'],
   // ];
-
+ 
+  useEffect(() => {
+    // ceating tabbed interface for viz selector
+    const tablist = document.querySelector('.viz__tabs');
+    const panels = document.querySelectorAll('.viz__graph');
+    tabbedInterface(tablist, panels);
+  }, []);
+  
   const vizToggle = [
     {
       name: 'Map View',
       id: '#mapView',
       icon: <Globe />,
+    },
+    {
+      name: 'Table View',
+      id: '#tableView',
+      icon: <TableIcon />,
     },
   ];
 
@@ -92,6 +108,56 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //   else setIsTable(false);
   // }
 
+
+ // Table View
+ console.log(schemeRaw.metadata.consList)
+  useEffect(() => {
+    
+    if (financialYears) {
+      // setting tabular data
+      const tableHeader = [
+        { Header: 'Constituency', accessor: 'constHeader' },
+      ];
+      if (financialYears) {
+        financialYears.forEach((element) =>
+          tableHeader.push({
+            Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
+            accessor: `${indicator}-${element.title}`,
+          })
+        );
+      }
+
+      const a = Object.keys(schemeRaw.metadata.consList);
+      // console.log(a)
+      const rowData = [];
+      if (filtered[meta.year]) {
+        a.forEach((item, index) => {
+
+          const tempObj = {
+            [tableHeader[0].accessor]:
+              schemeRaw.metadata.consList[a[index]][0]
+                ?.constName,
+          };
+
+          // console.log(tempObj)
+          Object.keys(filtered).map(
+            (item1, index1) =>
+            
+              (tempObj[tableHeader[index1 + 1].accessor] =
+                filtered[item1][schemeRaw.metadata.consList[a[index]][0]
+                ?.constCode])
+          );
+          rowData.push(tempObj);
+        });
+      }
+
+      const tableData = {
+        header: tableHeader,
+        rows: rowData,
+      };
+      setTableData(tableData);
+    }
+  }, [financialYears, meta.year, grantName]);
 
   useEffect(() => {
 
@@ -149,6 +215,12 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     }
     
   }, [grantName]);
+
+  function hideMenu(e) {
+    setCurrentViz(e.target.getAttribute('href'));
+    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
+    else setIsTable(false);
+  }
 
   useEffect(() => {
     handleNewIndicator(indicator || schemeRaw.metadata?.indicators[0]);
@@ -212,6 +284,19 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       ),
       ref: mapRef,
     },
+    {
+      id: 'tableView',
+      graph: tableData.rows ? (
+        <Table
+          header={
+            tableData.header ? tableData.header : ['table not available']
+          }
+          rows={tableData.rows ? tableData.rows : []}
+        />
+      ) : (
+        <></>
+      ),
+    },
   ];
 
   return (
@@ -239,14 +324,14 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
             <VizTabs className="viz__tabs">
               {vizToggle.map((item, index) => (
                 <li key={`toggleItem-${index}`}>
-                  <a>
+                  <a href={item.id} onClick={(e) => hideMenu(e)}>
                     {item.icon}
                     {item.name}
                   </a>
                 </li>
               ))}
             </VizTabs>
-            {financialYears && (
+            {financialYears && !isTable &&(
               <VizMenu className="fill">
                 <Menu
                   value={meta.year}

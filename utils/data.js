@@ -75,7 +75,7 @@ export async function dataTransform(id) {
         };
       }
     });
-    
+
     const consList = {};
     dataParse.forEach((item, index) => {
       if (consList[item[0]]) {
@@ -90,7 +90,7 @@ export async function dataTransform(id) {
           ];
       }
     });
-    
+
     obj.metadata = {
       description: metaObj['scheme-description'] || '',
       name: name || '',
@@ -150,14 +150,14 @@ export async function dataTransform(id) {
                 dataParse[j][1] in
                   grant_name[dataParse[j][4]][dataParse[j][11].trim()]
               )
-                ? dataParse[j][i] || 0
-                : dataParse[j][i] +
+                ? isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] || 0
+                : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] +
                   parseInt(
                     grant_name[dataParse[j][4]][dataParse[j][11].trim()][
                       dataParse[j][1]
                     ]
                   ),
-            } :  { [dataParse[j][1]]: dataParse[j][i] } ,
+            } :  { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] } ,
           };
         }
       }
