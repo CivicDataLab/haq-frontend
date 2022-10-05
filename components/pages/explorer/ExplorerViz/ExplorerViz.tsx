@@ -15,10 +15,12 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, Info,TableIcon } from 'components/icons';
+import { ExternalLink, Globe, Info, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
-import { MenuButton } from 'components/actions/Menu/MenuComp'
+import BarViz from './BarViz';
+
+import { MenuButton } from 'components/actions/Menu/MenuComp';
 
 const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   // const [selectedIndicator, setSelectedIndicator] =
@@ -42,8 +44,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
   const mapRef = useRef(null);
 
-  const { indicator, year , grantName } = meta;
- 
+  const { indicator, year, grantName } = meta;
+
   // todo: make it dynamic lie scheme dashboard
   // const IndicatorDesc = [
   //   meta['Indicator 1 - Description'],
@@ -52,14 +54,14 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //   meta['Indicator 4 - Description'],
   //   meta['Indicator 5 - Description'],
   // ];
- 
+
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
     const panels = document.querySelectorAll('.viz__graph');
     tabbedInterface(tablist, panels);
   }, []);
-  
+
   const vizToggle = [
     {
       name: 'Map View',
@@ -69,6 +71,11 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     {
       name: 'Table View',
       id: '#tableView',
+      icon: <TableIcon />,
+    },
+    {
+      name: 'Bar View',
+      id: '#barView',
       icon: <TableIcon />,
     },
   ];
@@ -108,11 +115,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //   else setIsTable(false);
   // }
 
-
- // Table View
- console.log(schemeRaw.metadata.consList)
+  // Table View
   useEffect(() => {
-    
     if (financialYears) {
       // setting tabular data
       const tableHeader = [
@@ -128,24 +132,20 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       }
 
       const a = Object.keys(schemeRaw.metadata.consList);
-      // console.log(a)
       const rowData = [];
       if (filtered[meta.year]) {
         a.forEach((item, index) => {
-
           const tempObj = {
             [tableHeader[0].accessor]:
-              schemeRaw.metadata.consList[a[index]][0]
-                ?.constName,
+              schemeRaw.metadata.consList[a[index]][0]?.constName,
           };
 
-          // console.log(tempObj)
           Object.keys(filtered).map(
             (item1, index1) =>
-            
               (tempObj[tableHeader[index1 + 1].accessor] =
-                filtered[item1][schemeRaw.metadata.consList[a[index]][0]
-                ?.constCode])
+                filtered[item1][
+                  schemeRaw.metadata.consList[a[index]][0]?.constCode
+                ])
           );
           rowData.push(tempObj);
         });
@@ -160,36 +160,14 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   }, [financialYears, meta.year, grantName]);
 
   useEffect(() => {
-
     if (schemeRaw.data && filtered) {
-
       const grants = Object.keys(
         Object.values(schemeRaw.data)[0]['grant_name']
       ).map((item) => ({
         value: item,
         title: item,
       }));
-      setGrant(grants)
-
-      const years = Object.keys(
-        Object.values(schemeRaw.data)[0]['grant_name'][grantName ]
-      ).map((item) => ({
-        value: item,
-        title: item,
-      }));
-      setFinancialYears(years); // all years
-
-      dispatch({
-        year: year ? year : years[0].value,
-        grantName : grantName ? grantName : grants[0].value
-      });
-    }
-  }, [filtered]);
-
-
-    useEffect(() => {
-    // fill up available financial years for state+sabha
-    if (grantName) {
+      setGrant(grants);
 
       const years = Object.keys(
         Object.values(schemeRaw.data)[0]['grant_name'][grantName]
@@ -200,20 +178,36 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       setFinancialYears(years); // all years
 
       dispatch({
-        year: years[0].value,
-        grantName : grantName ? grantName : grant[0].value
+        year: year ? year : years[0].value,
+        grantName: grantName ? grantName : grants[0].value,
       });
-      
-      if(indicator) {
-      const indicatorID = Object.keys(schemeRaw.data).find(
-        (item) => schemeRaw.data[item].slug === indicator
-      );
-      const filtered = 
-        schemeRaw.data[indicatorID]['grant_name'][grantName];
-      setFiltered(filtered)
+    }
+  }, [filtered]);
+
+  useEffect(() => {
+    // fill up available financial years for state+sabha
+    if (grantName) {
+      const years = Object.keys(
+        Object.values(schemeRaw.data)[0]['grant_name'][grantName]
+      ).map((item) => ({
+        value: item,
+        title: item,
+      }));
+      setFinancialYears(years); // all years
+
+      dispatch({
+        year: years[0].value,
+        grantName: grantName ? grantName : grant[0].value,
+      });
+
+      if (indicator) {
+        const indicatorID = Object.keys(schemeRaw.data).find(
+          (item) => schemeRaw.data[item].slug === indicator
+        );
+        const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
+        setFiltered(filtered);
       }
     }
-    
   }, [grantName]);
 
   function hideMenu(e) {
@@ -228,14 +222,12 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
   function handleNewIndicator(val: any) {
     if (val) {
-     
       // filter based on selected indicator for state + sabha
       if (schemeRaw.data) {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === val
         );
-        const filtered = 
-          schemeRaw.data[indicatorID]['grant_name'][grantName];
+        const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
         dispatch({
           unit: schemeRaw.data[indicatorID].unit,
         });
@@ -297,6 +289,18 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         <></>
       ),
     },
+    {
+      id: 'barView',
+      graph: filtered ? (
+        <BarViz
+          meta={meta}
+          data={filtered}
+          consList={schemeRaw.metadata.consList}
+        />
+      ) : (
+        <span>Loading....</span>
+      ),
+    },
   ];
 
   return (
@@ -331,7 +335,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 </li>
               ))}
             </VizTabs>
-            {financialYears && !isTable &&(
+            {financialYears && currentViz == '#mapView' && (
               <VizMenu className="fill">
                 <Menu
                   value={meta.year}
@@ -371,8 +375,9 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           ))}
 
           <Title id="mapVizInfo" data-html2canvas-ignore>
-          <Info fill="#D7AA3B" />Select any constituency to do the
-            comparision and report card generation.
+            <Info fill="#D7AA3B" />
+            Select any constituency to do the comparision and report card
+            generation.
           </Title>
 
           {/* {vizItems.map((item, index) => (
@@ -486,7 +491,7 @@ export const VizWrapper = styled.div`
   border: 1px solid #f7fdf9;
   border-radius: 6px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
-  padding-bottom:30px;
+  padding-bottom: 30px;
 `;
 
 export const VizHeader = styled.div`
