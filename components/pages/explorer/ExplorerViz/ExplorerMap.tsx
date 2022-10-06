@@ -235,71 +235,6 @@ const ExplorerMap = ({meta, schemeData,dispatch }) => {
                   close
                 </Button>
               </div>
-              <p>
-               Loading ...
-              </p>
-              <SearchButtons>
-                <Button
-                  kind="secondary-outline"
-                  size="sm"
-                  onClick={() =>
-                    dispatch({
-                      consCode: selectedCode,
-                      constituency: selectedItem,
-                      vizType: 'report',
-                    })
-                  }
-                >
-                  Generate Report Card
-                </Button>
-                <Button
-                  kind="secondary"
-                  size="sm"
-                  onClick={() =>
-                    dispatch({
-                      consCode: selectedCode,
-                      constituency: selectedItem,
-                      vizType: 'compare',
-                    })
-                  }
-                >
-                  Compare 
-                </Button>
-              </SearchButtons>
-              {/* <p>
-                {consDesc[meta.sabha]
-                  ? consDesc[meta.sabha][meta.state][selectedCode]
-                  : 'Loading...'}
-              </p> */}
-
-              {/* <SearchButtons>
-                <Button
-                  kind="secondary-outline"
-                  size="sm"
-                  onClick={() =>
-                    dispatch({
-                      consCode: selectedCode,
-                      constituency: selectedItem,
-                      vizType: 'report',
-                    })
-                  }
-                >
-                  Generate Report Card
-                </Button>
-                <Button
-                  kind="secondary"
-                  size="sm"
-                  onClick={() =>
-                    dispatch({
-                      consCode: selectedCode,
-                      constituency: selectedItem,
-                      vizType: 'compare',
-                    })
-                  }
-                >
-                  Compare Constituency
-                </Button>
-              </SearchButtons> */}
             </SelectedCons>
           </>
         )}
@@ -400,9 +335,6 @@ const SelectedCons = styled.section`
   opacity: 0.92;
 
   div:first-of-type {
-    border-bottom: var(--border-2);
-    padding-bottom: 8px;
-
     button {
       position: absolute;
       right: 0;
@@ -411,29 +343,12 @@ const SelectedCons = styled.section`
   }
 
   h3 {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem;
     max-width: 90%;
     text-transform: capitalize;
+    border-bottom:0;
+    padding-bottom:0;
   }
 
-  p {
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.7;
-    margin-top: 8px;
-  }
-`;
-
-const SearchButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-
-  button {
-    width: 100%;
-    justify-content: center;
-    opacity: 1;
-  }
 `;
