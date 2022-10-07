@@ -8,6 +8,7 @@ import {
   TitleComponent,
   LegendComponent,
   TooltipComponent,
+  DataZoomSliderComponent,
 } from 'echarts/components';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
@@ -79,6 +80,15 @@ const GroupBarChart: React.FC<BarChartProps> = ({
       legend: {
         top: '5%',
       },
+      dataZoom: [
+        {
+            id: 'dataZoomX',
+            type: 'slider',
+            xAxisIndex: [0],
+            filterMode: 'filter',
+            endValue:4
+        },
+    ],
       tooltip: {},
       dataset: { source: dataset },
       grid: {
@@ -93,7 +103,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
           symbol: ['none', 'arrow'],
         },
         nameLocation: 'middle',
-        nameGap: 30,
+        nameGap: 38,
         axisTick: {
           show: false,
         },
@@ -126,6 +136,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
     DatasetComponent,
     LegendComponent,
     TooltipComponent,
+    DataZoomSliderComponent
   ]);
 
   return (
