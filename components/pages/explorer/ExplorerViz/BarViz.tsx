@@ -51,30 +51,26 @@ const BarViz = ({ meta, data, consList }) => {
   useEffect(() => {
     if (state.value.length > 0 && Object.keys(data).length) {
       // for compare section
-      if (state.value.length > 1) {
-        const barValues1 = [items[0].title];
-        const barValues2 = [items[1].title];
-
-        const headerArr = ['Constituency'];
-        Object.keys(data).map((year) => {
-          headerArr.push(year);
-          barValues1.push(data[year][items[0].consCode]);
-          barValues2.push(data[year][items[1].consCode]);
+      if (state.value.length > 0) {    
+        const headerArr = ['Fiscal Years']
+        items.forEach((item) => {
+            headerArr.push(item.title)
         });
 
-        const barValues = [headerArr, barValues1, barValues2];
-
-        setBarData(barValues);
-      } else {
-        const barValues1 = [items[0].title];
-        const headerArr = ['Constituency'];
-        Object.keys(data).map((year) => {
-          headerArr.push(year);
-          barValues1.push(data[year][items[0].consCode]);
-        });
-        const barValues = [headerArr, barValues1];
-        setBarData(barValues);
-      }
+        const barValuesArr = [];
+        
+        Object.keys(data).forEach((year) => {
+            const barValues = [year];
+            items.forEach((item) => {
+                barValues.push(data[year][item.consCode])
+                barValuesArr.push(barValues)
+            });
+        })
+        
+        const barArray = [headerArr, ...barValuesArr]
+        
+        setBarData(barArray);
+      } 
     }
   }, [state.value, data]);
 
@@ -94,7 +90,7 @@ const BarViz = ({ meta, data, consList }) => {
       {items.length > 0 && barData.length > 0 && (
         <GroupBarChart
           yAxisLabel={`Value (in ${meta.unit})`}
-          xAxisLabel="Constituency"
+          xAxisLabel="Fiscal Years"
           theme={['#4965B2', '#ED8686', '#69BC99']}
           dataset={barData}
           stack={false}
