@@ -125,7 +125,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       if (financialYears) {
         financialYears.forEach((element) =>
           tableHeader.push({
-            Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
+            Header: `${element.title}`,
             accessor: `${indicator}-${element.title}`,
           })
         );
