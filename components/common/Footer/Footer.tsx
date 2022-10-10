@@ -33,28 +33,6 @@ const Footer = ({ data }) => {
                     ))}
                 </SocialLinks>
 
-                <ImageContainer>
-                    {
-                        data.footer_image[1].src &&
-                        <Image
-                            className="logo_image-2"
-                            src={getStrapiMedia(data.footer_image[1].src.url)}
-                            alt="footer_logo"
-                            width={176}
-                            height={132}
-                        />
-                    }
-                    {
-                        data.footer_image[2].src &&
-                        <Image
-                            className="logo_image-3"
-                            src={getStrapiMedia(data.footer_image[2].src.url)}
-                            alt="footer_logo"
-                            width={176}
-                            height={132}
-                        />
-                    }
-                </ImageContainer>
             </Logo>
             <div className="divider"></div>
             <Links>
@@ -81,15 +59,21 @@ const Footer = ({ data }) => {
                     </LinkWrapper>
                     : null
                 }
-                {data.footer_image[0].src &&
-                    <Image
-                        className="logo_image-2"
-                        src={getStrapiMedia(data.footer_image[0].src.url)}
-                        alt="footer_logo"
-                        width={494}
-                        height={200}
-                    />
-                }
+                {data.footer_image.length > 0 ?
+                    <ImageContainer>
+                        {data.footer_image.map((img: any, index: number) => {
+                            return (
+                                <Image
+                                    className="logo_image"
+                                    src={getStrapiMedia(data.footer_image[index].src.url)}
+                                    alt={`footer_logo_${img.alt}`}
+                                    width={150}
+                                    height={132}
+                                />
+                            )
+                        })}
+                    </ImageContainer>
+                    : null}
             </Links>
         </Wrapper>
     )
