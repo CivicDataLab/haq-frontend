@@ -18,6 +18,10 @@ const PartnersCard = styled.div`
     line-height: 133%;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   small {
     letter-spacing: 0.04em;
     text-transform: uppercase;
