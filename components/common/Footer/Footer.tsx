@@ -1,107 +1,77 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import * as data from 'data/footerdata/footerlist';
+import { getStrapiMedia } from 'lib/media';
 
-const Footer = () => {
+const Footer = ({data}) => {
     return (
         <Wrapper>
             <Logo>
                 <Image
                     className="logo_image-1"
-                    src="/assets/images/placeholder.jpg"
+                    src={getStrapiMedia(data.haq_logo.url)}
                     alt="footer_logo"
-                    width={384}
-                    height={204}
+                    width={284}
+                    height={195}
                 />
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industrys standard.
+                   {data.desc}
                 </p>
 
                 <SocialLinks>
-                    {data.Social_Links.map((link, index) => (
+                    {data.footer_social_links.length > 0 && data.footer_social_links.map((item, index) => (
                         <a
                             key={`social_link.${index}`}
                             className=""
                             rel="noopener noreferrer"
-                            href={link.value}
+                            href={item.link}
                         >
-                            {link.image}
+                            {item.img}
                         </a>
                         ))}
                 </SocialLinks>
-
-                <ImageContainer>
-                    <Image
-                        className="logo_image-2"
-                        src="/assets/images/placeholder.jpg"
-                        alt="footer_logo"
-                        width={176}
-                        height={132}
-                    />
-                    <Image
-                        className="logo_image-3"
-                        src="/assets/images/placeholder.jpg"
-                        alt="footer_logo"
-                        width={176}
-                        height={132}
-                    />
-                </ImageContainer>
             </Logo>
             <div className="divider"></div>
             <Links>
-                <LinkWrapper>
-                    <LinkSection>
-                        <p>{data.About_Platform.name}</p>
-                        {data.About_Platform.links.map((link, index) => (
-                            <a
-                                key={`footer_link-1.${index}`}
-                                className="link footer_link"
-                                rel="noopener noreferrer"
-                                href={link.value}
-                            >
-                                {link.title}
-                            </a>
-                        ))}
-                    </LinkSection>
+            {data.footer_column.length > 0 ?
+                    <LinkWrapper>
+                        {data.footer_column.map((item, index) => {
+                            return (
+                                <LinkSection key={`link_section.${index}`}>
+                                    <p>{item.name}</p>
+                                    {item.footer_link.map((link, index) => (
+                                        <a
+                                            key={`footer_link.${index}`}
+                                            className="link footer_link"
+                                            rel="noopener noreferrer"
+                                            href={link.link}
+                                        >
+                                            {link.title}
+                                        </a>
+                                    ))}
+                                </LinkSection>
+                            )
+                        })}
 
-                    <LinkSection>
-                        <p>{data.Data_Explorer.name}</p>
-                        {data.Data_Explorer.links.map((link, index) => (
-                            <a
-                                key={`footer_link-2.${index}`}
-                                className="link footer_link"
-                                rel="noopener noreferrer"
-                                href={link.value}
-                            >
-                                {link.title}
-                            </a>
-                        ))}
-                    </LinkSection>
-
-                    <LinkSection>
-                        <p>{data.Key_Schemes.name}</p>
-                        {data.Key_Schemes.links.map((link, index) => (
-                            <a
-                                key={`footer_link-3.${index}`}
-                                className="link footer_link"
-                                rel="noopener noreferrer"
-                                href={link.value}
-                            >
-                                {link.title}
-                            </a>
-                        ))}
-                    </LinkSection>
-                </LinkWrapper>
-                <Image
-                    className="logo_image-2"
-                    src="/assets/images/placeholder.jpg"
-                    alt="footer_logo"
-                    width={694}
-                    height={300}
-                />
+                    </LinkWrapper>
+                    : null
+                }
+                {data.footer_image.length > 0 ?
+                    <ImageContainer>
+                        {data.footer_image.map((img: any, index: number) => {
+                            return (
+                                <Image
+                                    className="logo_image"
+                                    src={getStrapiMedia(data.footer_image[index].src.url)}
+                                    alt={`footer_logo_${img.alt}`}
+                                    width={150}
+                                    height={132}
+                                />
+                            )
+                        })}
+                    </ImageContainer>
+                    : null}
             </Links>
         </Wrapper>
     )
@@ -195,6 +165,14 @@ const LinkWrapper = styled.div`
 
 const LinkSection = styled.section`
 
+   padding-right:20px;
+   @media(max-width:1200px){
+     padding-right:10px;
+    }
+   @media(max-width:490px){
+     padding-right:0px;
+    }
+    
    p {
     font-weight: var(--font-weight-medium);
     font-size: 20px;
