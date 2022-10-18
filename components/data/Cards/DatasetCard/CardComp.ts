@@ -23,6 +23,7 @@ export const DatasetCardComp = styled.a<ColorProps>`
   transition: transform 200ms ease;
   display: flex;
   border-left: solid;
+  cursor: pointer;
   border-left-color: ${(props: any) => pickColor(props.index)};
 
   .card__group {

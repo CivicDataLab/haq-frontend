@@ -22,11 +22,12 @@ type Props = {
   facets: any;
   variables: any;
   dataset: Array<{id: number, title: string, content:string, logo:any}>;
+  datasetname: string;
 };
 
 const list = '"scheme_mode", "scheme_type"';
 
-const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
+const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname }) => {
   const router = useRouter();
   const { q, sort, size, fq, from, datasets } = router.query;
   const [search, setSearch] = useState(q);
@@ -124,7 +125,7 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset }) => {
                 fq={datsetsFilters}
                 sortShow={true}
               />
-              <DatasetList data={results} />
+              <DatasetList data={results} datasetname={datasetname} />
               <Pagination total={count} newPage={handleDatasetsChange} />
             </DatasetRight>
           </DatasetsComp>
@@ -144,6 +145,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     }
   }
+  const datasetname = query.datasets;
   const variables = convertToCkanSearchQuery(query);
   const facets = await fetchFilters(list, variables);
   
@@ -154,6 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       data,
       facets,
       dataset:dataset.data.dataset,
+      datasetname
     },
   };
 };
