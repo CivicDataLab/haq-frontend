@@ -15,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, Info, TableIcon } from 'components/icons';
+import { ExternalLink, Globe, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
 import BarViz from './BarViz';
@@ -374,11 +374,11 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
             </VizGraph>
           ))}
 
-          <Title id="mapVizInfo" data-html2canvas-ignore>
+          {/* <Title id="mapVizInfo" data-html2canvas-ignore>
             <Info fill="#D7AA3B" />
             Select any constituency to do the comparision and report card
             generation.
-          </Title>
+          </Title> */}
 
           {/* {vizItems.map((item, index) => (
             <VizGraph
