@@ -62,6 +62,7 @@ const Footer = ({data}) => {
                         {data.footer_image.map((img: any, index: number) => {
                             return (
                                 <Image
+                                    key = {`footer_image.${index}`}
                                     className="logo_image"
                                     src={getStrapiMedia(data.footer_image[index].src.url)}
                                     alt={`footer_logo_${img.alt}`}
