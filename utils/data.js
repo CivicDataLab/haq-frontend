@@ -46,6 +46,23 @@ export async function fetchSheets(link) {
   return result;
 }
 
+export async function newFetchQuery(query, value) {
+  const queryRes = await fetch(
+    `http://13.232.98.238/api/3/action/package_search?fq=${query}:"${value}" AND organization:haq-scheme AND private:false`
+  ).then((res) => res.json());
+
+  return queryRes.result.results;
+}
+
+export async function spendindDataFetch(schemeType) {
+  // fetch CKAN JSON
+  const data = await newFetchQuery('schemeType',schemeType);
+
+  // fetch and generate XLSX Sheet - false: don't do array of array return
+  const sheet = await fetchSheets(data[0].resources[0].url, false);
+
+  return sheet[0];
+}
 
 export async function dataTransform(id) {
   const obj = {};

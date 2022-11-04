@@ -17,17 +17,20 @@ import MobileAlter from 'components/data/MobileAlter/MobileAlter';
 import useEffectOnChange from 'utils/hooks';
 import { fetchAPI } from 'lib/api';
 
+import { spendindDataFetch } from 'utils/data';
+
 type Props = {
   data: any;
   facets: any;
   variables: any;
   dataset: Array<{id: number, title: string, content:string, logo:any}>;
   datasetname: string;
+  spending_dataset: any;
 };
 
 const list = '"scheme_mode", "scheme_type"';
 
-const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname }) => {
+const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname, spending_dataset }) => {
   const router = useRouter();
   const { q, sort, size, fq, from, datasets } = router.query;
   const [search, setSearch] = useState(q);
@@ -54,7 +57,6 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname }) => {
       },
     });
   }, [datsetsFilters, search, sorts, pages, items, datasets]);
-
 
   function handleDatasetsChange(val: any) {
     switch (val.query) {
@@ -151,12 +153,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   
   const data = await fetchDatasets(variables);
   const dataset = await fetchAPI('/dataset');
+
+  const spending_dataset = await spendindDataFetch ('summary data')
   return {
     props: {
       data,
       facets,
       dataset:dataset.data.dataset,
-      datasetname
+      datasetname,
+      spending_dataset
     },
   };
 };
