@@ -274,10 +274,17 @@ export async function schemeDataTransform(id) {
 
       for (let j = 1; j < dataParse.length; j += 1) {
         if (dataParse[j][2].trim()) {
-          grant_name[dataParse[j][2].trim()] = {
+          grant_name[dataParse[j][2].trim()] = dataParse[j][2].trim() == "Total" ? {
             ...grant_name[dataParse[j][2].trim()],
-
-            [dataParse[j][3]]:grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] && {
+            [dataParse[j][1]] : dataParse[j][i]
+          } : {
+            ...grant_name[dataParse[j][2].trim()],
+            
+            [dataParse[j][3]] : dataParse[j][3] == "Total" ? {
+            ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
+            [dataParse[j][1]] : dataParse[j][i]
+          }
+            :grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] && {
               ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
 
              [dataParse[j][4]] : grant_name[dataParse[j][2].trim()][dataParse[j][3]] && dataParse[j][4] in grant_name[dataParse[j][2].trim()][dataParse[j][3]] ? {
