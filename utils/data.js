@@ -273,27 +273,27 @@ export async function schemeDataTransform(id) {
       // let total = {};
 
       for (let j = 1; j < dataParse.length; j += 1) {
-        if (dataParse[j][4]) {
-          grant_name[dataParse[j][4]] = {
-            ...grant_name[dataParse[j][4]],
+        if (dataParse[j][2].trim()) {
+          grant_name[dataParse[j][2].trim()] = {
+            ...grant_name[dataParse[j][2].trim()],
 
-            [dataParse[j][2]]: (fiscal_year[dataParse[j][2].trim()] = {
-              ...fiscal_year[dataParse[j][2].trim()],
+            [dataParse[j][3]]:grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] && {
+              ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
+
+             [dataParse[j][4]] : grant_name[dataParse[j][2].trim()][dataParse[j][3]] && dataParse[j][4] in grant_name[dataParse[j][2].trim()][dataParse[j][3]] ? {
+              ...grant_name[dataParse[j][2].trim()][dataParse[j][3]][dataParse[j][4]] ,
+             
 
               [dataParse[j][1]]: !(
-                grant_name[dataParse[j][4]] &&
-                grant_name[dataParse[j][4]][dataParse[j][2].trim()] &&
+                grant_name[dataParse[j][2]] &&
+                grant_name[dataParse[j][2].trim()][dataParse[j][3]] &&
                 dataParse[j][1] in
-                  grant_name[dataParse[j][4]][dataParse[j][2].trim()]
+                  grant_name[dataParse[j][2].trim()][dataParse[j][3]]
               )
                 ? dataParse[j][i] || 0
-                : dataParse[j][i] +
-                  parseInt(
-                    grant_name[dataParse[j][4]][dataParse[j][2].trim()][
-                      dataParse[j][1]
-                    ]
-                  ),
-            }),
+                : dataParse[j][i] ,
+            } : {[dataParse[j][1]] : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i]},
+            }
           };
         }
       }
