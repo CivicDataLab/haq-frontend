@@ -11,6 +11,7 @@ import {
   ExplorerHeader,
   ExplorerRelated,
   ExplorerViz,
+  SummaryExplorerViz
 } from 'components/pages/explorer';
 
 type Props = {
@@ -18,13 +19,13 @@ type Props = {
   meta: any;
   fileData: any;
   scheme: any;
-  
+  primary: boolean;
 };
 const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme }) => {
+const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) => {
   const grants = Object.keys(
     Object.values(scheme.data)[0]['grant_name']
   ).map((item) => ({
@@ -40,11 +41,16 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme }) => {
     consCode: '',
     vizType: 'map',
     grantName : grants[0].value,
+    schemeType:'Benefits both boy and girl students directly',
+    schemeMode:'Direct Cash Transfer to students',
+    schemeYear: '2016-2017'
   };
 
   
   const [state, dispatch] = React.useReducer(reducer, initalState);
   console.log(scheme)
+
+  if(!primary)
   return (
     <>
       <Head>
@@ -80,6 +86,44 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme }) => {
       </Wrapper>
     </>
   );
+
+  else {
+    return(
+    <>
+    <Head>
+      <title>{data.title || Explorer} | HAQ</title>
+    </Head>
+    <Wrapper>
+      <ExplorerHeader data={data} />
+      {Object.keys(data).length !== 0 ? (
+          <>
+            <div id="explorerVizWrapper">
+              {state.vizType === 'map' && (
+                <SummaryExplorerViz
+                  schemeRaw={scheme}
+                  meta={state}
+                  dispatch={dispatch}
+                />
+              )}
+
+              {/* {state.vizType !== 'map' && (
+                <ExplorerDetailsViz meta={state} dispatch={dispatch} />
+              )} */}
+            </div>
+          </>
+        ) : (
+          <NoContext>
+            {/* <Info id="infoSvg" fill="#317EB9" height="112" width="112" /> */}
+            <div>
+              <p>Select state and scheme to explore</p>
+            </div>
+          </NoContext>
+        )}
+      <ExplorerRelated data={data} />
+    </Wrapper>
+  </>
+    )
+  }
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -110,16 +154,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
   let scheme ;
-  if(context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f")
+  let primary :boolean = false;
+  if(context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f"){
     scheme = await schemeDataTransform(context.query.explorer)
-  else 
+    primary = true;
+  }
+  else {
    scheme = await dataTransform(context.query.explorer)
-
+   primary = false
+  }
     return {
     props: {
       data,
       scheme,
-      
+      primary
       // meta,
       // fileData,
     },
