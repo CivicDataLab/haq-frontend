@@ -208,3 +208,147 @@ export async function dataTransform(id) {
   });
   return obj;
 }
+
+export async function schemeDataTransform(id) {
+  const obj = {};
+  let name;
+  let type;
+  let slug;
+  let url;
+
+  await fetchQuery('slug', id).then((data) => {
+    data.resources.forEach((file) => {
+      if (file.url.includes('.xlsx')) url = file.url;
+    });
+    name = data.extras[0].value;
+    //type = data.extras[3] && data.extras[3].value;
+    slug = data.name || '';
+  });
+  await fetchSheets(url).then((res) => {
+    const dataParse = res[0];
+    console.log(dataParse)
+
+    const metaParse = res[1];
+    let metaObj = {};
+    metaParse.forEach((val) => {
+      if (val[0]) {
+        metaObj = {
+          ...metaObj,
+          [generateSlug(val[0])]: val[1],
+        };
+      }
+    });
+
+    const consList = {};
+    dataParse.forEach((item, index) => {
+      if (consList[item[0]]) {
+          return;
+      } else {
+          if (item[0] == 'district_name') return;
+          consList[item[0]] = [
+            {
+              constName: item[0],
+              constCode: item[1],
+            },
+          ];
+      }
+    });
+
+    obj.metadata = {
+      description: metaObj['scheme-description'] || '',
+      name: name || '',
+      frequency: metaObj.frequency || '',
+      source: metaObj['data-source'] || '',
+      type: type || '',
+      note: metaObj['general-note'] || '',
+      slug,
+      indicators: [ ],
+      consList: consList || [],
+    };
+
+    // Tabular Data
+    for (let i = 5; i < dataParse[0].length; i += 1) {
+      const fiscal_year = {};
+      let grant_name = {};
+      // let total = {};
+
+      for (let j = 1; j < dataParse.length; j += 1) {
+        if (dataParse[j][2].trim()) {
+          grant_name[dataParse[j][2].trim()] = dataParse[j][2].trim() == "Total" ? {
+            ...grant_name[dataParse[j][2].trim()],
+            [dataParse[j][1]] : dataParse[j][i]
+          } : {
+            ...grant_name[dataParse[j][2].trim()],
+            
+            [dataParse[j][3]] : dataParse[j][3] == "Total" ? {
+            ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
+            [dataParse[j][1]] : dataParse[j][i]
+          }
+            :grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] && {
+              ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
+
+             [dataParse[j][4]] : grant_name[dataParse[j][2].trim()][dataParse[j][3]] && dataParse[j][4] in grant_name[dataParse[j][2].trim()][dataParse[j][3]] ? {
+              ...grant_name[dataParse[j][2].trim()][dataParse[j][3]][dataParse[j][4]] ,
+             
+
+              [dataParse[j][1]]: !(
+                grant_name[dataParse[j][2]] &&
+                grant_name[dataParse[j][2].trim()][dataParse[j][3]] &&
+                dataParse[j][1] in
+                  grant_name[dataParse[j][2].trim()][dataParse[j][3]]
+              )
+                ? dataParse[j][i] || 0
+                : dataParse[j][i] ,
+            } : {[dataParse[j][1]] : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i]},
+            }
+          };
+        }
+      }
+      
+      // for (let j = 1; j < dataParse.length; j += 1) {
+      //   if (dataParse[j][4]) {
+      //     grant_name[dataParse[j][4]] = {
+      //       ...grant_name[dataParse[j][4]],
+
+      //       [dataParse[j][11]]:grant_name[dataParse[j][4]] && dataParse[j][11].trim() in grant_name[dataParse[j][4]] ? {
+              
+      //         ...grant_name[dataParse[j][4]][dataParse[j][11].trim()],
+
+      //         [dataParse[j][1]]: !(
+      //           grant_name[dataParse[j][4]] &&
+      //           grant_name[dataParse[j][4]][dataParse[j][11].trim()] &&
+      //           dataParse[j][1] in
+      //             grant_name[dataParse[j][4]][dataParse[j][11].trim()]
+      //         )
+      //           ? isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] || 0
+      //           : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] +
+      //             parseInt(
+      //               grant_name[dataParse[j][4]][dataParse[j][11].trim()][
+      //                 dataParse[j][1]
+      //               ]
+      //             ),
+      //       } :  { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] } ,
+      //     };
+      //   }
+      // }
+
+      const indicatorSlug =
+        generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
+
+      obj.metadata.indicators.push(indicatorSlug);
+
+      obj.data = {
+        ...obj.data,
+        [`indicator_0${i - 4}`]: {
+          grant_name,
+          name: metaObj[`indicator-${i - 4}-name`] || '',
+          description: metaObj[`indicator-${i - 4}-description`] || '',
+          note: metaObj[`indicator-${i - 4}-note`] || '',
+          slug: indicatorSlug,
+          unit: metaObj[`indicator-${i - 4}-unit`] || '',
+        },
+      };
+    }
+  });
+  return obj;
+}

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
-import { dataTransform } from 'utils/data'
+import { dataTransform, schemeDataTransform } from 'utils/data'
 
 import {
   // ExplorerDetailsViz,
@@ -109,8 +109,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
-  const scheme = await dataTransform(context.query.explorer)
-  return {
+  let scheme ;
+  if(context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f")
+    scheme = await schemeDataTransform(context.query.explorer)
+  else 
+   scheme = await dataTransform(context.query.explorer)
+
+    return {
     props: {
       data,
       scheme,
