@@ -73,7 +73,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     { value: "Others" , title: "Others"},
     { value: "Payments & Awards" , title : "Payments & Awards"},
     { value: "Total" , title : "Total"}
-  ]
+    ]
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
@@ -100,7 +100,6 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   ];
 
  
-  console.log(meta, "---------meta--------")
   // Table View
 
   useEffect(() => {
@@ -206,9 +205,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           const indicatorID = Object.keys(schemeRaw.data).find(
             (item) => schemeRaw.data[item].slug === indicator
           );
-          // console.log(grantName)
-          const filtered = schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
-          // console.log(filtered,'++++++++++++')
+          const filtered = schemeYear == "Total" ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
           setFiltered(filtered);
         }
   }, [indicator,meta])
