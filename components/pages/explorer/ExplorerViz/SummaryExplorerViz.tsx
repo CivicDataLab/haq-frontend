@@ -205,7 +205,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           const indicatorID = Object.keys(schemeRaw.data).find(
             (item) => schemeRaw.data[item].slug === indicator
           );
-          const filtered = schemeYear == "Total" ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
+          const filtered = schemeYear == "Total" 
+                           ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] 
+                           : schemeType == "Total" 
+                           ? schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType]
+                           : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
           setFiltered(filtered);
         }
   }, [indicator,meta])
@@ -327,20 +331,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 />
               </VizMenu>
             )}
-
-            <VizMenu className="fill">
-              <Menu
-                value={meta.schemeMode}
-                options={schemeModeOpt}
-                heading="Scheme Mode : "
-                handleChange={(e) =>
-                  dispatch({
-                    schemeMode: e,
-                  })
-                }
-              />
-            </VizMenu>
-
+            
             <VizMenu className="fill">
               <Menu
                 value={meta.schemeType}
@@ -353,6 +344,19 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 }
               />
             </VizMenu>
+
+            <VizMenu className="fill">
+              <Menu
+                value={meta.schemeMode}
+                options={schemeModeOpt}
+                heading="Scheme Mode : "
+                handleChange={(e) =>
+                  dispatch({
+                    schemeMode: e,
+                  })
+                }
+              />
+            </VizMenu>       
           </VizHeader>
 
           {vizItems.map((item, index) => (
