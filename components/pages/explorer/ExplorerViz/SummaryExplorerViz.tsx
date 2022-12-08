@@ -254,7 +254,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           dispatch={dispatch}
         />
       ) : filtered == undefined 
-        ? <span>We do not have values for these respective year, scheme type, scheme mode....</span>
+        ? <span> We do not have any district value for this respective year, scheme type and scheme mode....</span>
         : (
         <span>Loading....</span>
       ),
