@@ -38,7 +38,7 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
           bottom: '16px',
           backgroundColor: '#FFFFFF',
           pieces: vizIndicators,
-          text:  vizIndicators[0].max && [`Units: ${meta.unit}`],
+          text:  vizIndicators[0].max ? [`Units: ${meta.unit}`] : "Units",
           padding: 8,
           showLabel: true,
         },
