@@ -199,17 +199,21 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //     }
   //   }, [grantName]);
 
+  const filteredVal = (indicatorID) => 
+    schemeYear == "Total" 
+    ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] 
+    : schemeType == "Total" 
+    ? schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType]
+    : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
+  
+
   useEffect(() => {
 
         if (indicator) {
           const indicatorID = Object.keys(schemeRaw.data).find(
             (item) => schemeRaw.data[item].slug === indicator
           );
-          const filtered = schemeYear == "Total" 
-                           ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] 
-                           : schemeType == "Total" 
-                           ? schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType]
-                           : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
+          const filtered = filteredVal(indicatorID)
           setFiltered(filtered);
         }
   }, [indicator,meta])
@@ -231,7 +235,8 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === val
         );
-        const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
+        const filtered = filteredVal(indicatorID)
+        setFiltered(filtered);
         dispatch({
           unit: schemeRaw.data[indicatorID].unit,
         });
