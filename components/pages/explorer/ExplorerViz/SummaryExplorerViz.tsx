@@ -116,7 +116,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           })
         );
       }
-      
+
       if (indicator) {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === indicator
@@ -147,6 +147,8 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeRaw.metadata.consList[a[index]][0]?.constCode] 
               : schemeType == "Total" 
               ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeRaw.metadata.consList[a[index]][0]?.constCode]
+              : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode] == undefined
+              ? " "
               : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode][schemeRaw.metadata.consList[a[index]][0]?.constCode]
               )
            );
