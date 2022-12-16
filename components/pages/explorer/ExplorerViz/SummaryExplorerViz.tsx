@@ -87,11 +87,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       id: '#mapView',
       icon: <Globe />,
     },
-    // {
-    //   name: 'Table View',
-    //   id: '#tableView',
-    //   icon: <TableIcon />,
-    // },
+    {
+      name: 'Table View',
+      id: '#tableView',
+      icon: <TableIcon />,
+    },
     // {
     //   name: 'Bar View',
     //   id: '#barView',
@@ -103,13 +103,13 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   // Table View
 
   useEffect(() => {
-    if (financialYears) {
+    if (yearOpt) {
       // setting tabular data
       const tableHeader = [
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
-      if (financialYears) {
-        financialYears.forEach((element) =>
+      if (yearOpt) {
+        yearOpt.forEach((element) =>
           tableHeader.push({
             Header: `${element.title}`,
             accessor: `${indicator}-${element.title}`,
@@ -117,25 +117,45 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         );
       }
 
+      if (indicator) {
+        const indicatorID = Object.keys(schemeRaw.data).find(
+          (item) => schemeRaw.data[item].slug === indicator
+        );
+
       const a = Object.keys(schemeRaw.metadata.consList);
       const rowData = [];
-      if (filtered[meta.year]) {
+    
         a.forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
               schemeRaw.metadata.consList[a[index]][0]?.constName,
           };
 
-          Object.keys(filtered).map(
-            (item1, index1) =>
-            (tempObj[tableHeader[index1 + 1].accessor] =
-              filtered[item1][
-              schemeRaw.metadata.consList[a[index]][0]?.constCode
-              ])
-          );
-          rowData.push(tempObj);
+          //  Object.keys(filtered).map(
+          //    (item1, index1) =>
+          //    (tempObj[tableHeader[index1 + 1].accessor] =
+          //      filtered[item1][
+          //      schemeRaw.metadata.consList[a[index]][0]?.constCode
+          //      ])
+          //  );
+
+           yearOpt.map(
+            
+             (item1, index1) => (tempObj[tableHeader[index1 + 1].accessor] = 
+              
+              item1.value == "Total" 
+              ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeRaw.metadata.consList[a[index]][0]?.constCode] 
+              : schemeType == "Total" 
+              ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeRaw.metadata.consList[a[index]][0]?.constCode]
+              : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode] == undefined
+              ? " "
+              : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode][schemeRaw.metadata.consList[a[index]][0]?.constCode]
+              )
+           );
+
+           rowData.push(tempObj);
         });
-      }
+      
 
       const tableData = {
         header: tableHeader,
@@ -143,7 +163,8 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       };
       setTableData(tableData);
     }
-  }, [financialYears, meta.schemeYear, grantName]);
+   }
+  }, [meta]);
 
   //  const found = array1.find(element => element > 10);
 
@@ -265,19 +286,19 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       ),
       ref: mapRef,
     },
-    // {
-    //   id: 'tableView',
-    //   graph: tableData.rows ? (
-    //     <Table
-    //       header={
-    //         tableData.header ? tableData.header : ['table not available']
-    //       }
-    //       rows={tableData.rows ? tableData.rows : []}
-    //     />
-    //   ) : (
-    //     <></>
-    //   ),
-    // },
+     {
+       id: 'tableView',
+       graph: tableData.rows ? (
+         <Table
+           header={
+             tableData.header ? tableData.header : ['table not available']
+           }
+           rows={tableData.rows ? tableData.rows : []}
+         />
+       ) : (
+         <></>
+       ),
+     },
     // {
     //   id: 'barView',
     //   graph: filtered ? (
