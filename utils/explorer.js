@@ -35,7 +35,7 @@ export function explorerPopulation(obj) {
     });
 
   newObj = {
-    id: obj.id,
+    id: obj?.id || "",
     title: obj.extras[1] ? `${obj.title} | ${obj.extras[1].value}` : obj.title ,
     notes: obj.notes || ' ',
     tags: obj.extras[2] ? [obj.extras[3].value,obj.extras[2].value]: [],
