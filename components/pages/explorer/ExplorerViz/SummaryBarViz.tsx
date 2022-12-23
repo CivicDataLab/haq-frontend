@@ -53,12 +53,14 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
 
     const yearArr = ["2016-2017", "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "Total"]
 
-    const filteredVal = (indicatorID, year) =>
+    const filteredVal = (indicatorID, year, item) =>
         year == "Total"
-            ? schemeRaw.data[indicatorID]['grant_name'][year]
+            ? schemeRaw.data[indicatorID]['grant_name'][year][item.consCode]
             : schemeType == "Total"
-                ? schemeRaw.data[indicatorID]['grant_name'][year][schemeType]
-                : schemeRaw.data[indicatorID]['grant_name'][year][schemeType][schemeMode];
+                ? schemeRaw.data[indicatorID]['grant_name'][year][schemeType][item.consCode]
+                : schemeRaw.data[indicatorID]['grant_name'][year][schemeType][schemeMode] == undefined
+                    ? ""
+                    : schemeRaw.data[indicatorID]['grant_name'][year][schemeType][schemeMode][item.consCode]
 
     useEffect(() => {
         if (state.value.length > 0 && Object.keys(schemeRaw).length && indicator) {
@@ -76,7 +78,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                 yearArr.forEach((year) => {
                     const barValues = [year];
                     items.forEach((item) => {
-                        barValues.push(filteredVal(indicatorID, year)[item.consCode])
+                        barValues.push(filteredVal(indicatorID, year, item))
                         barValuesArr.push(barValues)
                     });
                 })
