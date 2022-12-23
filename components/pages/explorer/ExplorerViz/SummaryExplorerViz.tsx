@@ -18,7 +18,7 @@ import {
 import { ExternalLink, Globe, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
-import BarViz from './BarViz';
+import SummaryBarViz from './SummaryBarViz';
 
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
@@ -92,11 +92,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       id: '#tableView',
       icon: <TableIcon />,
     },
-    // {
-    //   name: 'Bar View',
-    //   id: '#barView',
-    //   icon: <TableIcon />,
-    // },
+    {
+      name: 'Bar View',
+      id: '#barView',
+      icon: <TableIcon />,
+    },
   ];
 
  
@@ -299,18 +299,20 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
          <></>
        ),
      },
-    // {
-    //   id: 'barView',
-    //   graph: filtered ? (
-    //     <BarViz
-    //       meta={meta}
-    //       data={filtered}
-    //       consList={schemeRaw.metadata.consList}
-    //     />
-    //   ) : (
-    //     <span>Loading....</span>
-    //   ),
-    // },
+    {
+      id: 'barView',
+      graph: filtered ? (
+        <SummaryBarViz
+          meta={meta}
+          schemeRaw={schemeRaw}
+          consList={schemeRaw.metadata.consList}
+          years={yearOpt}
+          indicator={indicator}
+        />
+      ) : (
+        <span>Loading....</span>
+      ),
+    },
   ];
 
   return (
