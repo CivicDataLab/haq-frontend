@@ -18,7 +18,7 @@ import {
 import { ExternalLink, Globe, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
-import BarViz from './BarViz';
+import SummaryBarViz from './SummaryBarViz';
 
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
@@ -302,10 +302,12 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     {
       id: 'barView',
       graph: filtered ? (
-        <BarViz
+        <SummaryBarViz
           meta={meta}
-          data={filtered}
+          schemeRaw={schemeRaw}
           consList={schemeRaw.metadata.consList}
+          years={yearOpt}
+          indicator={indicator}
         />
       ) : (
         <span>Loading....</span>
