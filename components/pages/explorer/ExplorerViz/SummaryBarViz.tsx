@@ -86,7 +86,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                 setBarData(barArray);
             }
         }
-    }, [state.value, schemeRaw, indicator]);
+    }, [state.value, meta, indicator]);
 
     return (
         <Wrapper>
