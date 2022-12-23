@@ -45,7 +45,15 @@ export async function fetchSheets(link) {
     });
   return result;
 }
-
+const twoDecimals = (num) => {
+  return isNaN(num) ? "" : (Number)(num.toString().match(/^-?\d+(?:\.\d{0,1})?/));
+}
+const toLakh = (num, i) => {
+  if (i == 12 || i ==13 || i == 5 || i == 6)
+    return (num/100000).toFixed(2);
+  else 
+    return twoDecimals(num)
+}
 
 export async function dataTransform(id) {
   const obj = {};
@@ -150,14 +158,14 @@ export async function dataTransform(id) {
                 dataParse[j][1] in
                 grant_name[dataParse[j][4]][dataParse[j][11].trim()]
               )
-                ? isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] || 0
-                : isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] +
-                  parseInt(
+                ? isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) || 0
+                : isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i, i]) +
+                  toLakh(parseInt(
                     grant_name[dataParse[j][4]][dataParse[j][11].trim()][
                     dataParse[j][1]
                     ]
-                  ),
-            } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] },
+                  ), i),
+            } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) },
           };
         }
       }
@@ -276,13 +284,13 @@ export async function schemeDataTransform(id) {
         if (dataParse[j][2].trim()) {
           grant_name[dataParse[j][2].trim()] = dataParse[j][2].trim() == "Total" ? {
             ...grant_name[dataParse[j][2].trim()],
-            [dataParse[j][1]]: dataParse[j][i]
+            [dataParse[j][1]]: toLakh(dataParse[j][i], i)
           } : {
             ...grant_name[dataParse[j][2].trim()],
 
             [dataParse[j][3]]: dataParse[j][3] == "Total" ? {
               ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
-              [dataParse[j][1]]: dataParse[j][i]
+              [dataParse[j][1]]: toLakh(dataParse[j][i], i)
             }
               : grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] ? {
                 ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
@@ -297,10 +305,10 @@ export async function schemeDataTransform(id) {
                     dataParse[j][1] in
                     grant_name[dataParse[j][2].trim()][dataParse[j][3]]
                   )
-                    ? dataParse[j][i] || 0
-                    : dataParse[j][i],
-                } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i] },
-              } : {[[dataParse[j][4]]]: {[dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : dataParse[j][i]}}
+                    ? toLakh(dataParse[j][i], i) || 0
+                    : toLakh(dataParse[j][i], i),
+                } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) },
+              } : {[[dataParse[j][4]]]: {[dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i)}}
           };
         }
       }
