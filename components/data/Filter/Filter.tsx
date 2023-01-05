@@ -97,8 +97,8 @@ const Filter = ({ data, newFilters, fq }) => {
       return 'fiscal year';
     } else if (name == 'organization' || name == 'buyer_name')
       return 'buyer name';
-    else if (name == 'tender_mainprocurementcategory') return 'type';
-    else if (name == 'tender/mainProcurementCategory') return 'category';
+    else if (name == 'scheme_mode') return 'Scheme mode';
+    else if (name == 'scheme_type') return 'Scheme type';
     else if (name == 'tender/stage') return 'tender stage';
     else if (name == 'tender_status') return 'status';
     else return name;
