@@ -40,17 +40,15 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) =>
     unit: '',
     consCode: '',
     vizType: 'map',
-    grantName : grants[0].value,
-    schemeType:'Benefits both boy and girl students directly',
-    schemeMode:'Direct Cash Transfer to students',
+    grantName: grants[0].value,
+    schemeType: 'Benefits both boy and girl students directly',
+    schemeMode: 'Direct Cash Transfer to students',
     schemeYear: '2016-2017'
   };
 
-  
   const [state, dispatch] = React.useReducer(reducer, initalState);
   console.log(scheme)
 
-  if(!primary)
   return (
     <>
       <Head>
@@ -59,56 +57,24 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) =>
       <Wrapper>
         <ExplorerHeader data={data} />
         {Object.keys(data).length !== 0 ? (
-            <>
-              <div id="explorerVizWrapper">
-                {state.vizType === 'map' && (
-                  <ExplorerViz
-                    schemeRaw={scheme}
-                    meta={state}
-                    dispatch={dispatch}
-                  />
-                )}
-
-                {/* {state.vizType !== 'map' && (
-                  <ExplorerDetailsViz meta={state} dispatch={dispatch} />
-                )} */}
-              </div>
-            </>
-          ) : (
-            <NoContext>
-              {/* <Info id="infoSvg" fill="#317EB9" height="112" width="112" /> */}
-              <div>
-                <p>Select state and scheme to explore</p>
-              </div>
-            </NoContext>
-          )}
-        <ExplorerRelated data={data} />
-      </Wrapper>
-    </>
-  );
-
-  else {
-    return(
-    <>
-    <Head>
-      <title>{data.title || Explorer} | HAQ</title>
-    </Head>
-    <Wrapper>
-      <ExplorerHeader data={data} />
-      {Object.keys(data).length !== 0 ? (
           <>
             <div id="explorerVizWrapper">
-              {state.vizType === 'map' && (
+              {!primary ?
+                <ExplorerViz
+                  schemeRaw={scheme}
+                  meta={state}
+                  dispatch={dispatch}
+                /> :
                 <SummaryExplorerViz
                   schemeRaw={scheme}
                   meta={state}
                   dispatch={dispatch}
                 />
-              )}
+              }
 
               {/* {state.vizType !== 'map' && (
-                <ExplorerDetailsViz meta={state} dispatch={dispatch} />
-              )} */}
+                  <ExplorerDetailsViz meta={state} dispatch={dispatch} />
+                )} */}
             </div>
           </>
         ) : (
@@ -119,11 +85,10 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) =>
             </div>
           </NoContext>
         )}
-      <ExplorerRelated data={data} />
-    </Wrapper>
-  </>
-    )
-  }
+        <ExplorerRelated data={data} />
+      </Wrapper>
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -153,17 +118,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
-  let scheme ;
-  let primary :boolean = false;
-  if(context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f"){
+  let scheme;
+  let primary: boolean = false;
+  if (context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f") {
     scheme = await schemeDataTransform(context.query.explorer)
     primary = true;
   }
   else {
-   scheme = await dataTransform(context.query.explorer)
-   primary = false
+    scheme = await dataTransform(context.query.explorer)
+    primary = false
   }
-    return {
+  return {
     props: {
       data,
       scheme,
