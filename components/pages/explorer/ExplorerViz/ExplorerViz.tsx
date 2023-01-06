@@ -17,8 +17,21 @@ import {
 } from 'components/data';
 import { ExternalLink, Globe, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
-import ExplorerMap from './ExplorerMap';
-import BarViz from './BarViz';
+import dynamic from 'next/dynamic';
+
+const ExplorerMap = dynamic(
+  () => import('./ExplorerMap'),
+  {
+    ssr: false,
+  }
+);
+
+const BarViz = dynamic(
+  () => import('./BarViz'),
+  {
+    ssr: false,
+  }
+);
 
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 

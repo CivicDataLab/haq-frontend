@@ -3,11 +3,7 @@ import styled from 'styled-components';
 
 import {
   tabbedInterface,
-  filter_data_indicator,
-  filter_data_budgettype,
 } from 'utils/explorer';
-
-import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 
 import {
   DownloadViz,
@@ -17,10 +13,22 @@ import {
 } from 'components/data';
 import { ExternalLink, Globe, TableIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
-import ExplorerMap from './ExplorerMap';
-import SummaryBarViz from './SummaryBarViz';
-
+import dynamic from 'next/dynamic';
 import { MenuButton } from 'components/actions/Menu/MenuComp';
+
+const ExplorerMap = dynamic(
+  () => import('./ExplorerMap'),
+  {
+    ssr: false,
+  }
+);
+
+const SummaryBarViz = dynamic(
+  () => import('./SummaryBarViz'),
+  {
+    ssr: false,
+  }
+);
 
 const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   // const [selectedIndicator, setSelectedIndicator] =
