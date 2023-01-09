@@ -7,7 +7,7 @@ import { debounce, swrFetch } from 'utils/helper';
 import MapViz from 'components/viz/MapViz';
 // import { consDescFetch } from 'utils/fetch';
 
-const ExplorerMap = ({meta, schemeData,dispatch }) => {
+const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -20,14 +20,14 @@ const ExplorerMap = ({meta, schemeData,dispatch }) => {
     `/assets/maps/Uttar Pradesh.json`
   );
 
-//   React.useEffect(() => {
-//     consDescFetch().then((res) => setConsDesc(res));
-//   }, []);
+  //   React.useEffect(() => {
+  //     consDescFetch().then((res) => setConsDesc(res));
+  //   }, []);
 
   // on state change, close the consitituency details popup
-//   useEffect(() => {
-//     setSelectedItem(undefined);
-//   }, [meta.sabha, meta.state, meta.selectedIndicator]);
+  //   useEffect(() => {
+  //     setSelectedItem(undefined);
+  //   }, [meta.sabha, meta.state, meta.selectedIndicator]);
 
   // preparing data for echarts component
   useEffect(() => {
@@ -38,32 +38,40 @@ const ExplorerMap = ({meta, schemeData,dispatch }) => {
         return a - b;
       });
 
-      const uniq = [...new Set(stateData)];      
-      const binLength = Math.floor(uniq.length / 4) ==0 ? 1 : Math.floor(uniq.length / 4) ;
+      const uniq = [...new Set(stateData)];
+      const binLength = Math.floor(uniq.length / 4) == 0 ? 1 : Math.floor(uniq.length / 4);
 
-      const binCount = uniq.length < 4 ? uniq.length : 4; 
+      const binCount = uniq.length <= 4 ? 2 : 4;
 
       const bins = []
-     
-      const colors = ['#286767','#368B8B','#41A8A8','#4ABEBE']
 
-      for(let i = 0;i<binCount ; i++){
+      const colors = ['#286767', '#368B8B', '#41A8A8', '#4ABEBE']
+
+      if (uniq.length == 1 || uniq.length == 2) {
         bins.push({
-          min:  uniq.length < 4  ? uniq[i] : i==0 ? uniq[0] : uniq[i*binLength + 1],
-          max: i==3 ? uniq[uniq.length - 1] : uniq.length < 4  ? uniq[i] : uniq[binLength * (i+1)],
-          // label: i==0 ? uniq.length < 4 
-          //             ?`${uniq[0]}` 
-          //             :`${uniq[0]} to ${uniq[0 + binLength]}`
-          //             :`${uniq[i*binLength + 1]} to ${uniq[binLength * (i+1)]}`,
-          label: i==3 ? `${uniq[i*binLength + 1]} to ${uniq[uniq.length - 1]}` 
-                      : uniq.length < 4 
-                      ?`${uniq[i]}` 
-                      :i ==0 ?`${uniq[0]} to ${uniq[binLength * (i+1)]}`:`${uniq[i*binLength + 1]} to ${uniq[binLength * (i+1)]}`,
+          min: uniq[0],
+          max: uniq.length == 2 ? uniq[1] : uniq[0],
+          label: uniq.length == 2 ? `${uniq[0]} to ${uniq[1]}` : `${uniq[0]}`,
+          color: colors[0],
+        })
+      } else {
+        for (let i = 0; i < binCount; i++) {
+          const temp = {
+            min: uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1],
+            max: i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)],
+            // label: i==0 ? uniq.length < 4 
+            //             ?`${uniq[0]}` 
+            //             :`${uniq[0]} to ${uniq[0 + binLength]}`
+            //             :`${uniq[i*binLength + 1]} to ${uniq[binLength * (i+1)]}`,
+            label: (uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]) == (i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)])
+              ? uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]
+              : `${uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]} to ${i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)]}`,
 
-          color: colors[i]
-        },)
+            color: colors[i]
+          }
+          bins.push(temp)
+        }
       }
-
 
       //  [
       //   {
@@ -105,18 +113,18 @@ const ExplorerMap = ({meta, schemeData,dispatch }) => {
       //   // },
       // ]
 
-      const vizIndicators = 
-      //uniq.length == 1 ?
-      // [
-      //   {
-      //     min: uniq[0],
-      //     max: uniq[0 ],
-      //     label: `${uniq[0]}`,
-      //     color: '#4ABEBE',
-      //   },] :
-      binLength
-        ? bins
-        : [
+      const vizIndicators =
+        //uniq.length == 1 ?
+        // [
+        //   {
+        //     min: uniq[0],
+        //     max: uniq[0 ],
+        //     label: `${uniq[0]}`,
+        //     color: '#4ABEBE',
+        //   },] :
+        binLength
+          ? bins
+          : [
             {
               min: 0,
               max: 0,
@@ -245,7 +253,7 @@ const ExplorerMap = ({meta, schemeData,dispatch }) => {
       ) : (
         mapIndicator && (
           <MapViz
-            mapFile={data}   
+            mapFile={data}
             data={mapValues}
             vizIndicators={mapIndicator}
             newMapItem={newMapItem}
