@@ -203,7 +203,7 @@ export async function fetchDatasets() {
 // fetch particular dataset
 export async function fetchAPI(path) {
   const response = await fetch(
-    `http://13.232.98.238/api/3/action/package_show?id=${path}`
+    `https://data.girleducation.in/api/3/action/package_show?id=${path}`
   );
   const data = await response.json();
   return data;

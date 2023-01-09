@@ -2,7 +2,7 @@ import { read, utils as xlsxUtil } from 'xlsx';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
-    `http://13.232.98.238/api/3/action/package_show?id=${value}`
+    `https://data.girleducation.in/api/3/action/package_show?id=${value}`
   ).then((res) => res.json());
 
   return queryRes.result;

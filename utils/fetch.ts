@@ -8,9 +8,9 @@ export const fetchDatasets = async (variables) => {
   const fq = variables.fq ? variables.fq.replace(/&/g,"%26") : null;
   variables.fq
   ? (variables.fq = fq.concat(
-      ` AND !schemeType:summary-data AND private:false`
+      `organization:haq-up AND !schemeType:summary-data AND private:false`
     ))
-  : (variables.fq = `AND !schemeType:summary-data AND private:false`);
+  : (variables.fq = `organization:haq-up AND !schemeType:summary-data AND private:false`);
 
   // creating a string of parameter from object of variables for CKAN API use
   const varArray = Object.keys(variables).map((key) => {
@@ -23,7 +23,7 @@ export const fetchDatasets = async (variables) => {
       : `fq=organization:haq-up AND !schemeType:summary-data AND private:false&rows=1000`;
 
   const response = await fetch(
-    `http://13.232.98.238/api/3/action/package_search?${varString}`
+    `https://data.girleducation.in/api/3/action/package_search?${varString}`
   );
   const data = await response.json();
   return data;
@@ -38,7 +38,7 @@ export async function fetchFilters(list, variable) {
     }`;
   
     const fetchData = await fetch(
-      `http://13.232.98.238/api/3/action/package_search?facet.field=[${list}]&${queryVars}`
+      `https://data.girleducation.in/api/3/action/package_search?facet.field=[${list}]&${queryVars}`
     ).then((res) => res.json());
     return fetchData.result.search_facets;
   } catch (error) {
