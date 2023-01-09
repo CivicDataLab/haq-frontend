@@ -10,11 +10,7 @@ const nextConfig = {
   },
   images: {
     domains: [
-      'justicehub.in',
-      '15.207.175.86',
-      'localhost',
-      'strapi.ndp.civicdatalab.in',
-      'ndp.ckan.civicdatalab.in',
+      'content.girleducation.in',
     ],
     formats: ['image/webp'],
   },
