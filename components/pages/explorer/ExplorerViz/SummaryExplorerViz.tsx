@@ -325,19 +325,12 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
   return (
     <>
-      <div className="container">
-        {/* <IndicatorMobile
-          indicators={schemeRaw}
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-        /> */}
-        {/* <Indicator
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-          schemeData={schemeData}
-        /> */}
-      </div>
       <Wrapper className="container">
+        <IndicatorMobile
+          indicators={schemeRaw.data}
+          newIndicator={(e) => handleNewIndicator(e)}
+          selectedIndicator={indicator}
+        /> 
         <Indicator
           newIndicator={(e) => handleNewIndicator(e)}
           selectedIndicator={indicator}
