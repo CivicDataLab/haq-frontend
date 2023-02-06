@@ -16,8 +16,8 @@ const HomeCard = ({dataset}) => {
                   <Image
                     src={getStrapiMedia(dataset[0].src.url)}
                     alt=""
-                    width={580}
-                    height={280}
+                    width={420}
+                    height={155}
                   />
                 </CardImage>
                 <CardContent primary={true}>
@@ -37,8 +37,8 @@ const HomeCard = ({dataset}) => {
                         <Image
                           src={getStrapiMedia(item.src.url)}
                           alt=""
-                          width={79.64}
-                          height={79.64}
+                          width={99.64}
+                          height={99.64}
                         />
                       </CardImage>
                       <CardContent>
@@ -83,7 +83,7 @@ const DataCard = styled.a`
   box-sizing: border-box;
   border-radius: 12px; 
   background : #fff;
-  padding:16px;
+  padding:17px;
   display:flex;
   text-decoration:none;
 `;
@@ -101,7 +101,7 @@ const CardImage = styled.div<Props>`
 const CardContainer = styled.div`
   display:flex;
   flex-direction:column;
-  gap:24px;
+  gap:28px;
   list-style: none;
 `;
 
@@ -117,12 +117,12 @@ const CardWrapper = styled.div`
 `;
 
 const CardContent = styled.div<Props>`
- padding: ${props => props.primary ? '16px 0 0 0' : '0 0 0 10px'};
+ padding: ${props => props.primary ? '13px 0 0 0' : '0 0 0 10px'};
  h4 {
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
-    padding-bottom:6px;
+    padding-bottom:3px;
   }
  small {
   font-weight: 300;

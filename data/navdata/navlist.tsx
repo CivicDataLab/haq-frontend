@@ -7,16 +7,12 @@ export const navList = {
       name: 'Datasets',
       submenu: [
         {
-          link: '/budget',
+          link: '/scheme/e4ea0c34-3977-4dcf-89e6-e391e681871f',
           name: 'Summary',
         },
         {
           link: '/scheme',
           name: 'Schemes',
-        },
-        {
-          link: '/datasets',
-          name: 'All Datasets',
         },
       ],
     },
