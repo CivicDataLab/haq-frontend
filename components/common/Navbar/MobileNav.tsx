@@ -54,15 +54,13 @@ const MobNav = ({ data }) => {
 
           <div className={data.logo && 'header__logo'}>
             <Link href="/">
-              <a>
-                <Image
-                  className="logo"
-                  src={data.logo}
-                  alt={`${data.site} logo`}
-                  width={220}
-                  height={46}
-                />
-              </a>
+              <Image
+                className="logo"
+                src={data.logo}
+                alt={`${data.site} logo`}
+                width={220}
+                height={46}
+              />
             </Link>
           </div>
         </div>
@@ -123,11 +121,10 @@ const MobNav = ({ data }) => {
                     <MenuItem
                       href={navItem.link}
                       onClick={mobileNavHandler}
-                      className={`navbar__item ${
-                        router.pathname.includes(navItem.link)
+                      className={`navbar__item ${router.pathname.includes(navItem.link)
                           ? 'navbar__item--active'
                           : ''
-                      }`}
+                        }`}
                     >
                       {navItem.name}
                     </MenuItem>
