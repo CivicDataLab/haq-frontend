@@ -8,9 +8,9 @@ export const fetchDatasets = async (variables) => {
   const fq = variables.fq ? variables.fq.replace(/&/g,"%26") : null;
   variables.fq
   ? (variables.fq = fq.concat(
-      `organization:haq-up AND !schemeType:summary-data AND private:false`
+      `AND !schemeType:summary-data AND private:false`
     ))
-  : (variables.fq = `organization:haq-up AND !schemeType:summary-data AND private:false`);
+  : (variables.fq = `AND !schemeType:summary-data AND private:false`);
 
   // creating a string of parameter from object of variables for CKAN API use
   const varArray = Object.keys(variables).map((key) => {

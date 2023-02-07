@@ -69,7 +69,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     { value: "2019-2020", title: "2019-2020" },
     { value: "2020-2021", title: "2020-2021" },
     { value: "2021-2022", title: "2021-2022" },
-    { value: "2022-2023", title: "2023-2023" },
+    { value: "2022-2023", title: "2022-2023" },
     { value: "Total", title: "Total" },
   ]
 
