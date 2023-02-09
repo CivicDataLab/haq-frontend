@@ -59,7 +59,7 @@ const BarViz = ({ meta, data, consList }) => {
 
         const barValuesArr = [];
         
-        Object.keys(data).forEach((year) => {
+        Object.keys(data).reverse().forEach((year) => {
             const barValues = [year];
             items.forEach((item) => {
                 barValues.push(data[year][item.consCode])

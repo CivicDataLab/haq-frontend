@@ -62,6 +62,8 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                     ? ""
                     : schemeRaw.data[indicatorID]['grant_name'][year][schemeType][schemeMode][item.consCode]
 
+    const reversedYearArr = yearArr.slice(0, yearArr.length - 1).reverse().concat("Total");
+    
     useEffect(() => {
         if (state.value.length > 0 && Object.keys(schemeRaw).length && indicator) {
             const indicatorID = Object.keys(schemeRaw.data).find(
@@ -75,7 +77,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
 
                 const barValuesArr = [];
 
-                yearArr.forEach((year) => {
+                reversedYearArr.forEach((year) => {
                     const barValues = [year];
                     items.forEach((item) => {
                         barValues.push(filteredVal(indicatorID, year, item))
