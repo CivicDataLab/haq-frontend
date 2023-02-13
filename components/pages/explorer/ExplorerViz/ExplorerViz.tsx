@@ -136,7 +136,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
       if (financialYears) {
-        financialYears.forEach((element) =>
+        financialYears.reverse().forEach((element) =>
           tableHeader.push({
             Header: `${element.title}`,
             accessor: `${indicator}-${element.title}`,
@@ -147,7 +147,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       const a = Object.keys(schemeRaw.metadata.consList);
       const rowData = [];
       if (filtered[meta.year]) {
-        a.forEach((item, index) => {
+         a.forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
               schemeRaw.metadata.consList[a[index]][0]?.constName,
@@ -156,7 +156,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           Object.keys(filtered).map(
             (item1, index1) =>
               (tempObj[tableHeader[index1 + 1].accessor] =
-                filtered[item1][
+                filtered[tableHeader[index1 + 1].Header][
                   schemeRaw.metadata.consList[a[index]][0]?.constCode
                 ])
           );

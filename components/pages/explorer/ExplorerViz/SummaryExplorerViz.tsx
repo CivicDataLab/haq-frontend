@@ -116,8 +116,10 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       const tableHeader = [
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
-      if (yearOpt) {
-        yearOpt.forEach((element) =>
+      const reversedYear = [...yearOpt.slice(0, yearOpt.length - 1).reverse(), yearOpt[yearOpt.length - 1]];
+      
+      if (reversedYear) {
+        reversedYear.forEach((element) =>
           tableHeader.push({
             Header: `${element.title}`,
             accessor: `${indicator}-${element.title}`,
@@ -147,7 +149,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           //      ])
           //  );
 
-           yearOpt.map(
+           reversedYear.map(
             
              (item1, index1) => (tempObj[tableHeader[index1 + 1].accessor] = 
               
