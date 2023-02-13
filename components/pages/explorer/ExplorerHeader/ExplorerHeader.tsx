@@ -6,7 +6,7 @@ import { categoryIcon, categoryTag } from 'utils/explorer';
 import { Download } from 'components/icons';
 import { ButtonComp } from 'components/actions/Button';
 
-const ExplorerHeader = ({ data }) => {
+const ExplorerHeader = ({ data, summary, primary }) => {
   // const item = [
   //   {
   //     text: 'Total Receipts',
@@ -26,7 +26,7 @@ const ExplorerHeader = ({ data }) => {
   //   },
   // ]
 
-  return (
+  return (  
     <Wrapper>
       <div className="container flex">
         <Share title={data.title} />
@@ -39,8 +39,14 @@ const ExplorerHeader = ({ data }) => {
         <HeaderContent>
           <figure>{categoryIcon(data.tags)}</figure>
           <div>
-            <h2>{data.title}</h2>
-            <Tags data={data.tags} />
+            {primary ? 
+            <div>
+               <h2>{summary.title}</h2>
+               <h3>{summary.description}</h3>
+            </div>
+            : <h2>{data.title}</h2>}
+            
+           {data.tags && <Tags data={data.tags} />}
           </div>
         </HeaderContent>
         {/* <HeaderText>{data.notes}</HeaderText> */}

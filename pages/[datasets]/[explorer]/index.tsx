@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
 import { dataTransform, schemeDataTransform } from 'utils/data'
+import { fetchAPI as strapiAPI } from 'lib/api';
 
 import {
   // ExplorerDetailsViz,
@@ -20,12 +21,13 @@ type Props = {
   fileData: any;
   scheme: any;
   primary: boolean;
+  summary: any;
 };
 const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) => {
+const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summary }) => {
   const grants = Object.keys(
     Object.values(scheme.data)[0]['grant_name']
   ).map((item) => ({
@@ -55,7 +57,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) =>
         <title>{data.title || Explorer} | HAQ</title>
       </Head>
       <Wrapper>
-        <ExplorerHeader data={data} />
+        <ExplorerHeader data={data} primary={primary} summary={summary}/>
         {Object.keys(data).length !== 0 ? (
           <>
             <div id="explorerVizWrapper">
@@ -128,11 +130,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     scheme = await dataTransform(context.query.explorer)
     primary = false
   }
+  const summary = await strapiAPI('/summary');
   return {
     props: {
       data,
       scheme,
-      primary
+      primary,
+      summary: summary.data
       // meta,
       // fileData,
     },
