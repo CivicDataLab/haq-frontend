@@ -96,13 +96,13 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       icon: <Globe />,
     },
     {
-      name: 'Table View',
-      id: '#tableView',
+      name: 'Bar View',
+      id: '#barView',
       icon: <TableIcon />,
     },
     {
-      name: 'Bar View',
-      id: '#barView',
+      name: 'Table View',
+      id: '#tableView',
       icon: <TableIcon />,
     },
   ];
@@ -296,19 +296,6 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       ),
       ref: mapRef,
     },
-     {
-       id: 'tableView',
-       graph: tableData.rows ? (
-         <Table
-           header={
-             tableData.header ? tableData.header : ['table not available']
-           }
-           rows={tableData.rows ? tableData.rows : []}
-         />
-       ) : (
-         <></>
-       ),
-     },
     {
       id: 'barView',
       graph: filtered ? (
@@ -323,6 +310,19 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         <span>Loading....</span>
       ),
     },
+     {
+       id: 'tableView',
+       graph: tableData.rows ? (
+         <Table
+           header={
+             tableData.header ? tableData.header : ['table not available']
+           }
+           rows={tableData.rows ? tableData.rows : []}
+         />
+       ) : (
+         <></>
+       ),
+     },
   ];
 
   return (
