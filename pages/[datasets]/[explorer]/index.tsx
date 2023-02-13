@@ -85,7 +85,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary }) =>
             </div>
           </NoContext>
         )}
-        <ExplorerRelated data={data} />
+        {/* <ExplorerRelated data={data} /> */}
       </Wrapper>
     </>
   );

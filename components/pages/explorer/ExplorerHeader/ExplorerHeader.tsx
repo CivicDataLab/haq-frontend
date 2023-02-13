@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Share } from 'components/actions';
+import { Share, Button } from 'components/actions';
 import { Tags } from 'components/data';
 import { categoryIcon, categoryTag } from 'utils/explorer';
+import { Download } from 'components/icons';
+import { ButtonComp } from 'components/actions/Button';
 
 const ExplorerHeader = ({ data }) => {
   // const item = [
@@ -26,8 +28,11 @@ const ExplorerHeader = ({ data }) => {
 
   return (
     <Wrapper>
-      <div className="container">
+      <div className="container flex">
         <Share title={data.title} />
+        <Button href={data.resUrls[0]} kind = "secondary-outline" size='md' icon={<Download />} >
+            Dataset
+        </Button>
       </div>
 
       <section className="container">
@@ -64,6 +69,15 @@ const Wrapper = styled.div`
 
   section {
     margin-top: 2.5rem;
+  }
+
+  .flex {
+    display:flex;
+    justify-content: space-between;
+  }
+
+  ${ButtonComp} {
+    text-decoration: none !important;
   }
 `;
 
