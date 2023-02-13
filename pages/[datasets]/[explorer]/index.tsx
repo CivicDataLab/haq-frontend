@@ -43,9 +43,9 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summ
     consCode: '',
     vizType: 'map',
     grantName: grants[0].value,
-    schemeType: 'Benefits both boy and girl students directly',
-    schemeMode: 'Direct Cash Transfer to students',
-    schemeYear: '2016-2017'
+    schemeType: 'Benefits girl students exclusively',
+    schemeMode: 'Total',
+    schemeYear: '2021-2022'
   };
 
   const [state, dispatch] = React.useReducer(reducer, initalState);
