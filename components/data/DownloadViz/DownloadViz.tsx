@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef,useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { Button } from 'components/actions';
 // import { Button } from 'components/actions';
@@ -88,21 +88,22 @@ type Props = {
   meta: any
 };
 
+let watermarkSSR;
 const DownloadViz = ({ viz, tableData = {}, schemeRaw, meta }: Props) => {
 
-  var watermarkSSR;
+const watermarkRef = useRef(watermarkSSR);
 useEffect(() => {
   (async () => {
     const x = await import('watermarkjs');
-    watermarkSSR = x.default;
+    watermarkRef.current = x.default;
   })();
 }, [viz, meta]);
-  console.log(watermarkSSR)
+
   function svg2img(canvasElm) {
     const myChart = createDummyCanvas(canvasElm,schemeRaw.metadata.source, meta,viz,schemeRaw.metadata.slug);
-
-    watermarkSSR([myChart, '/assets/images/cdl.png'])
-      .image(watermarkSSR.image.lowerRight(0.5))
+    
+    watermarkRef.current([myChart, '/assets/images/cdl.png'])
+      .image( watermarkRef.current.image.lowerRight(0.5))
       .then((img) => saveAs(img.src, `${schemeRaw.metadata.slug}.jpeg`.toLowerCase()));
   }
 
