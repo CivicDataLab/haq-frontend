@@ -63,7 +63,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                     : schemeRaw.data[indicatorID]['grant_name'][year][schemeType][schemeMode][item.consCode]
 
     const reversedYearArr = yearArr.slice(0, yearArr.length - 1).reverse().concat("Total");
-    
+
     useEffect(() => {
         if (state.value.length > 0 && Object.keys(schemeRaw).length && indicator) {
             const indicatorID = Object.keys(schemeRaw.data).find(
@@ -106,18 +106,20 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
             />
 
             {items.length > 0 && barData.length > 0 && (
-                <GroupBarChart
-                    yAxisLabel={`Value (in ${meta.unit})`}
-                    xAxisLabel="Fiscal Years"
-                    theme={['#4965B2', '#ED8686', '#69BC99']}
-                    dataset={barData}
-                    stack={false}
-                    Title=""
-                    subTitle=""
-                    left="70vw"
-                    type="bar"
-                    smooth={true}
-                />
+                <section className="barViz">
+                    <GroupBarChart
+                        yAxisLabel={`Value (in ${meta.unit})`}
+                        xAxisLabel="Fiscal Years"
+                        theme={['#4965B2', '#ED8686', '#69BC99']}
+                        dataset={barData}
+                        stack={false}
+                        Title=""
+                        subTitle=""
+                        left="70vw"
+                        type="bar"
+                        smooth={true}
+                    />
+                </section>
             )}
         </Wrapper>
     );

@@ -1,20 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { saveAs } from 'file-saver';
-import { stripTitle } from 'utils/explorer';
-import { Download } from 'components/icons';
-import * as echarts from 'echarts/core';
-// import watermark from 'watermarkjs';
 import { Button } from 'components/actions';
-
-function fileName(type, name, indicator, format) {
-  // splitting the string to find the required part of title
-  const shortName = stripTitle(name);
-
-  // If there is no type, eg: table, don;t add it to the name
-  if (type != 'NA' && format != 'csv')
-    return `${shortName} - ${indicator} - ${type}.${format}`;
-  else return `${shortName} - ${indicator}.${format}`;
-}
+// import { Button } from 'components/actions';
+import { Download } from 'components/icons';
 
 function download_csv(csv, filename) {
   const csvFile = new Blob([csv], { type: 'text/csv' });
@@ -35,56 +23,98 @@ function download_csv(csv, filename) {
   downloadLink.click();
 }
 
-export function export_table_to_csv(filename: any) {
+export function export_table_to_csv(tableData, filename: any) {
   const csv = [];
-  const rows = document.querySelectorAll('#tableView tr');
 
-  for (let i = 0; i < rows.length; i += 1) {
-    const row = [];
-    const cols = rows[i].querySelectorAll('td, th') as any;
+  // Add table header content
+  const tableHeader = tableData.header.map((item) => {
+    return item['Header'];
+  });
+  csv.push(tableHeader);
 
-    for (let j = 0; j < cols.length; j += 1) row.push(cols[j].innerText);
-
-    csv.push(row.join(','));
-  }
+  // Add table rows
+  tableData.rows.forEach((item) => {
+    csv.push(Object.values(item));
+  });
 
   // Download CSV
   download_csv(csv.join('\n'), filename);
 }
 
-const DownloadViz = ({ viz, type, name, indicator }) => {
-  function svg2img() {
-    const myChart = echarts.getInstanceByDom(
-      document.querySelector(`${viz} > .echarts-for-react`)
-    );
+function createDummyCanvas(srcCanvas,source,meta,viz,slug) {
+  //create a dummy CANVAS
+  const destinationCanvas = document.createElement('canvas');
+  destinationCanvas.width = srcCanvas.width;
+  destinationCanvas.height = srcCanvas.height + 60;
 
-    const url = myChart.getConnectedDataURL({
-      pixelRatio: 5,
-      backgroundColor: '#fff',
-      excludeComponents: ['toolbox'],
-      type: 'png',
-    });
-    saveAs(url, fileName(type, name, indicator, 'png'));
+  const destCtx = destinationCanvas.getContext('2d');
 
-    // watermark([url, '/assets/images/jh_logo.png'])
-    //   .image(watermark.image.lowerRight(0.5))
-    //   .then((img) => saveAs(img.src, fileName(type, name, indicator, 'png')));
+  //create a rectangle with the desired color
+  destCtx.fillStyle = '#FFFFFF';
+  destCtx.fillRect(0, 0, srcCanvas.width, srcCanvas.height+60);
+
+  //draw the original canvas onto the destination canvas
+  destCtx.drawImage(srcCanvas, 0, 0);
+
+  destCtx.font = "20px Josefin Slab";
+  destCtx.fillStyle = "#000";
+  destCtx.fillText(`${" "}Data Source ${source}`, 10, srcCanvas.height + 30);
+
+  //finally use the destinationCanvas.toDataURL() method to get the desired output;
+  return destinationCanvas.toDataURL('image/jpeg', 2);
+}
+
+type Props = {
+  viz: string;
+  tableData?: any;
+  schemeRaw?: any;
+  meta: any
+};
+
+const DownloadViz = ({ viz, tableData = {}, schemeRaw, meta }: Props) => {
+
+  var watermarkSSR;
+useEffect(() => {
+  (async () => {
+    const x = await import('watermarkjs');
+    watermarkSSR = x.default;
+  })();
+}, [viz, meta]);
+  console.log(watermarkSSR)
+  function svg2img(canvasElm) {
+    const myChart = createDummyCanvas(canvasElm,schemeRaw.metadata.source, meta,viz,schemeRaw.metadata.slug);
+
+    watermarkSSR([myChart, '/assets/images/cdl.png'])
+      .image(watermarkSSR.image.lowerRight(0.5))
+      .then((img) => saveAs(img.src, `${schemeRaw.metadata.slug}.jpeg`.toLowerCase()));
   }
 
-  function downloadSelector(viz) {
+  async function downloadSelector(viz) {
     if (viz == '#tableView')
-      export_table_to_csv(fileName(type, name, indicator, 'csv'));
-    else svg2img();
+      export_table_to_csv(tableData, `${schemeRaw.metadata.slug}.csv`.toLowerCase());
+    else {
+      await import('html2canvas')
+        .then((html2canvas) => {
+          html2canvas
+            .default(document.querySelector(`${viz == "#barView" ? '.barViz' : '.echarts-for-react '}`), {
+              scale: 2,
+            })
+            .then((canvasElm) => svg2img(canvasElm));
+        })
+        .catch((e) => {
+          console.error('load failed');
+        });
+    }
   }
 
   return (
     <Button
       onClick={() => downloadSelector(viz)}
-      kind="secondary"
+      kind="secondary-outline"
       size="sm"
       icon={<Download />}
     >
-      {`Download ${viz == '#tableView' ? 'CSV' : 'Chart'}`}
+      {`Download ${viz == '#tableView' ? 'CSV' : 'Visualization'}`}
     </Button>
   );
 };
