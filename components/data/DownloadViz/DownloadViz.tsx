@@ -58,6 +58,23 @@ function createDummyCanvas(srcCanvas,source,meta,viz,slug) {
 
   destCtx.font = "20px Josefin Slab";
   destCtx.fillStyle = "#000";
+  if (slug == "summary-data") {
+    if (viz === "#mapView") {
+      destCtx.fillText(`${" "}Year ${meta.schemeYear}`, 10, 30);
+      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 60);
+      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 90);
+    } else {
+      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 60);
+      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 90);
+    }
+  } else {
+    if (viz === "#mapView") {
+      destCtx.fillText(`${" "}Year ${meta.year}`, 10, 30);
+      destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 60);
+    } else {
+      destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 30);
+    }
+  }
   destCtx.fillText(`${" "}Data Source ${source}`, 10, srcCanvas.height + 30);
 
   //finally use the destinationCanvas.toDataURL() method to get the desired output;
