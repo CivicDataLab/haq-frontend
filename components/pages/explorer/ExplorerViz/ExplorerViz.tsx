@@ -462,6 +462,9 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               </VizMenu>
             )}
           </VizHeader> */}
+          <DownloadButton>
+            <DownloadViz viz={currentViz} tableData={tableData} schemeRaw={schemeRaw} meta={meta} />
+          </DownloadButton>
         </VizWrapper>
       </Wrapper>
     </>
@@ -687,4 +690,11 @@ const NotesTitle = styled.span`
 const IndicatorNotes = styled.span`
   font-size: 0.75rem;
   line-height: 1.7;
+`;
+
+const DownloadButton = styled.div`
+   display: flex;
+   padding: 1.5rem;
+   padding-bottom: 0;
+   justify-content: flex-end;
 `;

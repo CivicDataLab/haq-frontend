@@ -51,26 +51,26 @@ const BarViz = ({ meta, data, consList }) => {
   useEffect(() => {
     if (state.value.length > 0 && Object.keys(data).length) {
       // for compare section
-      if (state.value.length > 0) {    
+      if (state.value.length > 0) {
         const headerArr = ['Fiscal Years']
         items.forEach((item) => {
-            headerArr.push(item.title)
+          headerArr.push(item.title)
         });
 
         const barValuesArr = [];
-        
+
         Object.keys(data).reverse().forEach((year) => {
-            const barValues = [year];
-            items.forEach((item) => {
-                barValues.push(data[year][item.consCode])
-                barValuesArr.push(barValues)
-            });
+          const barValues = [year];
+          items.forEach((item) => {
+            barValues.push(data[year][item.consCode])
+            barValuesArr.push(barValues)
+          });
         })
-        
+
         const barArray = [headerArr, ...barValuesArr]
-        
+
         setBarData(barArray);
-      } 
+      }
     }
   }, [state.value, data]);
 
@@ -88,18 +88,20 @@ const BarViz = ({ meta, data, consList }) => {
       />
 
       {items.length > 0 && barData.length > 0 && (
-        <GroupBarChart
-          yAxisLabel={`Value (in ${meta.unit})`}
-          xAxisLabel="Fiscal Years"
-          theme={['#4965B2', '#ED8686', '#69BC99']}
-          dataset={barData}
-          stack={false}
-          Title=""
-          subTitle=""
-          left="70vw"
-          type="bar"
-          smooth={true}
-        />
+        <section className="barViz">
+          <GroupBarChart
+            yAxisLabel={`Value (in ${meta.unit})`}
+            xAxisLabel="Fiscal Years"
+            theme={['#4965B2', '#ED8686', '#69BC99']}
+            dataset={barData}
+            stack={false}
+            Title=""
+            subTitle=""
+            left="70vw"
+            type="bar"
+            smooth={true}
+          />
+        </section>
       )}
     </Wrapper>
   );
