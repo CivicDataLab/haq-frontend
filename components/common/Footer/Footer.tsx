@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { getStrapiMedia } from 'lib/media';
 
-const Footer = ({data}) => {
+const Footer = ({ data }) => {
     return (
         <Wrapper>
             <Logo>
@@ -16,7 +16,7 @@ const Footer = ({data}) => {
                 />
 
                 <p>
-                   {data.desc}
+                    {data.desc}
                 </p>
 
                 <SocialLinks>
@@ -29,12 +29,12 @@ const Footer = ({data}) => {
                         >
                             {item.img}
                         </a>
-                        ))}
+                    ))}
                 </SocialLinks>
             </Logo>
             <div className="divider"></div>
             <Links>
-            {data.footer_column.length > 0 ?
+                {data.footer_column.length > 0 ?
                     <LinkWrapper>
                         {data.footer_column.map((item, index) => {
                             return (
@@ -61,14 +61,20 @@ const Footer = ({data}) => {
                     <ImageContainer>
                         {data.footer_image.map((img: any, index: number) => {
                             return (
-                                <Image
-                                    key = {`footer_image.${index}`}
-                                    className="logo_image"
-                                    src={getStrapiMedia(data.footer_image[index].src.url)}
-                                    alt={`footer_logo_${img.alt}`}
-                                    width={150}
-                                    height={132}
-                                />
+                                <a
+                                    href={img.link}
+                                    rel="noreferrer"
+                                    target="_blank"
+                                >
+                                    <Image
+                                        key={`footer_image.${index}`}
+                                        className="logo_image"
+                                        src={getStrapiMedia(data.footer_image[index].src.url)}
+                                        alt={`footer_logo_${img.alt}`}
+                                        width={150}
+                                        height={132}
+                                    />
+                                </a>
                             )
                         })}
                     </ImageContainer>
