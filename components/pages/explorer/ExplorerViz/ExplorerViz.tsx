@@ -59,6 +59,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
   const { indicator, year, grantName } = meta;
 
+  console.log(meta.year)
+
   // todo: make it dynamic lie scheme dashboard
   // const IndicatorDesc = [
   //   meta['Indicator 1 - Description'],
@@ -136,7 +138,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
       if (financialYears) {
-        financialYears.reverse().forEach((element) =>
+        let reverseFinancialYears = [...financialYears];
+        reverseFinancialYears.reverse().forEach((element) =>
           tableHeader.push({
             Header: `${element.title}`,
             accessor: `${indicator}-${element.title}`,
@@ -190,8 +193,10 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       }));
       setFinancialYears(years); // all years
 
+      let defaultYear = years && years.find((year) => year.value === "2021-2022");
+      
       dispatch({
-        year: year ? year : years[0].value,
+        year: year ? year : defaultYear? "2021-2022" : years[years.length-1].value,
         grantName: grantName ? grantName : grants[0].value,
       });
     }
@@ -208,8 +213,9 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       }));
       setFinancialYears(years); // all years
 
+      let defaultYear = years && years.find((year) => year.value === "2021-2022");
       dispatch({
-        year: years[0].value,
+        year: defaultYear? "2021-2022" : years[years.length-1].value,
         grantName: grantName ? grantName : grant[0].value,
       });
 
