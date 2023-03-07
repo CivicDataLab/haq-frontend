@@ -177,12 +177,12 @@ export async function dataTransform(id) {
                 if (total[innerKey] && innerestKey in total[innerKey]) {
                   total[innerKey] = {
                     ...total[innerKey],
-                    [innerestKey]: total[innerKey][innerestKey] + parseInt(grant_name[key][innerKey][innerestKey])
+                    [innerestKey]: total[innerKey][innerestKey] + parseFloat(grant_name[key][innerKey][innerestKey])
                   }
                 } else {
                   total[innerKey] = {
                     ...total[innerKey],
-                    [innerestKey]: parseInt(grant_name[key][innerKey][innerestKey])
+                    [innerestKey]: parseFloat(grant_name[key][innerKey][innerestKey])
                   }
                 }
               }
