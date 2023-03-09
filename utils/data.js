@@ -61,6 +61,7 @@ export async function dataTransform(id) {
   let type;
   let slug;
   let url;
+  let totalArr = []
 
   await fetchQuery('slug', id).then((data) => {
     data.resources.forEach((file) => {
@@ -117,32 +118,6 @@ export async function dataTransform(id) {
       let grant_name = {};
       let total = {};
 
-      // for (let j = 1; j < dataParse.length; j += 1) {
-      //   if (dataParse[j][4]) {
-      //     grant_name[dataParse[j][4]] = {
-      //       ...grant_name[dataParse[j][4]],
-
-      //       [dataParse[j][11]]: (fiscal_year[dataParse[j][11].trim()] = {
-      //         ...fiscal_year[dataParse[j][11].trim()],
-
-      //         [dataParse[j][1]]: !(
-      //           grant_name[dataParse[j][4]] &&
-      //           grant_name[dataParse[j][4]][dataParse[j][11].trim()] &&
-      //           dataParse[j][1] in
-      //             grant_name[dataParse[j][4]][dataParse[j][11].trim()]
-      //         )
-      //           ? dataParse[j][i] || 0
-      //           : dataParse[j][i] +
-      //             parseInt(
-      //               grant_name[dataParse[j][4]][dataParse[j][11].trim()][
-      //                 dataParse[j][1]
-      //               ]
-      //             ),
-      //       }),
-      //     };
-      //   }
-      // }
-
       for (let j = 1; j < dataParse.length; j += 1) {
         if (dataParse[j][4]) {
           grant_name[dataParse[j][4]] = {
@@ -174,6 +149,15 @@ export async function dataTransform(id) {
           for (const innerKey in grant_name[key]) {
             if (isObject(grant_name[key][innerKey])) {
               for (const innerestKey in grant_name[key][innerKey]) {
+                if(i==14){
+                  const val12 = totalArr[0]?.[innerKey]?.[innerestKey] ?? 0;
+                  const val13 = totalArr[1]?.[innerKey]?.[innerestKey] ?? 0;
+                  const result = val12 !== 0 ? twoDecimals((val13 / val12) * 100) : 0;
+                  total[innerKey] = {
+                    ...total[innerKey],
+                    [innerestKey]: result,
+                  };
+                }else{
                 if (total[innerKey] && innerestKey in total[innerKey]) {
                   total[innerKey] = {
                     ...total[innerKey],
@@ -185,11 +169,14 @@ export async function dataTransform(id) {
                     [innerestKey]: parseFloat(grant_name[key][innerKey][innerestKey])
                   }
                 }
+               }
               }
             }
           }
         }
       }
+
+     totalArr.push(total)
 
       grant_name = {
         ...grant_name,
