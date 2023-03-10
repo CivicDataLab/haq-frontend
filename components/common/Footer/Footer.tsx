@@ -65,6 +65,7 @@ const Footer = ({ data }) => {
                                     href={img.link}
                                     rel="noreferrer"
                                     target="_blank"
+                                    key={`footer_image_link.${index}`}
                                 >
                                     <Image
                                         key={`footer_image.${index}`}
