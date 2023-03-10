@@ -4,24 +4,16 @@ import { Menu } from 'components/actions';
 
 const options = [
   {
-    value: 'tender_bid_opening_date:asc',
-    title: 'Date Asc',
+    value: 'title_string:asc',
+    title: 'Name Asc',
   },
   {
-    value: 'tender_bid_opening_date:desc',
-    title: 'Date Desc',
+    value: 'title_string:desc',
+    title: 'Name Desc',
   },
   {
-    value: 'tender_value_amount:asc',
-    title: 'Tender Value Asc',
-  },
-  {
-    value: 'tender_value_amount:desc',
-    title: 'Tender Value Desc',
-  },
-  {
-    value: 'buyer_name:asc',
-    title: 'Departments',
+    value: 'metadata_modified:desc',
+    title: 'Date Modified',
   },
   {
     value: 'score:desc',
@@ -29,15 +21,18 @@ const options = [
   },
 ];
 
-const Sort: React.FC<{ newSort: any; className?:string }> = ({ newSort, className }) => {
+const Sort: React.FC<{ newSort: any; className?: string }> = ({
+  newSort,
+  className,
+}) => {
   const router = useRouter();
-  const [sort, setSort] = useState('tender_bid_opening_date:asc');
-  const [value, setValue] = useState('Date Asc');
+  const [sort, setSort] = useState('metadata_modified:desc');
+  const [value, setValue] = useState('Date Modified');
 
   useEffect(() => {
     const currentSort = router.query.sort
       ? router.query.sort
-      : 'tender_bid_opening_date:asc';
+      : 'metadata_modified:desc';
 
     setSort(currentSort as string);
   }, [router.query.sort]);
