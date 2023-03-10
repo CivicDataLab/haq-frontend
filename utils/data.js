@@ -161,7 +161,7 @@ export async function dataTransform(id) {
                 if (total[innerKey] && innerestKey in total[innerKey]) {
                   total[innerKey] = {
                     ...total[innerKey],
-                    [innerestKey]: total[innerKey][innerestKey] + parseFloat(grant_name[key][innerKey][innerestKey])
+                    [innerestKey]: twoDecimals(total[innerKey][innerestKey] + parseFloat(grant_name[key][innerKey][innerestKey]))
                   }
                 } else {
                   total[innerKey] = {
@@ -180,7 +180,7 @@ export async function dataTransform(id) {
 
       grant_name = {
         ...grant_name,
-        total
+        Total:total
       }
 
       const indicatorSlug =
