@@ -16,7 +16,6 @@ import {
 } from 'components/pages/explorer';
 
 type Props = {
-  data: any;
   meta: any;
   fileData: any;
   scheme: any;
@@ -27,7 +26,8 @@ const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summary }) => {
+const Explorer: React.FC<Props> = ({ scheme, primary, summary }) => {
+  
   const grants = Object.keys(
     Object.values(scheme.data)[0]['grant_name']
   ).map((item) => ({
@@ -35,7 +35,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summ
     title: item,
   }));
   const initalState = {
-    scheme: data.notes || '',
+    scheme: scheme.notes || '',
     schemeData: {},
     indicator: '',
     year: '',
@@ -49,16 +49,15 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summ
   };
 
   const [state, dispatch] = React.useReducer(reducer, initalState);
-  console.log(scheme)
 
   return (
     <>
       <Head>
-        <title>{data.title || Explorer} | HAQ</title>
+        <title>HAQ</title>
       </Head>
       <Wrapper>
-        <ExplorerHeader data={data} primary={primary} summary={summary}/>
-        {Object.keys(data).length !== 0 ? (
+        <ExplorerHeader data={scheme.metadata} primary={primary} summary={summary}/>
+        {Object.keys(scheme).length !== 0 ? (
           <>
             <div id="explorerVizWrapper">
               {!primary ?
@@ -87,7 +86,6 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summ
             </div>
           </NoContext>
         )}
-        {/* <ExplorerRelated data={data} /> */}
       </Wrapper>
     </>
   );
@@ -95,7 +93,7 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData, scheme, primary, summ
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // fetch dataset
-  const data = await fetchAPI(context.query.explorer).then((res) => explorerPopulation(res.result));
+  //const data = await fetchAPI(context.query.explorer).then((res) => explorerPopulation(res.result));
   // fetch and parse metadata csv
   // const metaRes = await resourceGetter(data.metaUrl);
   // const meta = {};
@@ -133,7 +131,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const summary = await strapiAPI('/summary');
   return {
     props: {
-      data,
       scheme,
       primary,
       summary: summary.data

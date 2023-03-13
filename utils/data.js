@@ -1,5 +1,5 @@
 import { read, utils as xlsxUtil } from 'xlsx';
-
+//https://data.girleducation.in/api/3/action/package_search?fq=code:2071011090300%20AND%20private:false
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
     `https://data.girleducation.in/api/3/action/package_show?id=${value}`
@@ -46,14 +46,14 @@ export async function fetchSheets(link) {
   return result;
 }
 const twoDecimals = (num) => {
-  return isNaN(num) ? "" : (Number)(num.toString().match(/^-?\d+(?:\.\d{0,1})?/));
-}
+  return isNaN(num)
+    ? ''
+    : Number(num.toString().match(/^-?\d+(?:\.\d{0,1})?/));
+};
 const toLakh = (num, i) => {
-  if (i == 12 || i ==13 || i == 5 || i == 6)
-    return (num/100000).toFixed(2);
-  else 
-    return twoDecimals(num)
-}
+  if (i == 12 || i == 13 || i == 5 || i == 6) return (num / 100000).toFixed(2);
+  else return twoDecimals(num);
+};
 
 export async function dataTransform(id) {
   const obj = {};
@@ -61,16 +61,34 @@ export async function dataTransform(id) {
   let type;
   let slug;
   let url;
-  let totalArr = []
-
+  let totalArr = [];
+  let title;
+  let tags = [];
+  let resources = {};
+  let resUrls = [];
+  let dataUrl;
+  let metaUrl;
+  let notes;
   await fetchQuery('slug', id).then((data) => {
     data.resources.forEach((file) => {
+      resUrls.push(file.url);
       if (file.url.includes('.xlsx')) url = file.url;
+      if (file.name == 'Datasheet') resources.dataUrl = file.url;
+      if (file.name == 'Metadata') resources.metaUrl = file.url;
     });
+
+    console.log(data,'dataa')
     name = data.extras[0].value;
     type = data.extras[3].value;
     slug = data.name || '';
+    title = data.extras[1] ? `${data.title} | ${data.extras[1].value}` : data.title;
+    tags = data.extras[2] ? [data.extras[3].value,data.extras[2].value]:[];
+    dataUrl = data.resources.dataUrl || '';
+    metaUrl = data.resources.metaUrl || '';
+    resUrls = resUrls;
+    notes = data.notes || '';
   });
+
   await fetchSheets(url).then((res) => {
     const dataParse = res[0];
 
@@ -106,10 +124,15 @@ export async function dataTransform(id) {
       frequency: metaObj.frequency || '',
       source: metaObj['data-source'] || '',
       type: type || '',
-      note: metaObj['general-note'] || '',
+      notes: notes || '',
       slug,
       indicators: [],
       consList: consList || [],
+      tags: tags || [],
+      title: title || '',
+      resUrls,
+      dataUrl,
+      metaUrl
     };
 
     // Tabular Data
@@ -123,24 +146,38 @@ export async function dataTransform(id) {
           grant_name[dataParse[j][4]] = {
             ...grant_name[dataParse[j][4]],
 
-            [dataParse[j][11]]: grant_name[dataParse[j][4]] && dataParse[j][11].trim() in grant_name[dataParse[j][4]] ? {
+            [dataParse[j][11]]:
+              grant_name[dataParse[j][4]] &&
+              dataParse[j][11].trim() in grant_name[dataParse[j][4]]
+                ? {
+                    ...grant_name[dataParse[j][4]][dataParse[j][11].trim()],
 
-              ...grant_name[dataParse[j][4]][dataParse[j][11].trim()],
-
-              [dataParse[j][1]]: !(
-                grant_name[dataParse[j][4]] &&
-                grant_name[dataParse[j][4]][dataParse[j][11].trim()] &&
-                dataParse[j][1] in
-                grant_name[dataParse[j][4]][dataParse[j][11].trim()]
-              )
-                ? isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) || 0
-                : isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i, i]) +
-                  toLakh(parseInt(
-                    grant_name[dataParse[j][4]][dataParse[j][11].trim()][
-                    dataParse[j][1]
-                    ]
-                  ), i),
-            } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) },
+                    [dataParse[j][1]]: !(
+                      grant_name[dataParse[j][4]] &&
+                      grant_name[dataParse[j][4]][dataParse[j][11].trim()] &&
+                      dataParse[j][1] in
+                        grant_name[dataParse[j][4]][dataParse[j][11].trim()]
+                    )
+                      ? isNaN(dataParse[j][i])
+                        ? 0
+                        : toLakh(dataParse[j][i], i) || 0
+                      : isNaN(dataParse[j][i])
+                      ? 0
+                      : toLakh(dataParse[j][(i, i)]) +
+                        toLakh(
+                          parseInt(
+                            grant_name[dataParse[j][4]][
+                              dataParse[j][11].trim()
+                            ][dataParse[j][1]]
+                          ),
+                          i
+                        ),
+                  }
+                : {
+                    [dataParse[j][1]]: isNaN(dataParse[j][i])
+                      ? 0
+                      : toLakh(dataParse[j][i], i),
+                  },
           };
         }
       }
@@ -149,39 +186,45 @@ export async function dataTransform(id) {
           for (const innerKey in grant_name[key]) {
             if (isObject(grant_name[key][innerKey])) {
               for (const innerestKey in grant_name[key][innerKey]) {
-                if(i==14){
+                if (i == 14) {
                   const val12 = totalArr[0]?.[innerKey]?.[innerestKey] ?? 0;
                   const val13 = totalArr[1]?.[innerKey]?.[innerestKey] ?? 0;
-                  const result = val12 !== 0 ? twoDecimals((val13 / val12) * 100) : 0;
+                  const result =
+                    val12 !== 0 ? twoDecimals((val13 / val12) * 100) : 0;
                   total[innerKey] = {
                     ...total[innerKey],
                     [innerestKey]: result,
                   };
-                }else{
-                if (total[innerKey] && innerestKey in total[innerKey]) {
-                  total[innerKey] = {
-                    ...total[innerKey],
-                    [innerestKey]: twoDecimals(total[innerKey][innerestKey] + parseFloat(grant_name[key][innerKey][innerestKey]))
-                  }
                 } else {
-                  total[innerKey] = {
-                    ...total[innerKey],
-                    [innerestKey]: parseFloat(grant_name[key][innerKey][innerestKey])
+                  if (total[innerKey] && innerestKey in total[innerKey]) {
+                    total[innerKey] = {
+                      ...total[innerKey],
+                      [innerestKey]: twoDecimals(
+                        total[innerKey][innerestKey] +
+                          parseFloat(grant_name[key][innerKey][innerestKey])
+                      ),
+                    };
+                  } else {
+                    total[innerKey] = {
+                      ...total[innerKey],
+                      [innerestKey]: parseFloat(
+                        grant_name[key][innerKey][innerestKey]
+                      ),
+                    };
                   }
                 }
-               }
               }
             }
           }
         }
       }
 
-     totalArr.push(total)
+      totalArr.push(total);
 
       grant_name = {
         ...grant_name,
-        Total:total
-      }
+        Total: total,
+      };
 
       const indicatorSlug =
         generateSlug(metaObj[`indicator-${i - 11}-name`]) || '';
@@ -210,18 +253,20 @@ export async function schemeDataTransform(id) {
   let type;
   let slug;
   let url;
+  let resUrls = [];
 
   await fetchQuery('slug', id).then((data) => {
     data.resources.forEach((file) => {
+      resUrls.push(file.url);
       if (file.url.includes('.xlsx')) url = file.url;
     });
     name = data.extras[0].value;
     //type = data.extras[3] && data.extras[3].value;
     slug = data.name || '';
+    resUrls = resUrls;
   });
   await fetchSheets(url).then((res) => {
     const dataParse = res[0];
-    console.log(dataParse)
 
     const metaParse = res[1];
     let metaObj = {};
@@ -255,10 +300,10 @@ export async function schemeDataTransform(id) {
       frequency: metaObj.frequency || '',
       source: metaObj['data-source'] || '',
       type: type || '',
-      note: metaObj['general-note'] || '',
       slug,
       indicators: [],
       consList: consList || [],
+      resUrls: resUrls || [],
     };
 
     // Tabular Data
@@ -269,34 +314,70 @@ export async function schemeDataTransform(id) {
 
       for (let j = 1; j < dataParse.length; j += 1) {
         if (dataParse[j][2].trim()) {
-          grant_name[dataParse[j][2].trim()] = dataParse[j][2].trim() == "Total" ? {
-            ...grant_name[dataParse[j][2].trim()],
-            [dataParse[j][1]]: toLakh(dataParse[j][i], i)
-          } : {
-            ...grant_name[dataParse[j][2].trim()],
+          grant_name[dataParse[j][2].trim()] =
+            dataParse[j][2].trim() == 'Total'
+              ? {
+                  ...grant_name[dataParse[j][2].trim()],
+                  [dataParse[j][1]]: toLakh(dataParse[j][i], i),
+                }
+              : {
+                  ...grant_name[dataParse[j][2].trim()],
 
-            [dataParse[j][3]]: dataParse[j][3] == "Total" ? {
-              ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
-              [dataParse[j][1]]: toLakh(dataParse[j][i], i)
-            }
-              : grant_name[dataParse[j][2].trim()] && dataParse[j][3] in grant_name[dataParse[j][2].trim()] ? {
-                ...grant_name[dataParse[j][2].trim()][dataParse[j][3]],
+                  [dataParse[j][3]]:
+                    dataParse[j][3] == 'Total'
+                      ? {
+                          ...grant_name[dataParse[j][2].trim()][
+                            dataParse[j][3]
+                          ],
+                          [dataParse[j][1]]: toLakh(dataParse[j][i], i),
+                        }
+                      : grant_name[dataParse[j][2].trim()] &&
+                        dataParse[j][3] in grant_name[dataParse[j][2].trim()]
+                      ? {
+                          ...grant_name[dataParse[j][2].trim()][
+                            dataParse[j][3]
+                          ],
 
-                [dataParse[j][4]]: grant_name[dataParse[j][2].trim()][dataParse[j][3]] && dataParse[j][4] in grant_name[dataParse[j][2].trim()][dataParse[j][3]] ? {
-                  ...grant_name[dataParse[j][2].trim()][dataParse[j][3]][dataParse[j][4]],
+                          [dataParse[j][4]]:
+                            grant_name[dataParse[j][2].trim()][
+                              dataParse[j][3]
+                            ] &&
+                            dataParse[j][4] in
+                              grant_name[dataParse[j][2].trim()][
+                                dataParse[j][3]
+                              ]
+                              ? {
+                                  ...grant_name[dataParse[j][2].trim()][
+                                    dataParse[j][3]
+                                  ][dataParse[j][4]],
 
-
-                  [dataParse[j][1]]: !(
-                    grant_name[dataParse[j][2]] &&
-                    grant_name[dataParse[j][2].trim()][dataParse[j][3]] &&
-                    dataParse[j][1] in
-                    grant_name[dataParse[j][2].trim()][dataParse[j][3]]
-                  )
-                    ? toLakh(dataParse[j][i], i) || 0
-                    : toLakh(dataParse[j][i], i),
-                } : { [dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i) },
-              } : {[[dataParse[j][4]]]: {[dataParse[j][1]]: isNaN(dataParse[j][i]) ? 0 : toLakh(dataParse[j][i], i)}}
-          };
+                                  [dataParse[j][1]]: !(
+                                    grant_name[dataParse[j][2]] &&
+                                    grant_name[dataParse[j][2].trim()][
+                                      dataParse[j][3]
+                                    ] &&
+                                    dataParse[j][1] in
+                                      grant_name[dataParse[j][2].trim()][
+                                        dataParse[j][3]
+                                      ]
+                                  )
+                                    ? toLakh(dataParse[j][i], i) || 0
+                                    : toLakh(dataParse[j][i], i),
+                                }
+                              : {
+                                  [dataParse[j][1]]: isNaN(dataParse[j][i])
+                                    ? 0
+                                    : toLakh(dataParse[j][i], i),
+                                },
+                        }
+                      : {
+                          [[dataParse[j][4]]]: {
+                            [dataParse[j][1]]: isNaN(dataParse[j][i])
+                              ? 0
+                              : toLakh(dataParse[j][i], i),
+                          },
+                        },
+                };
         }
       }
 

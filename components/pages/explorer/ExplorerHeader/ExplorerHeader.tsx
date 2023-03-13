@@ -5,6 +5,7 @@ import { Tags } from 'components/data';
 import { categoryIcon, categoryTag } from 'utils/explorer';
 import { Download } from 'components/icons';
 import { ButtonComp } from 'components/actions/Button';
+import { HomeAffairs } from 'components/icons';
 
 const ExplorerHeader = ({ data, summary, primary }) => {
   // const item = [
@@ -37,7 +38,7 @@ const ExplorerHeader = ({ data, summary, primary }) => {
 
       <section className="container">
         <HeaderContent>
-          <figure>{categoryIcon(data.tags)}</figure>
+          <figure><HomeAffairs/></figure>
           <div>
             {primary ? 
             <div>
