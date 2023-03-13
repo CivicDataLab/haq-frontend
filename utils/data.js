@@ -77,7 +77,6 @@ export async function dataTransform(id) {
       if (file.name == 'Metadata') resources.metaUrl = file.url;
     });
 
-    console.log(data,'dataa')
     name = data.extras[0].value;
     type = data.extras[3].value;
     slug = data.name || '';

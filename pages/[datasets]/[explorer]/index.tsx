@@ -120,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // data.relatedSchemes = relatedSchemes;
   let scheme;
   let primary: boolean = false;
-  if (context.query.explorer == "e4ea0c34-3977-4dcf-89e6-e391e681871f") {
+  if (context.query.explorer == 'summary-data') {
     scheme = await schemeDataTransform(context.query.explorer)
     primary = true;
   }

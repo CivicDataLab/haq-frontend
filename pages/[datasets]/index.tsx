@@ -96,7 +96,7 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname }) => {
   return (
     <>
       <Head>
-        <title>{datasets[0].toUpperCase() + datasets.slice(1)} | HAQ</title>
+        <title>HAQ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper className="container">

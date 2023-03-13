@@ -6,11 +6,11 @@ import { Tags } from 'components/data';
 
 const DatasetCard: React.FC<{ datapackage: any; index: string; datasetname: string }> = ({ datapackage, index, datasetname }) => {
   const router = useRouter();
-
   return (
     <Link
+      passHref
       href={{
-        pathname: `${router.pathname}/${datapackage.id}`,
+        pathname: `${router.pathname}/${datapackage.notes}`,
         query: { datasets: datasetname },
       }}
     >
