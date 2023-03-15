@@ -6,6 +6,7 @@ import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
 import {
   dataTransform,
+  fetchJSON,
   schemeDataTransform,
   stateDataTransform,
 } from 'utils/data';
@@ -31,7 +32,7 @@ const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj }) => {
+const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj}) => {
 
   const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
     (item) => ({
@@ -129,17 +130,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
-  let scheme, res, obj;
+  let scheme, obj;
   let primary: boolean = false;
   if (context.query.explorer == 'summary-data') {
     scheme = await schemeDataTransform(context.query.explorer);
     primary = true;
   } else {
-    [scheme, res] = await Promise.all([
-      dataTransform(context.query.explorer),
-      stateDataTransform('f20be7a7-9640-4eb5-b820-f2eef616a8f0'),
-    ]);
-   obj = res[scheme.metadata.code] || {}
+    scheme = await dataTransform(context.query.explorer);
+    obj =  await fetchJSON('state-data',scheme.metadata.code)
   }  
   const summary = await strapiAPI('/summary');
   return {
@@ -147,7 +145,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       scheme,
       primary,
       summary: summary.data,
-      obj,
+      obj: obj || {},
       // meta,
       // fileData,
     },

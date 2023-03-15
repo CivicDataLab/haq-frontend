@@ -7,12 +7,36 @@ export async function fetchQuery(query, value) {
 
   return queryRes.result;
 }
+
+export async function jsonFetchQuery(query, value) {
+  const queryRes = await fetch(
+    `https://data.girleducation.in/api/3/action/package_search?fq=slug:${value}%20AND%20private:false`
+  ).then((res) => res.json());
+  return queryRes.result.results;
+}
+
 export function generateSlug(slug) {
   if (slug) {
     const temp = slug.toLowerCase().replace(/\W/g, '-'); // lower case and replace space & special chars witn '-'
     return temp.replace(/-+/g, '-').replace(/-$/, ''); // remove multiple '-' and remove '-' from end of string
   }
   return null;
+}
+
+export async function fetchJSON(schemeType, key = null) {
+  // get JSON URL
+  const jsonUrl = await jsonFetchQuery('schemeType', schemeType)
+  .then((res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url)
+   
+    .catch((e) => console.error(e));
+  // fetch JSON data
+  const jsonData = await fetch(jsonUrl)
+    .then((res) => res.json())
+    .catch((e) => console.error(e));
+
+  // if key is provided, send only that data
+  if (key) return jsonData[key];
+  return jsonData;
 }
 
 const isObject = (val) => {
