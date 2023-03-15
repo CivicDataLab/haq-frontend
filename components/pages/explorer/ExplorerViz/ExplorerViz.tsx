@@ -15,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, TableIcon } from 'components/icons';
+import { ExternalLink, Globe, TableIcon, Info } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 
@@ -33,9 +33,16 @@ const BarViz = dynamic(
   }
 );
 
+const StateDataBar = dynamic(
+  () => import('./StateDataBar'),
+  {
+    ssr: false,
+  }
+);
+
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
-const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
+const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
   // const [selectedIndicator, setSelectedIndicator] =
   //   useState('Budget Estimates');
   // const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -92,6 +99,11 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       name: 'Table View',
       id: '#tableView',
       icon: <TableIcon />,
+    },
+    {
+      name: 'State',
+      id: '#stateView',
+      icon: <Info />,
     },
   ];
 
@@ -319,6 +331,17 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       ) : (
         <></>
       ),
+    },
+    {
+      id: 'stateView',
+      graph: Object.keys(stateData).length > 0 ? (
+        <StateDataBar
+          stateData={stateData}
+          indicator={indicator}
+        />
+      ) : (
+        <span>Loading....</span>
+      ),
     }
   ];
 
@@ -361,7 +384,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 />
               </VizMenu>
             )}
-            {grant && (
+            {grant && currentViz !== '#stateView' && (
               <VizMenu className="fill">
                 <Menu
                   value={meta.grantName}

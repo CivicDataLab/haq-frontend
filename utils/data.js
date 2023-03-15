@@ -69,6 +69,7 @@ export async function dataTransform(id) {
   let dataUrl;
   let metaUrl;
   let notes;
+  let code;
   await fetchQuery('slug', id).then((data) => {
     data.resources.forEach((file) => {
       resUrls.push(file.url);
@@ -86,6 +87,7 @@ export async function dataTransform(id) {
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
     notes = data.notes || '';
+    code = name || ''
   });
 
   await fetchSheets(url).then((res) => {
@@ -131,7 +133,8 @@ export async function dataTransform(id) {
       title: title || '',
       resUrls,
       dataUrl,
-      metaUrl
+      metaUrl,
+      code
     };
 
     // Tabular Data
@@ -476,21 +479,21 @@ export async function stateDataTransform(id) {
     // Tabular Data
    
     for (let i = 1; i < dataParse.length; i++) {
-      const schemeName = dataParse[i][0];
+      const schemeCode = dataParse[i][0];
       const fiscalYear = dataParse[i][1];
     
-      if (!data[schemeName]) {
-        data[schemeName] = {};
+      if (!data[schemeCode]) {
+        data[schemeCode] = {};
       }
     
       for (let j = 2; j < dataParse[0].length; j++) {
         const key = dataParse[0][j];
     
-        if (!data[schemeName][key]) {
-          data[schemeName][key] = {};
+        if (!data[schemeCode][key]) {
+          data[schemeCode][key] = {};
         }
     
-        data[schemeName][key][fiscalYear] = dataParse[i][j];
+        data[schemeCode][key][fiscalYear] = twoDecimals(dataParse[i][j]);
       }
       
       // const indicatorSlug =
