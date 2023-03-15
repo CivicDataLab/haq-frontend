@@ -11,7 +11,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, TableIcon } from 'components/icons';
+import { ExternalLink, Globe, TableIcon,Compare } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { MenuButton } from 'components/actions/Menu/MenuComp';
@@ -96,9 +96,9 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       icon: <Globe />,
     },
     {
-      name: 'Bar View',
+      name: 'Compare View',
       id: '#barView',
-      icon: <TableIcon />,
+      icon: <Compare />,
     },
     {
       name: 'Table View',

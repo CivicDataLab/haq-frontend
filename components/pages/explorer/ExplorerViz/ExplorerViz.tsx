@@ -15,7 +15,7 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, TableIcon, Info, Hamburger } from 'components/icons';
+import { GraphBar, Globe, TableIcon, Info, Hamburger, Compare } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 
@@ -91,9 +91,9 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       icon: <Globe />,
     },
     {
-      name: 'Bar View',
+      name: 'Compare View',
       id: '#barView',
-      icon: <Hamburger/>,
+      icon: <Compare/>,
     },
     {
       name: 'Table View',
@@ -103,7 +103,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     {
       name: 'State',
       id: '#stateView',
-      icon: <Info />,
+      icon: <GraphBar />,
     },
   ];
 
