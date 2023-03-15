@@ -343,10 +343,10 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
             <VizTabs className="viz__tabs">
               {vizToggle.map((item, index) => (
                 <li key={`toggleItem-${index}`}>
-                  <a href={item.id} onClick={(e) => hideMenu(e)}>
+                  <button onClick={() => setCurrentViz(item.id)}>
                     {item.icon}
                     {item.name}
-                  </a>
+                  </button>
                 </li>
               ))}
             </VizTabs>
@@ -461,7 +461,7 @@ export const VizTabs = styled.ul`
     min-width: 0;
   }
 
-  a {
+  button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -478,6 +478,7 @@ export const VizTabs = styled.ul`
       margin-bottom: -3px;
       margin-right: 5px;
       fill: hsla(0, 0%, 0%, 0.32);
+      pointer-events:none;
 
       &.svg-stroke {
         stroke: hsla(0, 0%, 0%, 0.32);

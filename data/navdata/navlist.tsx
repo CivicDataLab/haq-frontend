@@ -7,7 +7,7 @@ export const navList = {
       name: 'Datasets',
       submenu: [
         {
-          link: '/scheme/e4ea0c34-3977-4dcf-89e6-e391e681871f',
+          link: '/scheme/summary-data',
           name: 'Summary',
         },
         {
