@@ -25,13 +25,13 @@ type Props = {
   scheme: any;
   primary: boolean;
   summary: any;
-  res: any;
+  obj: any;
 };
 const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ scheme, primary, summary, res }) => {
+const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj }) => {
 
   const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
     (item) => ({
@@ -74,6 +74,7 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, res }) => {
                   schemeRaw={scheme}
                   meta={state}
                   dispatch={dispatch}
+                  stateData = {obj}
                 />
               ) : (
                 <SummaryExplorerViz
@@ -128,7 +129,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
-  let scheme, res;
+  let scheme, res, obj;
   let primary: boolean = false;
   if (context.query.explorer == 'summary-data') {
     scheme = await schemeDataTransform(context.query.explorer);
@@ -138,14 +139,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       dataTransform(context.query.explorer),
       stateDataTransform('f20be7a7-9640-4eb5-b820-f2eef616a8f0'),
     ]);
-  }
+   obj = res[scheme.metadata.code] || {}
+  }  
   const summary = await strapiAPI('/summary');
   return {
     props: {
       scheme,
       primary,
       summary: summary.data,
-      res,
+      obj,
       // meta,
       // fileData,
     },
