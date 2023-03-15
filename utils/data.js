@@ -427,3 +427,89 @@ export async function schemeDataTransform(id) {
   });
   return obj;
 }
+
+export async function stateDataTransform(id) {
+  const obj = {};
+  let name;
+  let type;
+  let slug;
+  let url;
+  let resUrls = [];
+
+  const data = {};
+
+  await fetchQuery('slug', id).then((data) => {
+    data.resources.forEach((file) => {
+      resUrls.push(file.url);
+      if (file.url.includes('.xlsx')) url = file.url;
+    });
+    // name = data.extras[0].value;
+    // //type = data.extras[3] && data.extras[3].value;
+    // slug = data.name || '';
+    // resUrls = resUrls;
+  });
+  await fetchSheets(url).then((res) => {
+    const dataParse = res[0];
+    // const metaParse = res[1];
+    // let metaObj = {};
+    // metaParse.forEach((val) => {
+    //   if (val[0]) {
+    //     metaObj = {
+    //       ...metaObj,
+    //       [generateSlug(val[0])]: val[1],
+    //     };
+    //   }
+    // });
+
+    // obj.metadata = {
+    //   description: metaObj['scheme-description'] || '',
+    //   name: name || '',
+    //   frequency: metaObj.frequency || '',
+    //   source: metaObj['data-source'] || '',
+    //   type: type || '',
+    //   slug,
+    //   indicators: [],
+    //   consList: consList || [],
+    //   resUrls: resUrls || [],
+    // };
+
+    // Tabular Data
+   
+    for (let i = 1; i < dataParse.length; i++) {
+      const schemeName = dataParse[i][0];
+      const fiscalYear = dataParse[i][1];
+    
+      if (!data[schemeName]) {
+        data[schemeName] = {};
+      }
+    
+      for (let j = 2; j < dataParse[0].length; j++) {
+        const key = dataParse[0][j];
+    
+        if (!data[schemeName][key]) {
+          data[schemeName][key] = {};
+        }
+    
+        data[schemeName][key][fiscalYear] = dataParse[i][j];
+      }
+      
+      // const indicatorSlug =
+      //   generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
+
+      // obj.metadata.indicators.push(indicatorSlug);
+
+      // obj.data = {
+      //   ...obj.data,
+      //   [`indicator_0${i - 4}`]: {
+      //     grant_name,
+      //     name: metaObj[`indicator-${i - 4}-name`] || '',
+      //     description: metaObj[`indicator-${i - 4}-description`] || '',
+      //     note: metaObj[`indicator-${i - 4}-note`] || '',
+      //     slug: indicatorSlug,
+      //     unit: metaObj[`indicator-${i - 4}-unit`] || '',
+      //   },
+      // };
+    }
+  });
+  return data;
+}

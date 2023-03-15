@@ -4,7 +4,11 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
-import { dataTransform, schemeDataTransform } from 'utils/data'
+import {
+  dataTransform,
+  schemeDataTransform,
+  stateDataTransform,
+} from 'utils/data';
 import { fetchAPI as strapiAPI } from 'lib/api';
 
 import {
@@ -12,7 +16,7 @@ import {
   ExplorerHeader,
   ExplorerRelated,
   ExplorerViz,
-  SummaryExplorerViz
+  SummaryExplorerViz,
 } from 'components/pages/explorer';
 
 type Props = {
@@ -21,19 +25,20 @@ type Props = {
   scheme: any;
   primary: boolean;
   summary: any;
+  res: any;
 };
 const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ scheme, primary, summary }) => {
-  
-  const grants = Object.keys(
-    Object.values(scheme.data)[0]['grant_name']
-  ).map((item) => ({
-    value: item,
-    title: item,
-  }));
+const Explorer: React.FC<Props> = ({ scheme, primary, summary, res }) => {
+
+  const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
+    (item) => ({
+      value: item,
+      title: item,
+    })
+  );
   const initalState = {
     scheme: scheme.notes || '',
     schemeData: {},
@@ -45,7 +50,7 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary }) => {
     grantName: grants[0].value,
     schemeType: 'Benefits girl students exclusively',
     schemeMode: 'Total',
-    schemeYear: '2021-2022'
+    schemeYear: '2021-2022',
   };
 
   const [state, dispatch] = React.useReducer(reducer, initalState);
@@ -56,22 +61,27 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary }) => {
         <title>HAQ</title>
       </Head>
       <Wrapper>
-        <ExplorerHeader data={scheme.metadata} primary={primary} summary={summary}/>
+        <ExplorerHeader
+          data={scheme.metadata}
+          primary={primary}
+          summary={summary}
+        />
         {Object.keys(scheme).length !== 0 ? (
           <>
             <div id="explorerVizWrapper">
-              {!primary ?
+              {!primary ? (
                 <ExplorerViz
                   schemeRaw={scheme}
                   meta={state}
                   dispatch={dispatch}
-                /> :
+                />
+              ) : (
                 <SummaryExplorerViz
                   schemeRaw={scheme}
                   meta={state}
                   dispatch={dispatch}
                 />
-              }
+              )}
 
               {/* {state.vizType !== 'map' && (
                   <ExplorerDetailsViz meta={state} dispatch={dispatch} />
@@ -118,22 +128,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // data.indicators = indicators;
   // data.relatedSchemes = relatedSchemes;
-  let scheme;
+  let scheme, res;
   let primary: boolean = false;
   if (context.query.explorer == 'summary-data') {
-    scheme = await schemeDataTransform(context.query.explorer)
+    scheme = await schemeDataTransform(context.query.explorer);
     primary = true;
-  }
-  else {
-    scheme = await dataTransform(context.query.explorer)
-    primary = false
+  } else {
+    [scheme, res] = await Promise.all([
+      dataTransform(context.query.explorer),
+      stateDataTransform('f20be7a7-9640-4eb5-b820-f2eef616a8f0'),
+    ]);
   }
   const summary = await strapiAPI('/summary');
   return {
     props: {
       scheme,
       primary,
-      summary: summary.data
+      summary: summary.data,
+      res,
       // meta,
       // fileData,
     },
