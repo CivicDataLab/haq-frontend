@@ -555,7 +555,7 @@ export const SourceButtons = styled.div`
 
 const VizMenu = styled.div`
   &.fill {
-    max-width: 280px;
+    max-width: 320px;
   }
 `;
 

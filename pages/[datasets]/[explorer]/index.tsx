@@ -157,7 +157,7 @@ export default Explorer;
 const Wrapper = styled.main`
   .indicator-mobile {
     margin-top: 2rem;
-
+    margin-bottom: 2rem;
     @media (min-width: 980px) {
       display: none;
     }

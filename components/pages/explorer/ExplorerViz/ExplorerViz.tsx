@@ -15,30 +15,28 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { GraphBar, Globe, TableIcon, Info, Hamburger, Compare } from 'components/icons';
+import {
+  GraphBar,
+  Globe,
+  TableIcon,
+  Info,
+  Hamburger,
+  Compare,
+} from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 
-const ExplorerMap = dynamic(
-  () => import('./ExplorerMap'),
-  {
-    ssr: false,
-  }
-);
+const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
+  ssr: false,
+});
 
-const BarViz = dynamic(
-  () => import('./BarViz'),
-  {
-    ssr: false,
-  }
-);
+const BarViz = dynamic(() => import('./BarViz'), {
+  ssr: false,
+});
 
-const StateDataBar = dynamic(
-  () => import('./StateDataBar'),
-  {
-    ssr: false,
-  }
-);
+const StateDataBar = dynamic(() => import('./StateDataBar'), {
+  ssr: false,
+});
 
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
@@ -66,8 +64,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
 
   const { indicator, year, grantName } = meta;
 
-  console.log(meta.year)
-
   // todo: make it dynamic lie scheme dashboard
   // const IndicatorDesc = [
   //   meta['Indicator 1 - Description'],
@@ -93,12 +89,12 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     {
       name: 'Compare View',
       id: '#barView',
-      icon: <Compare/>,
+      icon: <Compare />,
     },
     {
       name: 'Table View',
       id: '#tableView',
-      icon: <TableIcon/>,
+      icon: <TableIcon />,
     },
     {
       name: 'State',
@@ -162,7 +158,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       const a = Object.keys(schemeRaw.metadata.consList);
       const rowData = [];
       if (filtered[meta.year]) {
-         a.forEach((item, index) => {
+        a.forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
               schemeRaw.metadata.consList[a[index]][0]?.constName,
@@ -205,10 +201,15 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       }));
       setFinancialYears(years); // all years
 
-      let defaultYear = years && years.find((year) => year.value === "2021-2022");
-      
+      let defaultYear =
+        years && years.find((year) => year.value === '2021-2022');
+
       dispatch({
-        year: year ? year : defaultYear? "2021-2022" : years[years.length-1].value,
+        year: year
+          ? year
+          : defaultYear
+          ? '2021-2022'
+          : years[years.length - 1].value,
         grantName: grantName ? grantName : grants[0].value,
       });
     }
@@ -225,9 +226,10 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       }));
       setFinancialYears(years); // all years
 
-      let defaultYear = years && years.find((year) => year.value === "2021-2022");
+      let defaultYear =
+        years && years.find((year) => year.value === '2021-2022');
       dispatch({
-        year: defaultYear? "2021-2022" : years[years.length-1].value,
+        year: defaultYear ? '2021-2022' : years[years.length - 1].value,
         grantName: grantName ? grantName : grant[0].value,
       });
 
@@ -334,15 +336,13 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     },
     {
       id: 'stateView',
-      graph: Object.keys(stateData).length > 0 ? (
-        <StateDataBar
-          stateData={stateData}
-          indicator={indicator}
-        />
-      ) : (
-        <span>Loading....</span>
-      ),
-    }
+      graph:
+        Object.keys(stateData).length > 0 ? (
+          <StateDataBar stateData={stateData} indicator={indicator} />
+        ) : (
+          <span>Loading....</span>
+        ),
+    },
   ];
 
   return (
@@ -352,7 +352,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           indicators={schemeRaw.data}
           newIndicator={(e) => handleNewIndicator(e)}
           selectedIndicator={indicator}
-        /> 
+        />
         <Indicator
           newIndicator={(e) => handleNewIndicator(e)}
           selectedIndicator={indicator}
@@ -370,34 +370,36 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                 </li>
               ))}
             </VizTabs>
-            {financialYears && currentViz == '#mapView' && (
-              <VizMenu className="fill">
-                <Menu
-                  value={meta.year}
-                  options={financialYears}
-                  heading="Financial Year:"
-                  handleChange={(e) =>
-                    dispatch({
-                      year: e,
-                    })
-                  }
-                />
-              </VizMenu>
-            )}
-            {grant && currentViz !== '#stateView' && (
-              <VizMenu className="fill">
-                <Menu
-                  value={meta.grantName}
-                  options={grant}
-                  heading="Grant : "
-                  handleChange={(e) =>
-                    dispatch({
-                      grantName: e,
-                    })
-                  }
-                />
-              </VizMenu>
-            )}
+            <VizHeaderMenu>
+              {grant && currentViz !== '#stateView' && (
+                <VizMenu className="fill">
+                  <Menu
+                    value={meta.grantName}
+                    options={grant}
+                    heading="Grant : "
+                    handleChange={(e) =>
+                      dispatch({
+                        grantName: e,
+                      })
+                    }
+                  />
+                </VizMenu>
+              )}
+              {financialYears && currentViz == '#mapView' && (
+                <VizMenu className="fill">
+                  <Menu
+                    value={meta.year}
+                    options={financialYears}
+                    heading="Financial Year:"
+                    handleChange={(e) =>
+                      dispatch({
+                        year: e,
+                      })
+                    }
+                  />
+                </VizMenu>
+              )}
+            </VizHeaderMenu>
           </VizHeader>
           {vizItems.map((item, index) => (
             <VizGraph
@@ -492,7 +494,12 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
             )}
           </VizHeader> */}
           <DownloadButton>
-            <DownloadViz viz={currentViz} tableData={tableData} schemeRaw={schemeRaw} meta={meta} />
+            <DownloadViz
+              viz={currentViz}
+              tableData={tableData}
+              schemeRaw={schemeRaw}
+              meta={meta}
+            />
           </DownloadButton>
         </VizWrapper>
       </Wrapper>
@@ -568,7 +575,7 @@ export const VizTabs = styled.ul`
       margin-bottom: -3px;
       margin-right: 5px;
       fill: hsla(0, 0%, 0%, 0.32);
-      pointer-events:none;
+      pointer-events: none;
 
       &.svg-stroke {
         stroke: hsla(0, 0%, 0%, 0.32);
@@ -590,6 +597,12 @@ export const VizTabs = styled.ul`
   }
 `;
 
+export const VizHeaderMenu = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+`;
 export const VizGraph = styled.div`
   margin: 0 24px 0;
   height: 580px;
@@ -645,7 +658,7 @@ export const SourceButtons = styled.div`
 
 const VizMenu = styled.div`
   &.fill {
-    max-width: 280px;
+    max-width: 305px;
   }
 `;
 
@@ -723,8 +736,8 @@ const IndicatorNotes = styled.span`
 `;
 
 const DownloadButton = styled.div`
-   display: flex;
-   padding: 1.5rem;
-   padding-bottom: 0;
-   justify-content: flex-end;
+  display: flex;
+  padding: 1.5rem;
+  padding-bottom: 0;
+  justify-content: flex-end;
 `;
