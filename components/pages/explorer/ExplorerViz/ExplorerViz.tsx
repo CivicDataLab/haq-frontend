@@ -165,11 +165,10 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           };
 
           Object.keys(filtered).map(
-            (item1, index1) =>
-              (tempObj[tableHeader[index1 + 1].accessor] =
-                filtered[tableHeader[index1 + 1].Header][
-                  schemeRaw.metadata.consList[a[index]][0]?.constCode
-                ])
+            (item1, index1) => {
+              const value = filtered[tableHeader[index1 + 1].Header][schemeRaw.metadata.consList[a[index]][0]?.constCode];
+              tempObj[tableHeader[index1 + 1].accessor] = value !== undefined && value !== '' ? value : 'NA';
+            }
           );
           rowData.push(tempObj);
         });
