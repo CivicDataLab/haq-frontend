@@ -60,19 +60,23 @@ function createDummyCanvas(srcCanvas,source,meta,viz,slug) {
   destCtx.fillStyle = "#000";
   if (slug == "summary-data") {
     if (viz === "#mapView") {
-      destCtx.fillText(`${" "}Year ${meta.schemeYear}`, 10, 30);
-      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 60);
-      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 90);
+      destCtx.fillText(`${" "}Year ${meta.schemeYear}`, 10, 25);
+      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 50);
+      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 75);
+      destCtx.fillText(`${" "}Indicator - ${meta.indicator}`, 10, 100);
     } else {
-      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 60);
-      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 90);
+      destCtx.fillText(`${" "}Scheme Mode - ${meta.schemeMode}`, 10, 25);
+      destCtx.fillText(`${" "}Scheme Type - ${meta.schemeType}`, 10, 50);
+      destCtx.fillText(`${" "}Indicator - ${meta.indicator}`, 10, 75);
     }
   } else {
     if (viz === "#mapView") {
       destCtx.fillText(`${" "}Year ${meta.year}`, 10, 30);
       destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 60);
+      destCtx.fillText(`${" "}Indicator ${meta.indicator}`, 10, 90);
     } else {
       destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 30);
+      destCtx.fillText(`${" "}Indicator ${meta.indicator}`, 10, 60);
     }
   }
   destCtx.fillText(`${" "}Data Source ${source}`, 10, srcCanvas.height + 30);
