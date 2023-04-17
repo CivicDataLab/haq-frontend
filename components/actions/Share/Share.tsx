@@ -24,7 +24,7 @@ const Share = ({ title }) => {
     if (navigator.share) {
       navigator.share({
         text: title,
-        url: `https://budgets.justicehub.in/datasets/${router.query.explorer}`,
+        url: `https://girleducation.in/datasets/${router.query.explorer}`,
       });
     }
   }
@@ -42,7 +42,7 @@ const Share = ({ title }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.facebook.com/sharer.php?u=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.facebook.com/sharer.php?u=https://girleducation.in/datasets/${router.query.explorer}`}
             >
               <Facebook />
               <span>Facebook</span>
@@ -53,7 +53,7 @@ const Share = ({ title }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://twitter.com/intent/tweet?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://twitter.com/intent/tweet?url=https://girleducation.in/datasets/${router.query.explorer}`}
             >
               <Twitter />
               <span>Twitter</span>
@@ -64,7 +64,7 @@ const Share = ({ title }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.linkedin.com/shareArticle?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.linkedin.com/shareArticle?url=https://girleducation.in/datasets/${router.query.explorer}`}
             >
               <Linkedin />
               <span>LinkedIn</span>
@@ -75,7 +75,7 @@ const Share = ({ title }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.reddit.com/submit?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.reddit.com/submit?url=https://girleducation.in/datasets/${router.query.explorer}`}
             >
               <Reddit />
               <span>Reddit</span>
