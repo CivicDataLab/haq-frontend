@@ -228,7 +228,7 @@ export async function getFilters(list, variable, page) {
 // function to create tabbed interface
 export function tabbedInterface(tablist, panels) {
   // Get relevant elements and collections
-  const tabs = tablist.querySelectorAll('button');
+  const tabs = tablist.querySelectorAll('button, a');
 
   // The tab switching function
   const switchTab = (oldTab, newTab) => {
