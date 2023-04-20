@@ -29,6 +29,10 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   //     setSelectedItem(undefined);
   //   }, [meta.sabha, meta.state, meta.selectedIndicator]);
 
+  const twoDecimals = (num) => {
+    return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+  };
+
   // preparing data for echarts component
   useEffect(() => {
 
@@ -39,103 +43,76 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
       });
 
       const uniq = [...new Set(stateData)];
-      const binLength = Math.floor(uniq.length / 4) == 0 ? 1 : Math.floor(uniq.length / 4);
+      const length = uniq.length;
 
-      const binCount = uniq.length <= 4 ? 2 : 4;
+      if (length > 4) {
+        const a = uniq[0];
+        const e = uniq[length - 1];
 
-      const bins = []
+        const diff = e - a;
 
-      const colors = ['#286767', '#368B8B', '#41A8A8', '#4ABEBE']
+        let div = diff / 4;
+        let b = twoDecimals(a + div);
+        let c = twoDecimals(b + div);
+        let d = twoDecimals(c + div);
 
-      if (uniq.length == 1 || uniq.length == 2) {
-        bins.push({
-          min: uniq[0],
-          max: uniq.length == 2 ? uniq[1] : uniq[0],
-          label: uniq.length == 2 ? `${uniq[0]} to ${uniq[1]}` : `${uniq[0]}`,
-          color: colors[0],
-        })
-      } else {
-        for (let i = 0; i < binCount; i++) {
-          const temp = {
-            min: uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1],
-            max: i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)],
-            // label: i==0 ? uniq.length < 4 
-            //             ?`${uniq[0]}` 
-            //             :`${uniq[0]} to ${uniq[0 + binLength]}`
-            //             :`${uniq[i*binLength + 1]} to ${uniq[binLength * (i+1)]}`,
-            label: (uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]) == (i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)])
-              ? uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]
-              : `${uniq.length < 4 ? uniq[i] : i == 0 ? uniq[0] : uniq[i * binLength + 1]} to ${i == 3 ? uniq[uniq.length - 1] : uniq.length <= 4 && i == 1 ? uniq[uniq.length - 1] : uniq.length <= 4 ? uniq[i + 1] : uniq[binLength * (i + 1)]}`,
-
-            color: colors[i]
-          }
-          bins.push(temp)
-        }
-      }
-
-      //  [
-      //   {
-      //     min: uniq[0],
-      //     max: uniq[0 + binLength],
-      //     label: `${uniq[0]} to ${uniq[0 + binLength]}`,
-      //     color: '#173B3B',
-      //   },
-      //   {
-      //     min: uniq[binLength + 1],
-      //     max: uniq[binLength * 2],
-      //     label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-      //     color: '#1F5151',
-      //   },
-      //   // {
-      //   //   min: uniq[2 * binLength + 1],
-      //   //   max: uniq[binLength * 3],
-      //   //   label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
-      //   //   color: '#286767',
-      //   // },
-
-      //   // {
-      //   //   min: uniq[3 * binLength + 1],
-      //   //   max: uniq[binLength * 4],
-      //   //   label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
-      //   //   color: '#368B8B',
-      //   // },
-      //   // {
-      //   //   min: uniq[4 * binLength + 1],
-      //   //   max: uniq[binLength * 5],
-      //   //   label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 5]}`,
-      //   //   color: '#41A8A8',
-      //   // },
-      //   // {
-      //   //   min: uniq[5 * binLength + 1],
-      //   //   max: uniq[uniq.length - 1],
-      //   //   label: `${uniq[5 * binLength + 1]} to ${uniq[uniq.length - 1]}`,
-      //   //   color: '#4ABEBE',
-      //   // },
-      // ]
-
-      const vizIndicators =
-        //uniq.length == 1 ?
-        // [
-        //   {
-        //     min: uniq[0],
-        //     max: uniq[0 ],
-        //     label: `${uniq[0]}`,
-        //     color: '#4ABEBE',
-        //   },] :
-        binLength
-          ? bins
+        let binLength = Math.floor(uniq.length / 4);
+        const vizIndicators = binLength
+          ? [
+              {
+                min: a,
+                max: b,
+                label: `upto to ${b}`,
+                color: '#4ABEBE',
+              },
+              {
+                min: b,
+                max: c,
+                label: `${b} to ${c}`,
+                color: '#41A8A8',
+              },
+              {
+                min: c,
+                max: d,
+                label: `${c} to ${d}`,
+                color: '#368B8B',
+              },
+              {
+                min: d,
+                max: e,
+                label: `${d} and above`,
+                color: '#286767',
+              },
+            ]
           : [
-            {
-              min: 0,
-              max: 0,
-              label: `data not found`,
-              color: '#494D44',
-            },
-          ];
-      setMapIndicator(vizIndicators);
+              {
+                value: -9999999999,
+                label: `Data Not Found`,
+                color: '#494D44',
+              },
+            ];
+        setMapIndicator(vizIndicators);
+      } else {
+        const vizIndicators = [];
+        for (let i = 0; i < uniq.length; i++) {
+          vizIndicators.push({
+            min: uniq[i],
+            max: uniq[i],
+            label: `${uniq[i]}`,
+            color:
+              i === 0
+                ? '#4ABEBE'
+                : i === 1
+                ? '#368B8B'
+                : i === 2
+                ? '#286767'
+                : '#173B3B',
+          });
+        }
+        setMapIndicator(vizIndicators);
+      }
     }
   }, [schemeData, data]);
-
   // changing map chart values on sabha change
   useEffect(() => {
     if (data && schemeData) {
