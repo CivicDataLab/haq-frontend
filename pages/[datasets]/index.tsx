@@ -176,6 +176,7 @@ const DatasetsComp = styled.div`
 
   .filters {
     min-width: 312px;
+    max-width: 312px;
   }
 
   @media (max-width: 1000px) {
