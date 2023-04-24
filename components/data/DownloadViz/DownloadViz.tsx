@@ -71,12 +71,14 @@ function createDummyCanvas(srcCanvas,source,meta,viz,slug) {
     }
   } else {
     if (viz === "#mapView") {
-      destCtx.fillText(`${" "}Year ${meta.year}`, 10, 30);
-      destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 60);
-      destCtx.fillText(`${" "}Indicator ${meta.indicator}`, 10, 90);
+      destCtx.fillText(`${" "}Year - ${meta.year}`, 10, 30);
+      destCtx.fillText(`${" "}Grantname - ${meta.grantName}`, 10, 60);
+      destCtx.fillText(`${" "}Indicator - ${meta.indicator}`, 10, 90);
+    } else if(viz === "#stateView"){
+      destCtx.fillText(`${" "}Indicator - ${meta.indicator}`, 10, 30);
     } else {
-      destCtx.fillText(`${" "}Grantname ${meta.grantName}`, 10, 30);
-      destCtx.fillText(`${" "}Indicator ${meta.indicator}`, 10, 60);
+      destCtx.fillText(`${" "}Grantname - ${meta.grantName}`, 10, 30);
+      destCtx.fillText(`${" "}Indicator - ${meta.indicator}`, 10, 60);
     }
   }
   destCtx.fillText(`${" "}Data Source ${source}`, 10, srcCanvas.height + 30);
@@ -93,7 +95,7 @@ type Props = {
 };
 
 let watermarkSSR;
-const DownloadViz = ({ viz, tableData = {}, schemeRaw, meta }: Props) => {
+const DownloadViz = ({ viz, tableData = {}, schemeRaw, meta }: Props) => {  
 
 const watermarkRef = useRef(watermarkSSR);
 useEffect(() => {
@@ -104,11 +106,13 @@ useEffect(() => {
 }, [viz, meta]);
 
   function svg2img(canvasElm) {
-    const myChart = createDummyCanvas(canvasElm,schemeRaw.metadata.source, meta,viz,schemeRaw.metadata.slug);
+    let source = schemeRaw?.metadata?.source || 'Uttar Pradesh Koshvani Platform'
+    let slug = viz == '#stateView' ? 'state-data': schemeRaw.metadata.slug
+    const myChart = createDummyCanvas(canvasElm,source, meta, viz, slug);
     
     watermarkRef.current([myChart, '/assets/images/cdl.png'])
       .image( watermarkRef.current.image.lowerRight(0.5))
-      .then((img) => saveAs(img.src, `${schemeRaw.metadata.slug}.jpeg`.toLowerCase()));
+      .then((img) => saveAs(img.src, `${slug}.jpeg`.toLowerCase()));
   }
 
   async function downloadSelector(viz) {
@@ -118,7 +122,7 @@ useEffect(() => {
       await import('html2canvas')
         .then((html2canvas) => {
           html2canvas
-            .default(document.querySelector(`${viz == "#barView" ? '.barViz' : '.echarts-for-react '}`), {
+            .default(document.querySelector(`${viz == "#barView" || '#stateView' ? '.barViz' : '.echarts-for-react '}`), {
               scale: 2,
             })
             .then((canvasElm) => svg2img(canvasElm));

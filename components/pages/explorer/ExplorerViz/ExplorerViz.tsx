@@ -496,7 +496,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
             <DownloadViz
               viz={currentViz}
               tableData={tableData}
-              schemeRaw={schemeRaw}
+              schemeRaw={currentViz == '#stateView' ? stateData : schemeRaw}
               meta={meta}
             />
           </DownloadButton>
@@ -545,6 +545,7 @@ export const VizHeader = styled.div`
   align-items: flex-start;
   padding: 1.5rem;
   gap: 1.5rem;
+  flex-direction: column;
 `;
 
 export const VizTabs = styled.ul`
