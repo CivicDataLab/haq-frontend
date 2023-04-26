@@ -122,7 +122,7 @@ useEffect(() => {
       await import('html2canvas')
         .then((html2canvas) => {
           html2canvas
-            .default(document.querySelector(`${viz == "#barView" || '#stateView' ? '.barViz' : '.echarts-for-react '}`), {
+            .default(document.querySelector(`${viz == "#barView" || viz == '#stateView' ? '.barViz' : '.echarts-for-react '}`), {
               scale: 2,
             })
             .then((canvasElm) => svg2img(canvasElm));
