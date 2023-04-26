@@ -18,7 +18,7 @@ const Story:React.FC<{ data: any }>= ({data}) => {
 
     const headerData: HeadObjLayout = {
         title: 'Data Stories',
-        content: 'This page contains different researches, case studies, explainers and other public resources using  procurement data.',
+        content: 'Explore interesting insights from the data culled out by public finance researchers.',
       };
     
   return (
@@ -59,7 +59,7 @@ const Story:React.FC<{ data: any }>= ({data}) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const data = await parser.parseURL(
-      'https://medium.com/feed/civicdatalab/tagged/open-contracting'
+      'https://medium.com/feed/civicdatalab/tagged/education'
     );
   
     return {
