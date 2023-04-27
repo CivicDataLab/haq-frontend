@@ -108,7 +108,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
             {items.length > 0 && barData.length > 0 && (
                 <section className="barViz">
                     <GroupBarChart
-                        yAxisLabel={`Value (in ${meta.unit})`}
+                        yAxisLabel={`Value (in ${meta.unit == '₹' ? '₹ in lakhs' : '%'})`}
                         xAxisLabel="Fiscal Years"
                         theme={['#4965B2', '#ED8686', '#69BC99']}
                         dataset={barData}
