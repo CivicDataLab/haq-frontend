@@ -17,6 +17,20 @@ export const navList = {
       ],
     },
     {
+      link: '/states',
+      name: 'States',
+      submenu: [
+        {
+          link: '/state/up',
+          name: 'Up',
+        },
+        {
+          link: '/state/assam',
+          name: 'Assam',
+        },
+      ],
+    },
+    {
       link: '/stories',
       name: 'Data Stories',
     },
