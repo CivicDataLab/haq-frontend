@@ -4,6 +4,7 @@ import {
   HomeCard,
   HomeCarousel,
   HomeRelatedCard,
+  HomeStates,
 } from 'components/pages/home';
 import { fetchAPI } from 'lib/api';
 
@@ -18,6 +19,7 @@ export default function Home({homepage}) {
       <HomeCard dataset={dataset} />
       <HomeCarousel carousel={carousel}/>
       <HomeRelatedCard datastory={datastory}/>
+      <HomeStates />
     </>
   );
 }
