@@ -22,7 +22,7 @@ export const navList = {
       submenu: [
         {
           link: '/state/up',
-          name: 'Up',
+          name: 'Uttar Pradesh',
         },
         {
           link: '/state/assam',
