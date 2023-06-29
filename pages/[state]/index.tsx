@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 type Props = {
   pathName: string;
-  foundState: any
+  foundState: any;
 };
 
 const stateData = [
@@ -24,14 +24,34 @@ const stateData = [
     Description: 'Uttar Pradesh is located in',
   },
 ];
- 
-const State: React.FC<Props> = ({ pathName, foundState }) => {
+
+const State: React.FC<Props> = ({ foundState, pathName }) => {
   const state = pathName;
   return (
     <>
       <main className="container">
-        <Header data={foundState}/>
+        <Header data={foundState} />
+        <div>
+          <Link
+            passHref
+            href={{
+              pathname: `${state}/budget`,
+            }}
+          >
+            Budget data
+          </Link>
+        </div>
 
+        <div>
+          <Link
+            passHref
+            href={{
+              pathname: `${state}/datasets`,
+            }}
+          >
+            Datasets
+          </Link>
+        </div>
       </main>
     </>
   );
@@ -54,12 +74,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
-  const foundState = stateData.find((item) => normalizeStateName(item.State) == state);
+  const foundState = stateData.find(
+    (item) => normalizeStateName(item.State) == state
+  );
   return {
     props: {
       pathName: state,
-      foundState
+      foundState,
     },
   };
 };
-export default State;
+
+  export default State;
