@@ -5,3 +5,4 @@ export { default as Select } from './Select';
 export { default as Share } from './Share';
 export { default as Widget } from './Widget';
 export { default as Breadcrumb } from './Breadcrumb';
+export { default as Combobox} from './Combobox'
