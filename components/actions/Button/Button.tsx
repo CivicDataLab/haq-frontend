@@ -33,7 +33,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
 
 type LinkProps =
   | { href?: false; rel?: never; target?: never }
-  | { href?: string; rel?: 'noreferrer'; target?: '_blank'; onClick?: never };
+  | { href?: string; rel?: 'noreferrer'; target?: '_blank'; };
 
 type IconProps =
   | { icon?: false; iconSide?: never }
