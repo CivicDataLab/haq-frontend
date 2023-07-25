@@ -37,7 +37,7 @@ const CustomGroupHeading = (props) => {
 const DropdownIndicator = (props) => {
   return (
     <components.DropdownIndicator {...props}>
-      <IconDropdown width={32} fill="var(--color-grey-300)" />
+      <IconDropdown width={28} fill="var(--color-grey-300)" />
     </components.DropdownIndicator>
   );
 };
@@ -47,6 +47,7 @@ interface Props {
   isLight?: boolean;
   isDark?: boolean;
   disableOptions?: boolean;
+  isSecondCombobox?: boolean;
 }
 type ComboboxProps = React.ComponentProps<typeof Select> & Props;
 
@@ -84,7 +85,6 @@ const Combobox = ({
     <ReactSelectElement
       classNamePrefix="react-select"
       isOptionDisabled={() => disableOptions}
-      menuPortalTarget={document.body}
       aria-label={`${props.placeholder}` || 'Select an element'}
       components={{
         GroupHeading: isGrouped ? CustomGroupHeading : null,
@@ -96,7 +96,7 @@ const Combobox = ({
   );
 };
 
-export default Combobox ;
+export default Combobox;
 
 const ReactSelectElement = styled(Select)<Props>`
   .react-select {
@@ -112,6 +112,7 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__control {
+      width: ${(props) => props.isSecondCombobox ? '400px':'205px'};
       flex-grow: 1;
       border-radius: 2px;
       border: var(--border-1);
@@ -122,13 +123,12 @@ const ReactSelectElement = styled(Select)<Props>`
 
     &__value-container {
       gap: 8px;
-      padding: 7px 12px;
+      padding: 5px 12px;
       flex-wrap: nowrap;
     }
 
     &__single-value {
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      font-weight: 500;
       padding-block: 4px;
       color: var(--text-light-high);
     }
@@ -165,14 +165,18 @@ const ReactSelectElement = styled(Select)<Props>`
       color: var(--text-light-medium);
     }
 
+    &__dropdown-indicator {
+      padding : 3px;
+    }
+
     &__indicator-separator {
       background-color: ${(props) =>
         props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
     }
 
     &__clear-indicator {
-      color: ${(props) =>
-        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+      color: ${(props) => props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+      padding: 4px;
 
       &:hover {
         color: var(--color-grey-200);
