@@ -4,132 +4,97 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getStrapiMedia } from 'lib/media';
 
-const HomeCard = ({dataset}) => {
+const HomeCard = ({ dataset }) => {
   return (
-    <Wrapper>
-      <div className="container">
-        <CardWrapper>
-          <Link href={`/${dataset[0].link}`} passHref>
+    <CardWrapper className="container">
+      {dataset.map((item, index) => {
+        return (
+          <Link key={`dataCard-${index}`} href={`/${item.link}`} passHref>
             <Card>
-              <div>
-                <CardImage>
-                  <Image
-                    src={getStrapiMedia(dataset[0].src.url)}
-                    alt=""
-                    width={420}
-                    height={155}
-                  />
-                </CardImage>
-                <CardContent primary={true}>
-                  <h4>{dataset[0].title}</h4>
-                  <small>{dataset[0].content}</small>
-                </CardContent>
-              </div>
+              <ImageContainer>
+                <Image
+                  src={getStrapiMedia(item.src.url)}
+                  alt=""
+                  width={99.64}
+                  height={99.64}
+                />
+              </ImageContainer>
+              <CardContent>
+                <Tag>{item.tag}</Tag>
+                <h4>{item.title}</h4>
+              </CardContent>
             </Card>
           </Link>
-          <CardContainer>
-            {dataset.slice(1).map((item, index) => {
-              return (
-                <li key={`dataCard-${index}`}>
-                  <Link href={`/${item.link}`} passHref >
-                    <DataCard>
-                      <CardImage primary={true}>
-                        <Image
-                          src={getStrapiMedia(item.src.url)}
-                          alt=""
-                          width={99.64}
-                          height={99.64}
-                        />
-                      </CardImage>
-                      <CardContent>
-                        <h4>{item.title}</h4>
-                        <small>{item.content}</small>
-                      </CardContent>
-                    </DataCard>
-                  </Link>
-                </li>
-              )
-            })}
-          </CardContainer>
-        </CardWrapper>
-      </div>
-    </Wrapper>
+        );
+      })}
+    </CardWrapper>
   );
 };
 
 export default HomeCard;
 
-type Props = {
-  primary?: boolean;
-}
+const CardWrapper = styled.div`
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 
-const Wrapper = styled.div`
-  padding-top:100px;
-`
+  & > * {
+    flex-basis: calc(50% - 24px);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    & > * {
+      flex-basis: calc(100% - 12px);
+    }
+    gap: 12px;
+  }
+`;
 
 const Card = styled.a`
-  display:flex;
-  align-items:stretch; 
-  background-color: #fff;
-  padding: 1.5rem !important;
+  border: 1px solid #f2eff2;
   border-radius: 12px;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
-  border: 1px solid #f1eef1;
-  text-decoration:none;
- `;
+  background: #fff;
+  padding: 17px;
+  display: flex;
+  text-decoration: none;
 
-const DataCard = styled.a`
-  border: 1px solid #F2EFF2;
-  box-sizing: border-box;
-  border-radius: 12px; 
-  background : #fff;
-  padding:17px;
-  display:flex;
-  text-decoration:none;
+  @media (max-width: 600px) {
+    align-items: center;
+  }
 `;
 
-const CardImage = styled.div<Props>`
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: #FFDDDB;
+const ImageContainer = styled.div`
+  display: grid;
+  place-items: center;
+  background: #ffdddb;
   border-radius: 6px;
-  height:${props => props.primary ? '112px' : null};
-  min-width:${props => props.primary ? '112px' : null};
+  height: 112px;
+  min-width: 112px;
 `;
 
-const CardContainer = styled.div`
-  display:flex;
-  flex-direction:column;
-  gap:28px;
-  list-style: none;
-`;
-
-const CardWrapper = styled.div`
-  display:flex;
-  gap:32px; 
-  flex-wrap:wrap;
-
-  > * {
-    flex-basis:100%;
-    flex:300px;
-  }
-`;
-
-const CardContent = styled.div<Props>`
- padding: ${props => props.primary ? '13px 0 0 0' : '0 0 0 10px'};
- h4 {
-    font-style: normal;
+const CardContent = styled.div`
+  padding-left: 16px;
+  h4 {
+    font-size: 20px;
     font-weight: 500;
-    font-size: 18px;
-    padding-bottom:3px;
+    line-height: 26px;
+    margin-top: 16px;
   }
- small {
-  font-weight: 300;
-  font-size: 16px;
-  display: -webkit-inline-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  -webkit-line-clamp: ${props => props.primary ? 5 : 3} ;
- }
+`;
+
+const Tag = styled.div`
+  display: inline-flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0px 0px 12px 0px;
+  background: var(--flamingo-03, #bb4561);
+  color: var(--text-dark-bg-high-emphasis, #fff);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
 `;
