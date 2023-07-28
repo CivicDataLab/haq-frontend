@@ -16,9 +16,9 @@ export default function Home({homepage}) {
         <title>HAQ</title>
       </Head>
       <HomeHeader heading={hero_section_heading} subheading={hero_section_subheading} links={searchlink} />
-      <HomeCard dataset={dataset} />
+      {/* <HomeCard dataset={dataset} />
       <HomeCarousel carousel={carousel}/>
-      <HomeRelatedCard datastory={datastory}/>
+      <HomeRelatedCard datastory={datastory}/> */}
       <HomeStates />
     </>
   );
