@@ -1,98 +1,43 @@
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
+import SchemeSelector from './SchemeSelector';
 
-const Header = ({
-  data
-}) => {
+const Header = ({ header, schemeList }) => {
+  const { main, sub } = header;
   return (
-    <HeaderWrapper>
-      <article>
-        {data?.State && (
-          <>
-            <figure>
-              <Image
-                src={`/assets/states/${data.State.toLowerCase()}.jpg`}
-                width={144}
-                height={144}
-                alt=""
-                className="img-cover"
-              />
-            </figure>
-            <Main>
-              <div>
-                <h1 className="gradient-amazon">{data.State}</h1>
-              </div>
-              <p>{data.Description}</p>
-            </Main>
-          </>
-        )}
-      </article>
-    </HeaderWrapper>
+    <Wrapper>
+      {header.state && (
+        <>
+          {main && <MainHeading>{main}</MainHeading>}
+          {sub && <SubHeading>{sub}</SubHeading>}
+        </>
+      )}
+      <SchemeSelector state={header.state} schemeList={schemeList} />
+    </Wrapper>
   );
 };
 
 export default Header;
 
-export const HeaderWrapper = styled.div`
-  margin-top: 40px;
-
-  article {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-
-    figure {
-      display: inline-block;
-      min-width: 160px;
-      top: 10px;
-      position: sticky;
-
-      padding: 8px;
-      filter: drop-shadow(var(--box-shadow-1));
-      border-radius: 4px;
-      background-color: var(--color-background-lighter);
-      font-size: 0;
-
-      @media (max-width: 673px) {
-        display: none;
-      }
-    }
-  }
+const Wrapper = styled.div`
+  max-width: 802px;
+  margin: 0 auto;
+  padding-bottom: 36px;
 `;
 
-const Main = styled.section`
-  > div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    line-height: 1.2;
-    text-transform: capitalize;
-  }
-
-  p {
-    margin-top: 16px;
-    letter-spacing: 0.01em;
-  }
+const MainHeading = styled.div`
+  text-align: center;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 52px;
+  color: var(--flamingo-06, #5c2230);
 `;
 
-const SummaryTitle = styled.h2`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-`;
-
-const Separator = styled.span`
-  color: var(--text-light-disabled);
-
-  @media (max-width: 480px) {
-    display: none;
-  }
+const SubHeading = styled.div`
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  margin-top: 20px;
+  color: var(--flamingo-04, #9b3950);
 `;
