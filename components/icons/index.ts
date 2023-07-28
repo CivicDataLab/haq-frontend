@@ -24,3 +24,4 @@ export { default as TableIcon } from './TableIcon';
 export { default as GraphBar } from './GraphBar';
 export { default as Compare } from './Compare';
 export { default as IconDropdown } from './IconDropdown';
+export { default as Triangle } from './Triangle';

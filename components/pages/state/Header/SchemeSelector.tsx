@@ -4,10 +4,10 @@ import { Button } from 'components/actions';
 import { Combobox } from 'components/actions';
 
 const SchemeSelector: React.FC<{
-  obj: any;
+  schemeList: any;
   isLoading?: boolean;
   state: string;
-}> = ({ obj, isLoading, state }) => {
+}> = ({ schemeList, isLoading, state }) => {
 
   const [selectedData, setSelectedData] = useState(null);
   const [selectedScheme, setSelectedScheme] = useState(null);
@@ -45,7 +45,7 @@ const SchemeSelector: React.FC<{
 
   const schemeLists = React.useMemo(() => {
     if (selectedData)
-      return Object.values(obj[state][selectedData])
+      return Object.values(schemeList[state][selectedData])
         .map((item: any) => ({
           value: item.scheme_code,
           label: item.scheme,
@@ -108,6 +108,7 @@ export default SchemeSelector;
 export const Wrapper = styled.div`
   border-radius: 4px;
   padding: 16px;
+  margin-top: 32px;
 `;
 
 export const ConsMenu = styled.div`
@@ -119,7 +120,9 @@ export const ConsMenu = styled.div`
   .button {
     height: 40px;
     text-decoration: none;
-    margin-left: 12px;
+    margin-left: 10px;
+    padding: 12px 24px;
+    background: var(--grey-04, #AFABB0);  
   }
 `;
 

@@ -116,7 +116,7 @@ const ReactSelectElement = styled(Select)<Props>`
       flex-grow: 1;
       border-radius: 2px;
       border: var(--border-1);
-      font-weight: 600;
+      font-weight: 400;
       background-color: ${(props) =>
         props.isLight ? '#ebf0ee' : props.isDark ? '#cdd1cf' : 'white'};
     }
@@ -128,7 +128,7 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__single-value {
-      font-weight: 500;
+      font-weight: 400;
       padding-block: 4px;
       color: var(--text-light-high);
     }
