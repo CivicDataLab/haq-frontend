@@ -1,61 +1,46 @@
-import Header from 'components/pages/state/Header';
-import Link from 'next/link';
-import { states } from 'data/home';
-import Image from 'next/image';
+import styled from 'styled-components';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import { Breadcrumb } from 'components/actions';
+import { fetchAPI } from 'lib/api';
+import { HomeCard, HomeCarousel } from 'components/pages/home';
+import { Header, ListCard, Banner } from 'components/pages/state';
+import * as data from 'data/statedata/statedata';
 
 type Props = {
   pathName: string;
   foundState: any;
+  homepage: any;
 };
 
-const stateData = [
-  {
-    State: 'Bihar',
-    Description: 'Bihar is located in',
-  },
-  {
-    State: 'Assam',
-    Description: 'Assam is located in',
-  },
-  {
-    State: 'Uttar Pradesh',
-    Description: 'Uttar Pradesh is located in',
-  },
-];
-
-const State: React.FC<Props> = ({ foundState, pathName }) => {
-  const state = pathName;
+const State: React.FC<Props> = ({ foundState, pathName, homepage }) => {
+  const { dataset,carousel } = homepage;
+  const breadcrumbArray = ['Home', foundState.State];
   return (
     <>
-      <main className="container">
-        <Header data={foundState} />
-        <div>
-          <Link
-            passHref
-            href={{
-              pathname: `${state}/budget`,
-            }}
-          >
-            Budget data
-          </Link>
-        </div>
-
-        <div>
-          <Link
-            passHref
-            href={{
-              pathname: `${state}/datasets`,
-            }}
-          >
-            Datasets
-          </Link>
-        </div>
-      </main>
+      <Wrapper>
+        <main className="container">
+          <Breadcrumb crumbs={breadcrumbArray} />
+          <Header header={data.header} schemeList={data.obj} />
+        </main>
+      </Wrapper>
+      <HomeCard dataset={dataset} />
+      <ListCard data={data.listCard[0]} />
+      <Banner />
+      <ListCard data={data.listCard[1]} />
+      <HomeCarousel carousel={carousel} />
     </>
   );
 };
+
+const Wrapper = styled.div`
+  background-color: rgb(250, 93, 130, 0.4);
+  background-image: url('/assets/bg_illustration.svg');
+  background-size: cover;
+
+  > div {
+    max-width: 1280px;
+  }
+`;
 
 const normalizeStateName = (state) => {
   return state.replace(/\s+/g, '-').toLowerCase();
@@ -63,7 +48,7 @@ const normalizeStateName = (state) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: stateData.map((obj) => ({
+    paths: data.stateArray.map((obj) => ({
       params: {
         state: normalizeStateName(obj.State),
       },
@@ -74,15 +59,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
-  const foundState = stateData.find(
+  const foundState = data.stateArray.find(
     (item) => normalizeStateName(item.State) == state
   );
+  const homepage = await fetchAPI('/homepage');
   return {
     props: {
       pathName: state,
       foundState,
+      homepage: homepage.data,
     },
+    revalidate: 1,
   };
 };
 
-  export default State;
+export default State;
