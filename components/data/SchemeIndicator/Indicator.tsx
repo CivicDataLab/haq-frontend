@@ -26,6 +26,11 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
+  const schemeDataObject = schemeData.reduce((acc, item) => {
+    acc[item.Scheme] = item;
+    return acc;
+  }, {});
+
   return (
     <IndicatorWrapper className="indicator">
       <h3>Schemes</h3>
@@ -34,19 +39,16 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
 
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
-        {searchedData.map((indicatorName) => {
-          const indicatorObject = schemeData.find(
-            (item) => item.Scheme === indicatorName
-          );
-
-          if (indicatorObject) {
+        {searchedData.map((indicatorName: any) => {
+          const obj = schemeDataObject[indicatorName];
+          if (obj) {
             return (
               <Link
-                key={indicatorObject.Scheme} 
+                key={obj.Scheme} // Make sure to provide a unique key for each element in the array
                 href={{
                   pathname: `/${currentSlug}/budget/`,
                   query: {
-                    scheme: `${generateSlug(indicatorObject.Scheme)}`,
+                    scheme: `${generateSlug(obj.Scheme)}`,
                   },
                 }}
                 scroll={false}
@@ -55,20 +57,20 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 <Radio
                   color="var(--color-amazon)"
                   data-selected={
-                    selectedIndicator === indicatorObject.Scheme
+                    selectedIndicator === obj.Scheme
                       ? 'true'
                       : 'false'
                   }
-                  checked={selectedIndicator === indicatorObject.Scheme}
-                  data-type={indicatorObject.Scheme}
-                  id={indicatorObject.Scheme}
-                  text={<>{indicatorObject.Scheme}</>}
+                  checked={selectedIndicator === obj.Scheme}
+                  data-type={obj.Scheme}
+                  id={obj.Scheme}
+                  text={<>{obj.Scheme}</>}
                   name="indicators"
                 />
               </Link>
             );
           } else {
-            return null; 
+            return null;
           }
         })}
       </fieldset>
