@@ -4,39 +4,72 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { generateSlug } from 'utils/data';
+import SearchBar from './SearchBar';
 
 const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
+  const indicators = [
+    ...new Set(schemeData.map((item) => item.Scheme || null)),
+  ];
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedData, setSearchedData] = useState(indicators);
+
+  useEffect(() => {
+    const filteredData = indicators.filter((indicator: string) => {
+      const name = indicator.toLowerCase();
+      return name.includes(searchTerm);
+    });
+    setSearchedData(filteredData);
+  }, [searchTerm]);
+
+  const handleChangeSearchTerm = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+
   return (
     <IndicatorWrapper className="indicator">
       <h3>Schemes</h3>
+
+      <SearchBar handleChangeSearchTerm={handleChangeSearchTerm} />
+
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
-        {schemeData.map((item: any) => {
-          return (
-            <Link
-              key={item.Scheme} // Make sure to provide a unique key for each element in the array
-              href={{
-                pathname: `/${currentSlug}/budget/`,
-                query: {
-                  scheme: `${generateSlug(item.Scheme)}`,
-                },
-              }}
-              scroll={false}
-              passHref
-            >
-              <Radio
-                color="var(--color-amazon)"
-                data-selected={
-                  selectedIndicator === item.Scheme ? 'true' : 'false'
-                }
-                checked={selectedIndicator === item.Scheme}
-                data-type={item.Scheme}
-                id={item.Scheme}
-                text={<>{item.Scheme}</>}
-                name="indicators"
-              />
-            </Link>
+        {searchedData.map((indicatorName) => {
+          const indicatorObject = schemeData.find(
+            (item) => item.Scheme === indicatorName
           );
+
+          if (indicatorObject) {
+            return (
+              <Link
+                key={indicatorObject.Scheme} 
+                href={{
+                  pathname: `/${currentSlug}/budget/`,
+                  query: {
+                    scheme: `${generateSlug(indicatorObject.Scheme)}`,
+                  },
+                }}
+                scroll={false}
+                passHref
+              >
+                <Radio
+                  color="var(--color-amazon)"
+                  data-selected={
+                    selectedIndicator === indicatorObject.Scheme
+                      ? 'true'
+                      : 'false'
+                  }
+                  checked={selectedIndicator === indicatorObject.Scheme}
+                  data-type={indicatorObject.Scheme}
+                  id={indicatorObject.Scheme}
+                  text={<>{indicatorObject.Scheme}</>}
+                  name="indicators"
+                />
+              </Link>
+            );
+          } else {
+            return null; 
+          }
         })}
       </fieldset>
     </IndicatorWrapper>
