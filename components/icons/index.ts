@@ -25,3 +25,4 @@ export { default as GraphBar } from './GraphBar';
 export { default as Compare } from './Compare';
 export { default as IconDropdown } from './IconDropdown';
 export { default as Triangle } from './Triangle';
+export { default as SearchIcon } from './SearchIcon';
