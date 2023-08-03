@@ -10,4 +10,5 @@ export { IndicatorMobile as IndicatorMobile } from './Indicator';
 export { DatasetCard as DatasetCard } from './Cards';
 export { RelatedCard as RelatedCard } from './Cards';
 export { default as Tags } from './Tags';
-export { SchemeIndicator as SchemeIndicator} from './SchemeIndicator'
+export { SchemeIndicator as SchemeIndicator} from './SchemeIndicator';
+export { SchemeFilter as SchemeFilter } from './SchemeFilter';
