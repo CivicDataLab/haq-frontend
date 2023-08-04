@@ -9,9 +9,12 @@ import { SchemeFilter } from 'components/data/SchemeFilter';
 import * as filters from 'data/searchfilter/searchfilter';
 
 const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
-  const indicators = [
-    ...new Set(schemeData.map((item) => item.Scheme || null)),
-  ];
+
+  const indicators = Object.keys(schemeData) ;
+
+  // const indicators = [
+  //   ...new Set(schemeData.map((item) => item.Scheme || null)),
+  // ];
 
   const isBrowser = typeof window !== 'undefined';
 
@@ -36,16 +39,16 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
   }
 
   useEffect(() => {
-    const filteredData = indicators
-      .filter((indicator: string) => {
-        const name = indicator.toLowerCase();
-        return name.includes(searchTerm);
-      })
+    const filteredData = indicators.filter((indicator) => {
+      const name = indicator.toLowerCase();
+      const schemeName = schemeData[name].Scheme.toLowerCase();
+      return schemeName.includes(searchTerm.toLowerCase());
+    })
       .filter((indicatorName: string) => {
         if (!datsetsFilters) {
           return true;
         }
-        const obj = schemeDataObject[indicatorName];
+        const obj = schemeData[indicatorName];
         const mode = obj?.Scheme_mode?.toLowerCase();
         const type = obj?.Scheme_type?.toLowerCase();
         return applyFilters(mode, type, datsetsFilters);
@@ -57,10 +60,33 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  const schemeDataObject = schemeData.reduce((acc, item) => {
-    acc[item.Scheme] = item;
-    return acc;
-  }, {});
+  // useEffect(() => {
+  //   const filteredData = indicators
+  //     .filter((indicator: string) => {
+  //       const name = indicator.toLowerCase();
+  //       return name.includes(searchTerm);
+  //     })
+  //     .filter((indicatorName: string) => {
+  //       console.log(indicatorName)
+  //       if (!datsetsFilters) {
+  //         return true;
+  //       }
+  //       const obj = schemeDataObject[indicatorName];
+  //       const mode = obj?.Scheme_mode?.toLowerCase();/ Make sure to provide a unique key for each element in the array
+  //       const type = obj?.Scheme_type?.toLowerCase();
+  //       return applyFilters(mode, type, datsetsFilters);
+  //     });
+  //   setSearchedData(filteredData);
+  // }, [searchTerm, datsetsFilters, schemeData]);
+
+
+
+  // const schemeDataObject = schemeData.reduce((acc, item) => {
+  //   acc[item.Scheme] = item;
+  //   return acc;
+  // }, {});
+
+  // console.log(schemeDataObject)
 
   return (
     <IndicatorWrapper className="indicator">
@@ -78,15 +104,16 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
         {searchedData.map((indicatorName: any) => {
-          const obj = schemeDataObject[indicatorName];
+          const obj = schemeData[indicatorName]
+          //const obj = schemeDataObject[indicatorName];
           if (obj) {
             return (
               <Link
-                key={obj.Scheme} // Make sure to provide a unique key for each element in the array
+                key={obj.Scheme} 
                 href={{
                   pathname: `/${currentSlug}/budget/`,
                   query: {
-                    scheme: `${generateSlug(obj.Scheme)}`,
+                    scheme: `${obj.Scheme_code}`,
                   },
                 }}
                 scroll={false}
@@ -95,9 +122,9 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 <Radio
                   color="var(--color-amazon)"
                   data-selected={
-                    selectedIndicator === obj.Scheme ? 'true' : 'false'
+                    selectedIndicator == obj.Scheme_code ? 'true' : 'false'
                   }
-                  checked={selectedIndicator === obj.Scheme}
+                  checked={selectedIndicator === obj.Scheme_code}
                   data-type={obj.Scheme}
                   id={obj.Scheme}
                   text={<>{obj.Scheme}</>}
