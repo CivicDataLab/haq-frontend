@@ -44,7 +44,6 @@ const SearchContainer = styled.div`
   background: var(--background-lightest, #fff);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08) inset;
   position: relative;
-  margin-top: 32px;
 
   .screen-reader-text {
     border: 0;

@@ -1,14 +1,26 @@
 export default function FilterIcon({ ...props }) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      {...props}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M4.24969 5.61006c2.32 2.98 5.75 7.39004 5.75 7.39004v5c0 1.1.90001 2 2.00001 2s2-.9 2-2v-5s3.43-4.41004 5.75-7.39004c.51-.66.04-1.61-.8-1.61H5.03969c-.83 0-1.3.95-.79 1.61Z" />
-      <circle cx="19" cy="7.00006" r="4" stroke="#fff" strokeWidth="2" />
+      <g clipPath="url(#clip0_731_44961)">
+        <path
+          d="M4 4H20V6.172C19.9999 6.70239 19.7891 7.21101 19.414 7.586L15 12V19L9 21V12.5L4.52 7.572C4.18545 7.20393 4.00005 6.7244 4 6.227V4Z"
+          stroke="#6C666E"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_731_44961">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

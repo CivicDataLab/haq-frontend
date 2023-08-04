@@ -3,24 +3,55 @@ import { RadioItem } from 'components/layouts/Radio/Radio';
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { generateSlug } from 'utils/data';
+import { generateSlug, applyFilters } from 'utils/data';
 import SearchBar from './SearchBar';
+import { SchemeFilter } from 'components/data/SchemeFilter';
+import * as filters from 'data/searchfilter/searchfilter';
 
 const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
   const indicators = [
     ...new Set(schemeData.map((item) => item.Scheme || null)),
   ];
 
+  const isBrowser = typeof window !== 'undefined';
+
+  const initialDatsetsFilters = isBrowser
+    ? sessionStorage.getItem('datsetsFilters') || ''
+    : '';
+
   const [searchTerm, setSearchTerm] = useState('');
   const [searchedData, setSearchedData] = useState(indicators);
+  const [datsetsFilters, setDatasetsFilters] = useState<string>(
+    initialDatsetsFilters
+  );
 
   useEffect(() => {
-    const filteredData = indicators.filter((indicator: string) => {
-      const name = indicator.toLowerCase();
-      return name.includes(searchTerm);
-    });
+    if (isBrowser) {
+      sessionStorage.setItem('datsetsFilters', datsetsFilters);
+    }
+  }, [datsetsFilters, isBrowser]);
+
+  function handleDatasetsChange(val: any) {
+    setDatasetsFilters(val.value);
+  }
+
+  useEffect(() => {
+    const filteredData = indicators
+      .filter((indicator: string) => {
+        const name = indicator.toLowerCase();
+        return name.includes(searchTerm);
+      })
+      .filter((indicatorName: string) => {
+        if (!datsetsFilters) {
+          return true;
+        }
+        const obj = schemeDataObject[indicatorName];
+        const mode = obj?.Scheme_mode?.toLowerCase();
+        const type = obj?.Scheme_type?.toLowerCase();
+        return applyFilters(mode, type, datsetsFilters);
+      });
     setSearchedData(filteredData);
-  }, [searchTerm]);
+  }, [searchTerm, datsetsFilters, schemeData]);
 
   const handleChangeSearchTerm = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
@@ -35,7 +66,14 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
     <IndicatorWrapper className="indicator">
       <h3>Schemes</h3>
 
-      <SearchBar handleChangeSearchTerm={handleChangeSearchTerm} />
+      <Filters>
+        <SearchBar handleChangeSearchTerm={handleChangeSearchTerm} />
+        <SchemeFilter
+          data={filters.facets}
+          newData={handleDatasetsChange}
+          fq={datsetsFilters}
+        />
+      </Filters>
 
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
@@ -57,9 +95,7 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 <Radio
                   color="var(--color-amazon)"
                   data-selected={
-                    selectedIndicator === obj.Scheme
-                      ? 'true'
-                      : 'false'
+                    selectedIndicator === obj.Scheme ? 'true' : 'false'
                   }
                   checked={selectedIndicator === obj.Scheme}
                   data-type={obj.Scheme}

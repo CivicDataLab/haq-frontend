@@ -79,6 +79,28 @@ const toLakh = (num, i) => {
   else return twoDecimals(num);
 };
 
+  // Encapsulate filtering logic into a separate function
+  const isMatched = (filters, value) =>
+    !filters.length || (value && filters.includes(value));
+
+  export const applyFilters = (mode, type, datsetsFilters) => {
+    // Parse the filters from the string using regular expressions
+    const modeFilterRegex = /scheme_mode:\("(.*?)"\)/;
+    const typeFilterRegex = /scheme_type:\("(.*?)"\)/;
+    const modeFilterMatch = datsetsFilters.match(modeFilterRegex);
+    const typeFilterMatch = datsetsFilters.match(typeFilterRegex);
+
+    // Extract the filter values from the regex match and convert to lowercase
+    const modeFilters = modeFilterMatch ? modeFilterMatch[1].toLowerCase().split(' OR ') : [];
+    const typeFilters = typeFilterMatch ? typeFilterMatch[1].toLowerCase().split(' OR ') : [];
+
+    // Apply filters based on the parsed filter values
+    const modeMatches = isMatched(modeFilters, mode);
+    const typeMatches = isMatched(typeFilters, type);
+
+    return modeMatches && typeMatches;
+  };
+
 export async function dataTransform(id) {
   const obj = {};
   let name;
