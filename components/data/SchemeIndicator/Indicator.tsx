@@ -3,10 +3,10 @@ import { RadioItem } from 'components/layouts/Radio/Radio';
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { generateSlug } from 'utils/data';
+import { generateSlug, applyFilters } from 'utils/data';
 import SearchBar from './SearchBar';
 import { SchemeFilter } from 'components/data/SchemeFilter';
-import * as filters from 'data/searchfilter/searchfilter'
+import * as filters from 'data/searchfilter/searchfilter';
 
 const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
   const indicators = [
@@ -16,12 +16,14 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
   const isBrowser = typeof window !== 'undefined';
 
   const initialDatsetsFilters = isBrowser
-  ? sessionStorage.getItem('datsetsFilters') || ''
-  : '';
+    ? sessionStorage.getItem('datsetsFilters') || ''
+    : '';
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchedData, setSearchedData] = useState(indicators);
-  const [datsetsFilters, setDatasetsFilters] = useState<string>(initialDatsetsFilters);
+  const [datsetsFilters, setDatasetsFilters] = useState<string>(
+    initialDatsetsFilters
+  );
 
   useEffect(() => {
     if (isBrowser) {
@@ -34,12 +36,22 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
   }
 
   useEffect(() => {
-    const filteredData = indicators.filter((indicator: string) => {
-      const name = indicator.toLowerCase();
-      return name.includes(searchTerm);
-    });
+    const filteredData = indicators
+      .filter((indicator: string) => {
+        const name = indicator.toLowerCase();
+        return name.includes(searchTerm);
+      })
+      .filter((indicatorName: string) => {
+        if (!datsetsFilters) {
+          return true;
+        }
+        const obj = schemeDataObject[indicatorName];
+        const mode = obj?.Scheme_mode?.toLowerCase();
+        const type = obj?.Scheme_type?.toLowerCase();
+        return applyFilters(mode, type, datsetsFilters);
+      });
     setSearchedData(filteredData);
-  }, [searchTerm]);
+  }, [searchTerm, datsetsFilters, schemeData]);
 
   const handleChangeSearchTerm = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
