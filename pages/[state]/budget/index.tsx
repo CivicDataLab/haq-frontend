@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Breadcrumb } from 'components/actions';
-import { Header } from 'components/pages/budget';
+import { Header, Viz } from 'components/pages/budget';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { capitalizeWords } from 'utils/data';
@@ -27,6 +27,7 @@ const Budget: React.FC<Props> = ({ state }) => {
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
           <Header header={header} />
+          <Viz />
         </main>
       </Wrapper>
     </>
