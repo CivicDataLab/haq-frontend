@@ -8,6 +8,17 @@ export async function fetchQuery(query, value) {
   return queryRes.result;
 }
 
+export function capitalizeWords(input) {
+  if (typeof input !== 'string' || input.length === 0) {
+    return input;
+  }
+
+  return input
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export async function jsonFetchQuery(query, value) {
   const queryRes = await fetch(
     `https://data.girleducation.in/api/3/action/package_search?fq=slug:${value}%20AND%20private:false`
