@@ -56,7 +56,7 @@ const Viz = () => {
 
   const vizToggle = [
     {
-      name: 'Map View',
+      name: 'Graph View',
       id: '#mapView',
       icon: <Globe />,
     },
@@ -66,7 +66,10 @@ const Viz = () => {
     {
       id: 'mapView',
       graph: data[activeIndicator] ? (
-        <BudgetGraph />
+        <BudgetGraph
+          data={data[activeIndicator]}
+          scheme_code={activeIndicator}
+        />
       ) : (
         <span>Loading....</span>
       ),
