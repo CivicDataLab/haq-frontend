@@ -37,9 +37,24 @@ export function generateSlug(slug) {
 export async function fetchJSON(schemeType, key = null) {
   // get JSON URL
   const jsonUrl = await jsonFetchQuery('schemeType', schemeType)
-  .then((res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url)
-   
+    .then((res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url)
+
     .catch((e) => console.error(e));
+  // fetch JSON data
+  const jsonData = await fetch(jsonUrl)
+    .then((res) => res.json())
+    .catch((e) => console.error(e));
+
+  // if key is provided, send only that data
+  if (key) return jsonData[key];
+  return jsonData;
+}
+
+export async function fetchBudgetJSON(schemeType, key = null) {
+  const jsonUrl = await fetchQuery('query', schemeType)
+    .then((res) => res.resources.filter((e) => e.format == 'JSON')[0].url)
+    .catch((e) => console.error(e));
+    
   // fetch JSON data
   const jsonData = await fetch(jsonUrl)
     .then((res) => res.json())
@@ -90,27 +105,31 @@ const toLakh = (num, i) => {
   else return twoDecimals(num);
 };
 
-  // Encapsulate filtering logic into a separate function
-  const isMatched = (filters, value) =>
-    !filters.length || (value && filters.includes(value));
+// Encapsulate filtering logic into a separate function
+const isMatched = (filters, value) =>
+  !filters.length || (value && filters.includes(value));
 
-  export const applyFilters = (mode, type, datsetsFilters) => {
-    // Parse the filters from the string using regular expressions
-    const modeFilterRegex = /scheme_mode:\("(.*?)"\)/;
-    const typeFilterRegex = /scheme_type:\("(.*?)"\)/;
-    const modeFilterMatch = datsetsFilters.match(modeFilterRegex);
-    const typeFilterMatch = datsetsFilters.match(typeFilterRegex);
+export const applyFilters = (mode, type, datsetsFilters) => {
+  // Parse the filters from the string using regular expressions
+  const modeFilterRegex = /scheme_mode:\("(.*?)"\)/;
+  const typeFilterRegex = /scheme_type:\("(.*?)"\)/;
+  const modeFilterMatch = datsetsFilters.match(modeFilterRegex);
+  const typeFilterMatch = datsetsFilters.match(typeFilterRegex);
 
-    // Extract the filter values from the regex match and convert to lowercase
-    const modeFilters = modeFilterMatch ? modeFilterMatch[1].toLowerCase().split(' OR ') : [];
-    const typeFilters = typeFilterMatch ? typeFilterMatch[1].toLowerCase().split(' OR ') : [];
+  // Extract the filter values from the regex match and convert to lowercase
+  const modeFilters = modeFilterMatch
+    ? modeFilterMatch[1].toLowerCase().split(' OR ')
+    : [];
+  const typeFilters = typeFilterMatch
+    ? typeFilterMatch[1].toLowerCase().split(' OR ')
+    : [];
 
-    // Apply filters based on the parsed filter values
-    const modeMatches = isMatched(modeFilters, mode);
-    const typeMatches = isMatched(typeFilters, type);
+  // Apply filters based on the parsed filter values
+  const modeMatches = isMatched(modeFilters, mode);
+  const typeMatches = isMatched(typeFilters, type);
 
-    return modeMatches && typeMatches;
-  };
+  return modeMatches && typeMatches;
+};
 
 export async function dataTransform(id) {
   const obj = {};
@@ -138,13 +157,15 @@ export async function dataTransform(id) {
     name = data.extras[0].value;
     type = data.extras[3].value;
     slug = data.name || '';
-    title = data.extras[1] ? `${data.title} | ${data.extras[1].value}` : data.title;
-    tags = data.extras[2] ? [data.extras[3].value,data.extras[2].value]:[];
+    title = data.extras[1]
+      ? `${data.title} | ${data.extras[1].value}`
+      : data.title;
+    tags = data.extras[2] ? [data.extras[3].value, data.extras[2].value] : [];
     dataUrl = data.resources.dataUrl || '';
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
     notes = data.notes || '';
-    code = name || ''
+    code = name || '';
   });
 
   await fetchSheets(url).then((res) => {
@@ -191,7 +212,7 @@ export async function dataTransform(id) {
       resUrls,
       dataUrl,
       metaUrl,
-      code
+      code,
     };
 
     // Tabular Data
@@ -534,25 +555,25 @@ export async function stateDataTransform(id) {
     // };
 
     // Tabular Data
-   
+
     for (let i = 1; i < dataParse.length; i++) {
       const schemeCode = dataParse[i][0];
       const fiscalYear = dataParse[i][1];
-    
+
       if (!data[schemeCode]) {
         data[schemeCode] = {};
       }
-    
+
       for (let j = 2; j < dataParse[0].length; j++) {
         const key = dataParse[0][j];
-    
+
         if (!data[schemeCode][key]) {
           data[schemeCode][key] = {};
         }
-    
+
         data[schemeCode][key][fiscalYear] = twoDecimals(dataParse[i][j]);
       }
-      
+
       // const indicatorSlug =
       //   generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
 

@@ -6,7 +6,7 @@ import { Globe } from 'components/icons';
 
 import BudgetGraph from './BudgetGraph';
 
-const Viz = () => {
+const Viz = ({ data }) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
@@ -14,45 +14,6 @@ const Viz = () => {
   const [currentViz, setCurrentViz] = useState('#graphView');
 
   const mapRef = useRef(null);
-
-  const data = {
-    mdm_bh: {
-      Scheme: 'YSR Intrest free loans to farmers',
-      Scheme_code: 'mdm_bh',
-      Scheme_mode: 'Payments & Awards',
-      Scheme_type: 'Benefits boy students exclusively',
-      indicator_01: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-      indicator_02: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-      indicator_03: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-    },
-    mdms_bh: {
-      Scheme: 'Dummy schemre',
-      Scheme_code: 'mdms_bh',
-      Scheme_mode: 'Payments & Awards',
-      Scheme_type: 'Benefits girl students exclusively',
-      indicator_01: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-      indicator_02: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-      indicator_03: {
-        '2022-23': 21,
-        '2021-22': 34,
-      },
-    },
-  };
 
   const vizToggle = [
     {

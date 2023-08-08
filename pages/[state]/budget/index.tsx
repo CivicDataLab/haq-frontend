@@ -3,13 +3,14 @@ import { Breadcrumb } from 'components/actions';
 import { Header, Viz } from 'components/pages/budget';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { capitalizeWords } from 'utils/data';
+import { capitalizeWords, fetchBudgetJSON } from 'utils/data';
 
 type Props = {
   state: string;
+  stateBudgetData: any;
 };
 
-const Budget: React.FC<Props> = ({ state }) => {
+const Budget: React.FC<Props> = ({ state, stateBudgetData }) => {
   const breadcrumbArray = ['Home', capitalizeWords(state), 'Budget Data'];
 
   const header = {
@@ -27,7 +28,7 @@ const Budget: React.FC<Props> = ({ state }) => {
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
           <Header header={header} />
-          <Viz />
+          <Viz data={stateBudgetData} />
         </main>
       </Wrapper>
     </>
@@ -36,9 +37,11 @@ const Budget: React.FC<Props> = ({ state }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const state = context.query.state;
+  const stateBudgetData = await fetchBudgetJSON('budget',state)
   return {
     props: {
       state: state,
+      stateBudgetData: stateBudgetData || {}
     },
   };
 };
