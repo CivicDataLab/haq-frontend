@@ -50,6 +50,22 @@ export async function fetchJSON(schemeType, key = null) {
   return jsonData;
 }
 
+export async function fetchBudgetJSON(schemeType, key = null) {
+  // get JSON URL
+  const jsonUrl = await fetchQuery('schemeType', schemeType)
+  .then((res) => res.resources.filter((e) => e.format == 'JSON')[0].url)
+   
+    .catch((e) => console.error(e));
+  // fetch JSON data
+  const jsonData = await fetch(jsonUrl)
+    .then((res) => res.json())
+    .catch((e) => console.error(e));
+
+  // if key is provided, send only that data
+  if (key) return jsonData[key];
+  return jsonData;
+}
+
 const isObject = (val) => {
   if (val === null) {
     return false;
