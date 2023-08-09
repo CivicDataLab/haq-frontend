@@ -86,7 +86,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
             type: 'slider',
             xAxisIndex: [0],
             filterMode: 'filter',
-            endValue:4
+            endValue: window?.innerWidth >=768 ? 1 : 0
         },
     ],
       tooltip: {},
@@ -113,7 +113,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
         name: yAxisLabel,
         axisLine: { onZero: false, show: true, symbol: ['none', 'arrow'] },
         nameLocation: 'middle',
-        nameGap: 45,
+        nameGap: 61,
         nameRotate: 90,
       },
       title: {
@@ -146,7 +146,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
       notMerge={true}
       lazyUpdate={true}
       style={{
-        height: '500px',
+        height: '570px',
       }}
     />
   );
