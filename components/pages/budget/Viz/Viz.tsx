@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { SchemeIndicator } from 'components/data';
 import styled from 'styled-components';
-import { Globe,TableIcon } from 'components/icons';
+import { Globe, TableIcon } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
 
 import BudgetGraph from './BudgetGraph';
 import BudgetTable from './BudgetTable';
+import DownloadViz from './DownloadViz';
 
 const Viz = ({ data }) => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const Viz = ({ data }) => {
   const [tableData, setTableData] = useState<any>({});
 
   const mapRef = useRef(null);
-  
+
   const vizToggle = [
     {
       name: 'Graph View',
@@ -120,6 +121,13 @@ const Viz = ({ data }) => {
               {item.graph}
             </VizGraph>
           ))}
+          <DownloadButton>
+            <DownloadViz
+              viz={currentViz}
+              data={data[activeIndicator]}
+              tableData={tableData}
+            />
+          </DownloadButton>
         </VizWrapper>
       </Wrapper>
     </>
