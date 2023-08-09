@@ -6,6 +6,7 @@ import { Globe,TableIcon } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
 
 import BudgetGraph from './BudgetGraph';
+import BudgetTable from './BudgetTable';
 
 const Viz = ({ data }) => {
   const router = useRouter();
@@ -44,7 +45,13 @@ const Viz = ({ data }) => {
     },
     {
       id: 'tableView',
-      graph: <span> Table module </span>
+      graph: data[activeIndicator] ? (
+        <BudgetTable
+          data={data[activeIndicator]}
+        />
+      ) : (
+        <span>Loading....</span>
+      ),
     },
   ];
 
