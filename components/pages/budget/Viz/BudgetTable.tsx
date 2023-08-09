@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'components/data';
 
-const BudgetTable = ({ data }) => {
-  const [tableData, setTableData] = useState<any>({});
+const BudgetTable = ({ data, tableData, setTableData }) => {
 
   useEffect(() => {
     if (data) {
@@ -17,7 +16,7 @@ const BudgetTable = ({ data }) => {
         { key: 'indicator_02', header: 'Actual Estimates' },
         { key: 'indicator_03', header: 'New Estimates' },
       ];
-      
+
       indicators.forEach((indicator) => {
         tableHeader.push({
           Header: indicator.header,

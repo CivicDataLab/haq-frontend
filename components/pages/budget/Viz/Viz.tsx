@@ -14,6 +14,7 @@ const Viz = ({ data }) => {
   const [loading, setLoading] = useState(true);
   const [activeIndicator, setActiveIndicator] = useState('');
   const [currentViz, setCurrentViz] = useState('#graphView');
+  const [tableData, setTableData] = useState<any>({});
 
   const mapRef = useRef(null);
   
@@ -48,6 +49,8 @@ const Viz = ({ data }) => {
       graph: data[activeIndicator] ? (
         <BudgetTable
           data={data[activeIndicator]}
+          tableData={tableData}
+          setTableData={setTableData}
         />
       ) : (
         <span>Loading....</span>
@@ -96,7 +99,7 @@ const Viz = ({ data }) => {
         />
         <VizWrapper>
           <HeaderDetails>
-            <h2>{data[activeIndicator]?.Scheme}</h2>       
+            <h2>{data[activeIndicator]?.Scheme}</h2>
           </HeaderDetails>
           <VizTabs className="viz__tabs">
             {vizToggle.map((item, index) => (
@@ -239,4 +242,11 @@ export const VizGraph = styled.div`
   @media (max-width: 480px) {
     margin: 0 4px 32px;
   }
+`;
+
+const DownloadButton = styled.div`
+  display: flex;
+  padding: 1.5rem;
+  padding-bottom: 0;
+  justify-content: flex-end;
 `;
