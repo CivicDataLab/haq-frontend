@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { SchemeIndicator } from 'components/data';
 import styled from 'styled-components';
-import { Globe } from 'components/icons';
+import { Globe,TableIcon } from 'components/icons';
+import { tabbedInterface } from 'utils/explorer';
 
 import BudgetGraph from './BudgetGraph';
 
@@ -21,6 +22,11 @@ const Viz = ({ data }) => {
       id: '#mapView',
       icon: <Globe />,
     },
+    {
+      name: 'Table View',
+      id: '#tableView',
+      icon: <TableIcon />,
+    },
   ];
 
   const vizItems = [
@@ -36,7 +42,18 @@ const Viz = ({ data }) => {
       ),
       ref: mapRef,
     },
+    {
+      id: 'tableView',
+      graph: <span> Table module </span>
+    },
   ];
+
+  useEffect(() => {
+    // ceating tabbed interface for viz selector
+    const tablist = document.querySelector('.viz__tabs');
+    const panels = document.querySelectorAll('.viz__graph');
+    tabbedInterface(tablist, panels);
+  }, []);
 
   useEffect(() => {
     // generate indicators
@@ -72,8 +89,7 @@ const Viz = ({ data }) => {
         />
         <VizWrapper>
           <HeaderDetails>
-            <h2>{data[activeIndicator]?.Scheme}</h2>
-            <h3>First Published July 2023</h3>
+            <h2>{data[activeIndicator]?.Scheme}</h2>       
           </HeaderDetails>
           <VizTabs className="viz__tabs">
             {vizToggle.map((item, index) => (
