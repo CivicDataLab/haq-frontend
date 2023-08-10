@@ -33,6 +33,7 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
                   data-selected={
                     selectedIndicator == item.slug ? 'true' : 'false'
                   }
+                  checked={selectedIndicator == item.slug}
                   id={item.slug}
                   text={
                     <>

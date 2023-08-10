@@ -115,6 +115,7 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
                       data-selected={
                         selectedIndicator == item.slug ? 'true' : 'false'
                       }
+                      checked={selectedIndicator == item.slug}
                       id={`${item.slug} mobile`}
                       data-value={item.slug}
                       text={
