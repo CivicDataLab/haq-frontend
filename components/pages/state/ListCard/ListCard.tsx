@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Triangle } from 'components/icons';
 import Image from 'next/image';
 import { Button } from 'components/actions';
+import { getStrapiMedia } from 'lib/media';
 
 const ListCard = ({ data }) => {
   return (
@@ -21,7 +22,7 @@ const ListCard = ({ data }) => {
       <ImageBg>
         <ImageContainer className="container">
           <Image
-            src={data.imgSrc}
+            src={getStrapiMedia(data.imgSrc.url)}
             alt={data.imgAltText}
             layout="fixed"
             height={424}

@@ -6,31 +6,33 @@ import { HomeCard, HomeCarousel } from 'components/pages/home';
 import { Header, ListCard, Banner } from 'components/pages/state';
 import * as data from 'data/statedata/statedata';
 import Head from 'next/head';
+import { capitalizeWords } from 'utils/data';
 
 type Props = {
   pathName: string;
   foundState: any;
-  homepage: any;
+  stateData:any
 };
 
-const State: React.FC<Props> = ({ foundState, pathName, homepage }) => {
-  const { dataset,carousel } = homepage;
-  const breadcrumbArray = ['Home', foundState.State];
+const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }) => {
+  const breadcrumbArray = ['Home', foundState];
+  const { Header: stateHeader, linkcard, listcard, carousel } = stateData;
+
   return (
     <>
       <Head>
-        <title> {foundState.State} | HAQ</title>
+        <title> {foundState} | HAQ</title>
       </Head>
       <Wrapper>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
-          <Header header={data.header} schemeList={data.obj} />
+          <Header header={stateHeader} schemeList={data.obj} />
         </main>
       </Wrapper>
-      <HomeCard dataset={dataset} />
-      <ListCard data={data.listCard[0]} />
+      <HomeCard state={pathName} dataset={linkcard} />
+      <ListCard data={listcard[0]} />
       <Banner />
-      <ListCard data={data.listCard[1]} />
+      {listcard[1] && <ListCard data={listcard[1]} />}
       <HomeCarousel carousel={carousel} />
     </>
   );
@@ -54,7 +56,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: data.stateArray.map((obj) => ({
       params: {
-        state: normalizeStateName(obj.State),
+        state: normalizeStateName(obj),
       },
     })),
     fallback: false,
@@ -63,15 +65,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
-  const foundState = data.stateArray.find(
-    (item) => normalizeStateName(item.State) == state
-  );
-  const homepage = await fetchAPI('/homepage');
+  const foundState = capitalizeWords(state);
+
+  const stateData = await fetchAPI(`/statepages?filters[slug]=${state}`);
   return {
     props: {
       pathName: state,
       foundState,
-      homepage: homepage.data,
+      stateData: stateData.data
     },
     revalidate: 1,
   };

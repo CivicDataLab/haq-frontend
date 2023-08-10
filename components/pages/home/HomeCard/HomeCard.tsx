@@ -4,12 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getStrapiMedia } from 'lib/media';
 
-const HomeCard = ({ dataset }) => {
+const HomeCard = ({ state, dataset }) => {
   return (
     <CardWrapper className="container">
       {dataset.map((item, index) => {
         return (
-          <Link key={`dataCard-${index}`} href={`/${item.link}`} passHref>
+          <Link key={`dataCard-${index}`} href={`/${state}/${item.link}`} passHref>
             <Card>
               <ImageContainer>
                 <Image
