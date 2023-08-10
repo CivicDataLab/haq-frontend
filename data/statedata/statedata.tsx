@@ -100,4 +100,4 @@ export const obj = {
   },
 };
 
-export const stateArray = ['Bihar', 'Assam', 'Uttar Pradesh'];
+export const stateArray = ['Bihar'];
