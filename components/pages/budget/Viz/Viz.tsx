@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { SchemeIndicator } from 'components/data';
+import { SchemeIndicator, Tags } from 'components/data';
 import styled from 'styled-components';
+import { Tag } from 'components/data/Tags/TagsComp';
 import { Globe, TableIcon } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
 
@@ -14,15 +15,15 @@ const Viz = ({ data }) => {
 
   const [loading, setLoading] = useState(true);
   const [activeIndicator, setActiveIndicator] = useState('');
-  const [currentViz, setCurrentViz] = useState('#graphView');
+  const [currentViz, setCurrentViz] = useState('#barView');
   const [tableData, setTableData] = useState<any>({});
 
   const mapRef = useRef(null);
 
   const vizToggle = [
     {
-      name: 'Graph View',
-      id: '#mapView',
+      name: 'Bar View',
+      id: '#barView',
       icon: <Globe />,
     },
     {
@@ -34,7 +35,7 @@ const Viz = ({ data }) => {
 
   const vizItems = [
     {
-      id: 'mapView',
+      id: 'barView',
       graph: data[activeIndicator] ? (
         <BudgetGraph
           data={data[activeIndicator]}
@@ -101,6 +102,12 @@ const Viz = ({ data }) => {
         <VizWrapper>
           <HeaderDetails>
             <h2>{data[activeIndicator]?.Scheme}</h2>
+            <Tags
+              data={[
+                data[activeIndicator]?.Scheme_mode,
+                data[activeIndicator]?.Scheme_type,
+              ]}
+            />
           </HeaderDetails>
           <VizTabs className="viz__tabs">
             {vizToggle.map((item, index) => (
@@ -155,6 +162,25 @@ export const VizWrapper = styled.div`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
   padding: 24px;
   padding-bottom: 30px;
+ 
+  ${Tag} {
+    border-radius: 4px;
+    color: #1c523b;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    background-color:' var(--text-light-disabled)';
+  }
+
+  ${Tag}:nth-child(1) {
+    background: var(--amazon-00, #E1F5ED); 
+    color: #1C523B;
+  }
+  
+  ${Tag}:nth-child(2) {
+    background: var(--honey-00, #FFF0E0); 
+    color: var(--honey-05, #88541E); 
+  }
 `;
 
 const HeaderDetails = styled.div`
@@ -222,14 +248,14 @@ export const VizTabs = styled.ul`
     }
 
     &[aria-selected='true'] {
-      color: #de4b33;
-      border-bottom: 2px solid #de4b33;
+      color: #9E68AD;
+      border-bottom: 2px solid #9E68AD;
 
       svg {
-        fill: #de4b33;
+        fill: #9E68AD;
 
         &.svg-stroke {
-          stroke: #de4b33;
+          stroke: #9E68AD;
         }
       }
     }
@@ -237,7 +263,7 @@ export const VizTabs = styled.ul`
 `;
 
 export const VizGraph = styled.div`
-  margin: 0 24px 0;
+  margin: 12px 24px 0;
   height: 580px;
   overflow-y: auto;
 
