@@ -4,22 +4,23 @@ import { Header, Viz } from 'components/pages/budget';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { capitalizeWords, fetchBudgetJSON } from 'utils/data';
+import { fetchAPI } from 'lib/api';
 
 type Props = {
   state: string;
   stateBudgetData: any;
+  headerData: any;
 };
 
-const Budget: React.FC<Props> = ({ state, stateBudgetData }) => {
-  const breadcrumbArray = ['Home', capitalizeWords(state), 'Budget Data'];
-
-  const header = {
-    main: ` ${capitalizeWords(state)} State Budget Data`,
-    sub: 'Welcome to our comprehensive girl education platform! We understand that you may be interested in exploring specific information related to girl education in Uttar Pradesh, Assam, or Bihar. To cater to your needs, ',
-    state: 'bihar',
-    dataSrc: 'Government of India',
-    datasetLink :'https://www.w3schools.com/'
-  };
+const Budget: React.FC<Props> = ({
+  stateBudgetData,
+  headerData: [headerData],
+}) => {
+  const breadcrumbArray = [
+    'Home',
+    capitalizeWords(headerData.header.state),
+    'Budget Data',
+  ];
 
   return (
     <>
@@ -29,8 +30,8 @@ const Budget: React.FC<Props> = ({ state, stateBudgetData }) => {
       <Wrapper>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
-          <Header header={header} />
-          <Viz data={stateBudgetData}/>
+          <Header header={headerData.header} />
+          <Viz data={stateBudgetData} />
         </main>
       </Wrapper>
     </>
@@ -39,11 +40,15 @@ const Budget: React.FC<Props> = ({ state, stateBudgetData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const state = context.query.state;
-  const stateBudgetData = await fetchBudgetJSON('budget', state);
+  const [stateBudgetData, headerData] = await Promise.all([
+    fetchBudgetJSON('budget', state),
+    fetchAPI(`/budgetpages?filters[slug]=${state}`),
+  ]);
   return {
     props: {
       state: state,
-      stateBudgetData: stateBudgetData || {}
+      stateBudgetData: stateBudgetData || {},
+      headerData: headerData.data,
     },
   };
 };
