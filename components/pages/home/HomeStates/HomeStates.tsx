@@ -49,8 +49,7 @@ const Wrapper = styled.section`
 `;
 
 const StateList = styled.ul`
-  display: flex;
-  justify-content: space-between;
+ width: 400px;
   gap: 24px;
   margin-top: 40px;
   padding-bottom: 16px;
