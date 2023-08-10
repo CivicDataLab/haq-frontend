@@ -9,7 +9,7 @@ const BudgetGraph = ({ data, scheme_code }) => {
   useEffect(() => {
   if (scheme_code) {
     const indicatorNames = ['indicator_01', 'indicator_02', 'indicator_03'];
-    const headerArr = ['Fiscal Years', 'Budget Estimates', 'Actual Estimates', 'New Estimates'];
+    const headerArr = ['Fiscal Years', 'Budget Estimates', 'Revised Estimate', 'Actuals'];
     const barValuesArr = [];
 
     const fiscalYears = Object.keys(data[indicatorNames[0]]);

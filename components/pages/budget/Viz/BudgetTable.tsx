@@ -13,8 +13,8 @@ const BudgetTable = ({ data, tableData, setTableData }) => {
     
       const indicators = [
         { key: 'indicator_01', header: 'Budget Estimates' },
-        { key: 'indicator_02', header: 'Actual Estimates' },
-        { key: 'indicator_03', header: 'New Estimates' },
+        { key: 'indicator_02', header: 'Revised Estimate' },
+        { key: 'indicator_03', header: 'Actuals' },
       ];
 
       indicators.forEach((indicator) => {

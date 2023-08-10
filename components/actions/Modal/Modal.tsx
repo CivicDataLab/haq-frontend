@@ -64,6 +64,8 @@ const ModalStyle = styled.div`
   z-index: 1000;
   padding: 0;
 
+  width: 600px;
+
   @media (max-width: 980px) {
     top: initial;
     left: initial;
