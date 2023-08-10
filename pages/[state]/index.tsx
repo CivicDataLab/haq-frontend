@@ -5,6 +5,7 @@ import { fetchAPI } from 'lib/api';
 import { HomeCard, HomeCarousel } from 'components/pages/home';
 import { Header, ListCard, Banner } from 'components/pages/state';
 import * as data from 'data/statedata/statedata';
+import Head from 'next/head';
 
 type Props = {
   pathName: string;
@@ -17,6 +18,9 @@ const State: React.FC<Props> = ({ foundState, pathName, homepage }) => {
   const breadcrumbArray = ['Home', foundState.State];
   return (
     <>
+      <Head>
+        <title> {foundState.State} | HAQ</title>
+      </Head>
       <Wrapper>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
