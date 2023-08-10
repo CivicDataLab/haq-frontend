@@ -17,6 +17,8 @@ const Budget: React.FC<Props> = ({ state, stateBudgetData }) => {
     main: ` ${capitalizeWords(state)} State Budget Data`,
     sub: 'Welcome to our comprehensive girl education platform! We understand that you may be interested in exploring specific information related to girl education in Uttar Pradesh, Assam, or Bihar. To cater to your needs, ',
     state: 'bihar',
+    dataSrc: 'Government of India',
+    datasetLink :'https://www.w3schools.com/'
   };
 
   return (
