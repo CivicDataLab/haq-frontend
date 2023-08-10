@@ -26,3 +26,4 @@ export { default as Compare } from './Compare';
 export { default as IconDropdown } from './IconDropdown';
 export { default as Triangle } from './Triangle';
 export { default as SearchIcon } from './SearchIcon';
+export { default as Link } from './Link';

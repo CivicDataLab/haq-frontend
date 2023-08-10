@@ -120,7 +120,7 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 passHref
               >
                 <Radio
-                  color="var(--color-amazon)"
+                  color="#9E68AD"
                   data-selected={
                     selectedIndicator == obj.Scheme_code ? 'true' : 'false'
                   }
@@ -171,8 +171,9 @@ export const IndicatorWrapper = styled.div`
 
   fieldset {
     overflow-y: auto;
-    max-height: 616px;
+    max-height: 620px;
     scrollbar-width: thin;
+    margin-top: 16px;
 
     ::-webkit-scrollbar {
       width: 5px;

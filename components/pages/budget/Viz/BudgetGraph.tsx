@@ -34,7 +34,7 @@ const BudgetGraph = ({ data, scheme_code }) => {
           <GroupBarChart
             yAxisLabel={`Value in lakhs `}
             xAxisLabel="Financial Years"
-            theme={['#4965B2', '#ED8686', '#69BC99']}
+            theme={['#4965B2', '#4965B2', '#ED8686','#69BC99']}
             dataset={bardata}
             stack={false}
             Title=""
