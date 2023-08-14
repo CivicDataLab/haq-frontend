@@ -37,7 +37,6 @@ export const FilterHeading = styled.h4`
   border-radius: 4px;
 
   button {
-    background-color: var(--color-grey-500);
     text-transform: capitalize;
     padding: 12px;
     font-weight: 500;
@@ -46,9 +45,11 @@ export const FilterHeading = styled.h4`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    border: 1px solid var(--color-grey-500);
     color: var(--text-light-high);
     border-radius: 4px;
+    border: 1px solid var(--black-12, rgba(0, 0, 0, 0.12));
+    background: var(--grey-06, #f2eff2);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08) inset;
   }
 
   svg {
