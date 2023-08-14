@@ -141,15 +141,15 @@ const Nav = ({ data }) => {
                         )}
                       </>
                     ) : (
-                      <a key={`navItemDesktop-${index}`} href={navItem.link}>
-                        <Navitem
-                          className={
-                            router.pathname.includes(navItem.link) && 'active'
-                          }
-                        >
-                          {navItem.name}
-                        </Navitem>
-                      </a>
+                      <Navitem
+                        key={`navItemDesktop-${index}`}
+                        href={navItem.link}
+                        className={
+                          router.pathname.includes(navItem.link) && 'active'
+                        }
+                      >
+                        {navItem.name}
+                      </Navitem>
                     )}
                   </li>
                 ))}
