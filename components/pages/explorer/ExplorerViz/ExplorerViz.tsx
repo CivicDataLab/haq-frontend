@@ -164,12 +164,14 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
               schemeRaw.metadata.consList[a[index]][0]?.constName,
           };
 
-          Object.keys(filtered).map(
-            (item1, index1) => {
-              const value = filtered[tableHeader[index1 + 1].Header][schemeRaw.metadata.consList[a[index]][0]?.constCode];
-              tempObj[tableHeader[index1 + 1].accessor] = value !== undefined && value !== '' ? value : 'NA';
-            }
-          );
+          Object.keys(filtered).map((item1, index1) => {
+            const value =
+              filtered[tableHeader[index1 + 1].Header][
+                schemeRaw.metadata.consList[a[index]][0]?.constCode
+              ];
+            tempObj[tableHeader[index1 + 1].accessor] =
+              value !== undefined && value !== '' ? value : 'NA';
+          });
           rowData.push(tempObj);
         });
       }
@@ -352,11 +354,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           newIndicator={(e) => handleNewIndicator(e)}
           selectedIndicator={indicator}
         />
-        <Indicator
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-          schemeData={schemeRaw}
-        />
         <VizWrapper>
           <VizHeader data-html2canvas-ignore>
             <VizTabs className="viz__tabs">
@@ -370,20 +367,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
               ))}
             </VizTabs>
             <VizHeaderMenu>
-              {grant && currentViz !== '#stateView' && (
-                <VizMenu className="fill">
-                  <Menu
-                    value={meta.grantName}
-                    options={grant}
-                    heading="Grant : "
-                    handleChange={(e) =>
-                      dispatch({
-                        grantName: e,
-                      })
-                    }
-                  />
-                </VizMenu>
-              )}
               {financialYears && currentViz == '#mapView' && (
                 <VizMenu className="fill">
                   <Menu
@@ -398,8 +381,27 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                   />
                 </VizMenu>
               )}
+              {grant && currentViz !== '#stateView' && (
+                <VizMenu className="fill">
+                  <Menu
+                    value={meta.grantName}
+                    options={grant}
+                    heading="Grant : "
+                    handleChange={(e) =>
+                      dispatch({
+                        grantName: e,
+                      })
+                    }
+                  />
+                </VizMenu>
+              )}
             </VizHeaderMenu>
           </VizHeader>
+          <Indicator
+            newIndicator={(e) => handleNewIndicator(e)}
+            selectedIndicator={indicator}
+            schemeData={schemeRaw}
+          />
           {vizItems.map((item, index) => (
             <VizGraph
               className="viz__graph"
@@ -509,10 +511,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
 export default ExplorerViz;
 
 export const Wrapper = styled.section`
-  display: grid;
   gap: 2rem;
-  grid-template-columns: 312px minmax(0, 1fr);
-  margin-top: 2.5rem;
+
   ${MenuButton} {
     font-size: 14px;
   }
@@ -544,6 +544,7 @@ export const VizHeader = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   padding: 1.5rem;
+  padding-bottom: 0;
   gap: 1.5rem;
   flex-direction: column;
 `;
@@ -556,6 +557,7 @@ export const VizTabs = styled.ul`
 
   li {
     min-width: 0;
+    margin-right: 10px;
   }
 
   button {
@@ -600,8 +602,9 @@ export const VizTabs = styled.ul`
 export const VizHeaderMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 1.5rem;
+  justify-content: space-between;
+  width: 100%;
 `;
 export const VizGraph = styled.div`
   margin: 0 24px 0;

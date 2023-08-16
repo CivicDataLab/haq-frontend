@@ -20,7 +20,6 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
 
   return (
     <IndicatorWrapper className="indicator">
-      <h3>Indicators</h3>
       <fieldset ref={indicatorRef}>
         <legend className="sr-only">Choose Indicator:</legend>
         {schemeData.data &&
@@ -38,9 +37,6 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
                   text={
                     <>
                       {item.name}
-                      <Info>
-                        <p>{item.description}</p>
-                      </Info>
                     </>
                   }
                   name="indicators"
@@ -66,18 +62,13 @@ const Info = styled.div`
 `;
 
 export const IndicatorWrapper = styled.div`
-  background-color: var(--color-background-lighter);
-  filter: drop-shadow(var(--box-shadow-1));
-  border: var(--border-2);
-  border-radius: 4px;
-  height: max-content;
-  padding: 24px;
-  height: 100%;
 
   fieldset {
     overflow-y: auto;
     max-height: 616px;
     scrollbar-width: thin;
+    display: flex;
+    justify-content: center;
 
     ::-webkit-scrollbar {
       width: 5px;
@@ -97,11 +88,7 @@ export const IndicatorWrapper = styled.div`
     color: var(--text-light-high);
     letter-spacing: 0.01em;
     padding: 8px;
-
-    &[data-selected='true'] {
-      font-weight: 600;
-      background-color: var(--color-grey-600);
-    }
+    cursor: pointer;
 
     input {
       pointer-events: none;

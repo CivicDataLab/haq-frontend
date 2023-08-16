@@ -23,9 +23,7 @@ const DatasetCard: React.FC<{
   return (
     <Link
       passHref
-      href={{
-        pathname: `${router.pathname}/${datapackage.notes}`,
-      }}
+      href={`/${router.query.state}/datasets/${datapackage.notes}`}
     >
       <DatasetCardComp>
         <section>
