@@ -1,69 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Share, Button } from 'components/actions';
-import { Tags } from 'components/data';
-import { categoryIcon, categoryTag } from 'utils/explorer';
-import { Download } from 'components/icons';
-import { ButtonComp } from 'components/actions/Button';
-import { HomeAffairs } from 'components/icons';
+import { Share } from 'components/actions';
+import Link from 'next/link';
+import { Link as LinkIcon } from 'components/icons';
 
 const ExplorerHeader = ({ data, summary, primary }) => {
-  // const item = [
-  //   {
-  //     text: 'Total Receipts',
-  //     value: '₹ 4,20,672 Cr.',
-  //   },
-  //   {
-  //     text: 'Total Expenditure',
-  //     value: '₹ 5,50,271 Cr.',
-  //   },
-  //   {
-  //     text: 'Fiscal Deficit',
-  //     value: '₹ 21,73,990 Cr.',
-  //   },
-  //   {
-  //     text: 'GSDP',
-  //     value: '₹ 21,73,990 Cr.',
-  //   },
-  // ]
+  function separateTitles(data) {
+    const parts = data.title.split('|');
+    const englishTitle = parts[0]?.trim();
+    const hindiTitle = parts[1]?.trim();
 
-  return (  
-    <Wrapper>
-      <div className="container flex">
-        <Share title={data.title} />
-        <Button href={data.resUrls[0]} kind = "secondary-outline" size='md' icon={<Download />} >
-            Dataset
-        </Button>
-      </div>
+    return { englishTitle, hindiTitle };
+  }
 
-      <section className="container">
-        <HeaderContent>
-          <figure><HomeAffairs/></figure>
-          <div>
-            {primary ? 
+  const { englishTitle, hindiTitle } = separateTitles(data);
+
+  return (
+    <Wrapper className="container">
+
+      <HeaderContent>
+        <div>
+          {primary ? (
             <div>
-               <h2>{summary.title}</h2>
-               <h3>{summary.description}</h3>
+              <h2>{summary.title}</h2>
+              <h3>{summary.description}</h3>
             </div>
-            : <h2>{data.title}</h2>}
-            
-           {data.tags && <Tags data={data.tags} />}
-          </div>
-        </HeaderContent>
-        {/* <HeaderText>{data.notes}</HeaderText> */}
-        {/* <HeaderMeta>
-          {meta['Type of Scheme'] && <span>{meta['Type of Scheme']}</span>}
-          {<span>{categoryTag(data.tags)}</span>}
-        </HeaderMeta> */}
-        {/* <SummaryCard>
-          {item.map((itemCard, index) => (
-            <li key={`summary-${index}`}>
-              <strong>{itemCard.value}</strong>
-              <span>{itemCard.text}</span>
-            </li>
-          ))}
-        </SummaryCard> */}
-      </section>
+          ) : (
+            <>
+              <Title>
+                <h2>{englishTitle}</h2>
+                <Share title={data.title} />
+              </Title>
+              <h3>{hindiTitle}</h3>
+            </>
+          )}
+        </div>
+
+        {!primary && (
+          <DataSorce>
+            <Content>
+              <p>Data Source :</p>
+              <span> {data.source} |</span>
+              <Link href={data.resUrls[0]} passHref>
+                <LinkStyled target="_blank">
+                  <span>Link to the Dataset</span>
+                  <LinkIcon />
+                </LinkStyled>
+              </Link>
+            </Content>
+          </DataSorce>
+        )}
+      </HeaderContent>
     </Wrapper>
   );
 };
@@ -72,108 +59,56 @@ export default ExplorerHeader;
 
 const Wrapper = styled.div`
   padding-bottom: 2.5rem;
-  padding-top: 2.5rem;
-
-  section {
-    margin-top: 2.5rem;
-  }
-
-  .flex {
-    display:flex;
-    justify-content: space-between;
-  }
-
-  ${ButtonComp} {
-    text-decoration: none !important;
-  }
+  padding-top: 2rem;
 `;
 
 const HeaderContent = styled.div`
-  display: flex;
   gap: 1.5rem;
-
-  figure {
-    background-color: #fff;
-    max-width: 72px;
-    max-height: 72px;
-    display: grid;
-    place-content: center;
-    padding: 22px;
-    border-radius: 16px;
-    border: 1px solid #cdd1d1;
-  }
-
-  svg {
-    width: 29px;
-    height: 29px;
-  }
+  background-color: white;
+  padding: 24px;
 
   h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    line-height: 1.55;
-  }
-`;
-
-const HeaderText = styled.p`
-  font-weight: 500;
-  line-height: 175%;
-`;
-
-const HeaderMeta = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
-
-  span {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 130%;
-    color: hsla(0, 0%, 0%, 0.6);
-    background-color: hsla(0, 0%, 0%, 0.08);
-    padding: 4px 6px;
-  }
-
-  strong {
-    color: #02838b;
-    font-weight: bold;
-  }
-`;
-
-const SummaryCard = styled.ul`
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-
-  li {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    background-color: var(--color-background-lighter);
-    padding: 20px 16px;
-    border: var(--border-1);
-    border-radius: 8px;
-    filter: drop-shadow(var(--box-shadow-1));
-    flex-basis: 214px;
-    flex-grow: 1;
-    height:128px;
-    position: relative;
-    border-left : 4px solid #FBB670;
-  }
-  strong {
-    font-weight: 700;
+    color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
     font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
   }
-  span {
-    display: block;
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--text-light-medium);
-    line-height: 1.7;
-    margin-top: 4px;
+
+  h3 {
+    color: var(--carrot-04, #9d423f);
+    font-family: Mukta;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 38px;
   }
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const DataSorce = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 14px;
+
+  p {
+    font-weight: 500;
+  }
+`;
+
+const Content = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+`;
+
+const LinkStyled = styled.a`
+  color: #2c59b1;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 `;
