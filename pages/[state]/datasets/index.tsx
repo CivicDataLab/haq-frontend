@@ -15,15 +15,18 @@ import { Search, Total, Filter, Sort, Pagination } from 'components/data';
 import { DatasetList } from 'components/pages/datasets';
 import MobileAlter from 'components/data/MobileAlter/MobileAlter';
 import useEffectOnChange from 'utils/hooks';
+import { capitalizeWords } from 'utils/data';
+import { Breadcrumb } from 'components/actions';
 
 type Props = {
   data: any;
   facets: any;
+  foundState: string;
 };
 
 const list = '"scheme_mode", "scheme_type"';
 
-const Datasets: React.FC<Props> = ({ data, facets }) => {
+const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
   
   const router = useRouter();
   const { q, sort, size, fq, from } = router.query;
@@ -36,9 +39,8 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
   const { results, count } = data?.result;
 
   useEffectOnChange(() => {
-
     router.replace({
-      pathname: '/bihar/datasets',
+      pathname: `/${router.query.state}/datasets`,
       query: {
         fq: datsetsFilters,
         q: search,
@@ -74,16 +76,18 @@ const Datasets: React.FC<Props> = ({ data, facets }) => {
     content :'Find downloadable data, visualisations and other useful information related to a number of school education schemes run by the Uttar Pradesh government.'
   }
 
+  const breadcrumbArray = ['Home',capitalizeWords(foundState), 'Treasury Schemes'];
+
   if (!results) {
     return <div>Loading...</div>;
   }
-
   return (
     <>
       <Head>
         <title>HAQ | Treasury </title>
       </Head>
       <div className="container">
+      <Breadcrumb crumbs={breadcrumbArray} />
         <Header data={headerData} />
         {data && (
           <DatasetsComp>
@@ -131,7 +135,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       data,
-      facets,      
+      facets, 
+      foundState: query.state     
     },
   };
 };
