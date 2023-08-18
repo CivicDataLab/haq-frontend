@@ -24,12 +24,14 @@ interface Props {
    * label for the carousel (a11y)
    */
   label: string;
+  current: any;
 }
 
-const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
+const Carousel = ({ children, prevBtn, nextBtn, label, current }: Props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const carouselRef = useRef(null);
+  current?.(currentSlide + 1, children.length);
 
   // check if children prop is wrapped in a fragment container
   let carouselItems = children;
@@ -105,7 +107,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
       </div>
 
       {loaded && instanceRef.current && (
-        <div className="carouselBtnWrapper">
+        <CarouselBtnWrapper>
           <button
             className="carouselPrevBtn"
             aria-label="Previous Slide"
@@ -132,7 +134,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
           >
             {nextBtn}
           </button>
-        </div>
+        </CarouselBtnWrapper>
       )}
     </CarouselWrapper>
   );
@@ -160,3 +162,5 @@ export const CarouselWrapper = styled.div`
     }
   }
 `;
+
+export const CarouselBtnWrapper = styled.div``;
