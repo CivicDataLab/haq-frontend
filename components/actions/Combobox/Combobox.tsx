@@ -112,7 +112,7 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__control {
-      width: ${(props) => props.isSecondCombobox ? '400px':'205px'};
+      width: ${(props) => (props.isSecondCombobox ? '400px' : '205px')};
       flex-grow: 1;
       border-radius: 2px;
       border: var(--border-1);
@@ -166,7 +166,7 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__dropdown-indicator {
-      padding : 3px;
+      padding: 3px;
     }
 
     &__indicator-separator {
@@ -175,7 +175,8 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__clear-indicator {
-      color: ${(props) => props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+      color: ${(props) =>
+        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
       padding: 4px;
 
       &:hover {
@@ -187,30 +188,27 @@ const ReactSelectElement = styled(Select)<Props>`
       padding: 0;
       margin-bottom: 8px;
 
+      &:not(:first-of-type) {
+        border-top: var(--border-1) !important;
+      }
+
       &-heading {
         padding: 8px;
-        font-weight: 600;
-        font-size: 0.875rem;
-        line-height: 1.7;
-        color: var(--text-light-high);
         border-radius: 2px;
-        background-color: var(--color-grey-600);
         transition: background-color 150ms ease;
         margin-bottom: 0;
-        text-transform: inherit;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #e5eae7;
-        }
+        color: var(--grey-03, #8e888f);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.48px;
+        text-transform: uppercase;
       }
 
       .react-select__option {
-        background-color: var(--color-grey-600);
-
-        &:first-of-type {
-          border-top: var(--border-1);
-        }
+        // &:last-of-type {
+        //   border-bottom: var(--border-1);
+        // }
 
         &--is-focused {
           background-color: #e5eae7;
