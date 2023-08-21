@@ -1,63 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Search } from 'components/data';
-import Link from 'next/link';
+import SchemeSelector from './SchemeSelector';
+import * as data from 'data/statedata/statedata';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
-const HomeHeader = ({heading, subheading, links}) => {
-  const router = useRouter();
-
-  function searchChange(val: any) {
-    router.push({
-      pathname: '/datasets',
-      query: {
-        q: val.value,
-      },
-    });
-  }
-
-
+const HomeHeader = ({ heading, subheading }) => {
   return (
     <Wrapper>
-      <div className="container">
-        <HeaderContent>
-          <HeaderText>
-            <h4>{heading}</h4>
-            <h5>{subheading}</h5>
-            <SearchFilter>
-              <Search newSearch={searchChange} />
-              <SearchLinks>
-                Quick Links:
-                {links.map((item) => {
-                  return (
-                    <li key={`links-${item.id}`}>
-                      <Link
-                        href={{
-                          pathname: '/datasets',
-                          query: { 
-                            q: item.link, 
-                          },
-                        }}
-                        passHref>
-                        <QuickLinks>{item.link}</QuickLinks>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </SearchLinks>
-            </SearchFilter>
-          </HeaderText>
-          <BackgroundIllustration>
-            <Image
-              src="/assets/illustration.svg"
-              width={650}
-              height={526}
-              alt=""
-            ></Image>
-          </BackgroundIllustration>
-        </HeaderContent>
-      </div>
+      <HeaderContent className="container">
+        <HeaderText>
+          <h1> {heading} </h1>
+          <h2> {subheading} </h2>
+          <SchemeSelector schemeList={data.obj} />
+        </HeaderText>
+        <BackgroundIllustration>
+          <Image
+            src="/assets/illustration.svg"
+            width={650}
+            height={526}
+            alt=""
+          />
+        </BackgroundIllustration>
+      </HeaderContent>
     </Wrapper>
   );
 };
@@ -65,7 +29,7 @@ const HomeHeader = ({heading, subheading, links}) => {
 export default HomeHeader;
 
 const Wrapper = styled.div`
-  background-color: rgb(250, 93, 130, 0.4);
+  background: var(--violet-01-base, #b881c7);
   background-image: url('/assets/bg_illustration.svg');
   background-size: cover;
 
@@ -78,60 +42,45 @@ const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   min-height: 580px;
+  position: relative;
 `;
 
-const HeaderText = styled.div`
-  flex-basis: 55%;
-  flex-grow: 1;
-  z-index: 1;
+const flexBasisBreakpoints = {
+  laptopAndUp: '70%',
+  tabletAndUp: '80%',
+  mobile: '100%',
+};
 
-  h4 {
-    font-weight: 500;
-    font-size: 2.2rem;
-    line-height: 1.15;
+const HeaderText = styled.div`
+  z-index: 1;
+  flex-basis: ${flexBasisBreakpoints.laptopAndUp};
+  
+  @media (min-width: 1100px) and (max-width: 1500px) {
+    flex-basis: ${flexBasisBreakpoints.tabletAndUp};
+  }
+  @media (min-width: 550px) and (max-width: 1100px) {
+    flex-basis: ${flexBasisBreakpoints.mobile};
   }
 
-  h5 {
-    font-weight: normal;
-    color: var(--text-light-medium);
-    margin-top: 8px;
-    font-size:18px;
+  h1 {
+    color: var(--text-dark-bg-high-emphasis, #fff);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 52px;
+  }
+
+  h2 {
+    color: var(--text-dark-bg-medium-emphasis, rgba(255, 255, 255, 0.72));
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    margin-top: 24px;
   }
 `;
 
 const BackgroundIllustration = styled.div`
   align-self: flex-end;
-  margin-bottom: -90px;
-
-  @media (max-width: 990px) {
-    display: none;
-  }
-`;
-
-const SearchFilter = styled.div`
-  border: var(--border-2);
-  border-radius: 12px;
-  background: #fff;
-  margin-top: 24px;
-  padding: 12px;
-  list-style: none;
-`;
-
-const SearchLinks = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 12px;
-  margin-top: 6px;
-  margin-left: 6px;
-
-  @media (max-width: 980px) {
-    display: none;
-  }
-`;
-
-const QuickLinks = styled.a`
-  font-size: 12px;
-  padding-left: 10px;
-  font-weight: 500;
-  color: var(--color-secondary);
+  position: absolute;
+  right: 0;
+  bottom: -96px;
 `;
