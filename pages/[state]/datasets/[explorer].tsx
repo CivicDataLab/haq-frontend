@@ -21,6 +21,8 @@ import {
 
 import { Breadcrumb } from 'components/actions';
 import { capitalizeWords } from 'utils/data';
+import { Banner } from 'components/shared';
+import * as data from 'data/spendingdata/spendingdata';
 
 type Props = {
   // meta: any;
@@ -36,8 +38,13 @@ const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj, foundState }) => {
-
+const Explorer: React.FC<Props> = ({
+  scheme,
+  primary,
+  summary,
+  obj,
+  foundState,
+}) => {
   const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
     (item) => ({
       value: item,
@@ -60,7 +67,22 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj, foundState }
 
   const [state, dispatch] = React.useReducer(reducer, initalState);
 
-  const breadcrumbArray = ['Home',capitalizeWords(foundState), 'Treasury Schemes', scheme.metadata.title.slice(0, 16) + '...'];
+  const generateBreadcrumbArray = (primary, foundState, scheme) => {
+    const baseArray = ['Home', capitalizeWords(foundState)];
+
+    if (primary) {
+      baseArray.push('District summary');
+    } else {
+      baseArray.push(
+        'Treasury Schemes',
+        scheme.metadata.title.slice(0, 16) + '...'
+      );
+    }
+
+    return baseArray;
+  };
+
+  const breadcrumbArray = generateBreadcrumbArray(primary, foundState, scheme);
 
   return (
     <>
@@ -86,11 +108,14 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj, foundState }
                   stateData={obj}
                 />
               ) : (
-                <SummaryExplorerViz
-                  schemeRaw={scheme}
-                  meta={state}
-                  dispatch={dispatch}
-                />
+                <>
+                  <SummaryExplorerViz
+                    schemeRaw={scheme}
+                    meta={state}
+                    dispatch={dispatch}
+                  />
+                  <Banner details={data.banner} />
+                </>
               )}
 
               {/* {state.vizType !== 'map' && (
@@ -112,7 +137,7 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj, foundState }
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
- 
+  
   let scheme, obj;
   let primary: boolean = false;
   const foundState = context.query.state;
@@ -130,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       primary,
       summary: summary.data,
       obj: obj || {},
-      foundState
+      foundState,
       // meta,
       // fileData,
     },
