@@ -4,21 +4,24 @@ import { Share } from 'components/actions';
 import Link from 'next/link';
 import { Link as LinkIcon } from 'components/icons';
 
-const ExplorerHeader = ({ data, summary, primary }) => {
-  function separateTitles(data) {
+interface TypeProps {
+  data: any;
+  summary: any;
+  primary: boolean;
+}
+
+const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
+  let englishTitle: string, hindiTitle: string;
+
+  if (!primary) {
     const parts = data.title.split('|');
-    const englishTitle = parts[0]?.trim();
-    const hindiTitle = parts[1]?.trim();
-
-    return { englishTitle, hindiTitle };
+    englishTitle = parts[0]?.trim();
+    hindiTitle = parts[1]?.trim();
   }
-
-  const { englishTitle, hindiTitle } = separateTitles(data);
 
   return (
     <Wrapper className="container">
-
-      <HeaderContent>
+      <HeaderContent primary={primary}>
         <div>
           {primary ? (
             <div>
@@ -62,31 +65,32 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `;
 
-const HeaderContent = styled.div`
+const HeaderContent = styled.div<{ primary: boolean }>`
   gap: 1.5rem;
-  background-color: white;
-  padding: 24px;
+  background-color: ${(props) => (props.primary ? 'none' : 'white')};
+  padding:  ${(props) => (props.primary ? 'none' : '24px')};
 
   h2 {
     color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-    font-size: 24px;
-    font-weight: 500;
+    font-size: ${(props) => (props.primary ? '40px' : '24px')};
+    font-weight: 400;
     line-height: 32px;
   }
-
+  
   h3 {
-    color: var(--carrot-04, #9d423f);
-    font-family: Mukta;
-    font-size: 24px;
+    color: ${(props) => (props.primary ? 'rgba(0, 0, 0, 0.60)' : 'var(--carrot-04, #9d423f)')};
+
+    font-size: ${(props) => (props.primary ? '20px' : '24px')};
     font-weight: 500;
     line-height: 38px;
+    margin-top: ${(props) => (props.primary ? '16px' : '0')};
   }
 `;
 
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const DataSorce = styled.div`
   display: flex;

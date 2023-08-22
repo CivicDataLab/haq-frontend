@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
-import {
-  tabbedInterface,
-} from 'utils/explorer';
+import { tabbedInterface } from 'utils/explorer';
 
 import {
   DownloadViz,
@@ -11,24 +9,18 @@ import {
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, Globe, TableIcon,Compare } from 'components/icons';
+import { ExternalLink, Globe, TableIcon, Compare } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
-const ExplorerMap = dynamic(
-  () => import('./ExplorerMap'),
-  {
-    ssr: false,
-  }
-);
+const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
+  ssr: false,
+});
 
-const SummaryBarViz = dynamic(
-  () => import('./SummaryBarViz'),
-  {
-    ssr: false,
-  }
-);
+const SummaryBarViz = dynamic(() => import('./SummaryBarViz'), {
+  ssr: false,
+});
 
 const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   // const [selectedIndicator, setSelectedIndicator] =
@@ -46,42 +38,55 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   const [filtered, setFiltered] = useState([]);
 
   const [currentViz, setCurrentViz] = useState('#mapView');
-
-
-
+  
 
   const mapRef = useRef(null);
 
   const { indicator, schemeYear, grantName, schemeType, schemeMode } = meta;
 
   const schemeTypeOpt = [
-    { value: "Benefits both boy and girl students directly", title: "Benefits both boy and girl students directly" },
-    { value: "Benefits both boy and girl students indirectly", title: "Benefits both boy and girl students indirectly" },
-    { value: "Benefits boy students exclusively", title: "Benefits boy students exclusively" },
-    { value: "Benefits girl students exclusively", title: "Benefits girl students exclusively" },
-    { value: "Total", title: "Total" },
-  ]
+    {
+      value: 'Benefits both boy and girl students directly',
+      title: 'Benefits both boy and girl students directly',
+    },
+    {
+      value: 'Benefits both boy and girl students indirectly',
+      title: 'Benefits both boy and girl students indirectly',
+    },
+    {
+      value: 'Benefits boy students exclusively',
+      title: 'Benefits boy students exclusively',
+    },
+    {
+      value: 'Benefits girl students exclusively',
+      title: 'Benefits girl students exclusively',
+    },
+    { value: 'Total', title: 'Total' },
+  ];
 
   const yearOpt = [
-    { value: "2016-2017", title: "2016-2017" },
-    { value: "2017-2018", title: "2017-2018" },
-    { value: "2018-2019", title: "2018-2019" },
-    { value: "2019-2020", title: "2019-2020" },
-    { value: "2020-2021", title: "2020-2021" },
-    { value: "2021-2022", title: "2021-2022" },
-    { value: "2022-2023", title: "2022-2023" },
-    { value: "Total", title: "Total" },
-  ]
+    { value: '2016-2017', title: '2016-2017' },
+    { value: '2017-2018', title: '2017-2018' },
+    { value: '2018-2019', title: '2018-2019' },
+    { value: '2019-2020', title: '2019-2020' },
+    { value: '2020-2021', title: '2020-2021' },
+    { value: '2021-2022', title: '2021-2022' },
+    { value: '2022-2023', title: '2022-2023' },
+    { value: 'Total', title: 'Total' },
+  ];
 
   const schemeModeOpt = [
-    { value: "Direct Cash Transfer to students", title: "Direct Cash Transfer to students" },
-    { value: "In-kind service delivery" , title: "In-kind service delivery" },
-    { value: "Infrastructure" , title: "Infrastructure"},
-    { value: "Institutional Grants" , title : "Institutional Grants"},
-    { value: "Others" , title: "Others"},
-    { value: "Payments & Awards" , title : "Payments & Awards"},
-    { value: "Total" , title : "Total"}
-    ]
+    {
+      value: 'Direct Cash Transfer to students',
+      title: 'Direct Cash Transfer to students',
+    },
+    { value: 'In-kind service delivery', title: 'In-kind service delivery' },
+    { value: 'Infrastructure', title: 'Infrastructure' },
+    { value: 'Institutional Grants', title: 'Institutional Grants' },
+    { value: 'Others', title: 'Others' },
+    { value: 'Payments & Awards', title: 'Payments & Awards' },
+    { value: 'Total', title: 'Total' },
+  ];
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
@@ -107,7 +112,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     },
   ];
 
- 
+
   // Table View
 
   useEffect(() => {
@@ -116,8 +121,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       const tableHeader = [
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
-      const reversedYear = [...yearOpt.slice(0, yearOpt.length - 1).reverse(), yearOpt[yearOpt.length - 1]];
-      
+      const reversedYear = [
+        ...yearOpt.slice(0, yearOpt.length - 1).reverse(),
+        yearOpt[yearOpt.length - 1],
+      ];
+
       if (reversedYear) {
         reversedYear.forEach((element) =>
           tableHeader.push({
@@ -132,9 +140,9 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           (item) => schemeRaw.data[item].slug === indicator
         );
 
-      const a = Object.keys(schemeRaw.metadata.consList);
-      const rowData = [];
-    
+        const a = Object.keys(schemeRaw.metadata.consList);
+        const rowData = [];
+
         a.forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
@@ -149,35 +157,41 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           //      ])
           //  );
 
-           reversedYear.map(
-            
-             (item1, index1) => (tempObj[tableHeader[index1 + 1].accessor] = 
-              
-              item1.value == "Total" 
-              ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeRaw.metadata.consList[a[index]][0]?.constCode] 
-              : schemeType == "Total" 
-              ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeRaw.metadata.consList[a[index]][0]?.constCode]
-              : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode] == undefined
-              ? " "
-              : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode][schemeRaw.metadata.consList[a[index]][0]?.constCode]
-              )
-           );
+          reversedYear.map(
+            (item1, index1) =>
+              (tempObj[tableHeader[index1 + 1].accessor] =
+                item1.value == 'Total'
+                  ? schemeRaw.data[indicatorID]['grant_name'][item1.value][
+                      schemeRaw.metadata.consList[a[index]][0]?.constCode
+                    ]
+                  : schemeType == 'Total'
+                  ? schemeRaw.data[indicatorID]['grant_name'][item1.value][
+                      schemeType
+                    ][schemeRaw.metadata.consList[a[index]][0]?.constCode]
+                  : schemeRaw.data[indicatorID]['grant_name'][item1.value][
+                      schemeType
+                    ][schemeMode] == undefined
+                  ? ' '
+                  : schemeRaw.data[indicatorID]['grant_name'][item1.value][
+                      schemeType
+                    ][schemeMode][
+                      schemeRaw.metadata.consList[a[index]][0]?.constCode
+                    ])
+          );
 
-           rowData.push(tempObj);
+          rowData.push(tempObj);
         });
-      
 
-      const tableData = {
-        header: tableHeader,
-        rows: rowData,
-      };
-      setTableData(tableData);
+        const tableData = {
+          header: tableHeader,
+          rows: rowData,
+        };
+        setTableData(tableData);
+      }
     }
-   }
   }, [meta]);
 
   //  const found = array1.find(element => element > 10);
-
 
   //   useEffect(() => {
   //     if (schemeRaw.data && filtered) {
@@ -230,24 +244,24 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   //     }
   //   }, [grantName]);
 
-  const filteredVal = (indicatorID) => 
-    schemeYear == "Total" 
-    ? schemeRaw.data[indicatorID]['grant_name'][schemeYear] 
-    : schemeType == "Total" 
-    ? schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType]
-    : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][schemeMode];
-  
+  const filteredVal = (indicatorID) =>
+    schemeYear == 'Total'
+      ? schemeRaw.data[indicatorID]['grant_name'][schemeYear]
+      : schemeType == 'Total'
+      ? schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType]
+      : schemeRaw.data[indicatorID]['grant_name'][schemeYear][schemeType][
+          schemeMode
+        ];
 
   useEffect(() => {
-
-        if (indicator) {
-          const indicatorID = Object.keys(schemeRaw.data).find(
-            (item) => schemeRaw.data[item].slug === indicator
-          );
-          const filtered = filteredVal(indicatorID)
-          setFiltered(filtered);
-        }
-  }, [indicator,meta])
+    if (indicator) {
+      const indicatorID = Object.keys(schemeRaw.data).find(
+        (item) => schemeRaw.data[item].slug === indicator
+      );
+      const filtered = filteredVal(indicatorID);
+      setFiltered(filtered);
+    }
+  }, [indicator, meta]);
 
   function hideMenu(e) {
     setCurrentViz(e.target.getAttribute('href'));
@@ -266,7 +280,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === val
         );
-        const filtered = filteredVal(indicatorID)
+        const filtered = filteredVal(indicatorID);
         setFiltered(filtered);
         dispatch({
           unit: schemeRaw.data[indicatorID].unit,
@@ -284,14 +298,14 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     {
       id: 'mapView',
       graph: filtered ? (
-        <ExplorerMap
-          meta={meta}
-          schemeData={filtered}
-          dispatch={dispatch}
-        />
-      ) : filtered == undefined 
-        ? <span> We do not have any district value for this respective year, scheme type and scheme mode....</span>
-        : (
+        <ExplorerMap meta={meta} schemeData={filtered} dispatch={dispatch} />
+      ) : filtered == undefined ? (
+        <span>
+          {' '}
+          We do not have any district value for this respective year, scheme
+          type and scheme mode....
+        </span>
+      ) : (
         <span>Loading....</span>
       ),
       ref: mapRef,
@@ -310,48 +324,45 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         <span>Loading....</span>
       ),
     },
-     {
-       id: 'tableView',
-       graph: tableData.rows ? (
-         <Table
-           header={
-             tableData.header ? tableData.header : ['table not available']
-           }
-           rows={tableData.rows ? tableData.rows : []}
-         />
-       ) : (
-         <></>
-       ),
-     },
+    {
+      id: 'tableView',
+      graph: tableData.rows ? (
+        <Table
+          header={
+            tableData.header ? tableData.header : ['table not available']
+          }
+          rows={tableData.rows ? tableData.rows : []}
+        />
+      ) : (
+        <></>
+      ),
+    },
   ];
 
+  const flexBasisValue = currentViz == '#mapView' ? 'calc(30% - 0.75rem)' : 'calc(50% - 0.75rem)';
+
   return (
-    <>
-      <Wrapper className="container">
-        <IndicatorMobile
-          indicators={schemeRaw.data}
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-        /> 
-        <Indicator
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-          schemeData={schemeRaw}
-        />
-        <VizWrapper>
-          <VizHeader data-html2canvas-ignore>
-            <VizTabs className="viz__tabs">
-              {vizToggle.map((item, index) => (
-                <li key={`toggleItem-${index}`}>
-                  <button onClick={() => setCurrentViz(item.id)}>
-                    {item.icon}
-                    {item.name}
-                  </button>
-                </li>
-              ))}
-            </VizTabs>
+    <Wrapper className="container">
+      <IndicatorMobile
+        indicators={schemeRaw.data}
+        newIndicator={(e) => handleNewIndicator(e)}
+        selectedIndicator={indicator}
+      />
+      <VizWrapper>
+        <VizHeader data-html2canvas-ignore>
+          <VizTabs className="viz__tabs">
+            {vizToggle.map((item, index) => (
+              <li key={`toggleItem-${index}`}>
+                <button onClick={() => setCurrentViz(item.id)}>
+                  {item.icon}
+                  {item.name}
+                </button>
+              </li>
+            ))}
+          </VizTabs>
+          <VizHeaderMenu>
             {currentViz == '#mapView' && (
-              <VizMenu className="fill">
+              <VizMenu className="fill" style={{ flexBasis: flexBasisValue }}>
                 <Menu
                   value={meta.schemeYear}
                   options={yearOpt}
@@ -364,8 +375,8 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 />
               </VizMenu>
             )}
-            
-            <VizMenu className="fill">
+
+            <VizMenu style={{ flexBasis: flexBasisValue }}>
               <Menu
                 value={meta.schemeType}
                 options={schemeTypeOpt}
@@ -378,7 +389,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               />
             </VizMenu>
 
-            <VizMenu className="fill">
+            <VizMenu style={{ flexBasis: flexBasisValue }}>
               <Menu
                 value={meta.schemeMode}
                 options={schemeModeOpt}
@@ -389,34 +400,39 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                   })
                 }
               />
-            </VizMenu>       
-          </VizHeader>
-
-          {vizItems.map((item, index) => (
-            <VizGraph
-              className="viz__graph"
-              key={`vizItem-${index}`}
-              id={item.id}
-            >
-              {item.graph}
-            </VizGraph>
-          ))}
-          <DownloadButton>
-            <DownloadViz viz={currentViz} tableData={tableData} schemeRaw={schemeRaw} meta={meta} />
-          </DownloadButton>
-        </VizWrapper>
-      </Wrapper>
-    </>
+            </VizMenu>
+          </VizHeaderMenu>
+        </VizHeader>
+        <Indicator
+          newIndicator={(e) => handleNewIndicator(e)}
+          selectedIndicator={indicator}
+          schemeData={schemeRaw}
+        />
+        {vizItems.map((item, index) => (
+          <VizGraph
+            className="viz__graph"
+            key={`vizItem-${index}`}
+            id={item.id}
+          >
+            {item.graph}
+          </VizGraph>
+        ))}
+        <DownloadButton>
+          <DownloadViz
+            viz={currentViz}
+            tableData={tableData}
+            schemeRaw={schemeRaw}
+            meta={meta}
+          />
+        </DownloadButton>
+      </VizWrapper>
+    </Wrapper>
   );
 };
 
 export default SummaryExplorerViz;
 
 export const Wrapper = styled.section`
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 312px minmax(0, 1fr);
-  margin-top: 2.5rem;
   ${MenuButton} {
     font-size: 14px;
   }
@@ -451,6 +467,14 @@ export const VizHeader = styled.div`
   gap: 1.5rem;
 `;
 
+export const VizHeaderMenu = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: space-around;
+`;
+
 export const VizTabs = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -478,7 +502,7 @@ export const VizTabs = styled.ul`
       margin-bottom: -3px;
       margin-right: 5px;
       fill: hsla(0, 0%, 0%, 0.32);
-      pointer-events:none;
+      pointer-events: none;
 
       &.svg-stroke {
         stroke: hsla(0, 0%, 0%, 0.32);
@@ -553,11 +577,8 @@ export const SourceButtons = styled.div`
   gap: 1rem;
 `;
 
-const VizMenu = styled.div`
-  &.fill {
-    max-width: 320px;
-  }
-`;
+const VizMenu = styled.div``;
+
 
 const Title = styled.div`
   border-radius: 2px;
@@ -633,8 +654,8 @@ const IndicatorNotes = styled.span`
 `;
 
 const DownloadButton = styled.div`
-   display: flex;
-   padding: 1.5rem;
-   padding-bottom: 0;
-   justify-content: flex-end;
+  display: flex;
+  padding: 1.5rem;
+  padding-bottom: 0;
+  justify-content: flex-end;
 `;

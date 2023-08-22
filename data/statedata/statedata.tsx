@@ -139,3 +139,13 @@ export const obj = {
 };
 
 export const stateArray = ['Bihar'];
+
+export const banner = {
+  main: 'Want to learn more about budget data?',
+  sub: 'Check out Budget Basics on OBI',
+  bgColor:'#EBF0FF',
+  button: 'Budget Basics!',
+  btnLink:'https://openbudgetsindia.org/',
+  bgBtn:'#284081',
+  imgSrc:'/assets/girl.svg',
+};

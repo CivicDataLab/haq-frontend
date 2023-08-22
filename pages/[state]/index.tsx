@@ -3,10 +3,11 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { Breadcrumb } from 'components/actions';
 import { fetchAPI } from 'lib/api';
 import { HomeCard, HomeCarousel } from 'components/pages/home';
-import { Header, ListCard, Banner } from 'components/pages/state';
+import { Header, ListCard } from 'components/pages/state';
 import * as data from 'data/statedata/statedata';
 import Head from 'next/head';
 import { capitalizeWords } from 'utils/data';
+import { Banner } from 'components/shared';
 
 type Props = {
   pathName: string;
@@ -31,7 +32,7 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       </Wrapper>
       <HomeCard state={pathName} dataset={linkcard} />
       <ListCard data={listcard[0]} />
-      <Banner />
+      <Banner details={data.banner}/> 
       {listcard[1] && <ListCard data={listcard[1]} />}
       <HomeCarousel carousel={carousel} />
     </>
