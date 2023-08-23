@@ -24,7 +24,7 @@ interface Props {
    * label for the carousel (a11y)
    */
   label: string;
-  current: any;
+  current?: any;
 }
 
 const Carousel = ({ children, prevBtn, nextBtn, label, current }: Props) => {
