@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Carousel } from 'components/layouts';
 import { Button } from 'components/actions';
 import { CarouselBtnWrapper } from '../Carousel/Carousel';
+import { Heading as StyledText } from 'components/layouts/Heading';
 
 type Props = {
   title?: React.ReactNode;
@@ -75,141 +76,150 @@ const SummaryCarousel = ({
   );
 
   return Object.keys(chunkedVariables).length > 0 ? (
-    <Wrapper className="container">
-      <Heading>
-        {title && typeof title === 'string' ? (
-          <Title as={titleAs}>{title}</Title>
-        ) : (
-          title
-        )}
-      
-      </Heading>
+    <Wrapper>
+      <div className="container carousel-wrapper">
+        <Heading>
+          {title && typeof title === 'string' ? (
+            <Title as={titleAs}>{title}</Title>
+          ) : (
+            title
+          )}
+        </Heading>
 
-      <Carousel
-        label=" "
-        nextBtn={svgIcon}
-        prevBtn={svgIcon}
-        current={current}
-      >
-        {Object.keys(chunkedVariables).map((variableName) => (
-          <div key={`carouselItem-${variableName}`}>
-            <div className="carousel-header">
-              <h2> Uttar Pradesh - Treasury Data</h2>
-              <Button size="sm" bg="#D26F6E">
-                View Treasury Schemes
-              </Button>
+        <Carousel
+          label=" "
+          nextBtn={svgIcon}
+          prevBtn={svgIcon}
+          current={current}
+        >
+          {Object.keys(chunkedVariables).map((variableName) => (
+            <div key={`carouselItem-${variableName}`}>
+              <div className="carousel-header">
+                <StyledText
+                  color="var(--text-light-medium)"
+                  as="h2"
+                  variant="h2l"
+                >
+                  Uttar Pradesh - Treasury Data
+                </StyledText>
+                <Button size="sm" bg="#D26F6E">
+                  View Treasury Schemes
+                </Button>
+              </div>
+              <ul key={`list-${variableName}`}>
+                {chunkedVariables[variableName]?.map((item, index) => (
+                  <li key={`summary-${variableName}-${index}`}>
+                    <div></div>
+                    <strong>{item.value}</strong>
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul key={`list-${variableName}`}>
-              {chunkedVariables[variableName]?.map((item, index) => (
-                <li key={`summary-${variableName}-${index}`}>
-                  <div></div>
-                  <strong>{item.value}</strong>
-                  <span>{item.text}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </Carousel>
+          ))}
+        </Carousel>
+      </div>
     </Wrapper>
   ) : null;
 };
 
 export default SummaryCarousel;
 
+
 const Wrapper = styled.div`
-  margin-top: 24px;
-  padding-bottom: 40px;
-  border-bottom: var(--separator-6);
-  border-radius: 8px;
-  border: 1px solid var(--grey-05, #d1cdd1);
-  background: var(--grey-00, #fff);
-  padding: 32px 40px 40px 40px;
+  background: var(--honey-00, #fff0e0);
+  padding-top: 40px;
+  padding-bottom: 120px;
 
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .carousel-wrapper {
+    margin-top: 24px;
+    border-bottom: var(--separator-6);
+    border-radius: 8px;
+    border: 1px solid var(--grey-05, #d1cdd1);
+    background: var(--grey-00, #fff);
+    padding: 32px 40px 40px 40px;
 
-  ul {
-    margin-top: 20px;
-    gap: 14px;
-    flex-wrap: wrap;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    @media (max-width: 768px) {
+      padding: 24px;
+    }
 
-    li {
-      text-align: center;
-      background-color: var(--color-background-lighter);
-      padding: 20px 16px;
-      border: var(--border-1);
-      border-radius: 4px;
-      filter: drop-shadow(var(--box-shadow-1));
-      flex-basis: 214px;
-      flex-grow: 1;
-      position: relative;
-      height: 111px;
+    > div {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-      > div {
-        width: 4px;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: var(--honey-01-base, #FBB670);
+    ul {
+      margin-top: 20px;
+      gap: 14px;
+      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+      li {
+        text-align: center;
+        background-color: var(--color-background-lighter);
+        padding: 20px 16px;
+        border: var(--border-1);
+        border-radius: 4px;
+        filter: drop-shadow(var(--box-shadow-1));
+        flex-basis: 214px;
+        flex-grow: 1;
+        position: relative;
+        height: 111px;
+
+        > div {
+          width: 4px;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: var(--honey-01-base, #fbb670);
+        }
+      }
+
+      strong {
+        font-weight: 900;
+      }
+
+      span {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text-light-medium);
+        line-height: 1.7;
+        margin-top: 4px;
       }
     }
 
-    strong {
-      font-weight: 900;
+    .carousel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
-    span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-light-medium);
-      line-height: 1.7;
-      margin-top: 4px;
-    }
-  }
-
-  .carousel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-
-    h2 {
-      color: var(--text-light-bg-medium-emphasis, rgba(0, 0, 0, 0.6));
-
-      font-family: Rubik;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 32px;
-    }
-  }
-
-  ${CarouselBtnWrapper} {
+    ${CarouselBtnWrapper} {
       display: flex;
       justify-content: center;
       width: 100%;
       position: absolute;
       bottom: -120px;
-  
-    .carouselPrevBtn {
-      svg {
-        transform: rotate(180deg);
-        height: 48px;
-        width: 48px;
+
+      .carouselPrevBtn {
+        svg {
+          transform: rotate(180deg);
+          height: 48px;
+          width: 48px;
+        }
       }
-    }
-    .carouselNextBtn {
-      svg {
-        height: 48px;
-        width: 48px;
+      .carouselNextBtn {
+        svg {
+          height: 48px;
+          width: 48px;
+        }
       }
     }
   }
@@ -224,10 +234,4 @@ const Title = styled.h3`
 const Heading = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const CarouselIndex = styled.div`
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 2px;
-  padding: 8px;
 `;

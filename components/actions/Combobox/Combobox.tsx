@@ -48,6 +48,7 @@ interface Props {
   isDark?: boolean;
   disableOptions?: boolean;
   isSecondCombobox?: boolean;
+  mobileView?: boolean;
 }
 type ComboboxProps = React.ComponentProps<typeof Select> & Props;
 
@@ -112,10 +113,16 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__control {
-      width: ${(props) => (props.isSecondCombobox ? '400px' : '205px')};
+      width: ${(props) =>
+        props.isSecondCombobox
+          ? props.mobileView
+            ? '300px'
+            : '400px'
+          : '205px'};
       flex-grow: 1;
       border-radius: 2px;
       border: var(--border-1);
+      border-right: ${(props) => props.mobileView && 'none'};
       font-weight: 400;
       background-color: ${(props) =>
         props.isLight ? '#ebf0ee' : props.isDark ? '#cdd1cf' : 'white'};
@@ -124,6 +131,7 @@ const ReactSelectElement = styled(Select)<Props>`
     &__value-container {
       gap: 8px;
       padding: 5px 12px;
+      padding-right: ${(props) => props.mobileView && '0'};
       flex-wrap: nowrap;
     }
 
@@ -166,7 +174,8 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__dropdown-indicator {
-      padding: 3px;
+      padding: ${(props) =>
+        props.mobileView ? '0' : '3px'};
     }
 
     &__indicator-separator {
@@ -177,7 +186,8 @@ const ReactSelectElement = styled(Select)<Props>`
     &__clear-indicator {
       color: ${(props) =>
         props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
-      padding: 4px;
+      padding: ${(props) =>
+        props.mobileView ? '0' : '4px'};
 
       &:hover {
         color: var(--color-grey-200);

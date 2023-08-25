@@ -6,18 +6,26 @@ import { states } from 'data/home';
 import { Tags } from 'components/data';
 import { Button } from 'components/actions';
 import { ButtonComp } from 'components/actions/Button';
+import { Heading } from 'components/layouts/Heading';
 
 const HomeStates = () => {
   return (
     <Wrapper>
       <div className="container">
-        <Heading>Explore data from your region...</Heading>
+        <Heading
+          as="h1"
+          variant="h1"
+          fontWeight="var(--font-weight-light)"
+          pt="48px"
+        >
+          Explore data from your region..
+        </Heading>
         <StateList>
           {states.map((item, index) => (
             <Card key={`state-${index}`}>
-              <StateTitle>{item.title}</StateTitle>
+              <Heading as='h2' variant='h2l'>{item.title}</Heading>
               <Tags data={item.tags} />
-              <ImgCont>
+              <figure>
                 <Image
                   src={item.img}
                   width={221}
@@ -25,7 +33,7 @@ const HomeStates = () => {
                   alt=""
                   className="img-cover"
                 />
-              </ImgCont>
+              </figure>
               <BtnCont>
                 <Button
                   kind="secondary-outline"
@@ -47,51 +55,43 @@ const HomeStates = () => {
 export default HomeStates;
 
 const Wrapper = styled.section`
-  background: var(--violet-00, #EFD7F5); 
-`;
-
-const Heading = styled.p`
-  color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-  font-family: Rubik;
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 52px;
-  padding-top: 48px;
+  background: var(--violet-00, #efd7f5);
+  padding-bottom: 120px;
 `;
 
 const StateList = styled.ul`
   margin-top: 40px;
-  padding-bottom: 16px;
+
+  figure {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--background-light, #f0ebf0);
+    padding: 15px;
+  }
 
   display: grid;
+  gap: 24px;
   grid-template-columns: repeat(auto-fill, minmax(min(310px, 100%), 1fr));
 
-  @media (max-width: 768px) { 
+  @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
   }
-  
-  gap: 24px;
 
   /* overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; */
-
-  h3 {
-    text-align: center;
-    font-weight: 700;
-  }
-  padding-bottom: 120px;
 `;
 
 const BtnCont = styled.div`
   display: flex;
   justify-content: center;
+  margin-top:12px;
+  
   ${ButtonComp} {
-    display: inline-flex;
-    margin-top: 12px;
     text-decoration: none;
-  }
+   }
 `;
 
 const Card = styled.li`
@@ -99,21 +99,4 @@ const Card = styled.li`
   background: var(--hot-pink-100, #fff);
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
   padding: 12px 16px 16px 16px;
-`;
-
-const StateTitle = styled.h1`
-  color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-  font-family: Rubik;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 32px;
-  align-self: stretch;
-`;
-const ImgCont = styled.div`
-  display: flex;
-  justify-content: center;
-  border-radius: 8px;
-  background: var(--background-light, #f0ebf0);
-  padding: 15px;
 `;
