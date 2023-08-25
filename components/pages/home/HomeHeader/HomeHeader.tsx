@@ -3,24 +3,37 @@ import styled from 'styled-components';
 import SchemeSelector from './SchemeSelector';
 import * as data from 'data/statedata/statedata';
 import Image from 'next/image';
+import { useWindowSize } from 'utils/hooks';
+import MobileSelector from './MobileSelector';
+import { Heading } from 'components/layouts/Heading';
 
 const HomeHeader = ({ heading, subheading }) => {
+  const { width } = useWindowSize();
+
   return (
     <Wrapper>
       <HeaderContent className="container">
         <HeaderText>
-          <h1> {heading} </h1>
-          <h2> {subheading} </h2>
-          <SchemeSelector schemeList={data.obj} />
+          <Heading as='h1' variant="h1l" color="#fff">
+            {heading}
+          </Heading>
+          <Heading as='h2' variant="h2l" color="#ffffffb8" zIndex='1' mt="24px">
+            {subheading}
+          </Heading>
+          {width > 768 ? (
+            <SchemeSelector schemeList={data.obj} />
+          ) : (
+            <MobileSelector schemeList={data.obj} />
+          )}
         </HeaderText>
-        <BackgroundIllustration>
+        <figure>
           <Image
             src="/assets/illustration.svg"
-            width={650}
-            height={526}
+            width={width > 1024 ? 650 : 340}
+            height={width > 1024 ? 526 : 426}
             alt=""
           />
-        </BackgroundIllustration>
+        </figure>
       </HeaderContent>
     </Wrapper>
   );
@@ -43,44 +56,23 @@ const HeaderContent = styled.div`
   align-items: center;
   min-height: 580px;
   position: relative;
-`;
 
-const flexBasisBreakpoints = {
-  laptopAndUp: '70%',
-  tabletAndUp: '80%',
-  mobile: '100%',
-};
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding-top: 40px;
+  }
+
+  figure {
+    align-self: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: -96px;
+    @media (max-width: 1024px) {
+      bottom: -128px;
+    }
+  }
+`;
 
 const HeaderText = styled.div`
-  z-index: 1;
-  flex-basis: ${flexBasisBreakpoints.laptopAndUp};
-  
-  @media (min-width: 1100px) and (max-width: 1500px) {
-    flex-basis: ${flexBasisBreakpoints.tabletAndUp};
-  }
-  @media (min-width: 550px) and (max-width: 1100px) {
-    flex-basis: ${flexBasisBreakpoints.mobile};
-  }
-
-  h1 {
-    color: var(--text-dark-bg-high-emphasis, #fff);
-    font-size: 40px;
-    font-weight: 500;
-    line-height: 52px;
-  }
-
-  h2 {
-    color: var(--text-dark-bg-medium-emphasis, rgba(255, 255, 255, 0.72));
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 32px;
-    margin-top: 24px;
-  }
-`;
-
-const BackgroundIllustration = styled.div`
-  align-self: flex-end;
-  position: absolute;
-  right: 0;
-  bottom: -96px;
+  max-width: min(875px,100%)
 `;

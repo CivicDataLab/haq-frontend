@@ -6,16 +6,10 @@ const variants = {
     fontSize: ['2.5rem', '4rem'],
     lineHeight: [1.2, 1.16],
   },
-  h1b: {
-    fontSize: ['1.5rem', '2.5rem'],
-    lineHeight: [1.24, 1.2],
-    fontWeight: 500,
-  },
   h1: {
     fontSize: ['1.5rem', '2.5rem'],
     lineHeight: [1.24, 1.2],
   },
-
   h2: {
     fontSize: ['1.25rem', '1.5rem'],
     lineHeight: [1.32, 1.24],
@@ -50,14 +44,14 @@ const variants = {
     fontWeight: 'var(--font-normal)',
   },
   h1l: {
-    fontSize: ['2rem', '2.5rem'],
+    fontSize: ['1.5rem', '2.5rem'],
     lineHeight: [1.24, 1.2],
-    fontWeight: 'var(--font-normal)',
+    fontWeight: 'var(--font-weight-medium)',
   },
   h2l: {
-    fontSize: ['1.5rem', '2rem'],
+    fontSize: ['1.25rem', '1.5rem'],
     lineHeight: [1.32, 1.24],
-    fontWeight: 'var(--font-normal)',
+    fontWeight: 'var(--font-weight-medium)',
   },
   h3l: {
     fontSize: ['1.25rem', '1.5rem'],
@@ -72,7 +66,7 @@ const variants = {
   h5l: {
     fontSize: ['1rem'],
     lineHeight: [1.5],
-    fontWeight: 'var(--font-normal)',
+    fontWeight: 'var(--font-weight-medium)',
   },
   h6l: {
     fontSize: ['0.875rem', '0.75rem'],

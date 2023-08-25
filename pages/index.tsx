@@ -18,9 +18,7 @@ export default function Home({ homepage }) {
         subheading={hero_section_subheading}
       />
       <HomeStates />
-      <CarouselContainer>
-        <SummaryCarousel cards={data.summaryCards} displayLength={3} />
-      </CarouselContainer>
+      <SummaryCarousel cards={data.summaryCards} displayLength={3} />
       <HomeRelatedCard datastory={datastory} />
     </>
   );
@@ -36,8 +34,3 @@ export async function getStaticProps() {
   };
 }
 
-const CarouselContainer = styled.div`
-  background: var(--honey-00, #fff0e0);
-  padding-top: 40px;
-  padding-bottom: 120px;
-`;
