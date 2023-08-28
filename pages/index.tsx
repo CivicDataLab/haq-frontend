@@ -13,7 +13,7 @@ export default function Home({homepage}) {
   return (
     <>
       <Head>
-        <title>HAQ</title>
+        <title>Welcome - Girl Education Spending Tracker</title>
       </Head>
       <HomeHeader heading={hero_section_heading} subheading={hero_section_subheading} links={searchlink} />
       <HomeCard dataset={dataset} />

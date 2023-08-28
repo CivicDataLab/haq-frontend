@@ -32,8 +32,8 @@ const reducer = (state, action) => {
   return { ...state, ...action };
 };
 
-const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj}) => {
-
+const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj }) => {
+  
   const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
     (item) => ({
       value: item,
@@ -59,7 +59,11 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj}) => {
   return (
     <>
       <Head>
-        <title>HAQ</title>
+        {!primary ? (
+          <title> {`${scheme.metadata.title} - All Datasets`}</title>
+        ) : (
+          <title> Summary Data - All Datasets </title>
+        )}
       </Head>
       <Wrapper>
         <ExplorerHeader
@@ -75,7 +79,7 @@ const Explorer: React.FC<Props> = ({ scheme, primary, summary, obj}) => {
                   schemeRaw={scheme}
                   meta={state}
                   dispatch={dispatch}
-                  stateData = {obj}
+                  stateData={obj}
                 />
               ) : (
                 <SummaryExplorerViz
@@ -137,8 +141,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     primary = true;
   } else {
     scheme = await dataTransform(context.query.explorer);
-    obj =  await fetchJSON('state-data',scheme.metadata.code)
-  }  
+    obj = await fetchJSON('state-data', scheme.metadata.code);
+  }
   const summary = await strapiAPI('/summary');
   return {
     props: {

@@ -96,8 +96,7 @@ const Datasets: React.FC<Props> = ({ data, facets, dataset, datasetname }) => {
   return (
     <>
       <Head>
-        <title>HAQ</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>All Datasets - Girl Education Spending Tracker</title>
       </Head>
       <Wrapper className="container">
         <Header data={headerData} />
