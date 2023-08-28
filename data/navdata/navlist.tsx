@@ -17,20 +17,6 @@ export const navList = {
       ],
     },
     {
-      link: '/states',
-      name: 'States',
-      submenu: [
-        {
-          link: '/state/up',
-          name: 'Uttar Pradesh',
-        },
-        {
-          link: '/state/assam',
-          name: 'Assam',
-        },
-      ],
-    },
-    {
       link: '/stories',
       name: 'Data Stories',
     },
