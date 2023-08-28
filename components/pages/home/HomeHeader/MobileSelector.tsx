@@ -52,14 +52,12 @@ const MobileSelector: React.FC<{
           mobileView
           formatOptionLabel={(option: any) => (
             <Label>
-              {option.label.length > 18
-                ? `${option.label.substring(0, 18)}...`
-                : option.label}
+              <Text>{option.label}</Text>
               <Tag> {option.tag}</Tag>
             </Label>
           )}
           isGrouped={true}
-          
+          id="mobileSelector"
         />
         <Button
           bg="#fff"
@@ -71,9 +69,8 @@ const MobileSelector: React.FC<{
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}
           className="button"
-          icon={<SearchIcon/>}
-        >
-        </Button>
+          icon={<SearchIcon />}
+        ></Button>
       </ConsMenu>
     </Wrapper>
   );
@@ -82,13 +79,16 @@ const MobileSelector: React.FC<{
 export default MobileSelector;
 
 export const Wrapper = styled.div`
-   margin-top: 32px;
+  margin-top: 32px;
 `;
 
 export const ConsMenu = styled.div`
   display: flex;
   align-items: center;
   border-right: none;
+  #mobileSelector {
+    flex-grow: 1;
+  }
   .button {
     height: 44px;
     padding: 6px;
@@ -115,4 +115,11 @@ const Tag = styled.div`
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 500;
+`;
+
+const Text = styled.span`
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

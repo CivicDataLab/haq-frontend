@@ -7,7 +7,7 @@ const SchemeSelector: React.FC<{
   schemeList: any;
   isLoading?: boolean;
 }> = ({ schemeList, isLoading }) => {
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState('all datasets');
   const [selectedScheme, setSelectedScheme] = useState(null);
 
   const data = [
@@ -57,6 +57,7 @@ const SchemeSelector: React.FC<{
             setSelectedData(e?.value);
             setSelectedScheme(null);
           }}
+          defaultValue={data[0]}
         />
         <Combobox
           key={JSON.stringify(groupedOpt)}
@@ -77,9 +78,7 @@ const SchemeSelector: React.FC<{
           isSecondCombobox
           formatOptionLabel={(option: any) => (
             <Label>
-              {option.label.length > 35
-                ? `${option.label.substring(0, 35)}...`
-                : option.label}
+              <Text>{option.label}</Text>
               <Tag> {option.tag}</Tag>
             </Label>
           )}
@@ -139,4 +138,11 @@ const Tag = styled.div`
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 500;
+`;
+
+const Text = styled.span`
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

@@ -17,7 +17,7 @@ const HomeHeader = ({ heading, subheading }) => {
           <Heading as='h1' variant="h1l" color="#fff">
             {heading}
           </Heading>
-          <Heading as='h2' variant="h2l" color="#ffffffb8" zIndex='1' mt="24px">
+          <Heading as='h2' variant="h2l" color="#ffffffb8" mt="24px">
             {subheading}
           </Heading>
           {width > 768 ? (
@@ -69,10 +69,12 @@ const HeaderContent = styled.div`
     bottom: -96px;
     @media (max-width: 1024px) {
       bottom: -128px;
+      transform: translateX(-20%);
     }
   }
 `;
 
 const HeaderText = styled.div`
+  z-index:1;
   max-width: min(875px,100%)
 `;
