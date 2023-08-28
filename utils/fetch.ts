@@ -46,6 +46,15 @@ export async function fetchFilters(list, variable) {
   }
 }
 
+export async function fetchNotesId() {
+  const fetchData = await fetch(
+    `https://data.girleducation.in/api/3/action/package_search?fq=!dataset:random%20AND%20private:false&rows=300`
+  )
+  .then((res) => res.json());
+  const jsonData = await  fetchData.result.results;
+  return jsonData.map(item => item.notes);
+}
+
 export function convertToCkanSearchQuery(query) {
   const ckanQuery = {
     q: '',
