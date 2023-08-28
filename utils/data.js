@@ -189,15 +189,16 @@ export async function dataTransform(id) {
                         : toLakh(dataParse[j][i], i) || 0
                       : isNaN(dataParse[j][i])
                       ? 0
-                      : toLakh(dataParse[j][(i, i)]) +
-                        toLakh(
-                          parseInt(
-                            grant_name[dataParse[j][4]][
-                              dataParse[j][11].trim()
-                            ][dataParse[j][1]]
-                          ),
-                          i
-                        ),
+                      : toLakh(dataParse[j][i],i) 
+                      // +
+                      //   toLakh(
+                      //     parseInt(
+                      //       grant_name[dataParse[j][4]][
+                      //         dataParse[j][11].trim()
+                      //       ][dataParse[j][1]]
+                      //     ),
+                      //     i
+                      //   ),
                   }
                 : {
                     [dataParse[j][1]]: isNaN(dataParse[j][i])
