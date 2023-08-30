@@ -4,6 +4,7 @@ import { Triangle } from 'components/icons';
 import Image from 'next/image';
 import { Button } from 'components/actions';
 import { getStrapiMedia } from 'lib/media';
+import { Heading } from 'components/layouts/Heading';
 
 const ListCard = ({ data }) => {
   return (
@@ -11,16 +12,29 @@ const ListCard = ({ data }) => {
       <CardContainer>
         <TagContainer>
           {' '}
-          <Triangle /> {data.tag}
+          <Triangle /> <Heading as='h5' variant='h5l'> {data.tag}</Heading> 
         </TagContainer>
         <div className="container">
-          <h4>{data.question}</h4>
-          <h1>{data.main}</h1>
-          <h4>{data.sub}</h4>
+          <Heading as='h4' variant='h4l' color='rgba(255, 255, 255, 0.72)' mt='24px'>
+            {data.question}
+          </Heading>
+          <Heading as='h1' variant='h1' color='#fff' mt='24px' mb='24px'>
+            {data.main}
+          </Heading>
+          <Heading as='h4' variant='h4' color='rgba(255, 255, 255, 0.72)' mt='24px' 
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',              
+              hyphens: 'auto'
+            }}>
+            {data.sub}
+          </Heading>
         </div>
       </CardContainer>
       <ImageBg>
-        <ImageContainer className="container">
+        <figure className="container">
           <Image
             src={getStrapiMedia(data.imgSrc.url)}
             alt={data.imgAltText}
@@ -31,7 +45,7 @@ const ListCard = ({ data }) => {
           <Button size="md" className="button">
             {data.buttonText}
           </Button>
-        </ImageContainer>
+        </figure>
       </ImageBg>
     </>
   );
@@ -45,17 +59,6 @@ const CardContainer = styled.div`
   padding: 40px 0 48px 0;
   margin-top: 56px;
   position: relative;
-  h4 {
-    color: var(--text-dark-bg-medium-emphasis, rgba(255, 255, 255, 0.72));
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
-  }
-  h1 {
-    font-weight: 400;
-    margin-top: 24px;
-    margin-bottom: 24px;
-  }
 `;
 
 const TagContainer = styled.div`
@@ -73,14 +76,11 @@ const TagContainer = styled.div`
   right: 250px;
 
   @media (max-width: 1084px) {
-    right: 100px;
+    right: 70px;
   }
 
   top: -8px;
   color: var(--sapphire-05, #212d50);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 26px;
   text-transform: uppercase;
 
   > svg {
@@ -92,15 +92,15 @@ const TagContainer = styled.div`
 
 const ImageBg = styled.div`
   background: var(--sapphire-00, #ebf0ff);
-`;
 
-const ImageContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  .button {
-    position: absolute;
-    bottom: 40px;
-    right: 56px;
+  figure {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    .button {
+      position: absolute;
+      bottom: 40px;
+      right: 56px;
+    }
   }
 `;

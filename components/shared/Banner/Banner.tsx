@@ -2,17 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { Button } from 'components/actions';
+import { Heading } from 'components/layouts/Heading';
+import { useWindowSize } from 'utils/hooks';
 
 const Banner = ({ details }) => {
+  const { width } = useWindowSize();
+
   return (
-    <Wrapper
-      className="container"
-      style={{ marginTop: '40px' }}
-    >
+    <div className="container" style={{ marginTop: '40px' }}>
       <BannerComp style={{ backgroundColor: details.bgColor }}>
         <Content>
-          <h3>{details.main}</h3>
-          <h4>{details.sub}</h4>
+          <Heading as="h2" variant="banner">
+            {details.main}
+          </Heading>
+          <Heading as="h5" variant="h5" mt="8px">
+            {details.sub}
+          </Heading>
           <Button
             href={details.btnLink}
             size="sm"
@@ -27,12 +32,12 @@ const Banner = ({ details }) => {
             src={details.imgSrc}
             alt={details.main}
             layout="fixed"
-            height={180}
-            width={230}
+            height={width > 600 ? 180 :131}
+            width={width > 600 ? 230 : 138}
           />
         </figure>
       </BannerComp>
-    </Wrapper>
+    </div>
   );
 };
 
@@ -42,19 +47,18 @@ const Wrapper = styled.div``;
 
 const BannerComp = styled.section`
   display: flex;
-  padding: 40px 104px 0 104px;
+  padding: 40px 80px 0 80px;
   border-radius: 8px;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 40px;
-    padding-bottom: 0;
+    padding: 16px 0 0 16px;
   }
 
   figure {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
   }
 `;
 
@@ -62,26 +66,14 @@ const Content = styled.div`
   padding-right: 40px;
   width: clamp(250px, 100%, 700px);
 
-  h3 {
-    font-size: 22px;
-    font-weight: 500;
-  }
-
-  h4 {
-    margin: 8px 0;
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--text-light-bg-medium-emphasis, rgba(0, 0, 0, 0.6));
-  }
-
   .button {
-    margin-top: 24px;
+    margin-top: 16px;
     display: inline-flex;
     text-decoration: none;
   }
 
   @media (max-width: 768px) {
     padding-right: 0;
-    padding-bottom: 20px;
+    padding-bottom: 8px;
   }
 `;
