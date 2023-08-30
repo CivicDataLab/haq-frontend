@@ -1,18 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import SchemeSelector from './SchemeSelector';
+import MobileSelector from './MobileSelector';
+import { Heading } from 'components/layouts/Heading';
+import { useWindowSize } from 'utils/hooks';
 
 const Header = ({ header, schemeList }) => {
   const { main, sub } = header;
+  const { width } = useWindowSize();
+
   return (
     <Wrapper>
       {header.state && (
         <>
-          {main && <MainHeading>{main}</MainHeading>}
-          {sub && <SubHeading>{sub}</SubHeading>}
+          {main && (
+            <Heading as="h1" variant="h1l" color="#5c2230" textAlign="center" mt='24px'>
+              {main}
+            </Heading>
+          )}
+          {sub && (
+            <Heading as="h2" variant="h2l" color="#9b3950" textAlign="center" mt='20px'>
+              {sub}
+            </Heading>
+          )}
         </>
       )}
-      <SchemeSelector state={header.state} schemeList={schemeList} />
+      {width > 768 ? (
+        <SchemeSelector state={header.state} schemeList={schemeList} />
+        ) : (
+        <MobileSelector state={header.state} schemeList={schemeList} />
+      )}
     </Wrapper>
   );
 };
@@ -23,21 +40,4 @@ const Wrapper = styled.div`
   max-width: 802px;
   margin: 0 auto;
   padding-bottom: 36px;
-`;
-
-const MainHeading = styled.div`
-  text-align: center;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 52px;
-  color: var(--flamingo-06, #5c2230);
-`;
-
-const SubHeading = styled.div`
-  text-align: center;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 32px;
-  margin-top: 20px;
-  color: var(--flamingo-04, #9b3950);
 `;

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from 'components/actions';
 import { Combobox } from 'components/actions';
+import { SearchIcon } from 'components/icons';
 
-const SchemeSelector: React.FC<{
+const MobileSelector: React.FC<{
   schemeList: any;
   isLoading?: boolean;
   state: string;
 }> = ({ schemeList, isLoading, state }) => {
-
   const [selectedData, setSelectedData] = useState('all datasets');
   const [selectedScheme, setSelectedScheme] = useState(null);
 
@@ -27,22 +27,6 @@ const SchemeSelector: React.FC<{
   //     }
   //   }, [consData]);
 
-  const data = [
-    {
-      value: 'all datasets',
-      label: 'All Datasets',
-    },
-    {
-      value: 'spending data',
-      label: 'Spending Data',
-    },
-
-    {
-      value: 'budget data',
-      label: 'Budget Data',
-    },
-  ];
-
   const schemeLists = React.useMemo(() => {
     if (selectedData)
       return Object.values(schemeList[state][selectedData])
@@ -58,19 +42,6 @@ const SchemeSelector: React.FC<{
     <Wrapper>
       <ConsMenu>
         <Combobox
-          options={data}
-          isSearchable={false}
-          isClearable
-          placeholder="Select a type"
-          isLoading={isLoading}
-          isDisabled={isLoading}
-          onChange={(e: any) => {
-            setSelectedData(e?.value);
-            setSelectedScheme(null);
-          }}
-          defaultValue={data[0]}
-        />
-        <Combobox
           key={JSON.stringify(schemeLists)}
           options={schemeLists}
           isClearable
@@ -78,51 +49,55 @@ const SchemeSelector: React.FC<{
           onChange={(e: any) => setSelectedScheme(e?.value)}
           noOptionsMessage={() => 'Please select a type'}
           isSecondCombobox
+          mobileView
           formatOptionLabel={(option: any) => (
             <Label>
               <Text> {option.label}</Text>
               <Tag> {option.tag}</Tag>
             </Label>
           )}
+          id='mobileSelector'
         />
 
         <Button
-          kind="primary"
+          bg="#fff"
           size="sm"
           href={
             selectedScheme
-              ? `/${state}/${selectedData}/${selectedScheme}`
+              ? `/${selectedScheme.state}/${selectedData}/${selectedScheme.code}`
               : null
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}
           className="button"
-        >
-          Explore Scheme
-        </Button>
+          icon={<SearchIcon />}
+        ></Button>
       </ConsMenu>
     </Wrapper>
   );
 };
 
-export default SchemeSelector;
+export default MobileSelector;
 
 export const Wrapper = styled.div`
-  border-radius: 4px;
   margin-top: 32px;
 `;
 
 export const ConsMenu = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 1px;
-
+  border-right: none;
+  #mobileSelector {
+    flex-grow: 1;
+  }
   .button {
-    height: 40px;
-    text-decoration: none;
-    margin-left: 10px;
-    padding: 12px 24px;
-    background: var(--grey-04, #AFABB0);  
+    height: 44px;
+    padding: 6px;
+    svg {
+      margin: 0.1rem;
+    }
+    border: var(--border-1);
+    border-left: none;
+    border-radius: 0;
   }
 `;
 
