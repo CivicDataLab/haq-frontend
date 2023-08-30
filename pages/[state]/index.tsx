@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Breadcrumb } from 'components/actions';
 import { fetchAPI } from 'lib/api';
-import { HomeCard, HomeCarousel } from 'components/pages/home';
+import { Card, InfoCarousel } from 'components/pages/state';
 import { Header, ListCard } from 'components/pages/state';
 import * as data from 'data/statedata/statedata';
 import Head from 'next/head';
@@ -11,7 +11,7 @@ import { Banner } from 'components/shared';
 
 type Props = {
   pathName: string;
-  foundState: any;
+  foundState: string;
   stateData:any
 };
 
@@ -24,25 +24,33 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       <Head>
         <title> {foundState} | HAQ</title>
       </Head>
-      <Wrapper>
+      <Wrapper foundState={foundState}>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
           <Header header={stateHeader} schemeList={data.obj} />
         </main>
       </Wrapper>
-      <HomeCard state={pathName} dataset={linkcard} />
+      <Card state={pathName} dataset={linkcard} />
       <ListCard data={listcard[0]} />
       <Banner details={data.banner}/> 
       {listcard[1] && <ListCard data={listcard[1]} />}
-      <HomeCarousel carousel={carousel} />
+      <InfoCarousel carousel={carousel} />
     </>
   );
 };
 
-const Wrapper = styled.div`
-  background-color: rgb(250, 93, 130, 0.4);
-  background-image: url('/assets/bg_illustration.svg');
-  background-size: cover;
+const Wrapper = styled.div<{ foundState: string }>`
+  background-color: #EFD7F5;
+  background-image: url('/assets/Hero${props => props.foundState}.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  @media(max-width:720px){
+    background-image: url('/assets/MobileHero${props => props.foundState}.svg');
+    background-size: cover;
+    background-position: 20% 20%;
+  }
 
   > div {
     max-width: 1280px;
