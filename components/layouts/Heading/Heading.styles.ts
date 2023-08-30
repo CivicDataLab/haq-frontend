@@ -9,10 +9,12 @@ const variants = {
   h1: {
     fontSize: ['1.5rem', '2.5rem'],
     lineHeight: [1.24, 1.2],
+    fontWeight:'var(--font-weight-light)'
   },
   h2: {
     fontSize: ['1.25rem', '1.5rem'],
     lineHeight: [1.32, 1.24],
+    fontWeight:'var(--font-weight-light)'
   },
   h3: {
     fontSize: ['1.125rem', '1.25rem'],
@@ -21,22 +23,17 @@ const variants = {
   h4: {
     fontSize: ['1rem'],
     lineHeight: [1.4],
-  },
-  h4b: {
-    fontSize: ['1rem'],
-    lineHeight: [1.4],
-    fontWeight: 500,
+    fontWeight:'var(--font-weight-light)'
   },
   h5: {
-    fontSize: ['1rem'],
+    fontSize: ['.875rem', '1.125rem'],
     lineHeight: [1.5],
-    textTransform: 'uppercase',
+    fontWeight:'var(--font-weight-light)'
   },
   h6: {
     fontSize: ['0.875rem', '0.75rem'],
     lineHeight: [1.7],
     letterSpacing: ['0.56px', '0.48px'],
-    textTransform: 'uppercase',
   },
   displayl: {
     fontSize: ['2.5rem', '3rem'],
@@ -56,15 +53,15 @@ const variants = {
   h3l: {
     fontSize: ['1.25rem', '1.5rem'],
     lineHeight: [1.28, 1.5],
-    fontWeight: 'var(--font-normal)',
+    fontWeight: 'var(--font-weight-medium)',
   },
   h4l: {
-    fontSize: ['1.125rem', '1.25rem'],
-    lineHeight: [1.4, 1.59],
-    fontWeight: 'var(--font-normal)',
+    fontSize: ['1rem'],
+    lineHeight: [1.4],
+    fontWeight: 'var(--font-weight-medium)',
   },
   h5l: {
-    fontSize: ['1rem'],
+    fontSize: ['.875rem', '1.125rem'],
     lineHeight: [1.5],
     fontWeight: 'var(--font-weight-medium)',
   },
@@ -75,6 +72,16 @@ const variants = {
     letterSpacing: ['0.56px', '0.48px'],
     textTransform: 'uppercase',
   },
+  banner: {
+    fontSize: ['.875rem', '1.5rem'],
+    lineHeight: [1.32, 1.24],
+    fontWeight: 'var(--font-weight-medium)',
+  },
+  carousel: {
+    fontSize: ['.875rem', '1rem'],
+    lineHeight: [1.6],
+    fontWeight: 'var(--font-weight-light)',
+  }
 };
 
 const Heading = styled.h2`

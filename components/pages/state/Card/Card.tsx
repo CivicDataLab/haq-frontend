@@ -3,38 +3,41 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getStrapiMedia } from 'lib/media';
+import { Heading } from 'components/layouts/Heading';
+import { useWindowSize } from 'utils/hooks';
 
-const HomeCard = ({ state, dataset }) => {
+const Card = ({ state, dataset }) => {
+  const { width } = useWindowSize();
   return (
-    <CardWrapper className="container">
+    <Wrapper className="container">
       {dataset.map((item, index) => {
         return (
           <Link key={`dataCard-${index}`} href={`/${state}/${item.link}`} passHref>
-            <Card>
-              <ImageContainer>
+            <CardItem>
+              <figure>
                 <Image
                   src={getStrapiMedia(item.src.url)}
                   alt=""
-                  width={99.64}
-                  height={99.64}
+                  width={width > 720 ? 90 :60}
+                  height={width > 720 ? 90 :60}
                 />
-              </ImageContainer>
+              </figure>
               <CardContent>
                 <Tag>{item.tag}</Tag>
-                <h4>{item.title}</h4>
+                <Heading as='h5' variant='h5l' mt='16px'>{item.title}</Heading>
               </CardContent>
-            </Card>
+            </CardItem>
           </Link>
         );
       })}
-    </CardWrapper>
+    </Wrapper>
   );
 };
 
-export default HomeCard;
+export default Card;
 
-const CardWrapper = styled.div`
-  margin-top: 100px;
+const Wrapper = styled.div`
+  margin-top: 48px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -52,7 +55,7 @@ const CardWrapper = styled.div`
   }
 `;
 
-const Card = styled.a`
+const CardItem = styled.a`
   border: 1px solid #f2eff2;
   border-radius: 12px;
   background: #fff;
@@ -60,27 +63,28 @@ const Card = styled.a`
   display: flex;
   text-decoration: none;
 
-  @media (max-width: 600px) {
-    align-items: center;
+  figure {
+    display: grid;
+    place-items: center;
+    background: #ffdddb;
+    border-radius: 6px;
+    height: 112px;
+    min-width: 112px;
+    @media(max-width:720px){
+      height: 72px;
+      min-width: 72px;
+    }
   }
-`;
-
-const ImageContainer = styled.div`
-  display: grid;
-  place-items: center;
-  background: #ffdddb;
-  border-radius: 6px;
-  height: 112px;
-  min-width: 112px;
+  
 `;
 
 const CardContent = styled.div`
   padding-left: 16px;
-  h4 {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 26px;
-    margin-top: 16px;
+
+  @media(max-width:720px){
+     h5 {
+      margin-top: 8px;
+     }
   }
 `;
 
