@@ -25,6 +25,7 @@ import {
 } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
+import { useWindowSize } from 'utils/hooks';
 
 const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
   ssr: false,
@@ -63,6 +64,8 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
   const mapRef = useRef(null);
 
   const { indicator, year, grantName } = meta;
+
+  const { width } = useWindowSize();
 
   // todo: make it dynamic lie scheme dashboard
   // const IndicatorDesc = [
@@ -346,14 +349,21 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     },
   ];
 
+  const indicatorList =
+    schemeRaw.data &&
+    Object.keys(schemeRaw.data).map((key) => ({
+      value: schemeRaw.data[key].slug,
+      title: schemeRaw.data[key].name,
+    }));
+
   return (
     <>
       <Wrapper className="container">
-        <IndicatorMobile
+        {/* <IndicatorMobile
           indicators={schemeRaw.data}
           newIndicator={(e) => handleNewIndicator(e)}
           selectedIndicator={indicator}
-        />
+        /> */}
         <VizWrapper>
           <VizHeader data-html2canvas-ignore>
             <VizTabs className="viz__tabs">
@@ -372,7 +382,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                   <Menu
                     value={meta.year}
                     options={financialYears}
-                    heading="Financial Year:"
+                    heading="Financial Year"
                     handleChange={(e) =>
                       dispatch({
                         year: e,
@@ -386,7 +396,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                   <Menu
                     value={meta.grantName}
                     options={grant}
-                    heading="Grant : "
+                    heading="Grant"
                     handleChange={(e) =>
                       dispatch({
                         grantName: e,
@@ -395,6 +405,17 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                   />
                 </VizMenu>
               )}
+              {width < 980 ? (
+                <VizMenu className="fill">
+                  <Menu
+                    value={indicator}
+                    options={indicatorList}
+                    heading="Scheme Indicator"
+                    handleChange={(e) => handleNewIndicator(e)}
+                    className="indicator_selector"
+                  />
+                </VizMenu>
+              ) : null}
             </VizHeaderMenu>
           </VizHeader>
           <Indicator
@@ -551,12 +572,20 @@ export const VizHeader = styled.div`
 
 export const VizTabs = styled.ul`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
 
+  @media(max-width:720px){
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%; 
+    scrollbar-width: thin;
+    padding-bottom: 2px;
+  }
+
   li {
-    min-width: 0;
+    // min-width: 100px;
     margin-right: 10px;
   }
 
@@ -569,7 +598,7 @@ export const VizTabs = styled.ul`
     min-width: 120%;
     display: block;
     text-align: center;
-    border-bottom: 2px solid transparent;
+  //  border-bottom: 2px solid transparent;
     font-weight: bold;
     color: hsla(0, 0%, 0%, 0.32);
 
@@ -605,9 +634,10 @@ export const VizHeaderMenu = styled.div`
   gap: 1.5rem;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 16px;
 `;
 export const VizGraph = styled.div`
-  margin: 0 24px 0;
+  margin: 8px 24px 0;
   height: 580px;
   overflow-y: auto;
 
@@ -617,9 +647,9 @@ export const VizGraph = styled.div`
     }
   }
 
-  @media (max-width: 480px) {
-    margin: 0 4px 32px;
-  }
+  // @media (max-width: 480px) {
+  //   margin: 0 4px 32px;
+  // }
 `;
 
 export const ExplorerSource = styled.div`
@@ -660,8 +690,32 @@ export const SourceButtons = styled.div`
 `;
 
 const VizMenu = styled.div`
-  &.fill {
-    max-width: 305px;
+  // &.fill {
+  //   max-width: 305px;
+  // }
+
+  [class^='MenuComp__MenuButton'] {
+    text-align: left;
+  }
+
+  @media (max-width: 980px) {
+    width:100%;
+
+    > div > span {
+      width: 70px;
+    }
+    [class^='MenuComp__Wrapper'] {
+      flex-grow:1;
+    }
+    
+    [class^='MenuComp__MenuButton'] {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .indicator_selector > div > button {
+    text-transform: capitalize;
   }
 `;
 
@@ -743,4 +797,11 @@ const DownloadButton = styled.div`
   padding: 1.5rem;
   padding-bottom: 0;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    > button {
+      flex-grow: 1;
+      justify-content: center;
+    }
+  }
 `;

@@ -6,13 +6,9 @@ const HeaderComp = styled.div`
   @media (max-width: 480px) {
     margin-top: 1.5rem;
   }
-  
-  h2 {
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 52px;
 
-    grid-column: 2/3;
+  h4 {
+    max-width: min(720px,100%);
   }
 
   p {

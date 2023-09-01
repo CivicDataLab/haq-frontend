@@ -19,10 +19,11 @@ import {
   SummaryExplorerViz,
 } from 'components/pages/explorer';
 
-import { Breadcrumb } from 'components/actions';
+import { Breadcrumb, Button } from 'components/actions';
 import { capitalizeWords } from 'utils/data';
 import { Banner } from 'components/shared';
 import * as data from 'data/spendingdata/spendingdata';
+import { useWindowSize } from 'utils/hooks';
 
 type Props = {
   // meta: any;
@@ -84,6 +85,8 @@ const Explorer: React.FC<Props> = ({
 
   const breadcrumbArray = generateBreadcrumbArray(primary, foundState, scheme);
 
+  const { width } = useWindowSize();
+
   return (
     <>
       <Head>
@@ -114,7 +117,13 @@ const Explorer: React.FC<Props> = ({
                     meta={state}
                     dispatch={dispatch}
                   />
-                  <Banner details={data.banner} />
+                  {width > 600 ? (
+                    <Banner details={data.banner} />
+                  ) : (
+                    <TreasuryList className='container'>
+                      <Button size="md" bg='#865194'> Treasry Schemes List </Button>
+                    </TreasuryList>
+                  )}
                 </>
               )}
 
@@ -191,4 +200,13 @@ const NoContext = styled.div`
   path {
     transform: scale(5);
   }
+`;
+
+const TreasuryList = styled.div`
+  margin-top: 32px;
+  display: flex;
+  > button {
+      flex-grow: 1;
+      justify-content: center;
+    }
 `;

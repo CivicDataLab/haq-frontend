@@ -13,6 +13,7 @@ import { ExternalLink, Globe, TableIcon, Compare } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { MenuButton } from 'components/actions/Menu/MenuComp';
+import { useWindowSize } from 'utils/hooks';
 
 const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
   ssr: false,
@@ -38,7 +39,8 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
   const [filtered, setFiltered] = useState([]);
 
   const [currentViz, setCurrentViz] = useState('#mapView');
-  
+
+  const { width } = useWindowSize();
 
   const mapRef = useRef(null);
 
@@ -339,15 +341,21 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     },
   ];
 
-  const flexBasisValue = currentViz == '#mapView' ? 'calc(30% - 0.75rem)' : 'calc(50% - 0.75rem)';
+  const indicatorList =
+    schemeRaw.data &&
+    Object.keys(schemeRaw.data).map((key) => ({
+      value: schemeRaw.data[key].slug,
+      title: schemeRaw.data[key].name,
+    }));
+
 
   return (
     <Wrapper className="container">
-      <IndicatorMobile
+      {/* <IndicatorMobile
         indicators={schemeRaw.data}
         newIndicator={(e) => handleNewIndicator(e)}
         selectedIndicator={indicator}
-      />
+      /> */}
       <VizWrapper>
         <VizHeader data-html2canvas-ignore>
           <VizTabs className="viz__tabs">
@@ -360,13 +368,13 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               </li>
             ))}
           </VizTabs>
-          <VizHeaderMenu>
+          <VizHeaderMenu currentViz={currentViz}>
             {currentViz == '#mapView' && (
-              <VizMenu className="fill" style={{ flexBasis: flexBasisValue }}>
+              <VizMenu className="fill">
                 <Menu
                   value={meta.schemeYear}
                   options={yearOpt}
-                  heading="Financial Year:"
+                  heading="Financial Year"
                   handleChange={(e) =>
                     dispatch({
                       schemeYear: e,
@@ -376,11 +384,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               </VizMenu>
             )}
 
-            <VizMenu style={{ flexBasis: flexBasisValue }}>
+            <VizMenu>
               <Menu
                 value={meta.schemeType}
                 options={schemeTypeOpt}
-                heading="Scheme type : "
+                heading="Scheme type"
                 handleChange={(e) =>
                   dispatch({
                     schemeType: e,
@@ -389,11 +397,11 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               />
             </VizMenu>
 
-            <VizMenu style={{ flexBasis: flexBasisValue }}>
+            <VizMenu>
               <Menu
                 value={meta.schemeMode}
                 options={schemeModeOpt}
-                heading="Scheme Mode : "
+                heading="Scheme Mode"
                 handleChange={(e) =>
                   dispatch({
                     schemeMode: e,
@@ -401,6 +409,17 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
                 }
               />
             </VizMenu>
+            {width < 980 ? (
+              <VizMenu className="fill">
+                <Menu
+                  value={indicator}
+                  options={indicatorList}
+                  heading="Scheme Indicator"
+                  handleChange={(e) => handleNewIndicator(e)}
+                  className="indicator_selector"
+                />
+              </VizMenu>
+            ) : null}
           </VizHeaderMenu>
         </VizHeader>
         <Indicator
@@ -467,22 +486,49 @@ export const VizHeader = styled.div`
   gap: 1.5rem;
 `;
 
-export const VizHeaderMenu = styled.div`
+export const VizHeaderMenu = styled.div<{ currentViz: string }>`
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   width: 100%;
-  justify-content: space-around;
+
+  ${({ currentViz }) =>
+    currentViz !== '#mapView' && ` justify-content: space-between;`}
+
+  @media (min-width: 980px) {
+    ${({ currentViz }) =>
+      currentViz === '#mapView' &&
+      `
+    > div:nth-child(1) {
+      flex-basis: 21%;
+    }
+    > div:nth-child(2) {
+      flex-basis: 40%;
+    }
+    > div:nth-child(3) {
+      flex-basis: 33%;
+    }
+  `}
+  }
 `;
 
 export const VizTabs = styled.ul`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
 
+  @media (max-width: 720px) {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    scrollbar-width: thin;
+    padding-bottom: 2px;
+  }
+
   li {
-    min-width: 0;
+    // min-width: 100px;
+    margin-right: 10px;
   }
 
   button {
@@ -525,7 +571,7 @@ export const VizTabs = styled.ul`
 `;
 
 export const VizGraph = styled.div`
-  margin: 0 24px 0;
+  margin: 8px 24px 0;
   height: 580px;
   overflow-y: auto;
 
@@ -535,9 +581,9 @@ export const VizGraph = styled.div`
     }
   }
 
-  @media (max-width: 480px) {
-    margin: 0 4px 32px;
-  }
+  // @media (max-width: 480px) {
+  //   margin: 0 4px 32px;
+  // }
 `;
 
 export const ExplorerSource = styled.div`
@@ -577,8 +623,42 @@ export const SourceButtons = styled.div`
   gap: 1rem;
 `;
 
-const VizMenu = styled.div``;
+const VizMenu = styled.div`
+  [class^='MenuComp__MenuButton'] {
+    text-align: left;
+    padding: 4px 8px;
 
+    > svg {
+      margin-left: 4px;
+    }
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+
+    > div > span {
+      width: 92px;
+    }
+    [class^='MenuComp__Wrapper'] {
+      width: 100%;
+    }
+
+    [class^='MenuComp__MenuButton'] {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [class^='MenuComp__MenuContent'] {
+      width: 100%;
+    }
+  }
+
+  .indicator_selector > div > button {
+    text-transform: capitalize;
+  }
+`;
 
 const Title = styled.div`
   border-radius: 2px;
@@ -658,4 +738,11 @@ const DownloadButton = styled.div`
   padding: 1.5rem;
   padding-bottom: 0;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    > button {
+      flex-grow: 1;
+      justify-content: center;
+    }
+  }
 `;
