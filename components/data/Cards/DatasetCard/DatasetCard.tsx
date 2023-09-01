@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { truncate } from 'lodash';
 import { DatasetCardComp } from './CardComp';
 import { Tags } from 'components/data';
+import { Heading } from 'components/layouts/Heading';
 
 const DatasetCard: React.FC<{
   datapackage: any;
@@ -27,8 +28,8 @@ const DatasetCard: React.FC<{
     >
       <DatasetCardComp>
         <section>
-          <h3 className="card__heading">{englishTitle}</h3>
-          {hindiTitle && <h4 className="card__heading__hindi">{hindiTitle}</h4>}
+          <Heading as='h5' variant='h5l' color='var(--text-light-high)'>{englishTitle}</Heading>
+          {hindiTitle && <Heading as='h5' variant='h5l' color='#9d423f' mt='12px'>{hindiTitle}</Heading>}
           <Tags data={datapackage.tags} />
         </section>
       </DatasetCardComp>

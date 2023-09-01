@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Share } from 'components/actions';
 import Link from 'next/link';
 import { Link as LinkIcon } from 'components/icons';
+import { Heading } from 'components/layouts/Heading';
+import { useWindowSize } from 'utils/hooks';
 
 interface TypeProps {
   data: any;
@@ -11,6 +13,8 @@ interface TypeProps {
 }
 
 const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
+  const { width } = useWindowSize();
+
   let englishTitle: string, hindiTitle: string;
 
   if (!primary) {
@@ -25,16 +29,24 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
         <div>
           {primary ? (
             <div>
-              <h2>{summary.title}</h2>
-              <h3>{summary.description}</h3>
+              <Heading as="h1" variant="h1">
+                {summary.title}
+              </Heading>
+              <Heading as="h2" variant="h2" mt='16px'>
+              {summary.description}
+              </Heading>
             </div>
           ) : (
             <>
               <Title>
-                <h2>{englishTitle}</h2>
-                <Share title={data.title} />
+                <Heading as="h2" variant="h2l">
+                  {englishTitle}
+                </Heading>
+                {width > 600 ? <Share title={data.title} /> : null}
               </Title>
-              <h3>{hindiTitle}</h3>
+              <Heading as="h3" variant="h3l" color="#9D423F">
+                {hindiTitle}
+              </Heading>
             </>
           )}
         </div>
@@ -53,6 +65,7 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
             </Content>
           </DataSorce>
         )}
+        {width < 600 ? <Share title={data.title} /> : null}
       </HeaderContent>
     </Wrapper>
   );
@@ -68,22 +81,18 @@ const Wrapper = styled.div`
 const HeaderContent = styled.div<{ primary: boolean }>`
   gap: 1.5rem;
   background-color: ${(props) => (props.primary ? 'none' : 'white')};
-  padding:  ${(props) => (props.primary ? 'none' : '24px')};
+  padding: ${(props) => (props.primary ? 'none' : '24px')};
 
-  h2 {
-    color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-    font-size: ${(props) => (props.primary ? '40px' : '24px')};
-    font-weight: 400;
-    line-height: 32px;
+  > div > button {
+    width: 100%;
+    justify-content: center;
+    margin-top: 16px;
   }
-  
-  h3 {
-    color: ${(props) => (props.primary ? 'rgba(0, 0, 0, 0.60)' : 'var(--carrot-04, #9d423f)')};
 
-    font-size: ${(props) => (props.primary ? '20px' : '24px')};
-    font-weight: 500;
-    line-height: 38px;
-    margin-top: ${(props) => (props.primary ? '16px' : '0')};
+  @media(max-width:600px) {
+    h3 {
+      margin-top:12px;
+    }
   }
 `;
 
@@ -107,6 +116,7 @@ const Content = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const LinkStyled = styled.a`

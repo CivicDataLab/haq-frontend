@@ -18,21 +18,6 @@ export const DatasetCardComp = styled.a`
     line-height: 16px;
   }
 
-  .card__heading {
-    color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 26px;
-  }
-
-  .card__heading__hindi {
-    color: var(--carrot-04, #9d423f);
-    font-family: Mukta;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 14px;
-  }
-
   ul {
     margin-top: 14px;
   }
