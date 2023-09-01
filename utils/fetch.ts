@@ -1,3 +1,5 @@
+const API_KEY = 'AND !dataset:random AND private:false'
+
 export const fetchDatasets = async (variables) => {
   function changeKeyName(key) {
     if (key == 'size') return 'rows';
@@ -8,9 +10,9 @@ export const fetchDatasets = async (variables) => {
   const fq = variables.fq ? variables.fq.replace(/&/g,"%26") : null;
   variables.fq
   ? (variables.fq = fq.concat(
-      `AND !schemeType:summary-data AND !schemeType:state-data AND private:false`
+      `${API_KEY}`
     ))
-  : (variables.fq = `AND !schemeType:summary-data AND !schemeType:state-data AND private:false`);
+  : (variables.fq = `${API_KEY}`);
 
   // creating a string of parameter from object of variables for CKAN API use
   const varArray = Object.keys(variables).map((key) => {
@@ -20,7 +22,7 @@ export const fetchDatasets = async (variables) => {
   const varString =
     varArray.length > 0
       ? varArray.join('&')
-      : `fq=organization:haq-up AND !schemeType:summary-data AND !schemeType:state-data AND private:false&rows=1000`;
+      : `fq=organization:haq-up ${API_KEY}&rows=1000`;
 
   const response = await fetch(
     `https://data.girleducation.in/api/3/action/package_search?${varString}`
