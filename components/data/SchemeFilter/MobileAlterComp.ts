@@ -170,6 +170,7 @@ export const Fieldset = styled.fieldset`
   label {
     display: flex;
     margin-top: 20px;
+    margin-left: 8px;
     align-items: center;
     font-weight: 500;
     line-height: 140%;
