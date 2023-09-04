@@ -16,7 +16,7 @@ const SearchBar = (props) => {
   }, []);
 
   return (
-    <form className="search__form" autoComplete="off" role="search">
+    <form className="search__form" autoComplete="off" role="search" style={{ flexGrow:1 }}>
       <SearchContainer>
         <label className="search__label" htmlFor="search">
           <span className="search__text screen-reader-text">Search here</span>

@@ -206,7 +206,7 @@ export const IndicatorWrapper = styled.div`
     }
   }
 
-  @media (max-width: 980px) {
-    display: none;
-  }
+  // @media (max-width: 980px) {
+  //   display: none;
+  // }
 `;

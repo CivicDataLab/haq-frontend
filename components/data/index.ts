@@ -12,3 +12,4 @@ export { RelatedCard as RelatedCard } from './Cards';
 export { default as Tags } from './Tags';
 export { SchemeIndicator as SchemeIndicator} from './SchemeIndicator';
 export { SchemeFilter as SchemeFilter } from './SchemeFilter';
+export { IndicatorWrapper } from './SchemeIndicator';

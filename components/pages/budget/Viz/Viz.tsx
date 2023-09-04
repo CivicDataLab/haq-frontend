@@ -9,6 +9,8 @@ import { tabbedInterface } from 'utils/explorer';
 import BudgetGraph from './BudgetGraph';
 import BudgetTable from './BudgetTable';
 import DownloadViz from './DownloadViz';
+import { IndicatorWrapper } from 'components/data';
+import { Heading } from 'components/layouts/Heading';
 
 const Viz = ({ data }) => {
   const router = useRouter();
@@ -100,15 +102,15 @@ const Viz = ({ data }) => {
           currentSlug={router.query.state}
         />
         <VizWrapper>
-          <HeaderDetails>
-            <h2>{data[activeIndicator]?.Scheme}</h2>
+          <div>
+            <Heading as='h2' variant='h2l'>{data[activeIndicator]?.Scheme}</Heading>
             <Tags
               data={[
                 data[activeIndicator]?.Scheme_mode,
                 data[activeIndicator]?.Scheme_type,
               ]}
             />
-          </HeaderDetails>
+          </div>
           <VizTabs className="viz__tabs">
             {vizToggle.map((item, index) => (
               <li key={`toggleItem-${index}`}>
@@ -149,9 +151,18 @@ export const Wrapper = styled.section`
   grid-template-columns: 312px minmax(0, 1fr);
   margin-top: 2.5rem;
 
-  @media (max-width: 980px) {
+  @media (max-width: 910px) {
     display: block;
     margin-top: 1.5rem;
+    ${IndicatorWrapper} {
+      height: 540px;
+      padding:16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      fieldset {
+        max-height : 380px;
+      }
+    }
   }
 `;
 
@@ -181,34 +192,10 @@ export const VizWrapper = styled.div`
     background: var(--honey-00, #FFF0E0); 
     color: var(--honey-05, #88541E); 
   }
-`;
 
-const HeaderDetails = styled.div`
-  h2 {
-    color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-    font-family: Rubik;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 32px;
-  }
-
-  h3 {
-    color: var(--text-light-bg-medium-emphasis, rgba(0, 0, 0, 0.6));
-    font-family: Rubik;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
-    padding-top: 8px;
-  }
-
-  h4 {
-    color: var(--text-light-bg-high-emphasis, rgba(0, 0, 0, 0.87));
-    font-family: Rubik;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
+  @media (max-width: 910px) {
+    padding: 20px;
+    border-radius: 8px;
   }
 `;
 
@@ -263,7 +250,7 @@ export const VizTabs = styled.ul`
 `;
 
 export const VizGraph = styled.div`
-  margin: 12px 24px 0;
+  margin: 8px 24px 0;
   height: 580px;
   overflow-y: auto;
 
@@ -273,9 +260,9 @@ export const VizGraph = styled.div`
     }
   }
 
-  @media (max-width: 480px) {
-    margin: 0 4px 32px;
-  }
+  // @media (max-width: 480px) {
+  //   margin: 0 4px 32px;
+  // }
 `;
 
 const DownloadButton = styled.div`
@@ -283,4 +270,11 @@ const DownloadButton = styled.div`
   padding: 1.5rem;
   padding-bottom: 0;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    > button {
+      flex-grow: 1;
+      justify-content: center;
+    }
+  }
 `;
