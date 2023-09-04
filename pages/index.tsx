@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { HomeHeader, HomeRelatedCard, HomeStates } from 'components/pages/home';
 import { fetchAPI } from 'lib/api';
-import SummaryCarousel from 'components/layouts/SummaryCarousel';
+import { SummaryCarousel } from 'components/layouts';
 import styled from 'styled-components';
 import * as data from 'data/home'
 
@@ -18,7 +18,7 @@ export default function Home({ homepage }) {
         subheading={hero_section_subheading}
       />
       <HomeStates />
-      <SummaryCarousel cards={data.summaryCards} displayLength={3} />
+      <SummaryCarousel cards={data.summaryCards} displayLength={3} /> 
       <HomeRelatedCard datastory={datastory} />
     </>
   );
