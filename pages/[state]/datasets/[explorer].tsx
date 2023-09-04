@@ -120,8 +120,8 @@ const Explorer: React.FC<Props> = ({
                   {width > 600 ? (
                     <Banner details={data.banner} />
                   ) : (
-                    <TreasuryList className='container'>
-                      <Button size="md" bg='#865194'> Treasry Schemes List </Button>
+                    <TreasuryList>
+                      <Button size="md" bg='#865194'> Treasury Schemes List </Button>
                     </TreasuryList>
                   )}
                 </>

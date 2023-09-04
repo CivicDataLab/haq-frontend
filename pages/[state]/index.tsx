@@ -32,7 +32,9 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       </Wrapper>
       <Card state={pathName} dataset={linkcard} />
       <ListCard data={listcard[0]} />
-      <Banner details={data.banner}/> 
+      <div className='container'>
+        <Banner details={data.banner}/> 
+      </div>
       {listcard[1] && <ListCard data={listcard[1]} />}
       <InfoCarousel carousel={carousel} />
     </>

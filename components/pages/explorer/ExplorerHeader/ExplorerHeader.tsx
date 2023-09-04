@@ -24,7 +24,7 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
   }
 
   return (
-    <Wrapper className="container">
+    <Wrapper>
       <HeaderContent primary={primary}>
         <div>
           {primary ? (
