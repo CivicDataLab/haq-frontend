@@ -95,7 +95,7 @@ const Viz = ({ data }) => {
 
   return (
     <>
-      <Wrapper className="container">
+      <Wrapper>
         <SchemeIndicator
           selectedIndicator={activeIndicator}
           schemeData={data}

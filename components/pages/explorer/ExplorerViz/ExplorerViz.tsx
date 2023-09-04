@@ -358,7 +358,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
 
   return (
     <>
-      <Wrapper className="container">
+      <Wrapper>
         {/* <IndicatorMobile
           indicators={schemeRaw.data}
           newIndicator={(e) => handleNewIndicator(e)}

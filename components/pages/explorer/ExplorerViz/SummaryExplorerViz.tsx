@@ -350,7 +350,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
 
   return (
-    <Wrapper className="container">
+    <Wrapper>
       {/* <IndicatorMobile
         indicators={schemeRaw.data}
         newIndicator={(e) => handleNewIndicator(e)}

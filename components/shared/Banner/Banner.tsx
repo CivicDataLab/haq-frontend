@@ -9,7 +9,7 @@ const Banner = ({ details }) => {
   const { width } = useWindowSize();
 
   return (
-    <div className="container" style={{ marginTop: '40px' }}>
+    <div style={{ marginTop: '40px' }}>
       <BannerComp style={{ backgroundColor: details.bgColor }}>
         <Content>
           <Heading as="h2" variant="banner">
