@@ -12,7 +12,6 @@ import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 import {
   DownloadViz,
   Indicator,
-  IndicatorMobile,
   Table,
 } from 'components/data';
 import {
@@ -359,11 +358,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
   return (
     <>
       <Wrapper>
-        {/* <IndicatorMobile
-          indicators={schemeRaw.data}
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-        /> */}
         <VizWrapper>
           <VizHeader data-html2canvas-ignore>
             <VizTabs className="viz__tabs">
