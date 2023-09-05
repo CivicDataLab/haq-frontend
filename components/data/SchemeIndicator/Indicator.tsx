@@ -10,7 +10,7 @@ import * as filters from 'data/searchfilter/searchfilter';
 
 const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
 
-  const indicators = Object.keys(schemeData) ;
+  const indicators = Object.keys(schemeData);
 
   // const indicators = [
   //   ...new Set(schemeData.map((item) => item.Scheme || null)),
@@ -40,10 +40,10 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
 
   useEffect(() => {
     const filteredData = indicators.filter((indicator) => {
-      const name = indicator.toLowerCase();
-      const schemeName = schemeData[name].Scheme.toLowerCase();
-      return schemeName.includes(searchTerm.toLowerCase());
-    })
+        const name = indicator.toLowerCase();
+        const schemeName = schemeData[name].Scheme.toLowerCase();
+        return schemeName.includes(searchTerm.toLowerCase());
+      })
       .filter((indicatorName: string) => {
         if (!datsetsFilters) {
           return true;
@@ -104,12 +104,12 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
       <fieldset>
         <legend className="sr-only">Choose Indicator:</legend>
         {searchedData.map((indicatorName: any) => {
-          const obj = schemeData[indicatorName]
+          const obj = schemeData[indicatorName];
           //const obj = schemeDataObject[indicatorName];
           if (obj) {
             return (
               <Link
-                key={obj.Scheme} 
+                key={obj.Scheme}
                 href={{
                   pathname: `/${currentSlug}/budget/`,
                   query: {
@@ -119,17 +119,21 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 scroll={false}
                 passHref
               >
-                <Radio
-                  color="#9E68AD"
-                  data-selected={
-                    selectedIndicator == obj.Scheme_code ? 'true' : 'false'
-                  }
-                  checked={selectedIndicator === obj.Scheme_code}
-                  data-type={obj.Scheme}
-                  id={obj.Scheme}
-                  text={<>{obj.Scheme}</>}
-                  name="indicators"
-                />
+                <label className="indicator__label" htmlFor={obj.Scheme}>
+                  {obj.Scheme}
+                  <input
+                    type="radio"
+                    data-selected={
+                      selectedIndicator == obj.Scheme_code ? 'true' : 'false'
+                    }
+                    id={obj.Scheme}
+                    name="indicator-group"
+                    className="indicator__radio"
+                    checked={selectedIndicator === obj.Scheme_code}
+                    readOnly
+                  />
+                  <span className="indicator__span" />
+                </label>
               </Link>
             );
           } else {
@@ -209,4 +213,53 @@ export const IndicatorWrapper = styled.div`
   // @media (max-width: 980px) {
   //   display: none;
   // }
+
+  .indicator__label {
+    display: block;
+		position: relative;
+		padding-left: 2.2rem;
+		margin-bottom: 1.2rem;
+		cursor: pointer;
+		font-size: 1rem;
+		user-select: none;
+
+    input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			padding: 0;
+			overflow: visible;
+			margin: 0;
+
+			&:checked ~ .indicator__span {
+				background-color: #9E68AD;
+
+				&::after {
+					display: block;
+				}
+			}
+		}
+  }
+
+  .indicator__span {
+    position: absolute;
+		top: 0;
+		left: 0;
+		height: 1.4rem;
+		width: 1.4rem;
+		background-color: #eee;
+		border-radius: 50%;
+
+		&::after {
+			width: 0.5rem;
+			height: 0.5rem;
+			border-radius: 50%;
+			background: white;
+			content: '';
+			position: absolute;
+			display: none;
+			top: 0.46rem;
+			left: 0.46rem;
+		}
+  }
 `;

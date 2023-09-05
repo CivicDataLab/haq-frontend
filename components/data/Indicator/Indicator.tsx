@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
-  const indicatorRef = useRef(null);
+   const indicatorRef = useRef(null);
   useEffect(() => {
     if (selectedIndicator)
       indicatorRef.current.querySelector(
@@ -20,7 +20,7 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
 
   return (
     <IndicatorWrapper className="indicator">
-      <fieldset ref={indicatorRef}>
+      <fieldset ref={indicatorRef} >
         <legend className="sr-only">Choose Indicator:</legend>
         {schemeData.data &&
           Object.values(schemeData.data).map(
@@ -32,7 +32,6 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
                   data-selected={
                     selectedIndicator == item.slug ? 'true' : 'false'
                   }
-                  checked={selectedIndicator == item.slug}
                   id={item.slug}
                   text={
                     <>

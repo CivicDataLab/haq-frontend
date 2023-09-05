@@ -6,7 +6,6 @@ import { tabbedInterface } from 'utils/explorer';
 import {
   DownloadViz,
   Indicator,
-  IndicatorMobile,
   Table,
 } from 'components/data';
 import { ExternalLink, Globe, TableIcon, Compare } from 'components/icons';
@@ -351,11 +350,6 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
   return (
     <Wrapper>
-      {/* <IndicatorMobile
-        indicators={schemeRaw.data}
-        newIndicator={(e) => handleNewIndicator(e)}
-        selectedIndicator={indicator}
-      /> */}
       <VizWrapper>
         <VizHeader data-html2canvas-ignore>
           <VizTabs className="viz__tabs">

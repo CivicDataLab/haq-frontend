@@ -6,12 +6,11 @@ const Radio = ({
   text,
   name,
   color = 'var(--color-grey-200)',
-  checked,
   ...props
 }) => {
   return (
     <RadioItem id={id} color={color} {...props}>
-      <input type="radio" name={name} value={id} checked={checked}/>
+      <input type="radio" name={name} value={id}/>
       {text}
     </RadioItem>
   );
