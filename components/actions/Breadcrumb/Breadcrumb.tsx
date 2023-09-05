@@ -44,7 +44,7 @@ const Breadcrumbs = ({
         {visibleCrumbsBeforeCollapse.length > 0 &&
           visibleCrumbsBeforeCollapse.map((crumb: any, index: any) => (
             <li key={`crumb_item${index}`} className="ListItem">
-              {crumb}
+              <span>{crumb}</span>
             </li>
           ))}
         {collapsed && (
@@ -60,7 +60,7 @@ const Breadcrumbs = ({
         {visibleCrumbsAfterCollapse.length > 0 &&
           visibleCrumbsAfterCollapse.map((crumb: any, index: any) => (
             <li key={`crumb_item${index}`} className="ListItem">
-              {crumb}
+              <span>{crumb}</span>
             </li>
           ))}
       </ol>

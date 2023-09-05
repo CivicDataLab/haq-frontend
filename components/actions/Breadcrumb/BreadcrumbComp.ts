@@ -6,6 +6,10 @@ export const Breadcrumb = styled.nav`
   justify-content: flex-start;
   padding-top: 16px;
 
+  @media(max-width: 600px) {
+    display: none;
+  }
+  
   .List {
     display: flex;
     flex-wrap: wrap;
@@ -20,6 +24,10 @@ export const Breadcrumb = styled.nav`
     font-style: normal;
     font-weight: 500;
     line-height: 22px;
+  }
+
+  .List > li:not(:last-child) > span {
+    text-decoration: underline;
   }
 
   .List > li + li:before {

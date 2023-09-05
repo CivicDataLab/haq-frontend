@@ -14,7 +14,7 @@ const Header = ({ header, schemeList }) => {
       {header.state && (
         <>
           {main && (
-            <Heading as="h1" variant="h1l" color="#5c2230" textAlign="center" mt='24px'>
+            <Heading as="h1" variant="h1l" color="#5c2230" textAlign="center" pt='24px'>
               {main}
             </Heading>
           )}
