@@ -5,3 +5,4 @@ export { default as Tabbed } from './Tabbed';
 export { default as Toggletip } from './Toggletip';
 export { default as Radio } from './Radio';
 export { default as SummaryCarousel } from './SummaryCarousel';
+export { default as SubNav} from './SubNav'
