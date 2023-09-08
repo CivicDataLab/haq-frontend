@@ -56,12 +56,11 @@ html {
   --color-white : ${theme.color_white};
   
   --color-amazon : ${theme.color_amazon};
+  --color-amazon-0 : ${theme.color_amazon_0};
+
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};
   --color-carrot-3 : ${theme.color_carrot_3};
-  --color-violet-3 : ${theme.color_violet_3};
-  --color-sapphire-3 : ${theme.color_sapphire_3};
-  --color-sapphire-5 : ${theme.color_sapphire_5};
 
   --color-success : ${theme.color_success};
   --color-error : ${theme.color_error};

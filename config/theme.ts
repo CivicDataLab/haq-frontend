@@ -38,19 +38,15 @@ export const DEFAULT_THEME = {
   color_honey_3: '#88541E',
   color_honey_4: '#A56C33',
   color_honey_5: '#6B3B0A',
-
+  
   color_amazon: '#69BC99',
+  color_amazon_0:'#E1F5ED', 
+  
   color_white: '#FFFFFF',
 
   color_carrot: '#ED8686',
   color_carrot_2: '#D26F6E',
   color_carrot_3: '#B85957',
-
-  // color_violet_3: '#865194',
-  // color_violet_4: '#6E3D7A',
-
-  // color_sapphire_3: '#354981',
-  // color_sapphire_5: '#212D50',
 
   color_success: '#328B48',
   color_error: '#C82D2D',
