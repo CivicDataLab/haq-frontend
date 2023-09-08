@@ -48,7 +48,7 @@ const RelatedCardHeading = styled.div`
     }
     hr {
       width: 56px;
-      background: #4965b2;
+      background: var(--color-sapphire);
       border-radius: 1px;
       margin: 15px;
     }

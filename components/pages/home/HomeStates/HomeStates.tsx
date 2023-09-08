@@ -55,7 +55,7 @@ const HomeStates = () => {
 export default HomeStates;
 
 const Wrapper = styled.section`
-  background: var(--violet-00, #efd7f5);
+  background: var(--color-violet-0);
   padding-bottom: 120px;
 `;
 

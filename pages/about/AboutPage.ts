@@ -42,7 +42,7 @@ const AboutPage = styled.main`
       color: rgba(0, 0, 0, 0.32);
 
       span {
-        background: #4965b2;
+        background: var(--color-sapphire);
         border-radius: 2px;
         width: 3rem;
         display: inline-block;

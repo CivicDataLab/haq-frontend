@@ -42,7 +42,7 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
 };
 
 const Wrapper = styled.div<{ foundState: string }>`
-  background-color: #EFD7F5;
+  background-color: var(--color-violet-0);
   background-image: url('/assets/Hero${props => props.foundState}.svg');
   background-size: contain;
   background-repeat: no-repeat;

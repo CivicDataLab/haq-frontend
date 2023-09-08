@@ -110,7 +110,7 @@ useEffect(() => {
     <Button
       onClick={() => downloadSelector(viz)}
       size="md"
-      bg='#865194'
+      bg='var(--color-violet-2)'
       icon={<Download />}
     >
       {`Download ${viz == '#tableView' ? 'CSV' : 'Visualization'}`}

@@ -92,7 +92,7 @@ const BarViz = ({ meta, data, consList }) => {
           <GroupBarChart
             yAxisLabel={`Value ( ${meta.unit == '₹' ? '₹ in lakhs' : '%'})`}
             xAxisLabel="Fiscal Years"
-            theme={['#4965B2', '#ED8686', '#69BC99']}
+            theme={['var(--color-sapphire)', 'var(--color-carrot)', 'var(--color-amazon)']}
             dataset={barData}
             stack={false}
             Title=""

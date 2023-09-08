@@ -54,7 +54,7 @@ const ListCard = ({ data }) => {
 export default ListCard;
 
 const CardContainer = styled.div`
-  background: var(--sapphire-05, #212d50);
+  background: var(--color-sapphire-3);
   color: white;
   padding: 40px 0 48px 0;
   margin-top: 56px;
@@ -64,7 +64,7 @@ const CardContainer = styled.div`
 const TagContainer = styled.div`
   border: 1px solid white;
   border-radius: 0px 0px 12px 12px;
-  background: var(--sapphire-00, #ebf0ff);
+  background: var(--color-sapphire-0);
   display: inline-flex;
   height: 42px;
   padding: 4px 8px;
@@ -80,7 +80,7 @@ const TagContainer = styled.div`
   }
 
   top: -8px;
-  color: var(--sapphire-05, #212d50);
+  color: var(--color-sapphire-3);
   text-transform: uppercase;
 
   > svg {
@@ -91,7 +91,7 @@ const TagContainer = styled.div`
 `;
 
 const ImageBg = styled.div`
-  background: var(--sapphire-00, #ebf0ff);
+  background: var(--color-sapphire-0);
 
   figure {
     position: relative;

@@ -133,7 +133,7 @@ const Label = styled.div`
 
 const Tag = styled.div`
   border-radius: 12px;
-  background: #ffebef;
+  background: var(--color-flamingo-1);
   padding: 2px 6px;
   justify-content: center;
   align-items: center;

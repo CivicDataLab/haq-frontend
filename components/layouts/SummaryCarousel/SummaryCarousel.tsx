@@ -127,7 +127,7 @@ export default SummaryCarousel;
 
 
 const Wrapper = styled.div`
-  background: var(--honey-00, #fff0e0);
+  background: var(--color-honey-0);
   padding-top: 40px;
   padding-bottom: 120px;
 
@@ -175,7 +175,7 @@ const Wrapper = styled.div`
           position: absolute;
           left: 0;
           top: 0;
-          background: var(--honey-01-base, #fbb670);
+          background: var(--color-honey);
         }
       }
 
