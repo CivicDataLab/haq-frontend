@@ -232,7 +232,7 @@ export const IndicatorWrapper = styled.div`
 			margin: 0;
 
 			&:checked ~ .indicator__span {
-				background-color: #9E68AD;
+				background-color: var(--color-violet-1);
 
 				&::after {
 					display: block;

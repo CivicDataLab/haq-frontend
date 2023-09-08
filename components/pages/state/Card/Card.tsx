@@ -95,7 +95,7 @@ const Tag = styled.div`
   align-items: center;
   gap: 10px;
   border-radius: 0px 0px 12px 0px;
-  background: var(--flamingo-03, #bb4561);
+  background: var(--color-flamingo-2);
   color: var(--text-dark-bg-high-emphasis, #fff);
   font-size: 12px;
   font-weight: 500;

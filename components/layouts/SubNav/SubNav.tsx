@@ -37,7 +37,7 @@ const SubNav = ({ data }) => {
 export default SubNav;
 
 const Header = styled.header`
-  background-color: #efd7f5;
+  background-color: var(--color-violet-0);
 `;
 
 const Wrapper = styled.div`

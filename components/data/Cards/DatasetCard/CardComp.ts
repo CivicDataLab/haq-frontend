@@ -37,13 +37,13 @@ export const DatasetCardComp = styled.a`
   }
 
   ${Tag}:nth-child(1) {
-    background: var(--amazon-00, #e1f5ed);
+    background: var(--color-amazon-0);
     color: #1c523b;
   }
 
   ${Tag}:nth-child(2) {
-    background: var(--honey-00, #fff0e0);
-    color: var(--honey-05, #88541e);
+    background: var(--color-honey-0);
+    color: var(--color-honey-3);
   }
 
   .card__content {

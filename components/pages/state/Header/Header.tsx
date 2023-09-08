@@ -14,12 +14,12 @@ const Header = ({ header, schemeList }) => {
       {header.state && (
         <>
           {main && (
-            <Heading as="h1" variant="h1l" color="#5c2230" textAlign="center" pt='24px'>
+            <Heading as="h1" variant="h1l" color="var(--color-flamingo-5)" textAlign="center" pt='24px'>
               {main}
             </Heading>
           )}
           {sub && (
-            <Heading as="h2" variant="h2l" color="#9b3950" textAlign="center" mt='20px'>
+            <Heading as="h2" variant="h2l" color="var(--color-flamingo-4)" textAlign="center" mt='20px'>
               {sub}
             </Heading>
           )}

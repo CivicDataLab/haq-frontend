@@ -24,7 +24,7 @@ export const FilterComp = styled.div`
   }
 
   [aria-pressed='true'] {
-    background-color: #ebf0ff;
+    background-color: var(--color-sapphire-0);
 
     &:hover {
       background-color: #f2eff2;

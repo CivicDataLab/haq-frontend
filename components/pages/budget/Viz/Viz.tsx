@@ -184,13 +184,13 @@ export const VizWrapper = styled.div`
   }
 
   ${Tag}:nth-child(1) {
-    background: var(--amazon-00, #E1F5ED); 
+    background: var(--color-amazon-0); 
     color: #1C523B;
   }
   
   ${Tag}:nth-child(2) {
-    background: var(--honey-00, #FFF0E0); 
-    color: var(--honey-05, #88541E); 
+    background: var(--color-honey-0); 
+    color: var(--color-honey-3); 
   }
 
   @media (max-width: 910px) {
@@ -235,14 +235,14 @@ export const VizTabs = styled.ul`
     }
 
     &[aria-selected='true'] {
-      color: #9E68AD;
-      border-bottom: 2px solid #9E68AD;
+      color: var(--color-violet-1);
+      border-bottom: 2px solid var(--color-violet-1);
 
       svg {
-        fill: #9E68AD;
+        fill: var(--color-violet-1);
 
         &.svg-stroke {
-          stroke: #9E68AD;
+          stroke: var(--color-violet-1);
         }
       }
     }

@@ -45,7 +45,7 @@ const InfoCarousel = ({ carousel }) => {
                   href={item.link}
                   kind="secondary"
                   size="md"
-                  bg="#865194"
+                  bg="var(--color-violet-2)"
                   style={{ textDecoration: 'none' }}
                 >
                   {' '}
@@ -108,7 +108,7 @@ const Wrapper = styled.div`
   }
 
   ${CarouselWrapper} {
-    background: var(--violet-00, #efd7f5);
+    background: var(--color-violet-0);
     padding: 32px;
     border: 1px solid #d1cdd1;
     box-sizing: border-box;
@@ -130,7 +130,7 @@ const CarouselHeading = styled.div`
   margin: 40px 0 40px 0;
   hr {
     width: 56px;
-    background: #4965b2;
+    background: var(--color-sapphire);
     border-radius: 1px;
     margin: 15px;
   }
