@@ -21,9 +21,40 @@ html {
   --color-background-light : ${theme.background_light};
   --color-background-lighter : ${theme.background_lighter};
 
-  --color-white : ${theme.color_white};
+  --color-flamingo : ${theme.color_flamingo};
+  --color-flamingo-0 : ${theme.color_flamingo_0};
+  --color-flamingo-1 : ${theme.color_flamingo_1};
+  --color-flamingo-2 : ${theme.color_flamingo_2};
+  --color-flamingo-3 : ${theme.color_flamingo_3};
+  --color-flamingo-4 : ${theme.color_flamingo_4};
+  --color-flamingo-5 : ${theme.color_flamingo_5};
+
+  --color-sapphire : ${theme.color_sapphire};
+  --color-sapphire-0 : ${theme.color_sapphire_0};
+  --color-sapphire-1 : ${theme.color_sapphire_1};
+  --color-sapphire-2 : ${theme.color_sapphire_2};
+  --color-sapphire-3 : ${theme.color_sapphire_3};
+  --color-sapphire-4 : ${theme.color_sapphire_4};
+  --color-sapphire-5 : ${theme.color_sapphire_5};
+
   --color-violet : ${theme.color_violet};
+  --color-violet-0 : ${theme.color_violet_0};
+  --color-violet-1 : ${theme.color_violet_1};
+  --color-violet-2 : ${theme.color_violet_2};
+  --color-violet-3 : ${theme.color_violet_3};
+  --color-violet-4 : ${theme.color_violet_4};
+  --color-violet-5 : ${theme.color_violet_5};
+
   --color-honey : ${theme.color_honey};
+  --color-honey-0 : ${theme.color_honey_0};
+  --color-honey-1 : ${theme.color_honey_1};
+  --color-honey-2 : ${theme.color_honey_2};
+  --color-honey-3 : ${theme.color_honey_3};
+  --color-honey-4 : ${theme.color_honey_4};
+  --color-honey-5 : ${theme.color_honey_5};
+  
+  --color-white : ${theme.color_white};
+  
   --color-amazon : ${theme.color_amazon};
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};

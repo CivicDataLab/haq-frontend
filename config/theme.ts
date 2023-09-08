@@ -7,8 +7,38 @@ export const DEFAULT_THEME = {
   background_light: '#F0EBF0',
   background_lighter: '#FFFFFF',
 
+  color_flamingo: '#FA5D82',
+  color_flamingo_0: '#FFEBEF',
+  color_flamingo_1: '#DA5171',
+  color_flamingo_2: '#BB4561',
+  color_flamingo_3: '#7C2E41',
+  color_flamingo_4: '#9B3950',
+  color_flamingo_5: '#5C2230',
+
+  color_sapphire: '#4965B2',
+  color_sapphire_0: '#EBF0FF',
+  color_sapphire_1: '#3F589A',
+  color_sapphire_2: '#284081',
+  color_sapphire_3: '#212D50',
+  color_sapphire_4: '#2B3B69',
+  color_sapphire_5: '#171F38',
+
   color_violet: '#B881C7',
+  color_violet_0: '#EFD7F5',
+  color_violet_1: '#9E68AD',
+  color_violet_2: '#865194',
+  color_violet_3: '#552C61',
+  color_violet_4: '#6E3D7A',
+  color_violet_5: '#3E1C47',
+
   color_honey: '#FBB670',
+  color_honey_0: '#FFF0E0',
+  color_honey_1: '#DE9D5C',
+  color_honey_2: '#C18547',
+  color_honey_3: '#88541E',
+  color_honey_4: '#A56C33',
+  color_honey_5: '#6B3B0A',
+
   color_amazon: '#69BC99',
   color_white: '#FFFFFF',
 
@@ -16,11 +46,11 @@ export const DEFAULT_THEME = {
   color_carrot_2: '#D26F6E',
   color_carrot_3: '#B85957',
 
-  color_violet_3: '#865194',
-  color_violet_4: '#6E3D7A',
+  // color_violet_3: '#865194',
+  // color_violet_4: '#6E3D7A',
 
-  color_sapphire_3: '#354981',
-  color_sapphire_5: '#212D50',
+  // color_sapphire_3: '#354981',
+  // color_sapphire_5: '#212D50',
 
   color_success: '#328B48',
   color_error: '#C82D2D',
