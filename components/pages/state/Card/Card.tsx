@@ -23,7 +23,7 @@ const Card = ({ state, dataset }) => {
                 />
               </figure>
               <CardContent>
-                <Tag>{item.tag}</Tag>
+                <Tag type={item.type}>{item.tag}</Tag>
                 <Heading as='h5' variant='h5l' mt='16px'>{item.title}</Heading>
               </CardContent>
             </CardItem>
@@ -88,14 +88,15 @@ const CardContent = styled.div`
   }
 `;
 
-const Tag = styled.div`
+const Tag = styled.div<{type:string}>`
   display: inline-flex;
   padding: 4px 8px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border-radius: 0px 0px 12px 0px;
-  background: var(--color-flamingo-2);
+  background: ${(props) =>
+    props.type === "budget" ? 'var(--color-sapphire-2)' : 'var(--color-flamingo-2)'};
   color: var(--text-dark-bg-high-emphasis, #fff);
   font-size: 12px;
   font-weight: 500;
