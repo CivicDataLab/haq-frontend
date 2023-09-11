@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from 'components/actions';
 import { Combobox } from 'components/actions';
 import { SearchIcon } from 'components/icons';
+import { Tag, Label, Text } from './SchemeSelector';
 
 const MobileSelector: React.FC<{
   schemeList: any;
@@ -53,7 +54,9 @@ const MobileSelector: React.FC<{
           formatOptionLabel={(option: any) => (
             <Label>
               <Text> {option.label}</Text>
-              <Tag> {option.tag}</Tag>
+              <Tag className={`${option.tag.toLowerCase().trim()}`}>
+                {option.tag}
+              </Tag>
             </Label>
           )}
           id='mobileSelector'
@@ -78,11 +81,11 @@ const MobileSelector: React.FC<{
 
 export default MobileSelector;
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   margin-top: 32px;
 `;
 
-export const ConsMenu = styled.div`
+const ConsMenu = styled.div`
   display: flex;
   align-items: center;
   border-right: none;
@@ -99,27 +102,4 @@ export const ConsMenu = styled.div`
     border-left: none;
     border-radius: 0;
   }
-`;
-
-const Label = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Tag = styled.div`
-  border-radius: 12px;
-  background: var(--color-flamingo-0);
-  padding: 2px 6px;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 500;
-`;
-
-const Text = styled.span`
-  flex-grow: 1;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 `;

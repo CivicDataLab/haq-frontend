@@ -79,7 +79,9 @@ const SchemeSelector: React.FC<{
           formatOptionLabel={(option: any) => (
             <Label>
               <Text>{option.label}</Text>
-              <Tag> {option.tag}</Tag>
+              <Tag className={`${option.tag.toLowerCase().trim()}`}>
+                {option.tag}
+              </Tag>
             </Label>
           )}
           isGrouped={true}
@@ -120,18 +122,29 @@ export const ConsMenu = styled.div`
     text-decoration: none;
     margin-left: 10px;
     padding: 12px 24px;
-    background: var(--grey-04, #afabb0);
+    background: var(--color-grey-400);
   }
 `;
 
-const Label = styled.div`
+export const Label = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const Tag = styled.div`
+export const Tag = styled.div`
   border-radius: 12px;
-  background: var(--color-flamingo-0);
+  &.budget {
+    background: var(--color-sapphire-0);
+    color: var(--color-sapphire-3);
+  }
+  &.treasury {
+    background: var(--color-flamingo-0);
+    color: var(--color-flamingo-3);
+  }
+  &.default {
+    background: var(--color-flamingo);
+  }
+
   padding: 2px 6px;
   justify-content: center;
   align-items: center;
@@ -140,7 +153,7 @@ const Tag = styled.div`
   font-weight: 500;
 `;
 
-const Text = styled.span`
+export const Text = styled.span`
   flex-grow: 1;
   overflow: hidden;
   white-space: nowrap;
