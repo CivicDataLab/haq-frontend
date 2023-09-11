@@ -9,8 +9,8 @@ import { Heading } from 'components/layouts/Heading';
 const ListCard = ({ data }) => {
   return (
     <>
-      <CardContainer>
-        <TagContainer>
+      <CardContainer type={data.type}>
+        <TagContainer type={data.type}>
           {' '}
           <Triangle /> <Heading as='h5' variant='h5l'> {data.tag}</Heading> 
         </TagContainer>
@@ -33,7 +33,7 @@ const ListCard = ({ data }) => {
           </Heading>
         </div>
       </CardContainer>
-      <ImageBg>
+      <ImageBg type={data.type}>
         <figure className="container">
           <Image
             src={getStrapiMedia(data.imgSrc.url)}
@@ -53,18 +53,35 @@ const ListCard = ({ data }) => {
 
 export default ListCard;
 
-const CardContainer = styled.div`
-  background: var(--color-sapphire-3);
+const Styles = {
+  budget: {
+    bgContainer: 'var(--color-sapphire-3)',
+    bgTag:'var(--color-sapphire-0)',
+    colorTag:'var(--color-sapphire-3)',
+    bgImg:'var(--color-sapphire-0)',
+    bgBtn:'var(--color-sapphire-2)'
+  },
+  spending: {
+    bgContainer: 'var(--color-flamingo-3)',
+    bgTag:'var(--color-flamingo-0)',
+    colorTag:'var(--color-flamingo-3)',
+    bgImg:'var(--color-flamingo-0)',
+    bgBtn:'var(--color-flamingo-2)'
+  },
+};
+
+const CardContainer = styled.div<{type:string}>`
+  background: ${(props) => Styles[props.type]?.bgContainer || 'inherit'};
   color: white;
   padding: 40px 0 48px 0;
   margin-top: 56px;
   position: relative;
 `;
 
-const TagContainer = styled.div`
+const TagContainer = styled.div<{type:string}>`
   border: 1px solid white;
   border-radius: 0px 0px 12px 12px;
-  background: var(--color-sapphire-0);
+  background: ${(props) => Styles[props.type]?.bgTag || 'inherit'};
   display: inline-flex;
   height: 42px;
   padding: 4px 8px;
@@ -80,7 +97,7 @@ const TagContainer = styled.div`
   }
 
   top: -8px;
-  color: var(--color-sapphire-3);
+  color: ${(props) => Styles[props.type]?.colorTag || 'inherit'};
   text-transform: uppercase;
 
   > svg {
@@ -90,8 +107,8 @@ const TagContainer = styled.div`
   }
 `;
 
-const ImageBg = styled.div`
-  background: var(--color-sapphire-0);
+const ImageBg = styled.div<{type:string}>`
+  background: ${(props) => Styles[props.type]?.bgImg || 'inherit'};
 
   figure {
     position: relative;
@@ -101,6 +118,7 @@ const ImageBg = styled.div`
       position: absolute;
       bottom: 40px;
       right: 56px;
+      background: ${(props) => Styles[props.type]?.bgBtn || 'inherit'};
     }
   }
 `;
