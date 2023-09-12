@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { states } from 'data/home';
-import { Tags } from 'components/data';
 import { Button } from 'components/actions';
 import { ButtonComp } from 'components/actions/Button';
 import { Heading } from 'components/layouts/Heading';
@@ -23,8 +22,23 @@ const HomeStates = () => {
         <StateList>
           {states.map((item, index) => (
             <Card key={`state-${index}`}>
-              <Heading as='h2' variant='h2l'>{item.title}</Heading>
-              <Tags data={item.tags} />
+              <Heading as="h2" variant="h2l">
+                {item.title}
+              </Heading>
+              <TagsContainer>
+                {item.tags.map((tag, index) => (
+                  <Tag
+                    className={`${
+                      tag.toLowerCase().includes('budget')
+                        ? 'budget'
+                        : 'treasury'
+                    }`}
+                    key={`tag-${index}`}
+                  >
+                    {tag}
+                  </Tag>
+                ))}
+              </TagsContainer>
               <figure>
                 <Image
                   src={item.img}
@@ -84,14 +98,39 @@ const StateList = styled.ul`
   -webkit-overflow-scrolling: touch; */
 `;
 
+const TagsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top:12px;
+  margin-bottom: 20px;
+`;
+
+const Tag = styled.div`
+  &.budget {
+    background: var(--color-sapphire-2);
+  }
+  &.treasury {
+    background: var(--color-flamingo-2);
+  }
+  &.default {
+    background: var(--color-flamingo);
+  }
+  color: white;
+  padding: 4px 8px 4px 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+`;
+
 const BtnCont = styled.div`
   display: flex;
   justify-content: center;
-  margin-top:12px;
-  
+  margin-top: 12px;
+
   ${ButtonComp} {
     text-decoration: none;
-   }
+  }
 `;
 
 const Card = styled.li`
