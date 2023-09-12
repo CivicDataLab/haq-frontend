@@ -22,7 +22,6 @@ import {
 import { Breadcrumb, Button } from 'components/actions';
 import { capitalizeWords } from 'utils/data';
 import { Banner } from 'components/shared';
-import * as data from 'data/spendingdata/spendingdata';
 import { useWindowSize } from 'utils/hooks';
 
 type Props = {
@@ -85,6 +84,16 @@ const Explorer: React.FC<Props> = ({
 
   const breadcrumbArray = generateBreadcrumbArray(primary, foundState, scheme);
 
+  const banner = {
+    main: 'Treasury Schemes List',
+    sub: 'For detailed scheme-wise breakdown of each district, please click here.',
+    bgColor: 'var(--color-honey-0)',
+    button: 'Explore All Schemes',
+    btnLink: `/${foundState}/datasets`,
+    bgBtn: 'var(--color-carrot-3)',
+    imgSrc: '/assets/character.svg',
+  };
+
   const { width } = useWindowSize();
 
   return (
@@ -118,10 +127,17 @@ const Explorer: React.FC<Props> = ({
                     dispatch={dispatch}
                   />
                   {width > 600 ? (
-                    <Banner details={data.banner} />
+                    <Banner details={banner} />
                   ) : (
                     <TreasuryList>
-                      <Button size="md" bg='#865194'> Treasury Schemes List </Button>
+                      <Button
+                        href={`/${foundState}/datasets`}
+                        size="md"
+                        kind="secondary"
+                      >
+                        {' '}
+                        Treasury Schemes List{' '}
+                      </Button>
                     </TreasuryList>
                   )}
                 </>
@@ -146,7 +162,7 @@ const Explorer: React.FC<Props> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  
+
   let scheme, obj;
   let primary: boolean = false;
   const foundState = context.query.state;
@@ -205,8 +221,9 @@ const NoContext = styled.div`
 const TreasuryList = styled.div`
   margin-top: 32px;
   display: flex;
-  > button {
-      flex-grow: 1;
-      justify-content: center;
-    }
+  > a {
+    flex-grow: 1;
+    justify-content: center;
+    text-decoration: none;
+  }
 `;
