@@ -182,6 +182,21 @@ export const IndicatorWrapper = styled.div`
     ::-webkit-scrollbar {
       width: 5px;
     }
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: rgba(100, 100, 100, 0.8);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
   }
 
   h3 {

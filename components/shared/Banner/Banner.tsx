@@ -49,7 +49,8 @@ const BannerComp = styled.section`
   display: flex;
   padding: 40px 80px 0 80px;
   border-radius: 8px;
-
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08); 
+  
   @media (max-width: 768px) {
     padding: 16px 0 0 16px;
   }

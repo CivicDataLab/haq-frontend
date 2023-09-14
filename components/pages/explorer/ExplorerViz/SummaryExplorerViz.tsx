@@ -627,19 +627,22 @@ const VizMenu = styled.div`
     }
   }
 
+
+  [class^='MenuComp__Wrapper'] {
+    width:100%;
+  }
+
+
+  [class^='MenuComp__MenuButton'] {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
   @media (max-width: 980px) {
     width: 100%;
 
     > div > span {
       width: 92px;
-    }
-    [class^='MenuComp__Wrapper'] {
-      width: 100%;
-    }
-
-    [class^='MenuComp__MenuButton'] {
-      width: 100%;
-      justify-content: space-between;
     }
   }
 
