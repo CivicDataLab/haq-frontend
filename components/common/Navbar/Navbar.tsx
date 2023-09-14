@@ -277,7 +277,7 @@ const Navitem = styled.a`
     }
 
     a {
-      text-decoration: underline;
+      text-decoration: none;
       line-height: 1.5;
       padding: 4px 8px 4px 12px;
       color: var(--text-dark-high);

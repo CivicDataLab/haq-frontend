@@ -3,29 +3,19 @@ export const navList = {
   logo: '/assets/images/haqLogo.png',
   links: [
     {
-      link: '/datasets',
-      name: 'Datasets',
-      submenu: [
-        {
-          link: '/scheme/summary-data',
-          name: 'Summary',
-        },
-        {
-          link: '/scheme',
-          name: 'Schemes',
-        },
-      ],
-    },
-    {
       link: '/states',
-      name: 'States',
+      name: 'State Data Explorer',
       submenu: [
         {
-          link: '/state/up',
+          link: '/bihar',
+          name: 'Bihar',
+        },
+        {
+          link: '/uttar-pradesh',
           name: 'Uttar Pradesh',
         },
         {
-          link: '/state/assam',
+          link: '/assam',
           name: 'Assam',
         },
       ],

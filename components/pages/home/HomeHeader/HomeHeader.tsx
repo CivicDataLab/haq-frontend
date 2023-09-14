@@ -43,7 +43,7 @@ export default HomeHeader;
 
 const Wrapper = styled.div`
   background: var(--color-violet);
-  background-image: url('/assets/bg_illustration.svg');
+  background-image: url('/assets/heroBg.svg');
   background-size: cover;
 
   > div {
