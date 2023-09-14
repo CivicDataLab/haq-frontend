@@ -50,20 +50,28 @@ export async function fetchJSON(schemeType, key = null) {
   return jsonData;
 }
 
-export async function fetchBudgetJSON(schemeType, key = null) {
-  // get JSON URL
-  const jsonUrl = await fetchQuery('schemeType', schemeType)
-  .then((res) => res.resources.filter((e) => e.format == 'JSON')[0].url)
-   
-    .catch((e) => console.error(e));
-  // fetch JSON data
+export async function fetchBudgetJSON(schemeType, key) {
+  const queryRes = await fetch(
+    `https://data.girleducation.in/api/3/action/package_search?fq=schemeType:${schemeType}%20AND%20states:${key}%20AND%20private:false`
+  ).then((res) => res.json());
+
+  const jsonUrl = queryRes.result.results[0].resources
+  .filter((res) => res.format === 'JSON')[0]?.url;
+
+  if (!jsonUrl) {
+    console.error('JSON URL not found.');
+    return null;
+  }
+
+  // Fetch JSON data
   const jsonData = await fetch(jsonUrl)
     .then((res) => res.json())
-    .catch((e) => console.error(e));
+    .catch((e) => {
+      console.error(e);
+      return null;
+    });
 
-  // if key is provided, send only that data
-  if (key) return jsonData[key];
-  return jsonData;
+  return jsonData[key];
 }
 
 const isObject = (val) => {
