@@ -19,6 +19,8 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
   const breadcrumbArray = ['Home', foundState];
   const { Header: stateHeader, linkcard, listcard, carousel } = stateData;
 
+  let updateStateHeader = { ...stateHeader, state: pathName };
+
   return (
     <>
       <Head>
@@ -27,11 +29,11 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       <Wrapper foundState={foundState}>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
-          <Header header={stateHeader} schemeList={data.obj} />
+          <Header header={updateStateHeader} schemeList={data.obj} />
         </main>
       </Wrapper>
       <Card state={pathName} dataset={linkcard} />
-      <ListCard data={listcard[0]} />
+       <ListCard data={listcard[0]} />
       <div className='container'>
         <Banner details={data.banner}/> 
       </div>
