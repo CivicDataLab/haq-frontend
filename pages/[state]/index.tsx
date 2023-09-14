@@ -26,7 +26,7 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       <Head>
         <title> {foundState} | HAQ</title>
       </Head>
-      <Wrapper foundState={foundState}>
+      <Wrapper pathName={pathName}>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
           <Header header={updateStateHeader} schemeList={data.obj} />
@@ -43,15 +43,15 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
   );
 };
 
-const Wrapper = styled.div<{ foundState: string }>`
+const Wrapper = styled.div<{ pathName: string }>`
   background-color: var(--color-violet-0);
-  background-image: url('/assets/Hero${props => props.foundState}.svg');
+  background-image: url('/assets/hero-${props => props.pathName}.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 
   @media(max-width:720px){
-    background-image: url('/assets/MobileHero${props => props.foundState}.svg');
+    background-image: url('/assets/mobilehero-${props => props.pathName}.svg');
     background-size: cover;
     background-position: 20% 20%;
   }
