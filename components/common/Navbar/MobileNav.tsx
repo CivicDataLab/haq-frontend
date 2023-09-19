@@ -53,14 +53,17 @@ const MobNav = ({ data }) => {
           </Button>
 
           <div className={data.logo && 'header__logo'}>
-            <Link href="/">
-              <Image
-                className="logo"
-                src={data.logo}
-                alt={`${data.site} logo`}
-                width={220}
-                height={46}
-              />
+            <Link passHref href="/">
+              <Logo>
+                <Image
+                  className="logo"
+                  src={data.logo}
+                  alt={`${data.site} logo`}
+                  width={40}
+                  height={42}
+                />
+                <h1>GEFT</h1>
+              </Logo>
             </Link>
           </div>
         </div>
@@ -121,10 +124,11 @@ const MobNav = ({ data }) => {
                     <MenuItem
                       href={navItem.link}
                       onClick={mobileNavHandler}
-                      className={`navbar__item ${router.pathname.includes(navItem.link)
+                      className={`navbar__item ${
+                        router.pathname.includes(navItem.link)
                           ? 'navbar__item--active'
                           : ''
-                        }`}
+                      }`}
                     >
                       {navItem.name}
                     </MenuItem>
@@ -178,6 +182,16 @@ const Header = styled.header`
   }
 `;
 
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  > h1 {
+    color: white;
+    font-size: 24px;
+  }
+`;
 const MenuWrapper = styled.nav`
   background-color: var(--nav-mobile);
   color: var(--text-dark-high);

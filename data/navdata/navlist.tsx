@@ -1,6 +1,6 @@
 export const navList = {
   site: 'HAQ',
-  logo: '/assets/images/haqLogo.png',
+  logo: '/assets/images/logo.png',
   links: [
     {
       link: '/states',

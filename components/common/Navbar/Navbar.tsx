@@ -88,13 +88,16 @@ const Nav = ({ data }) => {
             <Link href="/">
               <a>
                 {data.logo ? (
-                  <Image
-                    className="logo"
-                    src={data.logo}
-                    alt={`${data.site} logo`}
-                    width={200}
-                    height={52}
-                  />
+                  <Logo>
+                    <Image
+                      className="logo"
+                      src={data.logo}
+                      alt={`${data.site} logo`}
+                      width={40}
+                      height={52}
+                    />
+                    <h1 >GEFT</h1>
+                  </Logo>
                 ) : (
                   <h1>{data.site || 'HAQ'}</h1>
                 )}
@@ -191,6 +194,16 @@ const Header = styled.header`
       object-fit: contain;
       vertical-align: bottom;
     }
+  }
+`;
+
+const Logo = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  > h1 {
+    color: white;
+    font-size: 32px;
   }
 `;
 
