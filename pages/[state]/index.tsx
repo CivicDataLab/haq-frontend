@@ -6,16 +6,17 @@ import { Card, InfoCarousel } from 'components/pages/state';
 import { Header, ListCard } from 'components/pages/state';
 import * as data from 'data/statedata/statedata';
 import Head from 'next/head';
-import { capitalizeWords } from 'utils/data';
+import { capitalizeWords, fetchJSON } from 'utils/data';
 import { Banner } from 'components/shared';
 
 type Props = {
   pathName: string;
   foundState: string;
-  stateData:any
+  stateData:any;
+  schemeList: any;
 };
 
-const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }) => {
+const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData], schemeList }) => {
   const breadcrumbArray = ['Home', foundState];
   const { Header: stateHeader, linkcard, listcard, carousel } = stateData;
 
@@ -29,7 +30,7 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData] }
       <Wrapper pathName={pathName}>
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
-          <Header header={updateStateHeader} schemeList={data.obj} />
+          <Header header={updateStateHeader} schemeList={schemeList} />
         </main>
       </Wrapper>
       <Card state={pathName} dataset={linkcard} />
@@ -80,12 +81,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
   const foundState = capitalizeWords(state);
 
-  const stateData = await fetchAPI(`/statepages?filters[slug]=${state}`);
+  const [stateData,schemeList] = await Promise.all([
+    fetchAPI(`/statepages?filters[slug]=${state}`),
+    fetchJSON('all-schemes', state),
+  ]);
+
   return {
     props: {
       pathName: state,
       foundState,
-      stateData: stateData.data
+      stateData: stateData.data,
+      schemeList
     },
     revalidate: 1,
   };

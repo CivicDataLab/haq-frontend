@@ -30,7 +30,7 @@ const MobileSelector: React.FC<{
 
   const schemeLists = React.useMemo(() => {
     if (selectedData)
-      return Object.values(schemeList[state][selectedData])
+      return Object.values(schemeList[selectedData])
         .map((item: any) => ({
           value: item.scheme_code,
           label: item.scheme,
@@ -67,7 +67,7 @@ const MobileSelector: React.FC<{
           size="sm"
           href={
             selectedScheme
-              ? `/${selectedScheme.state}/${selectedData}/${selectedScheme.code}`
+              ? `/${state}/${selectedData}/${selectedScheme}`
               : null
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}
