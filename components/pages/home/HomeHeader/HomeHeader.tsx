@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import SchemeSelector from './SchemeSelector';
-import * as data from 'data/statedata/statedata';
 import Image from 'next/image';
 import { useWindowSize } from 'utils/hooks';
 import MobileSelector from './MobileSelector';
 import { Heading } from 'components/layouts/Heading';
 
-const HomeHeader = ({ heading, subheading }) => {
+const HomeHeader = ({ heading, subheading, schemeList }) => {
   const { width } = useWindowSize();
 
   return (
@@ -21,9 +20,9 @@ const HomeHeader = ({ heading, subheading }) => {
             {subheading}
           </Heading>
           {width > 768 ? (
-            <SchemeSelector schemeList={data.obj} />
+            <SchemeSelector schemeList={schemeList} />
           ) : (
-            <MobileSelector schemeList={data.obj} />
+            <MobileSelector schemeList={schemeList} />
           )}
         </HeaderText>
         <figure>
