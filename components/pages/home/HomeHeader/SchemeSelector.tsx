@@ -69,6 +69,7 @@ const SchemeSelector: React.FC<{
               setSelectedScheme({
                 state: e.state,
                 code: e.value,
+                tag: e.tag,
               });
             } else {
               setSelectedScheme(null);
@@ -91,7 +92,9 @@ const SchemeSelector: React.FC<{
           size="sm"
           href={
             selectedScheme
-              ? `/${selectedScheme.state}/${selectedData}/${selectedScheme.code}`
+              ? selectedScheme.tag === 'budget'
+                ? `/${selectedScheme.state}/budget?scheme=${selectedScheme.code}`
+                : `/${selectedScheme.state}/datasets/${selectedScheme.code}`
               : null
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}
@@ -115,7 +118,7 @@ export const ConsMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1px;
+ // gap: 1px;
 
   .button {
     height: 40px;
