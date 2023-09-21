@@ -45,7 +45,7 @@ const SchemeSelector: React.FC<{
 
   const schemeLists = React.useMemo(() => {
     if (selectedData)
-      return Object.values(schemeList[state][selectedData])
+      return Object.values(schemeList[selectedData])
         .map((item: any) => ({
           value: item.scheme_code,
           label: item.scheme,
@@ -117,7 +117,6 @@ export const ConsMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1px;
 
   .button {
     height: 40px;
