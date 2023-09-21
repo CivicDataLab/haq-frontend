@@ -37,8 +37,8 @@ export function generateSlug(slug) {
 export async function fetchJSON(schemeType, key = null) {
   // get JSON URL
   const jsonUrl = await jsonFetchQuery('schemeType', schemeType)
-  .then((res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url)
-   
+    .then((res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url)
+
     .catch((e) => console.error(e));
   // fetch JSON data
   const jsonData = await fetch(jsonUrl)
@@ -104,6 +104,55 @@ export async function fetchSheets(link) {
     });
   return result;
 }
+
+export async function searchDataTransform() {
+  try {
+    const result = await fetchSheets(process.env.SEARCH_URL);
+    if (!result) {
+      throw new Error('Data not found or empty');
+    }
+
+    const obj = {};
+
+    for (let i = 1; i < result[0].length; i++) {
+      const [schemeCode, schemeName, state, dataType] = result[0][i].map(value => value.trim());
+      const stateSlug = generateSlug(state);
+
+      if (!obj[stateSlug]) {
+        obj[stateSlug] = {};
+      }
+
+      if (!obj[stateSlug]['all datasets']) {
+        obj[stateSlug]['all datasets'] = [];
+      }
+
+      obj[stateSlug]['all datasets'].push({
+        scheme: schemeName,
+        scheme_code: schemeCode,
+        tag: dataType,
+      });
+
+      const dataKey = dataType === 'treasury' ? 'spending data' : dataType + ' data';
+
+      if (!obj[stateSlug][dataKey]) {
+        obj[stateSlug][dataKey] = [];
+      }
+
+      obj[stateSlug][dataKey].push({
+        scheme: schemeName,
+        scheme_code: schemeCode,
+        tag: dataType,
+      });
+    }
+
+    return obj;
+
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
 const twoDecimals = (num) => {
   return isNaN(num)
     ? ''
@@ -114,27 +163,27 @@ const toLakh = (num, i) => {
   else return twoDecimals(num);
 };
 
-  // Encapsulate filtering logic into a separate function
-  const isMatched = (filters, value) =>
-    !filters.length || (value && filters.includes(value));
+// Encapsulate filtering logic into a separate function
+const isMatched = (filters, value) =>
+  !filters.length || (value && filters.includes(value));
 
-  export const applyFilters = (mode, type, datsetsFilters) => {
-    // Parse the filters from the string using regular expressions
-    const modeFilterRegex = /scheme_mode:\("(.*?)"\)/;
-    const typeFilterRegex = /scheme_type:\("(.*?)"\)/;
-    const modeFilterMatch = datsetsFilters.match(modeFilterRegex);
-    const typeFilterMatch = datsetsFilters.match(typeFilterRegex);
+export const applyFilters = (mode, type, datsetsFilters) => {
+  // Parse the filters from the string using regular expressions
+  const modeFilterRegex = /scheme_mode:\("(.*?)"\)/;
+  const typeFilterRegex = /scheme_type:\("(.*?)"\)/;
+  const modeFilterMatch = datsetsFilters.match(modeFilterRegex);
+  const typeFilterMatch = datsetsFilters.match(typeFilterRegex);
 
-    // Extract the filter values from the regex match and convert to lowercase
-    const modeFilters = modeFilterMatch ? modeFilterMatch[1].toLowerCase().split(' OR ') : [];
-    const typeFilters = typeFilterMatch ? typeFilterMatch[1].toLowerCase().split(' OR ') : [];
+  // Extract the filter values from the regex match and convert to lowercase
+  const modeFilters = modeFilterMatch ? modeFilterMatch[1].toLowerCase().split(' OR ') : [];
+  const typeFilters = typeFilterMatch ? typeFilterMatch[1].toLowerCase().split(' OR ') : [];
 
-    // Apply filters based on the parsed filter values
-    const modeMatches = isMatched(modeFilters, mode);
-    const typeMatches = isMatched(typeFilters, type);
+  // Apply filters based on the parsed filter values
+  const modeMatches = isMatched(modeFilters, mode);
+  const typeMatches = isMatched(typeFilters, type);
 
-    return modeMatches && typeMatches;
-  };
+  return modeMatches && typeMatches;
+};
 
 export async function dataTransform(id) {
   const obj = {};
@@ -168,7 +217,7 @@ export async function dataTransform(id) {
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
     notes = data.notes || '';
-    code = name || ''
+    code = name || '';
   });
 
   await fetchSheets(url).then((res) => {
@@ -215,7 +264,7 @@ export async function dataTransform(id) {
       resUrls,
       dataUrl,
       metaUrl,
-      code
+      code,
     };
 
     // Tabular Data
@@ -558,25 +607,25 @@ export async function stateDataTransform(id) {
     // };
 
     // Tabular Data
-   
+
     for (let i = 1; i < dataParse.length; i++) {
       const schemeCode = dataParse[i][0];
       const fiscalYear = dataParse[i][1];
-    
+
       if (!data[schemeCode]) {
         data[schemeCode] = {};
       }
-    
+
       for (let j = 2; j < dataParse[0].length; j++) {
         const key = dataParse[0][j];
-    
+
         if (!data[schemeCode][key]) {
           data[schemeCode][key] = {};
         }
-    
+
         data[schemeCode][key][fiscalYear] = twoDecimals(dataParse[i][j]);
       }
-      
+
       // const indicatorSlug =
       //   generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
 
