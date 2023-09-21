@@ -51,7 +51,6 @@ const SchemeSelector: React.FC<{
           label: item.scheme,
           tag: item.tag,
         }))
-        .sort((a, b) => a.label.localeCompare(b.label));
   }, [selectedData]);
 
   return (
@@ -75,7 +74,16 @@ const SchemeSelector: React.FC<{
           options={schemeLists}
           isClearable
           isDisabled={isLoading}
-          onChange={(e: any) => setSelectedScheme(e?.value)}
+          onChange={(e: any) => {
+            if (e) {
+              setSelectedScheme({
+                code: e.value,
+                tag: e.tag,
+              });
+            } else {
+              setSelectedScheme(null);
+            }
+          }}
           noOptionsMessage={() => 'Please select a type'}
           isSecondCombobox
           formatOptionLabel={(option: any) => (
@@ -93,7 +101,9 @@ const SchemeSelector: React.FC<{
           size="sm"
           href={
             selectedScheme
-              ? `/${state}/${selectedData}/${selectedScheme}`
+              ? selectedScheme.tag === 'budget'
+                ? `/${state}/budget?scheme=${selectedScheme.code}`
+                : `/${state}/datasets/${selectedScheme.code}`
               : null
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}

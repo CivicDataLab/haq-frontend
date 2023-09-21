@@ -43,6 +43,7 @@ const MobileSelector: React.FC<{
               setSelectedScheme({
                 state: e.state,
                 code: e.value,
+                tag: e.tag,
               });
             } else {
               setSelectedScheme(null);
@@ -67,7 +68,9 @@ const MobileSelector: React.FC<{
           size="sm"
           href={
             selectedScheme
-              ? `/${selectedScheme.state}/${selectedData}/${selectedScheme.code}`
+              ? selectedScheme.tag === 'budget'
+                ? `/${selectedScheme.state}/budget?scheme=${selectedScheme.code}`
+                : `/${selectedScheme.state}/datasets/${selectedScheme.code}`
               : null
           }
           onClick={!selectedScheme ? () => alert('Select a scheme') : null}
