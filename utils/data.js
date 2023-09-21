@@ -126,11 +126,19 @@ export async function searchDataTransform() {
         obj[stateSlug]['all datasets'] = [];
       }
 
-      obj[stateSlug]['all datasets'].push({
-        scheme: schemeName,
-        scheme_code: schemeCode,
-        tag: dataType,
-      });
+      if (dataType === 'budget') {
+        obj[stateSlug]['all datasets'].unshift({
+          scheme: schemeName,
+          scheme_code: schemeCode,
+          tag: dataType,
+        });
+      } else {
+        obj[stateSlug]['all datasets'].push({
+          scheme: schemeName,
+          scheme_code: schemeCode,
+          tag: dataType,
+        });
+      }
 
       const dataKey = dataType === 'treasury' ? 'spending data' : dataType + ' data';
 
