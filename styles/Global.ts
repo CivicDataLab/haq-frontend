@@ -57,6 +57,7 @@ html {
   
   --color-amazon : ${theme.color_amazon};
   --color-amazon-0 : ${theme.color_amazon_0};
+  --color-amazon-5 : ${theme.color_amazon_5};
 
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};

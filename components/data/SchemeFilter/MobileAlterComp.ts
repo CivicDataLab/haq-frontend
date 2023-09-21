@@ -94,6 +94,7 @@ export const Header = styled.div`
 export const Wrapper = styled.div`
   padding-inline: 24px;
   background-color: var(--color-background-lighter);
+  border-radius: 0px 0px 12px 12px;
 
   @media (max-width: 540px) {
     padding-inline: 16px;
@@ -128,7 +129,7 @@ export const FilterAlter = styled.div`
       line-height: 137%;
 
       &[aria-selected='true'] {
-        background-color: var(--color-grey-600);
+        background-color: var(--color-amazon-0);
         font-weight: 500;
       }
     }

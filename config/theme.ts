@@ -41,6 +41,7 @@ export const DEFAULT_THEME = {
   
   color_amazon: '#69BC99',
   color_amazon_0:'#E1F5ED', 
+  color_amazon_5: '#1C523B',
   
   color_white: '#FFFFFF',
 

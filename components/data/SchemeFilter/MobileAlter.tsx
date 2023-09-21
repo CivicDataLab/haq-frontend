@@ -255,13 +255,19 @@ const MobileAlter: React.FC<{
     handleSortClick();
   }
 
+  const ButtonStyles = {
+    border:'2px solid var(--color-amazon-5)',
+    color:'var(--color-amazon-5)',
+    background:'#fff'
+  }
+
   function DataAlterFooter({ cancel, apply }) {
     return (
       <Footer>
-        <Button kind="secondary-outline" onClick={cancel} fluid={true}>
+        <Button style={ButtonStyles} onClick={cancel} fluid={true}>
           Close
         </Button>
-        <Button kind="secondary" onClick={apply} fluid={true}>
+        <Button bg='var(--color-amazon-5)' onClick={apply} fluid={true}>
           Apply
         </Button>
       </Footer>
