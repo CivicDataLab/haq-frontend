@@ -27,7 +27,6 @@ type Props = {
 const list = '"scheme_mode", "scheme_type"';
 
 const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
-  
   const router = useRouter();
   const { q, sort, size, fq, from } = router.query;
   const [search, setSearch] = useState(q);
@@ -48,7 +47,7 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
         size: items,
         from: pages,
       },
-    })
+    });
   }, [datsetsFilters, search, sorts, pages, items]);
 
   function handleDatasetsChange(val: any) {
@@ -72,23 +71,29 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
   }
 
   const headerData = {
-    title:'Bihar Treasury Schemes',
-    content :'Find downloadable data, visualisations and other useful information related to a number of school education schemes run by the Uttar Pradesh government.'
-  }
+    title: 'Bihar Treasury Schemes',
+    content:
+      'Find downloadable data, visualisations and other useful information related to a number of school education schemes run by the Uttar Pradesh government.',
+  };
 
-  const breadcrumbArray = ['Home',capitalizeWords(foundState), 'Treasury Schemes'];
+  const breadcrumbArray = [
+    'Home',
+    capitalizeWords(foundState),
+    'Treasury Schemes',
+  ];
 
   if (!results) {
     return <div>Loading...</div>;
   }
   return (
-    <>
+    <Wrapper>
       <Head>
         <title>HAQ | Treasury </title>
       </Head>
       <div className="container">
-      <Breadcrumb crumbs={breadcrumbArray} />
+        <Breadcrumb crumbs={breadcrumbArray} />
         <Header data={headerData} />
+        <hr className="horizontal-line" />
         {data && (
           <DatasetsComp>
             <Filter
@@ -113,35 +118,41 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
                 fq={datsetsFilters}
                 sortShow={true}
               />
-              <DatasetList data={results} /> 
+              <DatasetList data={results} />
               <Pagination total={count} newPage={handleDatasetsChange} />
             </DatasetRight>
           </DatasetsComp>
         )}
       </div>
-    </>
+    </Wrapper>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
   const query = context.query || {};
 
   const variables = convertToCkanSearchQuery(query);
   const facets = await fetchFilters(list, variables);
-  
+
   const data = await fetchDatasets(variables);
- 
+
   return {
     props: {
       data,
-      facets, 
-      foundState: query.state     
+      facets,
+      foundState: query.state,
     },
   };
 };
 
 export default Datasets;
+
+const Wrapper = styled.div`
+  .horizontal-line {
+    margin-top: 32px;
+    border: var(--separator-5);
+  }
+`;
 
 const DatasetRight = styled.div`
   width: 100%;
@@ -172,7 +183,6 @@ const DatasetSearch = styled.div`
   padding: 12px;
   border-radius: 12px;
   border: 1px solid var(--color-grey-600);
-  box-shadow: var(--box-shadow-1);
 `;
 
 const DatasetSort = styled.div`

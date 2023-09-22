@@ -22,7 +22,7 @@ const RelatedCard: React.FC<{ data: any; index: number }> = ({
             <div>
               <hr className="hr" />
               <div className="author__details">
-                <div className="author">{data.author}</div>
+                <div className="author"> By {data.author}</div>
                 <div className="date">{data.date}</div>
               </div>
             </div>

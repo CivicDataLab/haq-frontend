@@ -37,7 +37,7 @@ const Card = ({ state, dataset }) => {
 export default Card;
 
 const Wrapper = styled.div`
-  margin-top: 48px;
+  margin-top: 56px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;

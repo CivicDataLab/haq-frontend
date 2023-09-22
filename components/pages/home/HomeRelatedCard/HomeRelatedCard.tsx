@@ -12,7 +12,7 @@ const HomeRelatedCard = ({ datastory }) => {
           <div className="heading__text">
             <hr />
             <Heading as="h5" variant="h5l" color='var(--text-light-light)'>
-              data stories
+              Data Stories
             </Heading>
           </div>
           <Heading as="h1" variant="h1l">

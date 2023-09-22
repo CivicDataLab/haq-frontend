@@ -1,6 +1,6 @@
 export const facets = {
     scheme_mode: {
-      title: 'scheme_mode',
+      title: 'Scheme Mode',
       items: [
         {
           name: 'Payments & Awards',
@@ -35,7 +35,7 @@ export const facets = {
       ],
     },
     scheme_type: {
-      title: 'scheme_type',
+      title: 'Scheme Type',
       items: [
         {
           name: 'Benefits girl students exclusively',
