@@ -119,13 +119,16 @@ const Indicator = ({ selectedIndicator, schemeData, currentSlug }) => {
                 scroll={false}
                 passHref
               >
-                <label className="indicator__label" htmlFor={obj.Scheme}>
+                <label
+                  data-selected={
+                    selectedIndicator == obj.Scheme_code ? 'true' : 'false'
+                  }
+                  className="indicator__label"
+                  htmlFor={obj.Scheme}
+                >
                   {obj.Scheme}
                   <input
                     type="radio"
-                    data-selected={
-                      selectedIndicator == obj.Scheme_code ? 'true' : 'false'
-                    }
                     id={obj.Scheme}
                     name="indicator-group"
                     className="indicator__radio"
@@ -231,50 +234,56 @@ export const IndicatorWrapper = styled.div`
 
   .indicator__label {
     display: block;
-		position: relative;
-		padding-left: 2.2rem;
-		margin-bottom: 1.2rem;
-		cursor: pointer;
-		font-size: 1rem;
-		user-select: none;
+    position: relative;
+    padding-left: 2.2rem;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    padding-top: 4px;
+    padding-bottom: 8px;
+
+    &[data-selected='true']{
+      background-color: var(--color-grey-600);
+    }
 
     input {
-			position: absolute;
-			opacity: 0;
-			cursor: pointer;
-			padding: 0;
-			overflow: visible;
-			margin: 0;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      padding: 0;
+      overflow: visible;
+      margin: 0;
 
-			&:checked ~ .indicator__span {
-				background-color: var(--color-violet-1);
+      &:checked ~ .indicator__span {
+        background-color: var(--color-violet-1);
 
-				&::after {
-					display: block;
-				}
-			}
-		}
+        &::after {
+          display: block;
+        }
+      }
+    }
   }
 
   .indicator__span {
     position: absolute;
-		top: 0;
-		left: 0;
-		height: 1.4rem;
-		width: 1.4rem;
-		background-color: #eee;
-		border-radius: 50%;
+    top: 5px;
+    left: 0;
+    height: 1.4rem;
+    width: 1.4rem;
+    background-color: #eee;
+    border-radius: 50%;
 
-		&::after {
-			width: 0.5rem;
-			height: 0.5rem;
-			border-radius: 50%;
-			background: white;
-			content: '';
-			position: absolute;
-			display: none;
-			top: 0.46rem;
-			left: 0.46rem;
-		}
+    &::after {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: white;
+      content: '';
+      position: absolute;
+      display: none;
+      top: 0.46rem;
+      left: 0.46rem;
+    }
   }
 `;
