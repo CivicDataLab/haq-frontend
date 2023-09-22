@@ -23,6 +23,19 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
     hindiTitle = parts[1]?.trim();
   }
 
+  const titleContent = (
+    <Title>
+      <Heading
+        as="h2"
+        variant={primary ? 'h2' : 'h2l'}
+        mt={primary ? '16px' : null}
+      >
+        {primary ? summary.description : englishTitle}
+      </Heading>
+      {width > 600 && <Share title={data.title} />}
+    </Title>
+  );
+
   return (
     <Wrapper>
       <HeaderContent primary={primary}>
@@ -32,39 +45,29 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
               <Heading as="h1" variant="h1">
                 {summary.title}
               </Heading>
-              <Heading as="h2" variant="h2" mt='16px'>
-              {summary.description}
-              </Heading>
+              {titleContent}
             </div>
           ) : (
             <>
-              <Title>
-                <Heading as="h2" variant="h2l">
-                  {englishTitle}
-                </Heading>
-                {width > 600 ? <Share title={data.title} /> : null}
-              </Title>
+              {titleContent}
               <Heading as="h3" variant="h3l" color="#9D423F">
                 {hindiTitle}
               </Heading>
             </>
           )}
         </div>
-
-        {!primary && (
-          <DataSorce>
-            <Content>
-              <p>Data Source :</p>
-              <span> {data.source} |</span>
-              <Link href={data.resUrls[0]} passHref>
-                <LinkStyled target="_blank">
-                  <span>Link to the Dataset</span>
-                  <LinkIcon />
-                </LinkStyled>
-              </Link>
-            </Content>
-          </DataSorce>
-        )}
+        <DataSource>
+          <Content>
+            <p>Data Source :</p>
+            <span> {primary ? data.source : summary.source} |</span>
+            <Link href={primary ? data.resUrls[0] : summary.link} passHref>
+              <LinkStyled target="_blank">
+                <span>Link to the Dataset</span>
+                <LinkIcon />
+              </LinkStyled>
+            </Link>
+          </Content>
+        </DataSource>
         {width < 600 ? <Share title={data.title} /> : null}
       </HeaderContent>
     </Wrapper>
@@ -89,9 +92,9 @@ const HeaderContent = styled.div<{ primary: boolean }>`
     margin-top: 16px;
   }
 
-  @media(max-width:600px) {
+  @media (max-width: 600px) {
     h3 {
-      margin-top:12px;
+      margin-top: 12px;
     }
   }
 `;
@@ -101,7 +104,7 @@ const Title = styled.div`
   justify-content: space-between;
 `;
 
-const DataSorce = styled.div`
+const DataSource = styled.div`
   display: flex;
   align-items: center;
   margin-top: 16px;
