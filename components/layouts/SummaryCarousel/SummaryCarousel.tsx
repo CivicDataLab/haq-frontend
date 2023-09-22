@@ -24,7 +24,6 @@ const SummaryCarousel = ({
 }: Props) => {
   const [currentSlide, setCurrentSlide] = React.useState(1);
   const [childrenLength, setChildrenLength] = React.useState(1);
-  console.log(childrenLength);
 
   function current(data: number, length: number) {
     setCurrentSlide(data);
@@ -53,7 +52,6 @@ const SummaryCarousel = ({
     chunkedVariables[variableNames[i]] = chunks[i];
   }
 
-  console.log(chunkedVariables);
   const svgIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -77,47 +75,54 @@ const SummaryCarousel = ({
 
   return Object.keys(chunkedVariables).length > 0 ? (
     <Wrapper>
-      <div className="container carousel-wrapper">
-        <Heading>
-          {title && typeof title === 'string' ? (
-            <Title as={titleAs}>{title}</Title>
-          ) : (
-            title
-          )}
-        </Heading>
+      <div className="container">
+        <StyledText as="h2" variant="h2l" color="#681510">
+          Data Highlight
+        </StyledText>
+      </div>
+      <div className="container">
+        <div className="carousel-wrapper">
+          <Heading>
+            {title && typeof title === 'string' ? (
+              <Title as={titleAs}>{title}</Title>
+            ) : (
+              title
+            )}
+          </Heading>
 
-        <Carousel
-          label=" "
-          nextBtn={svgIcon}
-          prevBtn={svgIcon}
-          current={current}
-        >
-          {Object.keys(chunkedVariables).map((variableName) => (
-            <div key={`carouselItem-${variableName}`}>
-              <div className="carousel-header">
-                <StyledText
-                  color="var(--text-light-medium)"
-                  as="h2"
-                  variant="h2l"
-                >
-                  Uttar Pradesh - Treasury Data
-                </StyledText>
-                <Button size="sm" bg="#D26F6E">
-                  View Treasury Schemes
-                </Button>
+          <Carousel
+            label=" "
+            nextBtn={svgIcon}
+            prevBtn={svgIcon}
+            current={current}
+          >
+            {Object.keys(chunkedVariables).map((variableName) => (
+              <div key={`carouselItem-${variableName}`}>
+                <div className="carousel-header">
+                  <StyledText
+                    color="var(--text-light-medium)"
+                    as="h2"
+                    variant="h2l"
+                  >
+                    Uttar Pradesh - Treasury Data
+                  </StyledText>
+                  <Button size="sm" bg="#D26F6E">
+                    View Treasury Schemes
+                  </Button>
+                </div>
+                <ul key={`list-${variableName}`}>
+                  {chunkedVariables[variableName]?.map((item, index) => (
+                    <li key={`summary-${variableName}-${index}`}>
+                      <div></div>
+                      <strong>{item.value}</strong>
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul key={`list-${variableName}`}>
-                {chunkedVariables[variableName]?.map((item, index) => (
-                  <li key={`summary-${variableName}-${index}`}>
-                    <div></div>
-                    <strong>{item.value}</strong>
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </Carousel>
+            ))}
+          </Carousel>
+        </div>
       </div>
     </Wrapper>
   ) : null;
