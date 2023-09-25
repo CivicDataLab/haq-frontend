@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { SchemeIndicator, Tags } from 'components/data';
 import styled from 'styled-components';
@@ -6,11 +7,23 @@ import { Tag } from 'components/data/Tags/TagsComp';
 import { Globe, TableIcon } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
 
-import BudgetGraph from './BudgetGraph';
-import BudgetTable from './BudgetTable';
 import DownloadViz from './DownloadViz';
 import { IndicatorWrapper } from 'components/data';
 import { Heading } from 'components/layouts/Heading';
+
+const BudgetGraph = dynamic(
+  () => import('./BudgetGraph'),
+  {
+    ssr: false,
+  }
+);
+
+const BudgetTable = dynamic(
+  () => import('./BudgetTable'),
+  {
+    ssr: false,
+  }
+);
 
 const Viz = ({ data }) => {
   const router = useRouter();
