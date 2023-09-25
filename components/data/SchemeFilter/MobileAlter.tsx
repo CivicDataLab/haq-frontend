@@ -10,7 +10,7 @@ import {
   Wrapper,
 } from './MobileAlterComp';
 import { Button, Modal } from 'components/actions';
-import { FilterIcon, SortIcon } from 'components/icons';
+import { FilterIcon, SortIcon, FilterPlus } from 'components/icons';
 import useEffectOnChange from 'utils/hooks';
 
 function formatFilterName(name: string) {
@@ -282,13 +282,13 @@ const MobileAlter: React.FC<{
           <Button
             kind="secondary-outline"
             onClick={handleFilterClick}
-            icon={<FilterIcon />}
+            icon={fq.length > 0 ? <FilterPlus /> : <FilterIcon />}
             iconSide="left"
           />
           <Button
             kind="secondary-outline"
             onClick={handleFilterClick}
-            icon={<FilterIcon />}
+            icon={fq.length > 0 ? <FilterPlus /> : <FilterIcon />}
             iconOnly={true}
             className="alter__small"
           />
@@ -378,8 +378,8 @@ const MobileAlter: React.FC<{
                         <a
                           role="tab"
                           tabIndex={-1}
-                          href={`#${data[filter].title}`}
-                          data-id={data[filter].title}
+                          href={`#${data[filter].val}`}
+                          data-id={data[filter].val}
                           id={`filterTab${index}`}
                         >
                           {formatFilterName(data[filter].title)}
@@ -390,7 +390,7 @@ const MobileAlter: React.FC<{
                   {Object.keys(data).map((filter: any, index: number) => (
                     <div
                       key={`filter-${index}`}
-                      id={data[filter].title}
+                      id={data[filter].val}
                       role="tabpanel"
                       tabIndex={-1}
                       aria-labelledby={`filterTab${index}`}
@@ -406,7 +406,7 @@ const MobileAlter: React.FC<{
                               value={item.name}
                               name="sort-group"
                               id={`${item.name}-m`}
-                              data-type={data[filter].title}
+                              data-type={data[filter].val}
                             />
                             {item.display_name}
                           </label>
