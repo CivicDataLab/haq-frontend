@@ -2,6 +2,7 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import {
   dataTransform,
@@ -15,14 +16,28 @@ import {
   // ExplorerDetailsViz,
   ExplorerHeader,
   ExplorerRelated,
-  ExplorerViz,
-  SummaryExplorerViz,
+  // ExplorerViz,
+  // SummaryExplorerViz,
 } from 'components/pages/explorer';
 
 import { Breadcrumb, Button } from 'components/actions';
 import { capitalizeWords } from 'utils/data';
 import { Banner } from 'components/shared';
 import { useWindowSize } from 'utils/hooks';
+
+const ExplorerViz = dynamic(
+  () => import('components/pages/explorer/ExplorerViz'),
+  {
+    ssr: false,
+  }
+);
+
+const SummaryExplorerViz = dynamic(
+  () => import('components/pages/explorer/ExplorerViz/SummaryExplorerViz'),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   // meta: any;
