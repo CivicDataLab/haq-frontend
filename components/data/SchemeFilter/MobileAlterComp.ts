@@ -16,7 +16,6 @@ export const MobileAlterComp = styled.div`
       padding: 6px;
       border-radius: 4px;
       border: 1px solid rgba(0, 0, 0, 0.12);
-      background: var(--grey-06, #f2eff2);
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08) inset;
       > svg {
         display: flex;
