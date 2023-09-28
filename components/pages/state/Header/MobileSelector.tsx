@@ -29,13 +29,17 @@ const MobileSelector: React.FC<{
   //   }, [consData]);
 
   const schemeLists = React.useMemo(() => {
-    if (selectedData)
-      return Object.values(schemeList[selectedData])
-        .map((item: any) => ({
+    if (selectedData) {
+      const selectedSchemeList = schemeList[selectedData];
+      if (selectedSchemeList) {
+        return Object.values(selectedSchemeList).map((item: any) => ({
           value: item.scheme_code,
           label: item.scheme,
           tag: item.tag,
-        }))
+        }));
+      }
+    }
+    return [];
   }, [selectedData]);
 
   return (
@@ -45,6 +49,7 @@ const MobileSelector: React.FC<{
           key={JSON.stringify(schemeLists)}
           options={schemeLists}
           isClearable
+          placeholder="Select a scheme"
           isDisabled={isLoading}
           onChange={(e: any) => {
             if (e) {
@@ -56,7 +61,7 @@ const MobileSelector: React.FC<{
               setSelectedScheme(null);
             }
           }}
-          noOptionsMessage={() => 'Please select a type'}
+          noOptionsMessage={() => 'No results found!'}
           isSecondCombobox
           mobileView
           formatOptionLabel={(option: any) => (

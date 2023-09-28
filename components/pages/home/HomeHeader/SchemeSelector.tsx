@@ -63,6 +63,7 @@ const SchemeSelector: React.FC<{
           key={JSON.stringify(groupedOpt)}
           options={groupedOpt}
           isClearable
+          placeholder="Select a scheme"
           isDisabled={isLoading}
           onChange={(e: any) => {
             if (e) {
@@ -75,7 +76,7 @@ const SchemeSelector: React.FC<{
               setSelectedScheme(null);
             }
           }}
-          noOptionsMessage={() => <div>Please select a type</div>}
+          noOptionsMessage={() => 'No results found!'}
           isSecondCombobox
           formatOptionLabel={(option: any) => (
             <Label>

@@ -44,13 +44,17 @@ const SchemeSelector: React.FC<{
   ];
 
   const schemeLists = React.useMemo(() => {
-    if (selectedData)
-      return Object.values(schemeList[selectedData])
-        .map((item: any) => ({
+    if (selectedData) {
+      const selectedSchemeList = schemeList[selectedData];
+      if (selectedSchemeList) {
+        return Object.values(selectedSchemeList).map((item: any) => ({
           value: item.scheme_code,
           label: item.scheme,
           tag: item.tag,
-        }))
+        }));
+      }
+    }
+    return [];
   }, [selectedData]);
 
   return (
@@ -73,6 +77,7 @@ const SchemeSelector: React.FC<{
           key={JSON.stringify(schemeLists)}
           options={schemeLists}
           isClearable
+          placeholder="Select a scheme"
           isDisabled={isLoading}
           onChange={(e: any) => {
             if (e) {
@@ -84,7 +89,7 @@ const SchemeSelector: React.FC<{
               setSelectedScheme(null);
             }
           }}
-          noOptionsMessage={() => 'Please select a type'}
+          noOptionsMessage={() => 'No results found!'}
           isSecondCombobox
           formatOptionLabel={(option: any) => (
             <Label>
