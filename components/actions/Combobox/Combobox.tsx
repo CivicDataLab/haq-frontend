@@ -180,18 +180,11 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__indicator-separator {
-      background-color: ${(props) =>
-        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+      display: none;
     }
 
     &__clear-indicator {
-      color: ${(props) =>
-        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
-      padding: ${(props) => (props.mobileView ? '0' : '4px')};
-
-      &:hover {
-        color: var(--color-grey-200);
-      }
+      display: none;
     }
 
     &__group {
