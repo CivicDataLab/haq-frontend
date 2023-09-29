@@ -105,62 +105,6 @@ export async function fetchSheets(link) {
   return result;
 }
 
-export async function searchDataTransform() {
-  try {
-    const result = await fetchSheets(process.env.SEARCH_URL);
-    if (!result) {
-      throw new Error('Data not found or empty');
-    }
-
-    const obj = {};
-
-    for (let i = 1; i < result[0].length; i++) {
-      const [schemeCode, schemeName, state, dataType] = result[0][i].map(value => value.trim());
-      const stateSlug = generateSlug(state);
-
-      if (!obj[stateSlug]) {
-        obj[stateSlug] = {};
-      }
-
-      if (!obj[stateSlug]['all datasets']) {
-        obj[stateSlug]['all datasets'] = [];
-      }
-
-      if (dataType === 'budget') {
-        obj[stateSlug]['all datasets'].unshift({
-          scheme: schemeName,
-          scheme_code: schemeCode,
-          tag: dataType,
-        });
-      } else {
-        obj[stateSlug]['all datasets'].push({
-          scheme: schemeName,
-          scheme_code: schemeCode,
-          tag: dataType,
-        });
-      }
-
-      const dataKey = dataType === 'treasury' ? 'spending data' : dataType + ' data';
-
-      if (!obj[stateSlug][dataKey]) {
-        obj[stateSlug][dataKey] = [];
-      }
-
-      obj[stateSlug][dataKey].push({
-        scheme: schemeName,
-        scheme_code: schemeCode,
-        tag: dataType,
-      });
-    }
-
-    return obj;
-
-  } catch (error) {
-    console.error('Error:', error);
-    return null; 
-  }
-}
-
 const twoDecimals = (num) => {
   return isNaN(num)
     ? ''
