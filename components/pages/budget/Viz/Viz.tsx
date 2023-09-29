@@ -11,19 +11,13 @@ import DownloadViz from './DownloadViz';
 import { IndicatorWrapper } from 'components/data';
 import { Heading } from 'components/layouts/Heading';
 
-const BudgetGraph = dynamic(
-  () => import('./BudgetGraph'),
-  {
-    ssr: false,
-  }
-);
+const BudgetGraph = dynamic(() => import('./BudgetGraph'), {
+  ssr: false,
+});
 
-const BudgetTable = dynamic(
-  () => import('./BudgetTable'),
-  {
-    ssr: false,
-  }
-);
+const BudgetTable = dynamic(() => import('./BudgetTable'), {
+  ssr: false,
+});
 
 const Viz = ({ data }) => {
   const router = useRouter();
@@ -116,7 +110,14 @@ const Viz = ({ data }) => {
         />
         <VizWrapper>
           <div>
-            <Heading as='h2' variant='h2l'>{data[activeIndicator]?.Scheme}</Heading>
+            <Heading as="h2" variant="h2l">
+              {data[activeIndicator]?.Scheme}
+            </Heading>
+            {data[activeIndicator]?.Scheme_hindi && (
+              <Heading as="h3" variant="h3l" mt="8px">
+                {data[activeIndicator]?.Scheme_hindi}
+              </Heading>
+            )}
             <Tags
               data={[
                 data[activeIndicator]?.Scheme_mode,
@@ -169,11 +170,11 @@ export const Wrapper = styled.section`
     margin-top: 1.5rem;
     ${IndicatorWrapper} {
       height: 540px;
-      padding:16px;
+      padding: 16px;
       border-radius: 8px;
       margin-bottom: 16px;
       fieldset {
-        max-height : 380px;
+        max-height: 380px;
       }
     }
   }
@@ -186,24 +187,24 @@ export const VizWrapper = styled.div`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
   padding: 24px;
   padding-bottom: 30px;
- 
+
   ${Tag} {
     border-radius: 4px;
     color: #1c523b;
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
-    background-color:' var(--text-light-disabled)';
+    background-color: var(--text-light-disabled);
   }
 
   ${Tag}:nth-child(1) {
-    background: var(--color-amazon-0); 
-    color: #1C523B;
+    background: var(--color-amazon-0);
+    color: #1c523b;
   }
-  
+
   ${Tag}:nth-child(2) {
-    background: var(--color-honey-0); 
-    color: var(--color-honey-3); 
+    background: var(--color-honey-0);
+    color: var(--color-honey-3);
   }
 
   @media (max-width: 910px) {
