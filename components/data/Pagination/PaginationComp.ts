@@ -49,7 +49,7 @@ export const PaginationJump = styled.div`
 `;
 
 export const ButtonsLabel = styled.span`
-  color: var(--text-light-light);
+  color: var(--text-light-medium);
   font-weight: normal;
   line-height: 140%;
 

@@ -121,6 +121,7 @@ const Tag = styled.div`
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 500;
+  border-radius: 4px;
 `;
 
 const BtnCont = styled.div`

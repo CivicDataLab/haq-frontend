@@ -31,6 +31,7 @@ const Budget: React.FC<Props> = ({
         <main className="container">
           <Breadcrumb crumbs={breadcrumbArray} />
           <Header header={headerData.header} />
+          <hr className="horizontal-line" />
           <Viz data={stateBudgetData} />
         </main>
       </Wrapper>
@@ -56,6 +57,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Wrapper = styled.div`
   > div {
     max-width: 1280px;
+  }
+  .horizontal-line {
+    margin-top: 16px;
+    border: var(--separator-5);
   }
 `;
 
