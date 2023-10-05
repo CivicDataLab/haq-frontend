@@ -105,7 +105,7 @@ export async function fetchSheets(link) {
   return result;
 }
 
-const twoDecimals = (num) => {
+export const twoDecimals = (num) => {
   return isNaN(num)
     ? ''
     : Number(num.toString().match(/^-?\d+(?:\.\d{0,1})?/));

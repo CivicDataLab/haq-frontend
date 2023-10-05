@@ -130,13 +130,13 @@ export async function dataTransform(id) {
       if (file.name == 'Metadata') resources.metaUrl = file.url;
     });
 
-    name = data.extras[0].value;
-    type = data.extras[3].value;
+    name = data.extras[3].value;
+    type = data.extras[6].value;
     slug = data.name || '';
     title = data.extras[1]
-      ? `${data.title} | ${data.extras[1].value}`
+      ? `${data.extras[3].value} | ${data.extras[4].value}`
       : data.title;
-    tags = data.extras[2] ? [data.extras[3].value, data.extras[2].value] : [];
+    tags = data.extras[2] ? [data.extras[2].value, data.extras[6].value] : [];
     dataUrl = data.resources.dataUrl || '';
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
@@ -160,14 +160,14 @@ export async function dataTransform(id) {
 
     const consList = {};
     dataParse.forEach((item, index) => {
-      if (consList[item[0]]) {
+      if (consList[item[1]]) {
         return;
       } else {
-        if (item[0] == 'district_name') return;
-        consList[item[0]] = [
+        if (item[1] == 'district_name') return;
+        consList[item[1]] = [
           {
-            constName: item[0],
-            constCode: item[1],
+            constName: item[1],
+            constCode: item[0],
           },
         ];
       }
