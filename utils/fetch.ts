@@ -1,4 +1,4 @@
-const API_KEY = 'AND !dataset:random AND private:false'
+const API_KEY = 'AND organization:haq-treasury AND data_type:Treasury AND private:false'
 
 export const fetchDatasets = async (variables) => {
   function changeKeyName(key) {
@@ -22,7 +22,7 @@ export const fetchDatasets = async (variables) => {
   const varString =
     varArray.length > 0
       ? varArray.join('&')
-      : `fq=organization:haq-up ${API_KEY}&rows=1000`;
+      : `fq=${API_KEY}&rows=1000`;
 
   const response = await fetch(
     `https://data.girleducation.in/api/3/action/package_search?${varString}`
