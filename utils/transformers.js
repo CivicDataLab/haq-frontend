@@ -141,7 +141,7 @@ export async function dataTransform(id) {
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
     notes = data.notes || '';
-    code = data.extras[5] || '';
+    code = data.extras[5].value || '';
   });
 
   await fetchSheets(url).then((res) => {

@@ -180,7 +180,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     primary = true;
   } else {
     scheme = await dataTransform(context.query.explorer);
-    obj = await fetchJSON('state-data', scheme.metadata.code);
+    obj = await fetchJSON('state-data', scheme?.metadata?.code);
   }
   const summary = await strapiAPI('/summary');
   return {
