@@ -1,23 +1,23 @@
 export const states = [
-    {
-      img: '/assets/states/bihar.png',
-      title: 'Bihar',
-      link: 'bihar',
-      tags: ['Budget Data', 'Treasury Data']
-    },
-    {
-      img: '/assets/states/assam.png',
-      title: 'Assam',
-      link: 'assam',
-      tags: ['Budget Data']
-    },
-    {
-      img: '/assets/states/uttarpradesh.png',
-      title: 'Uttar Pradesh',
-      link: 'uttar-pradesh',
-      tags: ['Budget Data']
-    },
-  ];
+  {
+    img: '/assets/states/uttarpradesh.png',
+    title: 'Uttar Pradesh',
+    link: 'uttar-pradesh',
+    tags: ['Budget Data', 'Treasury Data'],
+  },
+  {
+    img: '/assets/states/bihar.png',
+    title: 'Bihar',
+    link: 'bihar',
+    tags: ['Budget Data'],
+  },
+  {
+    img: '/assets/states/assam.png',
+    title: 'Assam',
+    link: 'assam',
+    tags: ['Budget Data'],
+  },
+];
 
 export const summaryCards = [
   {
