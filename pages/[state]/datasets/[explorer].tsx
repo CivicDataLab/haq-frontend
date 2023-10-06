@@ -3,13 +3,13 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
-import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import {
-  dataTransform,
   fetchJSON,
   schemeDataTransform,
-  stateDataTransform,
 } from 'utils/data';
+
+import { dataTransform } from 'utils/transformers';
+
 import { fetchAPI as strapiAPI } from 'lib/api';
 
 import {
@@ -60,12 +60,7 @@ const Explorer: React.FC<Props> = ({
   obj,
   foundState,
 }) => {
-  const grants = Object.keys(Object.values(scheme.data)[0]['grant_name']).map(
-    (item) => ({
-      value: item,
-      title: item,
-    })
-  );
+
   const initalState = {
     scheme: scheme.notes || '',
     schemeData: {},
@@ -74,7 +69,6 @@ const Explorer: React.FC<Props> = ({
     unit: '',
     consCode: '',
     vizType: 'map',
-    grantName: grants[0].value,
     schemeType: 'Benefits girl students exclusively',
     schemeMode: 'Total',
     schemeYear: '2021-2022',

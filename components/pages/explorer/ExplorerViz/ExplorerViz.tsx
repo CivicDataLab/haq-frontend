@@ -1,13 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
-import {
-  tabbedInterface,
-  filter_data_indicator,
-  filter_data_budgettype,
-} from 'utils/explorer';
-
-import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
+import { tabbedInterface} from 'utils/explorer';
 
 import {
   DownloadViz,
@@ -41,39 +35,17 @@ const StateDataBar = dynamic(() => import('./StateDataBar'), {
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 
 const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
-  // const [selectedIndicator, setSelectedIndicator] =
-  //   useState('Budget Estimates');
-  // const [indicatorFiltered, setIndicatorFiltered] = useState([]);
-  // const [finalFiltered, setFinalFiltered] = useState([]);
-  // const [budgetTypes, setBudgetTypes] = useState([]);
-  // const [selectedBudgetType, setSelectedBudgetType] = useState('');
-  const [isTable, setIsTable] = useState(false);
   const [tableData, setTableData] = useState<any>({});
 
   const [financialYears, setFinancialYears] = useState(undefined);
-  const [grant, setGrant] = useState(undefined);
-
   const [filtered, setFiltered] = useState([]);
-
   const [currentViz, setCurrentViz] = useState('#mapView');
-
-  // const barRef = useRef(null);
-  // const lineRef = useRef(null);
 
   const mapRef = useRef(null);
 
-  const { indicator, year, grantName } = meta;
+  const { indicator, year } = meta;
 
   const { width } = useWindowSize();
-
-  // todo: make it dynamic lie scheme dashboard
-  // const IndicatorDesc = [
-  //   meta['Indicator 1 - Description'],
-  //   meta['Indicator 2 - Description'],
-  //   meta['Indicator 3 - Description'],
-  //   meta['Indicator 4 - Description'],
-  //   meta['Indicator 5 - Description'],
-  // ];
 
   useEffect(() => {
     // ceating tabbed interface for viz selector
@@ -105,40 +77,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     },
   ];
 
-  // const crData = [
-  //   'Budget Estimates',
-  //   'Revised Estimates',
-  //   'Actual Expenditure',
-  // ];
-
-  // useEffect(() => {
-  //   // ceating tabbed interface for viz selector
-  //   const tablist = document.querySelector('.viz__tabs');
-  //   const panels = document.querySelectorAll('.viz__graph');
-  //   tabbedInterface(tablist, panels);
-
-  //   handleNewVizData('Budget Estimates');
-  // }, [fileData]);
-
-  // Run whenever a new indicator is selected
-  // useEffect(() => {
-  //   const budgetType = [
-  //     ...Array.from(new Set(indicatorFiltered.map((item) => item.budgetType))),
-  //   ];
-
-  //   if (budgetType.includes(selectedBudgetType))
-  //     handleDropdownChange(selectedBudgetType);
-  //   else if (selectedBudgetType == '') handleDropdownChange('Total');
-  //   else if (selectedBudgetType == 'NA' && budgetType.length > 1)
-  //     handleDropdownChange('Total');
-  //   else handleDropdownChange(budgetType[0]);
-  // }, [indicatorFiltered]);
-
-  // function hideMenu(e) {
-  //   setCurrentViz(e.target.getAttribute('href'));
-  //   if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-  //   else setIsTable(false);
-  // }
 
   // Table View
   useEffect(() => {
@@ -184,45 +122,14 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       };
       setTableData(tableData);
     }
-  }, [financialYears, meta.year, grantName]);
+  }, [financialYears, meta.year]);
 
-  useEffect(() => {
-    if (schemeRaw.data && filtered) {
-      const grants = Object.keys(
-        Object.values(schemeRaw.data)[0]['grant_name']
-      ).map((item) => ({
-        value: item,
-        title: item,
-      }));
-      setGrant(grants);
-
-      const years = Object.keys(
-        Object.values(schemeRaw.data)[0]['grant_name'][grantName]
-      ).map((item) => ({
-        value: item,
-        title: item,
-      }));
-      setFinancialYears(years); // all years
-
-      let defaultYear =
-        years && years.find((year) => year.value === '2021-2022');
-
-      dispatch({
-        year: year
-          ? year
-          : defaultYear
-          ? '2021-2022'
-          : years[years.length - 1].value,
-        grantName: grantName ? grantName : grants[0].value,
-      });
-    }
-  }, [filtered]);
 
   useEffect(() => {
     // fill up available financial years for state+sabha
-    if (grantName) {
+    if (schemeRaw.data && filtered) {
       const years = Object.keys(
-        Object.values(schemeRaw.data)[0]['grant_name'][grantName]
+        (schemeRaw.data)["indicator_01"].data
       ).map((item) => ({
         value: item,
         title: item,
@@ -233,24 +140,18 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
         years && years.find((year) => year.value === '2021-2022');
       dispatch({
         year: defaultYear ? '2021-2022' : years[years.length - 1].value,
-        grantName: grantName ? grantName : grant[0].value,
       });
 
       if (indicator) {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === indicator
         );
-        const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
+        const filtered = schemeRaw.data[indicatorID].data;
         setFiltered(filtered);
       }
     }
-  }, [grantName]);
+  }, [filtered]);
 
-  function hideMenu(e) {
-    setCurrentViz(e.target.getAttribute('href'));
-    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-    else setIsTable(false);
-  }
 
   useEffect(() => {
     handleNewIndicator(indicator || schemeRaw.metadata?.indicators[0]);
@@ -263,7 +164,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === val
         );
-        const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
+        const filtered = schemeRaw.data[indicatorID].data;
         dispatch({
           unit: schemeRaw.data[indicatorID].unit,
         });
@@ -275,28 +176,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       });
     }
   }
-  // function handleNewVizData(val: any) {
-  //   if (val) {
-  //     const filtered = filter_data_indicator(fileData, val);
-  //     const budgetType = [
-  //       ...Array.from(new Set(filtered.map((item) => item.budgetType))),
-  //     ];
-
-  //     const budgetTypeArray = budgetType.map((item) => {
-  //       return { title: item, value: item };
-  //     });
-
-  //     setSelectedIndicator(val);
-  //     setIndicatorFiltered(filtered);
-  //     setBudgetTypes(budgetTypeArray);
-  //   }
-  // }
-
-  // function handleDropdownChange(val: any) {
-  //   const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
-  //   setSelectedBudgetType(val);
-  //   setFinalFiltered(finalFiltered);
-  // }
 
   const vizItems = [
     {
@@ -385,20 +264,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
                   />
                 </VizMenu>
               )}
-              {grant && currentViz !== '#stateView' && (
-                <VizMenu className="fill">
-                  <Menu
-                    value={meta.grantName}
-                    options={grant}
-                    heading="Grant"
-                    handleChange={(e) =>
-                      dispatch({
-                        grantName: e,
-                      })
-                    }
-                  />
-                </VizMenu>
-              )}
               {width < 980 ? (
                 <VizMenu className="fill">
                   <Menu
@@ -427,88 +292,6 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
             </VizGraph>
           ))}
 
-          {/* <Title id="mapVizInfo" data-html2canvas-ignore>
-            <Info fill="#D7AA3B" />
-            Select any constituency to do the comparision and report card
-            generation.
-          </Title> */}
-
-          {/* {vizItems.map((item, index) => (
-            <VizGraph
-              className="viz__graph"
-              key={`vizItem-${index}`}
-              id={item.id}
-            >
-              {item.graph}
-            </VizGraph>
-          ))} */}
-
-          {/* <ExplorerSource>
-            <SourceText>
-              <strong>Data Source: </strong>
-              <p>
-                Union Budget documents (2016-17 to 2021-22) sourced from{' '}
-                <a
-                  href="https://openbudgetsindia.org/"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Open Budgets India
-                  <span className="sr-only"> :opens in new window</span>
-                </a>
-              </p>
-            </SourceText>
-
-            <SourceButtons>
-              <Button
-                href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
-                rel="noreferrer"
-                target="_blank"
-                size="sm"
-                kind="secondary-outline"
-                icon={<ExternalLink fill="#076775" />}
-              >
-                Data Guidebook
-                <span className="sr-only"> :opens in new window</span>
-              </Button>
-              <DownloadViz
-                viz={currentViz}
-                type={selectedBudgetType}
-                indicator={
-                  indicatorFiltered[0]
-                    ? indicatorFiltered[0]['indicators']
-                    : 'Budget Estimates'
-                }
-                name={data.title}
-              />
-            </SourceButtons>
-          </ExplorerSource> */}
-          {/* <VizHeader data-html2canvas-ignore>
-            <VizTabs className="viz__tabs">
-              {vizToggle.map((item, index) => (
-                <li key={`toggleItem-${index}`}>
-                  <div>
-                    {item.icon}
-                    {item.name}
-                  </div>
-                </li>
-              ))}
-            </VizTabs>
-            {financialYears && !isTable && (
-              <VizMenu className="fill">
-                <Menu
-                  value={meta.year}
-                  options={financialYears}
-                  heading="Financial Year:"
-                  handleChange={(e) =>
-                    dispatch({
-                      year: e,
-                    })
-                  }
-                />
-              </VizMenu>
-            )}
-          </VizHeader> */}
           <DownloadButton>
             <DownloadViz
               viz={currentViz}
