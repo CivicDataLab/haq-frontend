@@ -130,18 +130,18 @@ export async function dataTransform(id) {
       if (file.name == 'Metadata') resources.metaUrl = file.url;
     });
 
-    name = data.extras[3].value;
+    name = data.extras[7].value;
     type = data.extras[6].value;
     slug = data.name || '';
-    title = data.extras[1]
-      ? `${data.extras[3].value} | ${data.extras[4].value}`
+    title = data.extras[7]
+      ? `${data.extras[7].value} | ${data.extras[8].value}`
       : data.title;
-    tags = data.extras[2] ? [data.extras[2].value, data.extras[6].value] : [];
+    tags = data.extras[10] ? [data.extras[10].value, data.extras[6].value] : [];
     dataUrl = data.resources.dataUrl || '';
     metaUrl = data.resources.metaUrl || '';
     resUrls = resUrls;
     notes = data.notes || '';
-    code = name || '';
+    code = data.extras[5] || '';
   });
 
   await fetchSheets(url).then((res) => {
