@@ -81,6 +81,11 @@ const variants = {
     fontSize: ['.875rem', '1rem'],
     lineHeight: [1.6],
     fontWeight: 'var(--font-weight-light)',
+  },
+  footer: {
+    fontSize: ['1.5rem', '2rem'],
+    lineHeight: [1.4, 1.2],
+    fontWeight: 'var(--font-weight-medium)',
   }
 };
 

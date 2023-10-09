@@ -23,6 +23,7 @@ interface Props extends SpaceProps, ColorProps, TypographyProps {
     | 'displayl'
     | 'banner'
     | 'carousel'
+    | 'footer'
     | string[];
 }
 

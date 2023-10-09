@@ -17,7 +17,7 @@ const Footer = ({ data }) => {
               width={78}
               height={100}
             />
-            <Heading as = 'h2' variant='h2l'>   Girl Education <br />
+            <Heading as="h2" variant="footer">   Girl Education <br />
               Finance Tracker</Heading>
           </LogoImg>
 
@@ -44,7 +44,6 @@ const Footer = ({ data }) => {
                   >
                     <Image
                       key={`footer_image.${index}`}
-                      className="logo_image"
                       src={getStrapiMedia(data.footer_image[index].src.url)}
                       alt={`footer_logo_${img.alt}`}
                       width={140}
@@ -112,7 +111,7 @@ const Wrapper = styled.div`
   color: white;
 
   .horizontal-line {
-   background: rgba(255, 255, 255, 0.3);
+   background: rgba(255, 255, 255, 0.36);
   }
 `;
 
@@ -145,15 +144,6 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 40px;
-
-  .logo_image {
-    border-radius: 68px;
-    background: var(--violet-00, #efd7f5);
-    padding: 16px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 `;
 
 const SocialLinks = styled.div`
