@@ -364,8 +364,9 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           </VizTabs>
           <VizHeaderMenu currentViz={currentViz}>
             {currentViz == '#mapView' && (
-              <VizMenu className="fill">
+              <VizMenu>
                 <Menu
+                  className="fill"
                   value={meta.schemeYear}
                   options={yearOpt}
                   heading="Financial Year"
@@ -380,6 +381,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
             <VizMenu>
               <Menu
+                className="fill"
                 value={meta.schemeType}
                 options={schemeTypeOpt}
                 heading="Scheme type"
@@ -393,6 +395,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
 
             <VizMenu>
               <Menu
+                className="fill"
                 value={meta.schemeMode}
                 options={schemeModeOpt}
                 heading="Scheme Mode"
@@ -404,13 +407,13 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               />
             </VizMenu>
             {width < 980 ? (
-              <VizMenu className="fill">
+              <VizMenu>
                 <Menu
                   value={indicator}
                   options={indicatorList}
                   heading="Scheme Indicator"
                   handleChange={(e) => handleNewIndicator(e)}
-                  className="indicator_selector"
+                  className="fill indicator_selector"
                 />
               </VizMenu>
             ) : null}
@@ -618,24 +621,19 @@ export const SourceButtons = styled.div`
 `;
 
 const VizMenu = styled.div`
-  [class^='MenuComp__MenuButton'] {
+  .fill > div > button {
     text-align: left;
     padding: 4px 8px;
+    width: 100%;
+    justify-content: space-between;
 
     > svg {
       margin-left: 4px;
     }
   }
 
-
-  [class^='MenuComp__Wrapper'] {
+  .fill > div {
     width:100%;
-  }
-
-
-  [class^='MenuComp__MenuButton'] {
-    width: 100%;
-    justify-content: space-between;
   }
   
   @media (max-width: 980px) {
@@ -647,7 +645,7 @@ const VizMenu = styled.div`
   }
 
   @media (max-width: 480px) {
-    [class^='MenuComp__MenuContent'] {
+    .fill > div > ul {
       width: 100%;
     }
   }
