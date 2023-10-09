@@ -17,8 +17,8 @@ const Footer = ({ data }) => {
               width={78}
               height={100}
             />
-            <Heading as = 'h2' variant='h2l'>   GIRL EDUCATION <br />
-              FINANACE TRACKER</Heading>
+            <Heading as = 'h2' variant='h2l'>   Girl Education <br />
+              Finance Tracker</Heading>
           </LogoImg>
 
           <Content>
@@ -112,7 +112,7 @@ const Wrapper = styled.div`
   color: white;
 
   .horizontal-line {
-    background: rgba(255, 255, 255, 0.36);
+   background: rgba(255, 255, 255, 0.3);
   }
 `;
 

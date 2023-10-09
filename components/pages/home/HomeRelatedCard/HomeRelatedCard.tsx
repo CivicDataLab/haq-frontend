@@ -48,9 +48,9 @@ const RelatedCardHeading = styled.div`
     }
     hr {
       width: 56px;
-      background: var(--color-sapphire);
-      border-radius: 1px;
+      border: 2px solid  var(--color-sapphire);
       margin: 15px;
+      border-radius: 1px;
     }
   }
 
