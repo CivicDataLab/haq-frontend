@@ -45,7 +45,7 @@ const SchemeSelector: React.FC<{
 
   return (
     <Wrapper>
-      <ConsMenu>
+      <ConsMenu selectedScheme={selectedScheme}>
         <Combobox
           options={data}
           isSearchable={false}
@@ -115,7 +115,7 @@ export const Wrapper = styled.div`
   margin-top: 32px;
 `;
 
-export const ConsMenu = styled.div`
+export const ConsMenu = styled.div<{ selectedScheme: any }>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -126,7 +126,8 @@ export const ConsMenu = styled.div`
     text-decoration: none;
     margin-left: 10px;
     padding: 12px 24px;
-    background: var(--color-grey-400);
+    background: ${({ selectedScheme }) =>
+      selectedScheme !== null ? 'var(--color-violet-2)' : 'var(--color-grey-400)'};
   }
 `;
 

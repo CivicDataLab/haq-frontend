@@ -231,10 +231,11 @@ const ReactSelectElement = styled(Select)<Props>`
 
       &--is-selected {
         font-weight: 600;
-        background-color: #368b8b;
+        background-color: var(--color-grey-600);
+        color: var(--text-light-high);
 
         &:hover {
-          background-color: #368b8b;
+          background-color: var(--color-grey-600);
         }
       }
     }
