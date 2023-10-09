@@ -102,9 +102,7 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
               fq={datsetsFilters}
             />
             <DatasetRight>
-              <DatasetSearch>
-                <Search newSearch={handleDatasetsChange} />
-              </DatasetSearch>
+              <Search newSearch={handleDatasetsChange} />
               <DatasetSort>
                 <Total text="datasets found" total={count} />
                 <Sort
@@ -176,13 +174,6 @@ const DatasetsComp = styled.div`
       display: none;
     }
   }
-`;
-
-const DatasetSearch = styled.div`
-  background-color: var(--color-background-lighter);
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid var(--color-grey-600);
 `;
 
 const DatasetSort = styled.div`
