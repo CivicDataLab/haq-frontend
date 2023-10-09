@@ -94,7 +94,7 @@ const SchemeSelector: React.FC<{
           formatOptionLabel={(option: any) => (
             <Label>
               <Text> {option.label}</Text>
-              <Tag className={`${option.tag.toLowerCase().trim()}`}>
+              <Tag className={`tag ${option.tag.toLowerCase().trim()}`}>
                 {option.tag}
               </Tag>
             </Label>
