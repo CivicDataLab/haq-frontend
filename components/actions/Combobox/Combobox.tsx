@@ -137,8 +137,7 @@ const ReactSelectElement = styled(Select)<Props>`
       font-weight: 400;
       padding-block: 4px;
       color: var(--text-light-high);
-      [class^='MobileSelector__Tag'],
-      [class^='SchemeSelector__Tag'] {
+      .tag {
         display: none;
       }
     }
