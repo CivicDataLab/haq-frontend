@@ -5,7 +5,7 @@ import { Heading } from '../Heading';
 import { useWindowSize } from 'utils/hooks';
 
 const SubNav = ({ data }) => {
-  const {width} = useWindowSize();
+  const { width } = useWindowSize();
 
   return (
     <Header>
@@ -22,7 +22,11 @@ const SubNav = ({ data }) => {
                 data.sublinks.map((navItem: any, index: number) => (
                   <li key={`menu-${index}`}>
                     <Link passHref href={navItem.link}>
-                      <span>{width < 480 ? navItem.title.split(" ")[0] : navItem.title}</span>
+                      <span>
+                        {width < 480
+                          ? navItem.title.split(' ')[0]
+                          : navItem.title}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -44,7 +48,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding-top: 4px;
   @media (max-width: 480px) {
     padding: 2px;
   }
@@ -71,6 +75,12 @@ const NavLinks = styled.nav`
      width: max-content;
      text-decoration: none;
      cursor: pointer;
+     border-bottom: 2px solid transparent; 
+     &:hover {
+      border-bottom: 2px solid var(--nav-bg-hover);
+     }
+     &:active {
+      border-bottom: 2px solid var(--nav-bg-hover);
+     }
    }
- }
 `;

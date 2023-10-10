@@ -228,15 +228,17 @@ const Navlinks = styled.nav`
 `;
 
 const Navitem = styled.a`
-  padding: 8px;
+  padding: 10px;
   align-items: center;
   display: flex;
   color: var(--text-dark-high);
-  transition: background-color 200ms ease;
+  transition: background-color 100ms ease;
   width: max-content;
 
   &:hover {
     background-color: var(--nav-bg-hover);
+    margin:-15px;
+    padding:25px;
   }
 
   &.active {

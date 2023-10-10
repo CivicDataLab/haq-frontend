@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps, props }) {
     sublinks: [
       { title: 'Budget Data', link: `/${state}/budget` },
       state === 'bihar'
-        ? { title: 'Spending Data', link: `/${state}/datasets` }
+        ? { title: 'Spending Data', link: `/${state}/datasets/summary-data` }
         : null,
     ].filter(Boolean),
   };
