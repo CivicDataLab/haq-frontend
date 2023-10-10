@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { Share } from 'components/actions';
 import Link from 'next/link';
-import { Link as LinkIcon } from 'components/icons';
+import { Link as LinkIcon, ArrowRight } from 'components/icons';
 import { Heading } from 'components/layouts/Heading';
 import { useWindowSize } from 'utils/hooks';
+import { Button } from 'components/actions';
 
 interface TypeProps {
   data: any;
   summary: any;
   primary: boolean;
+  state: string;
 }
 
-const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
+const ExplorerHeader = ({ data, summary, primary, state }: TypeProps) => {
   const { width } = useWindowSize();
 
   let englishTitle: string, hindiTitle: string;
@@ -42,7 +44,17 @@ const ExplorerHeader = ({ data, summary, primary }: TypeProps) => {
         <div>
           {primary ? (
             <div>
-              <Heading as="h1" variant="h1">
+              <Link passHref href={`/${state}/datasets`}>
+                <Button
+                  size="sm"
+                  kind="secondary"
+                  icon={<ArrowRight />}
+                  className="treasury_button"
+                >
+                  View Treasury Schemes List
+                </Button>
+              </Link>
+              <Heading as="h1" variant="h1" mt="12px">
                 {summary.title}
               </Heading>
               {titleContent}
@@ -96,6 +108,10 @@ const HeaderContent = styled.div<{ primary: boolean }>`
     h3 {
       margin-top: 12px;
     }
+  }
+  .treasury_button {
+    display: inline-flex;
+    text-decoration: none;
   }
 `;
 
