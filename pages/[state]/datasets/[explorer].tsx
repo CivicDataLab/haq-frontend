@@ -117,6 +117,7 @@ const Explorer: React.FC<Props> = ({
           data={scheme.metadata}
           primary={primary}
           summary={summary}
+          state={foundState}
         />
         {Object.keys(scheme).length !== 0 ? (
           <>

@@ -29,3 +29,4 @@ export { default as SearchIcon } from './SearchIcon';
 export { default as Link } from './Link';
 export { default as CarouselIcon } from './CarouselIcon';
 export { default as FilterPlus } from './FilterPlus';
+export { default as ArrowRight } from './ArrowRight';
