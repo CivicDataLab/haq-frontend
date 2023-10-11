@@ -19,6 +19,18 @@ const options = [
     value: 'score:desc',
     title: 'Relevance',
   },
+  {
+    value: 'avg_scheme_allotment:desc',
+    title: 'Scheme Allotment',
+  },
+  {
+    value: 'avg_scheme_expenditure:desc',
+    title: 'Scheme Expenditure',
+  },
+  {
+    value: 'avg_scheme_utilisation:desc',
+    title: 'Scheme Utilisation',
+  }
 ];
 
 const Sort: React.FC<{ newSort: any; className?: string }> = ({
