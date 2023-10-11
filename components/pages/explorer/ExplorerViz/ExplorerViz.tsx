@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { tabbedInterface} from 'utils/explorer';
@@ -227,12 +227,16 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     },
   ];
 
-  const indicatorList =
-    schemeRaw.data &&
-    Object.keys(schemeRaw.data).map((key) => ({
-      value: schemeRaw.data[key].slug,
-      title: schemeRaw.data[key].name,
-    }));
+  const indicatorList = useMemo(() => {
+    if (schemeRaw.data) {
+      return Object.keys(schemeRaw.data).map((key) => ({
+        value: schemeRaw.data[key].slug,
+        title: schemeRaw.data[key].name,
+      }));
+    } else {
+      return [];
+    }
+  }, [schemeRaw.data]);
 
   return (
     <>
