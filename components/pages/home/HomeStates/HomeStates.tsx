@@ -49,14 +49,15 @@ const HomeStates = () => {
                 />
               </figure>
               <BtnCont>
-                <Button
-                  kind="secondary-outline"
-                  size="md"
-                  className="explore_state"
-                  href={`/${item.link}`}
-                >
-                  Explore Now
-                </Button>
+                <Link passHref href={`/${item.link}`}>
+                  <Button
+                    kind="secondary-outline"
+                    size="md"
+                    className="explore_state"
+                  >
+                    Explore Now
+                  </Button>
+                </Link>
               </BtnCont>
             </Card>
           ))}
@@ -102,7 +103,7 @@ const TagsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top:12px;
+  margin-top: 12px;
   margin-bottom: 20px;
 `;
 
