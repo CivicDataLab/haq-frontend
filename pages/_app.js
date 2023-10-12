@@ -96,7 +96,7 @@ MyApp.getInitialProps = async () => {
   const footer = await fetchAPI('/footer');
   return {
     props: {
-      footer: footer.data,
+      footer: footer.data || {} ,
     },
   };
 };

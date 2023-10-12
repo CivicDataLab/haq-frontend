@@ -12,7 +12,7 @@ const Footer = ({ data }) => {
           <LogoImg>
             <Image
               className="logo_image-1"
-              src={getStrapiMedia(data.haq_logo.url)}
+              src={getStrapiMedia(data?.haq_logo.url)}
               alt="footer_logo"
               width={78}
               height={100}
@@ -22,9 +22,7 @@ const Footer = ({ data }) => {
           </LogoImg>
 
           <Content>
-            Lorem Ipsum is simply dummy text of the printing and the type
-            setting industry. Lorem Ipsum has been the industrys standard dummy
-            text ever since the 1500s.
+            {data?.desc}
           </Content>
         </Logo>
         <hr className="horizontal-line" />
