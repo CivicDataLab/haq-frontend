@@ -24,7 +24,7 @@ const DatasetCard: React.FC<{
   return (
     <Link
       passHref
-      href={`/${router.query.state}/datasets/${datapackage.notes}`}
+      href={`/${router.query.state}/datasets/${datapackage.code}`}
     >
       <DatasetCardComp>
         <section>
