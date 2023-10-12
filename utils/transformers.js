@@ -1,4 +1,4 @@
-import { fetchQuery, fetchSheets, generateSlug, twoDecimals } from './data';
+import { fetchQueryByFliter, fetchSheets, generateSlug, twoDecimals } from './data';
 
 export function processSchemeArray(arr) {
   const scheme = {};
@@ -122,7 +122,8 @@ export async function dataTransform(id) {
   let metaUrl;
   let notes;
   let code;
-  await fetchQuery('slug', id).then((data) => {
+  await fetchQueryByFliter('scheme_code', id).then((response) => {
+    let data = response[0];
     data.resources.forEach((file) => {
       resUrls.push(file.url);
       if (file.url.includes('.xlsx')) url = file.url;
