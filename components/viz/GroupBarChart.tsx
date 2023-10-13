@@ -23,6 +23,7 @@ interface BarChartProps {
   left: string;
   type: string;
   smooth: boolean;
+  endValue: number;
 }
 
 const GroupBarChart: React.FC<BarChartProps> = ({
@@ -36,6 +37,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
   left,
   type,
   smooth,
+  endValue
 }) => {
   const [series, setSeries] = useState([]);
   const [option, setOption] = useState({});
@@ -86,7 +88,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
             type: 'slider',
             xAxisIndex: [0],
             filterMode: 'filter',
-            endValue: window?.innerWidth >=768 ? 1 : 0
+            endValue: window?.innerWidth >=768 ? endValue : 0
         },
     ],
       tooltip: {},
