@@ -44,6 +44,7 @@ export function explorerPopulation(obj) {
     dataUrl: resources.dataUrl || '',
     metaUrl: resources.metaUrl || '',
     resUrls,
+    code: obj.extras[5] ? obj.extras[5].value : '',
   };
 
   return newObj;
