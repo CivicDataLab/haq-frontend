@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { Button } from 'components/actions';
 import { getStrapiMedia } from 'lib/media';
 import { Heading } from 'components/layouts/Heading';
+import Link from 'next/link';
 
-const ListCard = ({ data }) => {
+const ListCard = ({ data, state }) => {
   return (
     <>
       <CardContainer type={data.type}>
@@ -42,9 +43,11 @@ const ListCard = ({ data }) => {
             height={424}
             width={1218}
           />
-          <Button size="md" className="button">
-            {data.buttonText}
-          </Button>
+          <Link passHref href={data.type === 'spending' ? `${state}/datasets` : `${state}/budget`}>
+            <Button size="md" className="button">
+              {data.buttonText}
+            </Button>
+          </Link>
         </figure>
       </ImageBg>
     </>
@@ -119,6 +122,7 @@ const ImageBg = styled.div<{type:string}>`
       bottom: 40px;
       right: 56px;
       background: ${(props) => Styles[props.type]?.bgBtn || 'inherit'};
+      text-decoration: none;
     }
   }
 `;

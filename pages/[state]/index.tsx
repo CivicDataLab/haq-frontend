@@ -34,11 +34,11 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData], 
         </main>
       </Wrapper>
       <Card state={pathName} dataset={linkcard} />
-       <ListCard data={listcard[0]} />
+       <ListCard data={listcard[0]} state={pathName}/>
       <div className='container'>
         <Banner details={data.banner}/> 
       </div>
-      {listcard[1] && <ListCard data={listcard[1]} />}
+      {listcard[1] && <ListCard data={listcard[1]} state={pathName}/>}
       <InfoCarousel carousel={carousel} />
     </>
   );

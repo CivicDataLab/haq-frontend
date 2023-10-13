@@ -11,7 +11,7 @@ const Banner = ({ details }) => {
   return (
     <div style={{ marginTop: '40px' }}>
       <BannerComp style={{ backgroundColor: details.bgColor }}>
-        <Content>
+        <Content width={width}>
           <Heading as="h2" variant="banner">
             {details.main}
           </Heading>
@@ -63,7 +63,7 @@ const BannerComp = styled.section`
   }
 `;
 
-const Content = styled.div`
+const Content = styled.div<{width:any}>`
   padding-right: 40px;
   width: clamp(250px, 100%, 700px);
 
@@ -71,6 +71,8 @@ const Content = styled.div`
     margin-top: 16px;
     display: inline-flex;
     text-decoration: none;
+    font-size: ${(props) =>
+      props.width >= 600 ? '14px' : '12px'};
   }
 
   @media (max-width: 768px) {
