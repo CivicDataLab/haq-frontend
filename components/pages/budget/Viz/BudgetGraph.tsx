@@ -26,15 +26,15 @@ const BudgetGraph = ({ data, scheme_code }) => {
     setBarData(barArray);
   }
 }, [scheme_code]);
- 
-  return (
+
+return (
     <Wrapper>
       {bardata.length > 0 && (
         <section className="barViz">
           <GroupBarChart
             yAxisLabel={`Value in lakhs `}
             xAxisLabel="Financial Years"
-            theme={['var(--color-sapphire)', 'var(--color-sapphire)', 'var(--color-carrot)','var(--color-amazon)']}
+            theme={['#4965B2', '#4965B2', '#ED8686','#69BC99']}
             dataset={bardata}
             stack={false}
             Title=""
@@ -42,6 +42,7 @@ const BudgetGraph = ({ data, scheme_code }) => {
             left="70vw"
             type="bar"
             smooth={true}
+            endValue={1}
           />
         </section>
       )}

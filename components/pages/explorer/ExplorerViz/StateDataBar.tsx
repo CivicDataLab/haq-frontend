@@ -36,7 +36,7 @@ const StateDataBar = ({ stateData, indicator }) => {
           <GroupBarChart
             yAxisLabel={`Value in ${indicator == 'scheme-utilisation' ? '%' : 'lakhs'} `}
             xAxisLabel="Fiscal Years"
-            theme={['var(--color-sapphire)', 'var(--color-carrot)', 'var(--color-amazon)']}
+            theme={['#4965B2', '#ED8686','#69BC99']}
             dataset={bardata}
             stack={false}
             Title=""
@@ -44,6 +44,7 @@ const StateDataBar = ({ stateData, indicator }) => {
             left="70vw"
             type="bar"
             smooth={true}
+            endValue={4}
           />
         </section>
       )}
