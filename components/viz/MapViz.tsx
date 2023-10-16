@@ -10,7 +10,7 @@ import { SVGRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
 const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
-  
+
   const [mapOptions, setMapOptions] = useState({});
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
@@ -38,7 +38,9 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
           bottom: '16px',
           backgroundColor: '#FFFFFF',
           pieces: vizIndicators,
-          text:  vizIndicators[0]?.max ? [`Units: ${meta.unit.includes('₹') ? '₹ in lakhs' : '%'}`] : "Units",
+          text:  vizIndicators[0]?.max ? [`Units: ${meta.indicator === 'scheme-utilisation' ? '%' 
+          : (meta.unit.includes('lakh') ? '₹ in lakhs' : (meta.unit.includes('crore') ? '₹ in crore' : ''))}`]
+          : "Units",
           padding: 8,
           showLabel: true,
         },

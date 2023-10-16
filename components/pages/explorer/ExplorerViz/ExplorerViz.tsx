@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { tabbedInterface} from 'utils/explorer';
+import { tabbedInterface } from 'utils/explorer';
 
-import {
-  DownloadViz,
-  Indicator,
-  Table,
-} from 'components/data';
+import { DownloadViz, Indicator, Table } from 'components/data';
 import {
   GraphBar,
   Globe,
@@ -19,6 +15,7 @@ import {
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from 'utils/hooks';
+import { threeDecimals } from 'utils/data';
 
 const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
   ssr: false,
@@ -38,8 +35,23 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
   const [tableData, setTableData] = useState<any>({});
 
   const [financialYears, setFinancialYears] = useState(undefined);
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState<{
+    [year: string]: { [key: string]: string | number };
+  }>({});
+
   const [currentViz, setCurrentViz] = useState('#mapView');
+  const items = [
+    {
+      value: 'lakh',
+      label: 'Lakhs',
+    },
+    {
+      value: 'crore',
+      label: 'Crores',
+    },
+  ];
+
+  const [value, setValue] = useState(items[0].value);
 
   const mapRef = useRef(null);
 
@@ -122,36 +134,36 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       };
       setTableData(tableData);
     }
-  }, [financialYears, meta.year]);
-
+  }, [filtered]);
 
   useEffect(() => {
     // fill up available financial years for state+sabha
     if (schemeRaw.data && filtered) {
-      const years = Object.keys(
-        (schemeRaw.data)["indicator_01"].data
-      ).map((item) => ({
-        value: item,
-        title: item,
-      }));
+      const years = Object.keys(schemeRaw.data['indicator_01'].data).map(
+        (item) => ({
+          value: item,
+          title: item,
+        })
+      );
       setFinancialYears(years); // all years
 
       let defaultYear =
         years && years.find((year) => year.value === '2021-2022');
       dispatch({
         year: defaultYear ? '2021-2022' : years[years.length - 1].value,
+        unit: 'lakh'
       });
 
       if (indicator) {
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === indicator
         );
+
         const filtered = schemeRaw.data[indicatorID].data;
         setFiltered(filtered);
       }
     }
-  }, [filtered]);
-
+  }, []);
 
   useEffect(() => {
     handleNewIndicator(indicator || schemeRaw.metadata?.indicators[0]);
@@ -165,10 +177,24 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           (item) => schemeRaw.data[item].slug === val
         );
         const filtered = schemeRaw.data[indicatorID].data;
-        dispatch({
-          unit: schemeRaw.data[indicatorID].unit,
-        });
-        setFiltered(filtered);
+        if (value === 'lakh' || indicatorID == 'indicator_03') {
+          setFiltered(filtered);
+        } else {
+          const convertedData = Object.fromEntries(
+            Object.entries(filtered).map(([year, values]) => {
+              return [
+                year,
+                Object.fromEntries(
+                  Object.entries(values).map(([key, val]) => {
+                    const convertedValue = val / 100;
+                    return [key, convertedValue];
+                  })
+                ),
+              ];
+            })
+          );
+          setFiltered(convertedData);
+        }
       }
 
       dispatch({
@@ -176,6 +202,33 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       });
     }
   }
+
+  const toggleUnit = (itemValue, value) => {
+    setValue(itemValue)
+    dispatch({
+      unit: itemValue,
+    });
+    if( indicator === 'scheme-utilisation' ) return ;
+    const convertedData = Object.fromEntries(
+      Object.entries(filtered).map(([year, values]) => {
+        return [
+          year,
+          Object.fromEntries(
+            Object.entries(values).map(([key, val]) => {
+              const convertedValue =
+                value == 'lakh'
+                  ? (Number(val) / 100)
+                  : threeDecimals(Number(val) * 100);
+                return [key, convertedValue];
+            })
+          ),
+        ];
+      })
+    );
+    setFiltered(convertedData);
+  };
+
+  // console.log(filtered)
 
   const vizItems = [
     {
@@ -220,7 +273,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       id: 'stateView',
       graph:
         Object.keys(stateData).length > 0 ? (
-          <StateDataBar stateData={stateData} indicator={indicator} />
+          <StateDataBar stateData={stateData} indicator={indicator} value={value}/>
         ) : (
           <span>Loading....</span>
         ),
@@ -240,6 +293,32 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
 
   return (
     <>
+      <Tablist>
+        <div className="tabs-list">
+          Unit : 
+          {items.map(({ label, value: itemValue }) => {
+            const isActiveValue = itemValue === value;
+
+            return (
+              <button
+                key={itemValue}
+                type="button"
+                className={[
+                  'tabs-list-item',
+                  isActiveValue && 'tabs-list-item--active',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                onClick={() => {
+                  itemValue !== value ? toggleUnit(itemValue, value) : null;
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </Tablist>
       <Wrapper>
         <VizWrapper>
           <VizHeader data-html2canvas-ignore>
@@ -332,6 +411,41 @@ export const Wrapper = styled.section`
   }
 `;
 
+export const Tablist = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+  gap: 8px;
+
+  .tabs-list {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .tabs-list-item {
+    --active-color: var(--color-secondary);
+
+    background: none;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+  }
+
+  .tabs-list-item:hover {
+    border-color: var(--active-color);
+    color: var(--active-color);
+  }
+
+  .tabs-list-item--active,
+  .tabs-list-item--active:hover {
+    border-color: var(--active-color);
+    background-color: var(--active-color);
+    color: #fff;
+  }
+`;
+
 export const VizWrapper = styled.div`
   background-color: #fff;
   border: 1px solid #f7fdf9;
@@ -356,11 +470,11 @@ export const VizTabs = styled.ul`
   align-items: center;
   gap: 1.5rem;
 
-  @media(max-width:720px){
+  @media (max-width: 720px) {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    max-width: 100%; 
+    max-width: 100%;
     scrollbar-width: thin;
     padding-bottom: 2px;
   }
@@ -379,7 +493,7 @@ export const VizTabs = styled.ul`
     min-width: 120%;
     display: block;
     text-align: center;
-  //  border-bottom: 2px solid transparent;
+    //  border-bottom: 2px solid transparent;
     font-weight: bold;
     color: hsla(0, 0%, 0%, 0.32);
 
@@ -480,15 +594,15 @@ const VizMenu = styled.div`
   }
 
   @media (max-width: 980px) {
-    width:100%;
+    width: 100%;
 
     > div > span {
       width: 70px;
     }
     [class^='MenuComp__Wrapper'] {
-      flex-grow:1;
+      flex-grow: 1;
     }
-    
+
     [class^='MenuComp__MenuButton'] {
       width: 100%;
       justify-content: space-between;

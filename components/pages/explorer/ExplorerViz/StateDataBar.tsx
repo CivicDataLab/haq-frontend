@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
+import { threeDecimals } from 'utils/data';
 
 function changeString(str) {
   let newStr = str.replace(/-/g, '_');
   return newStr;
 }
 
-const StateDataBar = ({ stateData, indicator }) => {
+const StateDataBar = ({ stateData, indicator, value }) => {
   const [bardata, setBarData] = useState([]);
 
   useEffect(() => {
@@ -20,23 +21,28 @@ const StateDataBar = ({ stateData, indicator }) => {
       indicatorData &&
         Object.keys(indicatorData).forEach((year) => {
           const barValues = [year];
-          barValues.push(indicatorData[year]);
+          let data = indicatorData[year];
+          if (value === 'crore' && indicator_value !== 'scheme_utilisation')
+            data = threeDecimals(data / 100);
+
+          barValues.push(data);
           barValuesArr.push(barValues);
         });
 
       const barArray = [headerArr, ...barValuesArr];
       setBarData(barArray);
     }
-  }, [indicator]);
+  }, [indicator, value]);
 
   return (
     <Wrapper>
       {bardata.length > 0 && (
         <section className="barViz">
           <GroupBarChart
-            yAxisLabel={`Value in ${indicator == 'scheme-utilisation' ? '%' : 'lakhs'} `}
+            yAxisLabel={`Units: ${indicator === 'scheme-utilisation' ? '%' 
+            : (value.includes('lakh') ? '₹ in lakhs' : (value.includes('crore') ? '₹ in crore' : ''))}`}
             xAxisLabel="Fiscal Years"
-            theme={['#4965B2', '#ED8686','#69BC99']}
+            theme={['#4965B2', '#ED8686', '#69BC99']}
             dataset={bardata}
             stack={false}
             Title=""
