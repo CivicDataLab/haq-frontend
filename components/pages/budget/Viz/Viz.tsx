@@ -27,6 +27,17 @@ const Viz = ({ data }) => {
   const [currentViz, setCurrentViz] = useState('#barView');
   const [tableData, setTableData] = useState<any>({});
 
+  const units = [{
+      value: 'lakh',
+      label: 'Lakhs',
+    },
+    {
+      value: 'crore',
+      label: 'Crores',
+    }];
+
+  const [value, setValue] = useState(units[0].value);
+
   const mapRef = useRef(null);
 
   const vizToggle = [
@@ -49,6 +60,7 @@ const Viz = ({ data }) => {
         <BudgetGraph
           data={data[activeIndicator]}
           scheme_code={activeIndicator}
+          value={value}
         />
       ) : (
         <span>Loading....</span>
@@ -62,6 +74,7 @@ const Viz = ({ data }) => {
           data={data[activeIndicator]}
           tableData={tableData}
           setTableData={setTableData}
+          value={value}
         />
       ) : (
         <span>Loading....</span>
@@ -88,20 +101,35 @@ const Viz = ({ data }) => {
     setLoading(false);
   }, [router]);
 
-  // useEffect(() => {
-  //   // generate indicators
-  //   const indicators = [...new Set(data.map((item) => item.Scheme || null))];
-  //   // Setting current indicator
-  //   let currentIndicator = indicators.find(
-  //     (indicator) => generateSlug(indicator) === router.query.scheme
-  //   );
-  //   if (currentIndicator === undefined) currentIndicator = indicators[0];
-  //   setActiveIndicator(currentIndicator);
-  //   setLoading(false);
-  // }, [router]);
+  const toggleUnit = (itemValue: string) => { setValue(itemValue) };
 
   return (
     <>
+      <Tablist>
+        <div className="tabs-list">
+          Unit :
+          {units.map(({ label, value: itemValue }) => {
+            const isActiveValue = itemValue === value;
+            return (
+              <button
+                key={itemValue}
+                type="button"
+                className={[
+                  'tabs-list-item',
+                  isActiveValue && 'tabs-list-item--active',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                onClick={() => {
+                  itemValue !== value ? toggleUnit(itemValue) : null;
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </Tablist>
       <Wrapper>
         <SchemeIndicator
           selectedIndicator={activeIndicator}
@@ -159,11 +187,47 @@ const Viz = ({ data }) => {
 
 export default Viz;
 
+export const Tablist = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+  gap: 8px;
+  margin-top: 20px;
+
+  .tabs-list {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .tabs-list-item {
+    --active-color: var(--color-secondary);
+
+    background: none;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+  }
+
+  .tabs-list-item:hover {
+    border-color: var(--active-color);
+    color: var(--active-color);
+  }
+
+  .tabs-list-item--active,
+  .tabs-list-item--active:hover {
+    border-color: var(--active-color);
+    background-color: var(--active-color);
+    color: #fff;
+  }
+`;
+
 export const Wrapper = styled.section`
   display: grid;
   gap: 2rem;
   grid-template-columns: 312px minmax(0, 1fr);
-  margin-top: 2.5rem;
+  margin-top: 20px;
 
   @media (max-width: 910px) {
     display: block;

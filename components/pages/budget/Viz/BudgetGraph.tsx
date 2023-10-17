@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
+import { twoDecimals } from 'utils/data';
 
-const BudgetGraph = ({ data, scheme_code }) => {
+const BudgetGraph = ({ data, scheme_code, value }) => {
   
   const [bardata, setBarData] = useState([]);
 
-  useEffect(() => {
+ useEffect(() => {
   if (scheme_code) {
     const indicatorNames = ['indicator_01', 'indicator_02', 'indicator_03'];
     const headerArr = ['Fiscal Years', 'Budget Estimates', 'Revised Estimate', 'Actuals'];
@@ -17,7 +18,9 @@ const BudgetGraph = ({ data, scheme_code }) => {
     fiscalYears.forEach((year) => {
       const barValues = [year];
       indicatorNames.forEach((indicatorName) => {
-        barValues.push(data[indicatorName][year]);
+      let convertedVal = data[indicatorName][year];
+      if (value === 'crore')  convertedVal = twoDecimals(convertedVal / 100)
+      barValues.push(convertedVal)
       });
       barValuesArr.push(barValues);
     });
@@ -25,14 +28,14 @@ const BudgetGraph = ({ data, scheme_code }) => {
     const barArray = [headerArr, ...barValuesArr];
     setBarData(barArray);
   }
-}, [scheme_code]);
+}, [scheme_code,value]);
 
 return (
     <Wrapper>
       {bardata.length > 0 && (
         <section className="barViz">
           <GroupBarChart
-            yAxisLabel={`Value in lakhs `}
+            yAxisLabel={`₹ in ${value}`}
             xAxisLabel="Financial Years"
             theme={['#4965B2', '#4965B2', '#ED8686','#69BC99']}
             dataset={bardata}

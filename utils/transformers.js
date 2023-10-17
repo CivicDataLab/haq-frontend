@@ -1,4 +1,4 @@
-import { fetchQueryByFliter, fetchSheets, generateSlug, twoDecimals } from './data';
+import { fetchQueryByFliter, fetchSheets, generateSlug, oneDecimal } from './data';
 
 export function processSchemeArray(arr) {
   const scheme = {};
@@ -202,7 +202,7 @@ export async function dataTransform(id) {
             [dataParse[j][0]]:
               i !== 5
                 ? (dataParse[j][i] / 100000).toFixed(2)
-                : twoDecimals(dataParse[j][i]),
+                : oneDecimal(dataParse[j][i]),
           };
         }
       }
