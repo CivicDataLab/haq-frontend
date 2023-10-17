@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'components/data';
+import { twoDecimals } from 'utils/data';
 
-const BudgetTable = ({ data, tableData, setTableData }) => {
+const BudgetTable = ({ data, tableData, setTableData, value }) => {
 
   useEffect(() => {
     if (data) {
@@ -35,10 +36,12 @@ const BudgetTable = ({ data, tableData, setTableData }) => {
         };
 
         indicators.forEach((indicator) => {
-          tempObj[indicator.key] =
-            data[indicator.key][year] !== null
-              ? data[indicator.key][year].toString()
-              : 'NA';
+          if (value === 'crore' && data[indicator.key][year] !== null) {
+            tempObj[indicator.key] = twoDecimals(data[indicator.key][year] / 100).toString();
+          } else {
+            tempObj[indicator.key] =
+              data[indicator.key][year] !== null ? data[indicator.key][year].toString() : 'NA';
+          }
         });
 
         rows.push(tempObj);
@@ -50,7 +53,7 @@ const BudgetTable = ({ data, tableData, setTableData }) => {
       };
       setTableData(tableData);
     }
-  }, [data]);
+  }, [data,value]);
 
   return (
     <div>

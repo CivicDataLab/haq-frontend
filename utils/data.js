@@ -113,12 +113,18 @@ export const threeDecimals = (num) => {
 
 export const twoDecimals = (num) => {
   return isNaN(num)
+  ? ''
+  : Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+}
+
+export const oneDecimal = (num) => {
+  return isNaN(num)
     ? ''
     : Number(num.toString().match(/^-?\d+(?:\.\d{0,1})?/));
 };
 const toLakh = (num, i) => {
   if (i == 12 || i == 13 || i == 5 || i == 6) return (num / 100000).toFixed(2);
-  else return twoDecimals(num);
+  else return oneDecimal(num);
 };
 
 // Encapsulate filtering logic into a separate function
@@ -387,7 +393,7 @@ export async function stateDataTransform(id) {
           data[schemeCode][key] = {};
         }
 
-        data[schemeCode][key][fiscalYear] = twoDecimals(dataParse[i][j]);
+        data[schemeCode][key][fiscalYear] = oneDecimal(dataParse[i][j]);
       }
 
       // const indicatorSlug =
