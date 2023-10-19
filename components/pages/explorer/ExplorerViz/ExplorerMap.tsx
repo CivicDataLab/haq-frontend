@@ -7,7 +7,7 @@ import { debounce, swrFetch } from 'utils/helper';
 import MapViz from 'components/viz/MapViz';
 // import { consDescFetch } from 'utils/fetch';
 
-const ExplorerMap = ({ meta, schemeData, dispatch }) => {
+const ExplorerMap = ({ meta, schemeData, dispatch, value }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -16,9 +16,19 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   const [consDesc, setConsDesc] = useState({});
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
-  const { data, isLoading } = swrFetch(
-    `/assets/maps/Uttar Pradesh.json`
-  );
+  const { data, isLoading } = swrFetch(`/assets/maps/Uttar Pradesh.json`);
+
+  function transformData(inputData) {
+    const transformedData = {};
+    for (const key in inputData) {
+      if (inputData.hasOwnProperty(key)) {
+        const originalValue = parseFloat(inputData[key]);
+        const transformedValue = twoDecimals(originalValue / 100);
+        transformedData[key] = transformedValue;
+      }
+    }
+    return transformedData;
+  }
 
   //   React.useEffect(() => {
   //     consDescFetch().then((res) => setConsDesc(res));
@@ -35,9 +45,35 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
 
   // preparing data for echarts component
   useEffect(() => {
+    if (data && schemeData) {
 
-    if (schemeData) {
-      const stateData = Object.values(schemeData).map(Number);
+      let stateData = Object.values(schemeData).map(Number);
+
+      if (value === 'crore') {
+        const updatedData = transformData(schemeData);
+
+        const tempData = Object.keys(updatedData).map((item: any) => ({
+          name: item,
+          value: updatedData[item] || 0,
+          mapName: data.features.filter((obj) => {
+            return obj?.properties['dtcode11'] === item;
+          })[0]?.properties['dtname'],
+        }));
+        setMapvalues(tempData);
+
+        stateData = stateData.map((number) => twoDecimals(number / 100));
+
+      } else {
+        const tempData = Object.keys(schemeData).map((item: any) => ({
+          name: item,
+          value: schemeData[item] || 0,
+          mapName: data.features.filter((obj) => {
+            return obj?.properties['dtcode11'] === item;
+          })[0]?.properties['dtname'],
+        }));
+        setMapvalues(tempData);
+      }
+
       stateData.sort(function (a, b) {
         return a - b;
       });
@@ -91,7 +127,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
                 color: '#494D44',
               },
             ];
-        setMapIndicator(vizIndicators);
+      setMapIndicator(vizIndicators);
       } else {
         const vizIndicators = [];
         for (let i = 0; i < uniq.length; i++) {
@@ -109,26 +145,10 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
                 : '#173B3B',
           });
         }
-        setMapIndicator(vizIndicators);
+      setMapIndicator(vizIndicators);
       }
     }
-  }, [schemeData, data]);
-  // changing map chart values on sabha change
-  useEffect(() => {
-    if (data && schemeData) {
-      const tempData = Object.keys(schemeData).map((item: any) => ({
-        name: item,
-        value: schemeData[item] || 0,
-        mapName: data.features.filter((obj) => {
-          return obj?.properties['dtcode11'] === item;
-        })[0]?.properties['dtname'],
-      }));
-
-      setMapvalues(tempData);
-    }
-  }, [data, schemeData]);
-
-
+  }, [schemeData, data, value]);
 
   function handleSearch(query, obj) {
     let newObj = [];
@@ -332,8 +352,7 @@ const SelectedCons = styled.section`
     font-size: 1rem;
     max-width: 90%;
     text-transform: capitalize;
-    border-bottom:0;
-    padding-bottom:0;
+    border-bottom: 0;
+    padding-bottom: 0;
   }
-
 `;
