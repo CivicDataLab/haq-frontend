@@ -117,12 +117,17 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           };
 
           Object.keys(filtered).map((item1, index1) => {
-            const value =
+            let tableValue =
               filtered[tableHeader[index1 + 1].Header][
                 schemeRaw.metadata.consList[a[index]][0]?.constCode
               ];
+
             tempObj[tableHeader[index1 + 1].accessor] =
-              value !== undefined && value !== '' ? value : 'NA';
+              tableValue !== undefined && tableValue !== ''
+                ? value === 'crore' && indicator !== 'scheme-utilisation'
+                  ? twoDecimals(parseFloat(tableValue.toString()) / 100)
+                  : tableValue
+                : 'NA';
           });
           rowData.push(tempObj);
         });
@@ -134,7 +139,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       };
       setTableData(tableData);
     }
-  }, [filtered]);
+  }, [filtered, value]);
 
   useEffect(() => {
     // fill up available financial years for state+sabha
