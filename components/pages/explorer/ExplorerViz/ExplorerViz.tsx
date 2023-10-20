@@ -15,7 +15,7 @@ import {
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { useWindowSize } from 'utils/hooks';
-import { threeDecimals } from 'utils/data';
+import { twoDecimals } from 'utils/data';
 
 const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
   ssr: false,
@@ -151,7 +151,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
         years && years.find((year) => year.value === '2021-2022');
       dispatch({
         year: defaultYear ? '2021-2022' : years[years.length - 1].value,
-        unit: 'lakh'
+        unit: 'lakh',
       });
 
       if (indicator) {
@@ -177,24 +177,10 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           (item) => schemeRaw.data[item].slug === val
         );
         const filtered = schemeRaw.data[indicatorID].data;
-        if (value === 'lakh' || indicatorID == 'indicator_03') {
-          setFiltered(filtered);
-        } else {
-          const convertedData = Object.fromEntries(
-            Object.entries(filtered).map(([year, values]) => {
-              return [
-                year,
-                Object.fromEntries(
-                  Object.entries(values).map(([key, val]) => {
-                    const convertedValue = val / 100;
-                    return [key, convertedValue];
-                  })
-                ),
-              ];
-            })
-          );
-          setFiltered(convertedData);
-        }
+        dispatch({
+          unit: schemeRaw.data[indicatorID].unit,
+        });
+        setFiltered(filtered);
       }
 
       dispatch({
@@ -204,31 +190,11 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
   }
 
   const toggleUnit = (itemValue, value) => {
-    setValue(itemValue)
+    setValue(itemValue);
     dispatch({
-      unit: itemValue,
-    });
-    if( indicator === 'scheme-utilisation' ) return ;
-    const convertedData = Object.fromEntries(
-      Object.entries(filtered).map(([year, values]) => {
-        return [
-          year,
-          Object.fromEntries(
-            Object.entries(values).map(([key, val]) => {
-              const convertedValue =
-                value == 'lakh'
-                  ? (Number(val) / 100)
-                  : threeDecimals(Number(val) * 100);
-                return [key, convertedValue];
-            })
-          ),
-        ];
-      })
-    );
-    setFiltered(convertedData);
+      unit: itemValue
+    })
   };
-
-  // console.log(filtered)
 
   const vizItems = [
     {
@@ -238,6 +204,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           meta={meta}
           schemeData={filtered[year]}
           dispatch={dispatch}
+          value={value}
         />
       ) : (
         <span>Loading....</span>
@@ -251,6 +218,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
           meta={meta}
           data={filtered}
           consList={schemeRaw.metadata.consList}
+          value={value}
         />
       ) : (
         <span>Loading....</span>
@@ -273,7 +241,11 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
       id: 'stateView',
       graph:
         Object.keys(stateData).length > 0 ? (
-          <StateDataBar stateData={stateData} indicator={indicator} value={value}/>
+          <StateDataBar
+            stateData={stateData}
+            indicator={indicator}
+            value={value}
+          />
         ) : (
           <span>Loading....</span>
         ),
@@ -295,7 +267,7 @@ const ExplorerViz = ({ schemeRaw, dispatch, meta, stateData }) => {
     <>
       <Tablist>
         <div className="tabs-list">
-          Unit : 
+          Unit :
           {items.map(({ label, value: itemValue }) => {
             const isActiveValue = itemValue === value;
 
