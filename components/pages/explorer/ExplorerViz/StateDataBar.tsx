@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
-import { threeDecimals } from 'utils/data';
+import { twoDecimals } from 'utils/data';
 
 function changeString(str) {
   let newStr = str.replace(/-/g, '_');
@@ -23,7 +23,7 @@ const StateDataBar = ({ stateData, indicator, value }) => {
           const barValues = [year];
           let data = indicatorData[year];
           if (value === 'crore' && indicator_value !== 'scheme_utilisation')
-            data = threeDecimals(data / 100);
+            data = twoDecimals(data / 100);
 
           barValues.push(data);
           barValuesArr.push(barValues);
