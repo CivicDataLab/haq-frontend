@@ -5,39 +5,71 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { debounce, swrFetch } from 'utils/helper';
 import MapViz from 'components/viz/MapViz';
-// import { consDescFetch } from 'utils/fetch';
 
-const ExplorerMap = ({ meta, schemeData, dispatch }) => {
+const ExplorerMap = ({ meta, schemeData, dispatch, value }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedCode, setSelectedCode] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [consDesc, setConsDesc] = useState({});
+
   const [mapIndicator, setMapIndicator] = useState(undefined);
+
+  function transformData(inputData) {
+    const transformedData = {};
+    for (const key in inputData) {
+      if (inputData.hasOwnProperty(key)) {
+        const originalValue = parseFloat(inputData[key]);
+        const transformedValue = twoDecimals(originalValue / 100);
+        transformedData[key] = transformedValue;
+      }
+    }
+    return transformedData;
+  }
 
   const { data, isLoading } = swrFetch(
     `/assets/maps/Uttar Pradesh.json`
   );
 
-  //   React.useEffect(() => {
-  //     consDescFetch().then((res) => setConsDesc(res));
-  //   }, []);
-
-  // on state change, close the consitituency details popup
-  //   useEffect(() => {
-  //     setSelectedItem(undefined);
-  //   }, [meta.sabha, meta.state, meta.selectedIndicator]);
-
   const twoDecimals = (num) => {
     return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
   };
 
-  // preparing data for echarts component
+  // preparing data for echarts component  
   useEffect(() => {
 
-    if (schemeData) {
-      const stateData = Object.values(schemeData).map(Number);
+    if (data && schemeData) {
+
+      let stateData = Object.values(schemeData).map(Number);
+
+      if (value === 'crore' && meta.indicator!=='scheme-utilisation') {
+
+        const updatedData = transformData(schemeData);
+
+        const tempData = Object.keys(updatedData).map((item: any) => ({
+          name: item,
+          value: updatedData[item] || 0,
+          mapName: data.features.filter((obj) => {
+            return obj?.properties['dtcode11'] === item;
+          })[0]?.properties['dtname'],
+        }));
+        setMapvalues(tempData);
+
+        stateData = stateData.map((number) => twoDecimals(number / 100));
+      }
+       
+      else {
+
+        const tempData = Object.keys(schemeData).map((item: any) => ({
+          name: item,
+          value: schemeData[item] || 0,
+          mapName: data.features.filter((obj) => {
+            return obj?.properties['dtcode11'] === item;
+          })[0]?.properties['dtname'],
+        }));
+        setMapvalues(tempData);
+      }
+
       stateData.sort(function (a, b) {
         return a - b;
       });
@@ -112,24 +144,8 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
         setMapIndicator(vizIndicators);
       }
     }
-  }, [schemeData, data]);
-  // changing map chart values on sabha change
-  useEffect(() => {
-    if (data && schemeData) {
-      const tempData = Object.keys(schemeData).map((item: any) => ({
-        name: item,
-        value: schemeData[item] || 0,
-        mapName: data.features.filter((obj) => {
-          return obj?.properties['dtcode11'] === item;
-        })[0]?.properties['dtname'],
-      }));
-
-      setMapvalues(tempData);
-    }
-  }, [data, schemeData]);
-
-
-
+  }, [schemeData, data, value]);
+  
   function handleSearch(query, obj) {
     let newObj = [];
     setSearchQuery(query);
