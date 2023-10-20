@@ -5,8 +5,9 @@ import React, {
 import Select from 'react-select';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
+import { twoDecimals } from 'utils/data';
 
-const BarViz = ({ meta, data, consList }) => {
+const BarViz = ({ meta, data, consList, value }) => {
   const [state, setState] = useState({
     value: [],
     stateOptions: null,
@@ -62,7 +63,11 @@ const BarViz = ({ meta, data, consList }) => {
         Object.keys(data).reverse().forEach((year) => {
           const barValues = [year];
           items.forEach((item) => {
-            barValues.push(data[year][item.consCode])
+            let itemVal = data[year][item.consCode]
+            if (value === 'crore' && meta.indicator!=='scheme-utilisation') {
+              itemVal = twoDecimals(itemVal / 100);
+            }
+            barValues.push(itemVal)
             barValuesArr.push(barValues)
           });
         })
@@ -72,7 +77,7 @@ const BarViz = ({ meta, data, consList }) => {
         setBarData(barArray);
       }
     }
-  }, [state.value, data]);
+  }, [state.value, data,value]);
 
   return (
     <Wrapper>
