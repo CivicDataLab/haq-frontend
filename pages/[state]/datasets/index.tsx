@@ -71,7 +71,7 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
   }
 
   const headerData = {
-    title: 'Bihar Treasury Schemes',
+    title: 'Uttar Pradesh Treasury Schemes',
     content:
       'Find downloadable data, visualisations and other useful information related to a number of school education schemes run by the Uttar Pradesh government.',
   };

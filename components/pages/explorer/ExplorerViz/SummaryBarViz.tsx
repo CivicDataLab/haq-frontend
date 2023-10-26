@@ -5,8 +5,9 @@ import React, {
 import Select from 'react-select';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
+import { twoDecimals } from 'utils/data';
 
-const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
+const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years, unitVal }) => {
 
     const [state, setState] = useState({
         value: [],
@@ -80,7 +81,10 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                 reversedYearArr.forEach((year) => {
                     const barValues = [year];
                     items.forEach((item) => {
-                        barValues.push(filteredVal(indicatorID, year, item))
+                        let val = filteredVal(indicatorID, year, item)
+                        if(unitVal === 'crore' || meta.indicator === 'scheme-utilisation')
+                            val = twoDecimals(val/100)
+                        barValues.push(val)
                         barValuesArr.push(barValues)
                     });
                 })
@@ -90,7 +94,7 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
                 setBarData(barArray);
             }
         }
-    }, [state.value, meta, indicator]);
+    }, [state.value, meta, indicator, unitVal]);
 
     return (
         <Wrapper>
@@ -108,7 +112,8 @@ const SummaryBarViz = ({ meta, schemeRaw, consList, indicator, years }) => {
             {items.length > 0 && barData.length > 0 && (
                 <section className="barViz">
                     <GroupBarChart
-                        yAxisLabel={`Value (in ${meta.unit == '₹' ? '₹ in lakhs' : '%'})`}
+                        yAxisLabel={`Units : ${meta.indicator === 'scheme-utilisation' ? '%' 
+                        : (meta.unit.includes('lakh') ? '₹ in lakhs' : (meta.unit.includes('crore') ? '₹ in crore' : ''))}`}
                         xAxisLabel="Fiscal Years"
                         theme={['#4965B2','#ED8686','#69BC99']}
                         dataset={barData}
