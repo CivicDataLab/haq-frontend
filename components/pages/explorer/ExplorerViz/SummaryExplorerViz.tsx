@@ -3,16 +3,13 @@ import styled from 'styled-components';
 
 import { tabbedInterface } from 'utils/explorer';
 
-import {
-  DownloadViz,
-  Indicator,
-  Table,
-} from 'components/data';
+import { DownloadViz, Indicator, Table } from 'components/data';
 import { ExternalLink, Globe, TableIcon, Compare } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import dynamic from 'next/dynamic';
 import { MenuButton } from 'components/actions/Menu/MenuComp';
 import { useWindowSize } from 'utils/hooks';
+import { twoDecimals } from 'utils/data';
 
 const ExplorerMap = dynamic(() => import('./ExplorerMap'), {
   ssr: false,
@@ -23,21 +20,26 @@ const SummaryBarViz = dynamic(() => import('./SummaryBarViz'), {
 });
 
 const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
-  // const [selectedIndicator, setSelectedIndicator] =
-  //   useState('Budget Estimates');
-  // const [indicatorFiltered, setIndicatorFiltered] = useState([]);
-  // const [finalFiltered, setFinalFiltered] = useState([]);
-  // const [budgetTypes, setBudgetTypes] = useState([]);
-  // const [selectedBudgetType, setSelectedBudgetType] = useState('');
+  
   const [isTable, setIsTable] = useState(false);
   const [tableData, setTableData] = useState<any>({});
-
-  const [financialYears, setFinancialYears] = useState(undefined);
-  const [grant, setGrant] = useState(undefined);
 
   const [filtered, setFiltered] = useState([]);
 
   const [currentViz, setCurrentViz] = useState('#mapView');
+
+  const items = [
+    {
+      value: 'lakh',
+      label: 'Lakhs',
+    },
+    {
+      value: 'crore',
+      label: 'Crores',
+    },
+  ];
+
+  const [value, setValue] = useState(items[0].value);
 
   const { width } = useWindowSize();
 
@@ -113,7 +115,6 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     },
   ];
 
-
   // Table View
 
   useEffect(() => {
@@ -150,34 +151,16 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
               schemeRaw.metadata.consList[a[index]][0]?.constName,
           };
 
-          //  Object.keys(filtered).map(
-          //    (item1, index1) =>
-          //    (tempObj[tableHeader[index1 + 1].accessor] =
-          //      filtered[item1][
-          //      schemeRaw.metadata.consList[a[index]][0]?.constCode
-          //      ])
-          //  );
-
           reversedYear.map(
             (item1, index1) =>
               (tempObj[tableHeader[index1 + 1].accessor] =
                 item1.value == 'Total'
-                  ? schemeRaw.data[indicatorID]['grant_name'][item1.value][
-                      schemeRaw.metadata.consList[a[index]][0]?.constCode
-                    ]
+                  ? ( value === 'lakh' || meta.indicator === 'scheme-utilisation'? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeRaw.metadata.consList[a[index]][0]?.constCode] : twoDecimals(schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeRaw.metadata.consList[a[index]][0]?.constCode]/100))
                   : schemeType == 'Total'
-                  ? schemeRaw.data[indicatorID]['grant_name'][item1.value][
-                      schemeType
-                    ][schemeRaw.metadata.consList[a[index]][0]?.constCode]
-                  : schemeRaw.data[indicatorID]['grant_name'][item1.value][
-                      schemeType
-                    ][schemeMode] == undefined
+                  ? ( value === 'lakh' || meta.indicator === 'scheme-utilisation' ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeRaw.metadata.consList[a[index]][0]?.constCode] : twoDecimals(schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeRaw.metadata.consList[a[index]][0]?.constCode]/100))
+                  : schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode] == undefined
                   ? ' '
-                  : schemeRaw.data[indicatorID]['grant_name'][item1.value][
-                      schemeType
-                    ][schemeMode][
-                      schemeRaw.metadata.consList[a[index]][0]?.constCode
-                    ])
+                  : ( value === 'lakh' || meta.indicator === 'scheme-utilisation' ? schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode][schemeRaw.metadata.consList[a[index]][0]?.constCode] : twoDecimals(schemeRaw.data[indicatorID]['grant_name'][item1.value][schemeType][schemeMode][schemeRaw.metadata.consList[a[index]][0]?.constCode]/100)))
           );
 
           rowData.push(tempObj);
@@ -190,60 +173,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
         setTableData(tableData);
       }
     }
-  }, [meta]);
-
-  //  const found = array1.find(element => element > 10);
-
-  //   useEffect(() => {
-  //     if (schemeRaw.data && filtered) {
-  //       const grants = Object.keys(
-  //         Object.values(schemeRaw.data)[0]['grant_name']
-  //       ).map((item) => ({
-  //         value: item,
-  //         title: item,
-  //       }));
-  //       setGrant(grants);
-
-  //       const years = Object.keys(
-  //         Object.values(schemeRaw.data)[0]['grant_name'][grantName]
-  //       ).map((item) => ({
-  //         value: item,
-  //         title: item,
-  //       }));
-  //       setFinancialYears(years); // all years
-
-  //       dispatch({
-  //         year: year ? year : years[0].value,
-  //         grantName: grantName ? grantName : grants[0].value,
-  //       });
-  //     }
-  //   }, [filtered]);
-
-  //   useEffect(() => {
-  //     // fill up available financial years for state+sabha
-  //     if (grantName) {
-  //       const years = Object.keys(
-  //         Object.values(schemeRaw.data)[0]['grant_name'][grantName]
-  //       ).map((item) => ({
-  //         value: item,
-  //         title: item,
-  //       }));
-  //       setFinancialYears(years); // all years
-
-  //       dispatch({
-  //         year: years[0].value,
-  //         grantName: grantName ? grantName : grant[0].value,
-  //       });
-
-  //       if (indicator) {
-  //         const indicatorID = Object.keys(schemeRaw.data).find(
-  //           (item) => schemeRaw.data[item].slug === indicator
-  //         );
-  //         const filtered = schemeRaw.data[indicatorID]['grant_name'][grantName];
-  //         setFiltered(filtered);
-  //       }
-  //     }
-  //   }, [grantName]);
+  }, [meta,value]);
 
   const filteredVal = (indicatorID) =>
     schemeYear == 'Total'
@@ -264,12 +194,6 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     }
   }, [indicator, meta]);
 
-  function hideMenu(e) {
-    setCurrentViz(e.target.getAttribute('href'));
-    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-    else setIsTable(false);
-  }
-
   useEffect(() => {
     handleNewIndicator(indicator || schemeRaw.metadata?.indicators[0]);
   }, [schemeRaw]);
@@ -278,13 +202,14 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     if (val) {
       // filter based on selected indicator for state + sabha
       if (schemeRaw.data) {
+  
         const indicatorID = Object.keys(schemeRaw.data).find(
           (item) => schemeRaw.data[item].slug === val
         );
         const filtered = filteredVal(indicatorID);
         setFiltered(filtered);
         dispatch({
-          unit: schemeRaw.data[indicatorID].unit,
+          unit: value,
         });
         setFiltered(filtered);
       }
@@ -299,7 +224,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
     {
       id: 'mapView',
       graph: filtered ? (
-        <ExplorerMap meta={meta} schemeData={filtered} dispatch={dispatch} />
+        <ExplorerMap meta={meta} schemeData={filtered} dispatch={dispatch} value={value}/>
       ) : filtered == undefined ? (
         <span>
           {' '}
@@ -320,6 +245,7 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
           consList={schemeRaw.metadata.consList}
           years={yearOpt}
           indicator={indicator}
+          unitVal = {value}
         />
       ) : (
         <span>Loading....</span>
@@ -347,106 +273,175 @@ const SummaryExplorerViz = ({ schemeRaw, dispatch, meta }) => {
       title: schemeRaw.data[key].name,
     }));
 
+  const toggleUnit = (itemValue, value) => {
+    setValue(itemValue);
+    dispatch({
+      unit: itemValue,
+    });
+  };
 
   return (
-    <Wrapper>
-      <VizWrapper>
-        <VizHeader data-html2canvas-ignore>
-          <VizTabs className="viz__tabs">
-            {vizToggle.map((item, index) => (
-              <li key={`toggleItem-${index}`}>
-                <button onClick={() => setCurrentViz(item.id)}>
-                  {item.icon}
-                  {item.name}
-                </button>
-              </li>
-            ))}
-          </VizTabs>
-          <VizHeaderMenu currentViz={currentViz}>
-            {currentViz == '#mapView' && (
+    <>
+      <Tablist>
+        <div className="tabs-list">
+          Unit :
+          {items.map(({ label, value: itemValue }) => {
+            const isActiveValue = itemValue === value;
+
+            return (
+              <button
+                key={itemValue}
+                type="button"
+                className={[
+                  'tabs-list-item',
+                  isActiveValue && 'tabs-list-item--active',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                onClick={() => {
+                  itemValue !== value ? toggleUnit(itemValue, value) : null;
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </Tablist>
+      <Wrapper>
+        <VizWrapper>
+          <VizHeader data-html2canvas-ignore>
+            <VizTabs className="viz__tabs">
+              {vizToggle.map((item, index) => (
+                <li key={`toggleItem-${index}`}>
+                  <button onClick={() => setCurrentViz(item.id)}>
+                    {item.icon}
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </VizTabs>
+            <VizHeaderMenu currentViz={currentViz}>
+              {currentViz == '#mapView' && (
+                <VizMenu>
+                  <Menu
+                    className="fill"
+                    value={meta.schemeYear}
+                    options={yearOpt}
+                    heading="Financial Year"
+                    handleChange={(e) =>
+                      dispatch({
+                        schemeYear: e,
+                      })
+                    }
+                  />
+                </VizMenu>
+              )}
+
               <VizMenu>
                 <Menu
                   className="fill"
-                  value={meta.schemeYear}
-                  options={yearOpt}
-                  heading="Financial Year"
+                  value={meta.schemeType}
+                  options={schemeTypeOpt}
+                  heading="Scheme type"
                   handleChange={(e) =>
                     dispatch({
-                      schemeYear: e,
+                      schemeType: e,
                     })
                   }
                 />
               </VizMenu>
-            )}
 
-            <VizMenu>
-              <Menu
-                className="fill"
-                value={meta.schemeType}
-                options={schemeTypeOpt}
-                heading="Scheme type"
-                handleChange={(e) =>
-                  dispatch({
-                    schemeType: e,
-                  })
-                }
-              />
-            </VizMenu>
-
-            <VizMenu>
-              <Menu
-                className="fill"
-                value={meta.schemeMode}
-                options={schemeModeOpt}
-                heading="Scheme Mode"
-                handleChange={(e) =>
-                  dispatch({
-                    schemeMode: e,
-                  })
-                }
-              />
-            </VizMenu>
-            {width < 980 ? (
               <VizMenu>
                 <Menu
-                  value={indicator}
-                  options={indicatorList}
-                  heading="Scheme Indicator"
-                  handleChange={(e) => handleNewIndicator(e)}
-                  className="fill indicator_selector"
+                  className="fill"
+                  value={meta.schemeMode}
+                  options={schemeModeOpt}
+                  heading="Scheme Mode"
+                  handleChange={(e) =>
+                    dispatch({
+                      schemeMode: e,
+                    })
+                  }
                 />
               </VizMenu>
-            ) : null}
-          </VizHeaderMenu>
-        </VizHeader>
-        <Indicator
-          newIndicator={(e) => handleNewIndicator(e)}
-          selectedIndicator={indicator}
-          schemeData={schemeRaw}
-        />
-        {vizItems.map((item, index) => (
-          <VizGraph
-            className="viz__graph"
-            key={`vizItem-${index}`}
-            id={item.id}
-          >
-            {item.graph}
-          </VizGraph>
-        ))}
-        <DownloadButton>
-          <DownloadViz
-            viz={currentViz}
-            tableData={tableData}
-            schemeRaw={schemeRaw}
-            meta={meta}
+              {width < 980 ? (
+                <VizMenu>
+                  <Menu
+                    value={indicator}
+                    options={indicatorList}
+                    heading="Scheme Indicator"
+                    handleChange={(e) => handleNewIndicator(e)}
+                    className="fill indicator_selector"
+                  />
+                </VizMenu>
+              ) : null}
+            </VizHeaderMenu>
+          </VizHeader>
+          <Indicator
+            newIndicator={(e) => handleNewIndicator(e)}
+            selectedIndicator={indicator}
+            schemeData={schemeRaw}
           />
-        </DownloadButton>
-      </VizWrapper>
-    </Wrapper>
+          {vizItems.map((item, index) => (
+            <VizGraph
+              className="viz__graph"
+              key={`vizItem-${index}`}
+              id={item.id}
+            >
+              {item.graph}
+            </VizGraph>
+          ))}
+          <DownloadButton>
+            <DownloadViz
+              viz={currentViz}
+              tableData={tableData}
+              schemeRaw={schemeRaw}
+              meta={meta}
+            />
+          </DownloadButton>
+        </VizWrapper>
+      </Wrapper>
+    </>
   );
 };
 
 export default SummaryExplorerViz;
+
+export const Tablist = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+  gap: 8px;
+
+  .tabs-list {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .tabs-list-item {
+    --active-color: var(--color-secondary);
+
+    background: none;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+  }
+
+  .tabs-list-item:hover {
+    border-color: var(--active-color);
+    color: var(--active-color);
+  }
+
+  .tabs-list-item--active,
+  .tabs-list-item--active:hover {
+    border-color: var(--active-color);
+    background-color: var(--active-color);
+    color: #fff;
+  }
+`;
 
 export const Wrapper = styled.section`
   ${MenuButton} {
@@ -633,9 +628,9 @@ const VizMenu = styled.div`
   }
 
   .fill > div {
-    width:100%;
+    width: 100%;
   }
-  
+
   @media (max-width: 980px) {
     width: 100%;
 
