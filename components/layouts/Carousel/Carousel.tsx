@@ -106,7 +106,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label, current }: Props) => {
         )}
       </div>
 
-      {loaded && instanceRef.current && (
+      {/* {loaded && instanceRef.current && (
         <CarouselBtnWrapper>
           <button
             className="carouselPrevBtn"
@@ -135,7 +135,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label, current }: Props) => {
             {nextBtn}
           </button>
         </CarouselBtnWrapper>
-      )}
+      )} */}
     </CarouselWrapper>
   );
 };
