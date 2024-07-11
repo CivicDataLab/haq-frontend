@@ -11,12 +11,17 @@ const HomeRelatedCard = ({ datastory }) => {
         <RelatedCardHeading>
           <div className="heading__text">
             <hr />
-            <Heading as="h5" variant="h5l" color='var(--text-light-light)'>
+            <Heading as="h5" variant="h5l" color="var(--text-light-light)">
               Data Stories
             </Heading>
           </div>
           <Heading as="h1" variant="h1l">
-            Curated data stories around major datasets
+            Insights from major datasets/ High-Value-Datasets:
+          </Heading>
+          <Heading as="h3" variant='h3' className='heading__description' >
+            High-value-datasets tell stories and provide insights that can
+            strengthen evidence-based decision making and civic-engagement in
+            policy reform. Some examples
           </Heading>
         </RelatedCardHeading>
         <RelatedCardContainer>
@@ -36,7 +41,7 @@ const HomeRelatedCard = ({ datastory }) => {
 export default HomeRelatedCard;
 
 const RelatedCardHeading = styled.div`
-  padding: 100px 0 40px 0;
+  margin: 100px 0 40px 0;
   .heading__text {
     display: flex;
     h4 {
@@ -48,7 +53,7 @@ const RelatedCardHeading = styled.div`
     }
     hr {
       width: 56px;
-      border: 2px solid  var(--color-sapphire);
+      border: 2px solid var(--color-sapphire);
       margin: 15px;
       border-radius: 1px;
     }
@@ -59,6 +64,11 @@ const RelatedCardHeading = styled.div`
     font-size: 40px;
     padding: 10px 0;
     line-height: 1;
+  }
+
+  .heading__description {
+    font-weight: normal;
+    margin-top: 16px;
   }
 `;
 

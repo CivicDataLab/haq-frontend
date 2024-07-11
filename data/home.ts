@@ -1,9 +1,9 @@
 export const states = [
   {
-    img: '/assets/states/uttar_pradesh.svg',
-    title: 'Uttar Pradesh',
-    link: 'uttar-pradesh',
-    tags: ['Budget Data', 'Treasury Data'],
+    img: '/assets/states/assam.svg',
+    title: 'Assam',
+    link: 'assam',
+    tags: ['Budget Data'],
   },
   {
     img: '/assets/states/bihar.svg',
@@ -12,11 +12,11 @@ export const states = [
     tags: ['Budget Data'],
   },
   {
-    img: '/assets/states/assam.svg',
-    title: 'Assam',
-    link: 'assam',
-    tags: ['Budget Data'],
-  },
+    img: '/assets/states/uttar_pradesh.svg',
+    title: 'Uttar Pradesh',
+    link: 'uttar-pradesh',
+    tags: ['Budget Data', 'Treasury Data'],
+  }
 ];
 
 export const summaryCards = [

@@ -25,7 +25,7 @@ const Budget: React.FC<Props> = ({
   return (
     <>
       <Head>
-        <title>Budget Data | HAQ</title>
+        <title>Budget Data | GEFT</title>
       </Head>
       <Wrapper>
         <main className="container">

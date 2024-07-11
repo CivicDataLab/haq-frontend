@@ -77,7 +77,7 @@ const SummaryCarousel = ({
     <Wrapper>
       <div className="container">
         <StyledText as="h2" variant="h2l" color="#681510">
-          Data Highlight
+          Data Highlights
         </StyledText>
       </div>
       <div className="container">

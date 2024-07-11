@@ -62,7 +62,7 @@ const MobNav = ({ data }) => {
                   width={40}
                   height={42}
                 />
-                <h1>GEFT</h1>
+                <h1>Girl-Education Finance Tracker</h1>
               </Logo>
             </Link>
           </div>

@@ -17,7 +17,7 @@ const HomeStates = () => {
           fontWeight="var(--font-weight-light)"
           pt="48px"
         >
-          Explore data from your region..
+          Explore data from your region...
         </Heading>
         <StateList>
           {states.map((item, index) => (

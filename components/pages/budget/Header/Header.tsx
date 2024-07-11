@@ -16,13 +16,13 @@ const Header = ({ header }) => {
           <DataSource>
             <Content>
               <p>Data Source :</p>
-              <span> {dataSrc} |</span>
-              <Link href={datasetLink} passHref>
+              <span> {dataSrc} </span>
+              {/* <Link href={datasetLink} passHref>
                 <LinkStyled target="_blank">
                   <span>Link to the Dataset</span>
                   <LinkIcon /> 
                 </LinkStyled>
-              </Link>
+              </Link> */}
             </Content>
             <Share title={main} />
           </DataSource>

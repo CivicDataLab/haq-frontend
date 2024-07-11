@@ -24,7 +24,7 @@ const Story:React.FC<{ data: any }>= ({data}) => {
   return (
     <>
       <Head>
-        <title>Data Story | HAQ</title>
+        <title>Data Story | GEFT</title>
       </Head>
       <DataStory>
         <div className="container">
@@ -37,7 +37,7 @@ const Story:React.FC<{ data: any }>= ({data}) => {
                   <h3 className="heading-w-line">Stories from our team</h3>
                 </div>
                 <div className="story-wrapper">
-                  {data.items.map((story:any, index:number) => {
+                  {data.items.filter((item:any) => item.creator !== 'CivicDataLab').map((story:any, index:number) => {
                     if (index == 0) return;
                     return (
                       <StoriesCard

@@ -23,6 +23,7 @@ const Banner = ({ details }) => {
             size="sm"
             bg={details.bgBtn}
             className="button"
+            target="_blank"
           >
             {details.button}
           </Button>

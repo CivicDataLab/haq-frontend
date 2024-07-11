@@ -16,12 +16,12 @@ const About = ({teampage}) => {
   return (
     <div>
       <Head>
-        <title>About Us | HAQ</title>
+        <title>About Us | GEFT</title>
       </Head>
       <div className="container">
         <AboutPage>
           <Header data={headerData} />
-          <h3 className="partners__heading">Partners</h3>
+          <h3 className="partners__heading">Partners:</h3>
           <ul className="partners">
             {partner.map((item, key) => {
               return (
@@ -33,7 +33,7 @@ const About = ({teampage}) => {
           </ul>
           <section className="about__team">
             <h3>
-              <span /> members
+              <span /> Members
             </h3>
             <p>Meet the doers &amp; builders</p>
             <ul>

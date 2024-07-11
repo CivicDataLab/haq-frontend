@@ -7,16 +7,16 @@ export const navList = {
       name: 'State Data Explorer',
       submenu: [
         {
+          link: '/assam',
+          name: 'Assam',
+        },
+        {
           link: '/bihar',
           name: 'Bihar',
         },
         {
           link: '/uttar-pradesh',
           name: 'Uttar Pradesh',
-        },
-        {
-          link: '/assam',
-          name: 'Assam',
         },
       ],
     },
@@ -28,6 +28,6 @@ export const navList = {
       link: '/about',
       name: 'About Us',
     },
-    
+  
   ],
 };
