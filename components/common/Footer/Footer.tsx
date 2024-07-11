@@ -27,7 +27,7 @@ const Footer = ({ data }) => {
         </Logo>
         <hr className="horizontal-line" />
         <div style={{ marginTop: '32px', marginBottom: '24px' }}>
-          co-created by
+          Co-created by
         </div>
         <Links>
           {data.footer_image.length > 0 ? (
