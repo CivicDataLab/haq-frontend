@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps, props }) {
     main: { title: capitalizeWords(state), link: `/${state}` },
     sublinks: [
       { title: 'Budget Data', link: `/${state}/budget` },
-      state === 'bihar'
+      state === 'uttar-pradesh'
         ? { title: 'Spending Data', link: `/${state}/datasets/summary-data` }
         : null,
     ].filter(Boolean),

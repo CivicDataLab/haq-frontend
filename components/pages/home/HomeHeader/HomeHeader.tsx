@@ -6,17 +6,17 @@ import { useWindowSize } from 'utils/hooks';
 import MobileSelector from './MobileSelector';
 import { Heading } from 'components/layouts/Heading';
 
-const HomeHeader = ({ heading, subheading, schemeList }) => {
+const HomeHeader = ({ heading, subheading, schemeList, headingSecondary }) => {
   const { width } = useWindowSize();
 
   return (
     <Wrapper>
       <HeaderContent className="container">
         <HeaderText>
-          <Heading as='h1' variant="h1l" color="#fff">
+          <Heading as="h1" variant="h1l" color="#fff">
             {heading}
           </Heading>
-          <Heading as='h2' variant="h2l" color="#ffffffb8" mt="24px">
+          <Heading as="h2" variant="h2l" color="#ffffffb8" mt="24px">
             {subheading}
           </Heading>
           {width > 768 ? (
@@ -24,6 +24,9 @@ const HomeHeader = ({ heading, subheading, schemeList }) => {
           ) : (
             <MobileSelector schemeList={schemeList} />
           )}
+          <Heading as="h2" variant="h2l" color="#ffffffb8" mt="24px">
+            {headingSecondary}
+          </Heading>
         </HeaderText>
         <figure>
           <Image
@@ -74,6 +77,6 @@ const HeaderContent = styled.div`
 `;
 
 const HeaderText = styled.div`
-  z-index:1;
-  max-width: min(875px,100%)
+  z-index: 1;
+  max-width: min(875px, 100%);
 `;
