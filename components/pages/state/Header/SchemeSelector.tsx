@@ -12,6 +12,8 @@ const SchemeSelector: React.FC<{
   const [selectedData, setSelectedData] = useState('all datasets');
   const [selectedScheme, setSelectedScheme] = useState(null);
 
+  const statesWithDisabledSpendingData = ['bihar', 'assam'];
+
   //   const states = React.useMemo(() => {
   //     if (consData) {
   //       let count = 0;
@@ -34,7 +36,8 @@ const SchemeSelector: React.FC<{
     },
     {
       value: 'spending data',
-      label: 'Spending Data',
+      label: 'Spending (Treasury) Datasets',
+      isDisabled: statesWithDisabledSpendingData.includes(state),
     },
 
     {
@@ -72,6 +75,7 @@ const SchemeSelector: React.FC<{
             setSelectedScheme(null);
           }}
           defaultValue={data[0]}
+          isOptionDisabled={(option: any) => option.isDisabled}
         />
         <Combobox
           key={JSON.stringify(schemeLists)}

@@ -16,18 +16,17 @@ const SchemeSelector: React.FC<{
       label: 'All Datasets',
     },
     {
-      value: 'spending data',
-      label: 'Spending Data',
-    },
-
-    {
       value: 'budget data',
       label: 'Budget Data',
+    },
+    {
+      value: 'spending data',
+      label: 'Spending (Treasury) Datasets',
     },
   ];
 
   const groupedOpt = React.useMemo(() => {
-    return Object.entries(schemeList).map(([state, data]: any) => {
+    return Object.entries(schemeList).sort().map(([state, data]: any) => {
       return {
         label: state.charAt(0).toUpperCase() + state.slice(1),
         options:
@@ -119,7 +118,7 @@ export const ConsMenu = styled.div<{ selectedScheme: any }>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
- // gap: 1px;
+  // gap: 1px;
 
   .button {
     height: 40px;
@@ -127,7 +126,9 @@ export const ConsMenu = styled.div<{ selectedScheme: any }>`
     margin-left: 10px;
     padding: 12px 24px;
     background: ${({ selectedScheme }) =>
-      selectedScheme !== null ? 'var(--color-violet-2)' : 'var(--color-grey-400)'};
+      selectedScheme !== null
+        ? 'var(--color-violet-2)'
+        : 'var(--color-grey-400)'};
   }
 `;
 
