@@ -9,13 +9,8 @@ import Script from 'next/script';
 import { useEffect } from 'react';
 import { pageview } from 'utils/ga';
 
-const Layout = dynamic(() => import('config/layout'), {
-  ssr: false,
-});
-
-const StateLayout = dynamic(() => import('config/statelayout'), {
-  ssr: false,
-})
+import Layout from 'config/layout';
+import StateLayout from 'config/statelayout';
 
 function MyApp({ Component, pageProps, props }) {
   const router = useRouter();
