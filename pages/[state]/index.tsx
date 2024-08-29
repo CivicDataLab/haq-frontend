@@ -26,6 +26,8 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData], 
     <>
       <Head>
         <title> {foundState} | GEST</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
       <Wrapper pathName={pathName}>
         <main className="container">

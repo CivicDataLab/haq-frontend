@@ -109,6 +109,8 @@ const Explorer: React.FC<Props> = ({
     <>
       <Head>
         <title>Girl-Education Spending Tracker (GEST)</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
 
       <Wrapper className="container">

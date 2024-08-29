@@ -25,6 +25,8 @@ const Story:React.FC<{ data: any }>= ({data}) => {
     <>
       <Head>
         <title>Data Story | GEST</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
       <DataStory>
         <div className="container">

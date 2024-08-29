@@ -17,6 +17,8 @@ const About = ({teampage}) => {
     <div>
       <Head>
         <title>About Us | GEST</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
       <div className="container">
         <AboutPage>
