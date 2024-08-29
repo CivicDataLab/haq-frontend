@@ -39,15 +39,17 @@ const PartnersCard = styled.div`
     width: 100%;
     padding-bottom: 10px;
     margin-left: 1.25rem;
-
   }
 
   .partners__social {
     margin-top: 1rem;
+    a:first-of-type {
+      padding-right: 6px;
+    }
   }
 
   .partners--dark-img {
-    background-color: #222;
+    background-color: #fff;
   }
 
   .partners__body {
