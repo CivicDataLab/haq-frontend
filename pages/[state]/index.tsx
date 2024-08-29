@@ -25,7 +25,7 @@ const State: React.FC<Props> = ({ foundState, pathName, stateData: [stateData], 
   return (
     <>
       <Head>
-        <title> {foundState} | GEFT</title>
+        <title> {foundState} | GEST</title>
       </Head>
       <Wrapper pathName={pathName}>
         <main className="container">

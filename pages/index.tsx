@@ -21,7 +21,7 @@ export default function Home({ homepage, schemeList }) {
   return (
     <>
       <Head>
-        <title>Girl-Education Finance Tracker (GEFT)</title>
+        <title>Girl-Education Spending Tracker (GEST)</title>
       </Head>
       <HomeHeader
         heading={hero_section_heading}

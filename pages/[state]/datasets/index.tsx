@@ -88,7 +88,7 @@ const Datasets: React.FC<Props> = ({ data, facets, foundState }) => {
   return (
     <Wrapper>
       <Head>
-        <title>GEFT | Treasury </title>
+        <title>GEST | Treasury </title>
       </Head>
       <div className="container">
         <Breadcrumb crumbs={breadcrumbArray} />

@@ -24,7 +24,7 @@ const Story:React.FC<{ data: any }>= ({data}) => {
   return (
     <>
       <Head>
-        <title>Data Story | GEFT</title>
+        <title>Data Story | GEST</title>
       </Head>
       <DataStory>
         <div className="container">

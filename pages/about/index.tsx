@@ -16,7 +16,7 @@ const About = ({teampage}) => {
   return (
     <div>
       <Head>
-        <title>About Us | GEFT</title>
+        <title>About Us | GEST</title>
       </Head>
       <div className="container">
         <AboutPage>
