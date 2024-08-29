@@ -18,7 +18,7 @@ const Footer = ({ data }) => {
               height={100}
             />
             <Heading as="h2" variant="footer">   Girl Education <br />
-              Finance Tracker</Heading>
+              Spending Tracker</Heading>
           </LogoImg>
 
           <Content>

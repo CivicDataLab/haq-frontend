@@ -96,7 +96,7 @@ const Nav = ({ data }) => {
                       width={40}
                       height={52}
                     />
-                    <h1>Girl Education Finance Tracker</h1>
+                    <h1>Girl Education Spending Tracker</h1>
                   </Logo>
                 ) : (
                   <h1>{data.site || 'HAQ'}</h1>
