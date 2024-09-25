@@ -25,7 +25,9 @@ const Budget: React.FC<Props> = ({
   return (
     <>
       <Head>
-        <title>Budget Data | GEFT</title>
+        <title>Budget Data | GEST</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
       <Wrapper>
         <main className="container">

@@ -18,13 +18,15 @@ const Story:React.FC<{ data: any }>= ({data}) => {
 
     const headerData: HeadObjLayout = {
         title: 'Data Stories',
-        content: 'Explore interesting insights from the data culled out by public finance researchers.',
+        content: 'High-value-datasets tell stories and provide insights that can strengthen evidence-based decision making and civic-engagement in policy reform. Explore interesting insights from the data culled out by public finance researchers. These articles are a part of #Budgets4Children series initiated by CivicDataLab to help citizens better understand child budgeting.',
       };
     
   return (
     <>
       <Head>
-        <title>Data Story | GEFT</title>
+        <title>Data Story | GEST</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
       </Head>
       <DataStory>
         <div className="container">
